@@ -1,0 +1,117 @@
+$white: #fff;
+$black: #000;
+
+.bg-white
+{
+    background-color: $white;
+    color: $black;
+}
+
+.bg-black
+{
+    background-color: $black;
+    color: $white;
+}
+
+$secondary: #ffac1f;
+
+$message-types:
+(
+    "error": #c01717,
+    "warning": #ffb400,
+    "success": #6cc017
+);
+
+@each $value, $colour in $message-types
+{
+    .bg-#{$value}
+    {
+        background-color: #{$colour};
+        
+        @if (lightness($colour) < 66)
+        {
+            color: $white;
+        }
+    }
+    
+    .text-#{$value}
+    {
+        color: #{$colour};
+    }
+    
+    .border-#{$value}
+    {
+        border: 1px solid $colour;
+    }
+    
+    @each $direction in top, right, bottom, left
+    {
+        .border-#{$value}-#{$direction}
+        {
+            border-#{$direction}: 1px solid $colour;
+        }
+    }
+}
+
+$theme-colours:
+(
+    "theme-l5": #eff6fd,
+    "theme-l4": #cae1f9,
+    "theme-l3": #95c4f3,
+    "theme-l2": #60a6ec,
+    "theme-l1": #2b89e6,
+    "theme":    #176bc0,
+    "theme-d1": #1460ad,
+    "theme-d2": #125699,
+    "theme-d3": #125699,
+    "theme-d4": #0d4073,
+    "theme-d5": #0b3660,
+    "secondary": #4217c0,
+    "tertiary": #17c06c
+);
+
+@function theme-colour($value)
+{
+    @if map-has-key($theme-colours, $value)
+    {
+        @return map-get($theme-colours, $value);
+    }
+    @return null;
+}
+
+@each $value, $colour in $theme-colours
+{
+    .border-#{$value}
+    {
+        border: 1px solid $colour;
+    }
+    
+    @each $direction in top, right, bottom, left
+    {
+        .border-#{$value}-#{$direction}
+        {
+            border-#{$direction}: 1px solid $colour;
+        }
+    }
+}
+
+@each $value, $colour in $theme-colours
+{
+    .bg-#{$value}
+    {
+        background-color: #{$colour};
+        
+        @if (lightness($colour) < 66)
+        {
+            color: $white;
+        }
+        
+        h1, h2, h3, h4
+        {
+            @if (lightness($colour) < 66)
+            {
+                color: $white;
+            }
+        }
+    }
+}
