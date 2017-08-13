@@ -34,6 +34,13 @@ else leave();
         <title>William Baker | Project: <?php echo $project["Title"] ?></title>
         
         <?php printHead(); ?>
+        
+        <style>
+            button.download:hover, button.download:focus
+            {
+                background-color: #cae1f9;
+            }
+        </style>
     </head>
     
     <body>
@@ -83,7 +90,7 @@ else leave();
                 
                 $viewDirectory = strlen($project["ViewDirectory"]);
                 $downloadDirectory = $_SERVER['DOCUMENT_ROOT'] . '/projects/assets/' . $project["ProjectID"] . '/download.zip';
-                $sourceLocation = strlen("");
+                $sourceLocation = strlen($project["SourceCode"]);
                 
                 if ($viewDirectory > 0 || file_exists($downloadDirectory) || $sourceLocation > 0) {
                             
@@ -97,7 +104,7 @@ else leave();
                             {
                                 echo '<div class="cell s12 section">
                                         <h2>View</h2>
-                                        <p><a href="/project/' . "{$project["Alias"]}/{$project["ViewDirectory"]}" . '"><button>Here</button></a></p>
+                                        <p><a href="/project/' . "{$project["Alias"]}/{$project["ViewDirectory"]}" . '" target="_blank"><button class="download circle"><i class="icon i-large magnify"></i></button></a></p>
                                     </div>';
                             }
 
@@ -105,7 +112,7 @@ else leave();
                             {
                                 echo '<div class="cell s12 section">
                                         <h2>Download</h2>
-                                        <p><a href="/projects/assets/' . $project["ProjectID"] . '/download.zip" download="' . $project["Alias"] . '_download"><button>Here</button></a></p>
+                                        <p><a href="/projects/assets/' . $project["ProjectID"] . '/download.zip" download="' . $project["Alias"] . '_download.zip"><button class="download circle"><i class="icon i-large download"></i></button></a></p>
                                     </div>';
                             }
 
@@ -113,7 +120,7 @@ else leave();
                             {
                                 echo '<div class="cell s12 section">
                                         <h2>Source Code</h2>
-                                        <p><a href="#"><button>Here</button></a></p>
+                                        <p><a href="' . $project["SourceCode"] . '" target="_blank"><button class="download circle"><i class="icon i-large magnify"></i></button></a></p>
                                     </div>';
                             }
 
@@ -127,7 +134,7 @@ else leave();
                         <h2>Project Information</h2>
                         <p>Additional information about this project.</p>
                         <table class="wb-table info-table">
-                            <thead><tr><td colspan="2">Project:</td></tr></thead>
+                            <thead><tr><th colspan="2">Project:</th></tr></thead>
                             <tbody>
                                 <tr><td>Creation Date:</td><td><?php echo (new DateTime($project["CreationDate"]))->format("d/m/Y") ?></td></tr>
                                 <tr><td>Completion Date:</td><td><?php echo (new DateTime($project["LatestDate"]))->format("d/m/Y") ?></td></tr>

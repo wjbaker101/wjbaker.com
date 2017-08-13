@@ -100,17 +100,20 @@ table
     
     tr
     {
+        background-color: GET-COLOUR("LIGHT-GREY");
+        
         &:nth-child(even)
         {
             background-color: GET-COLOUR("THEME-L4");
         }
     }
     
-    thead td
+    thead th
     {
         padding: 15px 5px;
         font-size: 1.2em;
         font-weight: bold;
+        text-align: left;
         background-color: GET-COLOUR("THEME"); 
         color: GET-COLOUR("WHITE");
     }

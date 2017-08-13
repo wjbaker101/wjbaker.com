@@ -1,7 +1,7 @@
 $COLOURS:
 (
     "WHITE":        #fff,
-    "BLACK":        #202020,
+    "BLACK":        #1c1f22,
     
     "ERROR":        #c01717,
     "WARNING":      #ffb400,
@@ -20,7 +20,9 @@ $COLOURS:
     "THEME-D5":     #0b3660,
     
     "SECONDARY":    #4217c0,
-    "TERTIARY":     #FF9E0C
+    "TERTIARY":     #ff9e0c,
+    
+    "LIGHT-GREY":   #fdfefe
 );
 
 @function GET-COLOUR($value)
@@ -48,12 +50,14 @@ $COLOURS:
             }
         }
     }
-}
-
-@each $name, $colour in $COLOURS
-{
+    
     .border-#{to-lower-case($name)}
     {
         border: 1px solid #{$colour};
+    }
+    
+    .text-#{to-lower-case($name)}
+    {
+        color: #{$colour};
     }
 }
