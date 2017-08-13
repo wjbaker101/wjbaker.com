@@ -3,5 +3,4 @@ web.config
 php_errors.log
 resources/page/utils/database.php
 resources/page/style/.sass-cache
-resources/page/style/partials/
 resources/page/style/webstyle.css
