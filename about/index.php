@@ -64,7 +64,7 @@
     
     <body>
         <?php printHeader(); ?>
-        <div class="main-page">
+        <div class="main-page hpadding-small">
             <div class="content-width vpadding-regular">
                 <section class="cell-row section">
                     <div class="cell l12 vpadding-large hpadding-regular bg-secondary text-centered">
@@ -95,14 +95,14 @@
                 </section>
                 <section class="cell-row section scroll-fade-in">
                     <div class="cell l12 vpadding-large hpadding-regular bg-white">
-                        <h2 class="text-centered">Education Timeline</h2>
+                        <h2 class="text-centered">My Events Timeline</h2>
                         <div class="timeline-container">
                             <article>
                                 <h3>Today</h3>
                             </article>
                             <article>
                                 <h3>7th August 2017</h3>
-                                <p>Started at Bradley's Foods as Temporary IT Project Assistant.</p>
+                                <p>Started at Bradleys as Temporary IT Project Assistant.</p>
                             </article>
                             <article>
                                 <h3>October 2016</h3>

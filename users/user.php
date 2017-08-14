@@ -75,7 +75,7 @@ if ($user === NULL)
     
     <body>
         <?php printHeader(); ?>
-        <div class="main-page">
+        <div class="main-page hpadding-small">
             <div class="content-width vpadding-regular">
                 <section class="cell-row section">
                     <div class="cell l12 vpadding-large hpadding-regular bg-secondary text-centered">

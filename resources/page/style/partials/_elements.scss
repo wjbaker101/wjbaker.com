@@ -241,39 +241,37 @@ input[type="checkbox"].hidden:checked + label:after
     transform: translateY(-50%);
 }
 
-a.magnify
+.magnify
 {
     position: relative;
-}
-
-a.magnify .icon
-{
-    width: 64px;
-    height: 64px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-image: url('data:image/svg+xml;utf8,<svg width="32" height="32" version="1.1" viewBox="0 0 8.4666665 8.4666669" xmlns="http://www.w3.org/2000/svg"><g transform="translate(0 -288.53)" fill="none" stroke="#176bc0" stroke-width=".52917"><circle cx="3.175" cy="291.71" r="2.1167" stroke-linecap="round" style="paint-order:normal"/><path d="m4.7625 293.3 2.6458 2.6458"/></g></svg>');
-    background-position: center;
-    background-size: 64px 64px;
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-
-a.magnify:hover .icon
-{
-    opacity: 1;
-}
-
-a.magnify img
-{
-    transition: filter 0.2s;
-}
-
-a.magnify:hover img
-{
-    filter: blur(2px);
+    
+    .icon
+    {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: opacity $duration-mid;
+    }
+    
+    img
+    {
+        transition: filter $duration-mid;
+    }
+    
+    &:hover
+    {
+        .icon
+        {
+            opacity: 1;
+        }
+    
+        img
+        {
+            filter: blur(1.5px);
+        }
+    }
 }
 
 .info-message

@@ -45,7 +45,7 @@ else leave();
     
     <body>
         <?php printHeader(); ?>
-        <div class="main-page">
+        <div class="main-page hpadding-small">
             <div class="content-width vpadding-regular">
                 <section class="cell-row section">
                     <div class="cell l12 vpadding-large hpadding-regular bg-secondary text-centered">
@@ -74,10 +74,12 @@ else leave();
                 <section class="cell-row section scroll-fade-in">
                     <div class="cell l12 vpadding-mid hpadding-regular bg-white text-centered">
                         <figure class="screenshot">
-                            <a class="magnify" target="_blank" href="<?php echo $screenshotUrl ?>">
-                                <img src="<?php echo $screenshotUrl ?>">
-                                <span class="icon"></span>
-                            </a>
+                            <div class="magnify">
+                                <a target="_blank" href="<?php echo $screenshotUrl ?>">
+                                    <img src="<?php echo $screenshotUrl ?>">
+                                    <span class="icon"><i class="icon i-large magnify"></i></span>
+                                </a>
+                            </div>
                             <figcaption>
                                 <p><?php echo $project["ScreenshotDescription"] ?></p>
                             </figcaption>
@@ -120,7 +122,7 @@ else leave();
                             {
                                 echo '<div class="cell s12 section">
                                         <h2>Source Code</h2>
-                                        <p><a href="' . $project["SourceCode"] . '" target="_blank"><button class="download circle"><i class="icon i-large magnify"></i></button></a></p>
+                                        <p><a href="' . $project["SourceCode"] . '" target="_blank"><button class="download circle"><i class="icon i-large page"></i></button></a></p>
                                     </div>';
                             }
 

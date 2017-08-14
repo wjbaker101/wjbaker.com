@@ -101,7 +101,7 @@ if ($user == NULL || $user["IsAdmin"] == 0)
     
     <body>
         <?php printHeader(); ?>
-        <div class="main-page">
+        <div class="main-page hpadding-small">
             <div class="content-width vpadding-regular">
                 <div class="cell-row section">
                     <div class="cell l12 vpadding-large hpadding-regular bg-secondary">
