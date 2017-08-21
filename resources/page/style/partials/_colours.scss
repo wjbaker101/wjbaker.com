@@ -22,7 +22,7 @@ $COLOURS:
     "SECONDARY":    #4217c0,
     "TERTIARY":     #ff9e0c,
     
-    "LIGHT-GREY":   #fdfefe
+    "LIGHT-GREY":   #f5f7f9
 );
 
 @function GET-COLOUR($value)
@@ -36,7 +36,7 @@ $COLOURS:
 
 @each $name, $colour in $COLOURS
 {
-    .bg-#{to-lower-case($name)}
+    .bg-#{to-lower-case($name)}, .hover-bg-#{to-lower-case($name)}:hover
     {
         background-color: #{$colour};
         
@@ -51,12 +51,12 @@ $COLOURS:
         }
     }
     
-    .border-#{to-lower-case($name)}
+    .border-#{to-lower-case($name)}, .hover-border-#{to-lower-case($name)}:hover
     {
         border: 1px solid #{$colour};
     }
     
-    .text-#{to-lower-case($name)}
+    .text-#{to-lower-case($name)}, .hover-text-#{to-lower-case($name)}:hover
     {
         color: #{$colour};
     }

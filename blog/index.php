@@ -21,7 +21,7 @@
                     <div class="cell l12 vpadding-small hpadding-small bg-theme-d4">
                         <p class="title-bar clearfix">
                             <span class="float-r">
-                                <a class="site-nav" href="/blog/admin/new-post.php"><i class="icon plus"></i> New Post</a>
+                                <a class="site-nav" href="/blog/new-post.php"><i class="icon plus"></i> New Post</a>
                             </span>
                         </p>
                     </div>

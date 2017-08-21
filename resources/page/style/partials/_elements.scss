@@ -260,17 +260,20 @@ input[type="checkbox"].hidden:checked + label:after
         transition: filter $duration-mid;
     }
     
+    .blur-container
+    {
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        opacity: 0;
+        pointer-events: none;
+        background-color: white;
+        transition: opacity $duration-mid;
+    }
+    
     &:hover
     {
-        .icon
-        {
-            opacity: 1;
-        }
-    
-        img
-        {
-            filter: blur(1.5px);
-        }
+        .blur-container { opacity: 0.4; }
+        .icon { opacity: 1; }
     }
 }
 

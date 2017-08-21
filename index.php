@@ -26,13 +26,13 @@
                     </div>
                     <div class="cell l5 m6 s12 vpadding-large hpadding-regular bg-theme-l5">
                         <h2><a href="/projects/">My Projects</a></h2>
-                        <div class="section hpadding-small vpadding-small bg-white text-centered">
+                        <div class="section hpadding-small vpadding-small bg-white hover-bg-light-grey text-centered">
                             <a href="/projects/view/1/normal-distribution-graph">
                                 <img src="/projects/assets/1/screenshot.jpg">
                                 <h3>Normal Distribution Graph</h3>
                             </a>
                         </div>
-                        <div class="section hpadding-small vpadding-small bg-white text-centered">
+                        <div class="section hpadding-small vpadding-small bg-white hover-bg-light-grey text-centered">
                             <a href="/projects/view/6/train-route-finder">
                                 <img src="/projects/assets/6/screenshot.jpg">
                                 <h3>Train Route Finder</h3>

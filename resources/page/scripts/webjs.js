@@ -2,7 +2,7 @@
 
 var wjbaker = (function()
 {
-    let displayInfoMessage = (selector, message) =>
+    const displayInfoMessage = (selector, message) =>
     {
         const messageOutput = document.querySelector(selector);
 
@@ -38,7 +38,7 @@ var wjbaker = (function()
         }
     };
 
-    let createResponse = (code, message, type) =>
+    const createResponse = (code, message, type) =>
     {
         return {
             code: code,
@@ -47,17 +47,23 @@ var wjbaker = (function()
         }
     };
 
-    let httpRequest = (success, failure, options) =>
+    const ajax = (success, failure, userOptions = {}) =>
     {
-        let ajaxOptions =
+        let defaultOptions =
         {
-            url: options.url || null,
-            type: options.type || "GET",
-            parameters: options.parameters || "",
-            headers: options.headers || [{ header: "Content-type", value: "application/x-www-form-urlencoded" }]
+            url: null,
+            type: "GET",
+            parameters: "",
+            headers: [{ header: "Content-type", value: "application/x-www-form-urlencoded" }]
         };
         
-        if (!options.url) return;
+        const options = Object.assign({}, defaultOptions, userOptions);
+        
+        if (options.url === null || options.url.length == 0)
+            throw new Error("Request URL cannot be null or empty.");
+        
+        if (options.type !== "GET" && options.type !== "POST")
+            throw new Error("Request type must be \"GET\" or \"POST\".");
         
         let xhttp = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
 
@@ -80,34 +86,24 @@ var wjbaker = (function()
 
         xhttp.open(options.type, options.url, true);
         
-        if (options.headers)
-        {
-            Array.prototype.forEach.call(options.headers, (e) =>
-            {
-                xhttp.setRequestHeader(e);
-            });
-        }
-
-        if (options.type === "POST" && options.parameters.length > 0)
-            xhttp.send(parameters);
-        else
-            xhttp.send();
+        Array.from(options.headers)
+             .forEach(e => xhttp.setRequestHeader(e.header, e.value));
+        
+        xhttp.send(options.parameters);
     };
 
     return {
-        httpRequest: httpRequest,
+        ajax: ajax,
         displayInfoMessage: displayInfoMessage,
         createResponse: createResponse
-    }
+    };
 })();
 
 (() =>
 {
     window.addEventListener("load", () =>
     {
-        initScrollFadeObserver();
-        
-        function initScrollFadeObserver()
+        const initScrollFadeObserver = () =>
         {
             const observe = (elements, observer) =>
             {
@@ -124,12 +120,14 @@ var wjbaker = (function()
 
             let observer = new IntersectionObserver(observe, { threshold: 0 });
 
-            Array.prototype.forEach.call(document.querySelectorAll(".scroll-fade-in"), e => observer.observe(e));
+            Array.from(document.querySelectorAll(".scroll-fade-in")).forEach(e => observer.observe(e));
         }
         
         document.querySelector(".header-nav-button").addEventListener("click", function()
         {
             document.querySelector("header").classList.toggle("open");
         });
+        
+        initScrollFadeObserver();
     });
 })();

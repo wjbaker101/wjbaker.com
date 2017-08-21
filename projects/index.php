@@ -13,9 +13,9 @@
                 display: inline-block;
             }
             
-            article.project .content:hover
+            article.project .content
             {
-                background-color: #fdfefe;
+                transition: background-color 0.2s;
             }
             
             @media (max-width: 720px)
@@ -81,7 +81,7 @@
                             
                             return '<article class="project hpadding-small vpadding-small cell-top">
                                         <a href="/projects/view/' . $project["ProjectID"] . '/' . $project["Alias"] . '/">
-                                            <div class="content hpadding-regular vpadding-regular bg-white text-centered">
+                                            <div class="content hpadding-regular vpadding-regular bg-white hover-bg-light-grey text-centered">
                                                 <img' . $screenshot . '>
                                                 <h3>' . $project["Title"] . '</h3>
                                             </div>

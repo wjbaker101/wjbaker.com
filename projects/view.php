@@ -35,12 +35,7 @@ else leave();
         
         <?php printHead(); ?>
         
-        <style>
-            button.download:hover, button.download:focus
-            {
-                background-color: #cae1f9;
-            }
-        </style>
+        <style></style>
     </head>
     
     <body>
@@ -77,6 +72,7 @@ else leave();
                             <div class="magnify">
                                 <a target="_blank" href="<?php echo $screenshotUrl ?>">
                                     <img src="<?php echo $screenshotUrl ?>">
+                                    <div class="blur-container"></div>
                                     <span class="icon"><i class="icon i-large magnify"></i></span>
                                 </a>
                             </div>
@@ -106,7 +102,7 @@ else leave();
                             {
                                 echo '<div class="cell s12 section">
                                         <h2>View</h2>
-                                        <p><a href="/project/' . "{$project["Alias"]}/{$project["ViewDirectory"]}" . '" target="_blank"><button class="download circle"><i class="icon i-large magnify"></i></button></a></p>
+                                        <p><a href="/project/' . "{$project["Alias"]}/{$project["ViewDirectory"]}" . '" target="_blank"><button class="download circle hover-bg-light-grey"><i class="icon i-large magnify"></i></button></a></p>
                                     </div>';
                             }
 
@@ -114,7 +110,7 @@ else leave();
                             {
                                 echo '<div class="cell s12 section">
                                         <h2>Download</h2>
-                                        <p><a href="/projects/assets/' . $project["ProjectID"] . '/download.zip" download="' . $project["Alias"] . '_download.zip"><button class="download circle"><i class="icon i-large download"></i></button></a></p>
+                                        <p><a href="/projects/assets/' . $project["ProjectID"] . '/download.zip" download="' . $project["Alias"] . '_download.zip"><button class="download circle hover-bg-light-grey"><i class="icon i-large download"></i></button></a></p>
                                     </div>';
                             }
 
@@ -122,7 +118,7 @@ else leave();
                             {
                                 echo '<div class="cell s12 section">
                                         <h2>Source Code</h2>
-                                        <p><a href="' . $project["SourceCode"] . '" target="_blank"><button class="download circle"><i class="icon i-large page"></i></button></a></p>
+                                        <p><a href="' . $project["SourceCode"] . '" target="_blank"><button class="download circle hover-bg-light-grey"><i class="icon i-large page"></i></button></a></p>
                                     </div>';
                             }
 
