@@ -72,25 +72,26 @@
                     </div>
                 </section>
                 <section class="cell-row section scroll-fade-in">
-                    <div class="cell l6 s12 cell-middle vpadding-large hpadding-regular bg-theme-d5">
-                        <p>My name is William Baker. I am an 18 year old with an interest in computing; especially programming, web development and software engineering. I have been programming for many years doing small tasks to keep my interest fresh. However, I have done some larger scale projects, many of which can be <a class="underline" href="/projects/">found on this website</a>, and can be downloaded.</p>
+                    <div class="cell l6 m12 cell-middle vpadding-large hpadding-regular bg-theme-d5">
+                        <p>My name is William Baker. I am an 18 year old software developer with an interest in computing; especially programming, web development and software engineering. I have been programming for many years doing small tasks to keep my interest fresh. However, I have done some larger scale projects, many of which can be <a class="underline" href="/projects/">found on this website</a>, and can be downloaded.</p>
                     </div>
-                    <div class="cell l6 s12 cell-middle vpadding-large hpadding-regular bg-white">
+                    <div class="cell l6 m12 cell-middle vpadding-large hpadding-regular bg-white">
                         <div class="my-face"></div>
                     </div>
                 </section>
                 <section class="cell-row section scroll-fade-in">
                     <div class="cell l12 vpadding-large hpadding-regular bg-white">
                         <h2>Programming</h2>
-                        <p>I love to do programming, it is currently my favourite hobby.</p>
-                        <p>My favourite languages being:</p>
+                        <p>Languages I am most proficient at are:</p>
                         <ol>
                             <li>C#</li>
                             <li>Java</li>
                             <li>JavaScript</li>
+                            <li>PHP</li>
                         </ol>
-                        <p>However, I have come across and used many others.</p>
-                        <p>These can be found on my dedicated <a class="underline" href="/about/programming.php">programming page</a>!</p>
+                        <p>These are the languages I know the best and are the most comfortable at using.</p>
+                        <p>Source code for projects can be found on my <a class="underline" href="https://github.com/wjbaker101">GitHub</a>.</p>
+                        <p>Visit my <a class="underline" href="/about/programming.php">programming</a> page for more info.</p>
                     </div>
                 </section>
                 <section class="cell-row section scroll-fade-in">

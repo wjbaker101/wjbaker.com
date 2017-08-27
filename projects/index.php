@@ -9,7 +9,6 @@
         <style>
             article.project
             {
-                width: 33.33333%;
                 display: inline-block;
             }
             
@@ -44,9 +43,9 @@
                             projects.forEach(project =>
                             {
                                 projectsContainer.innerHTML +=
-                                    `<article class="project hpadding-small vpadding-small cell-top scroll-fade-in">
+                                    `<article class="project cell l4 m6 s12 hpadding-small vpadding-small cell-top scroll-fade-in">
                                         <a href="/projects/view/` + project.ProjectID + `/` + project.Alias + `/">
-                                            <div class="content hpadding-regular vpadding-regular bg-white hover-bg-light-grey text-centered">
+                                            <div class="content hpadding-regular vpadding-regular bg-white hover-bg-theme-l5 text-centered">
                                                 <img data-src='` + project.Screenshot + `'>
                                                 <h3>` + project.Title + `</h3>
                                             </div>

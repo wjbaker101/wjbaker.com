@@ -8,16 +8,53 @@ require $_SERVER['DOCUMENT_ROOT'] . "/resources/page/utils/database.php";
 
 $user = getUser();
 
-$userLink = $user == NULL ? ["name" => "Login", "url" => "/users/login.php"] : ["name" => "<strong>User</strong>", "url" => "/users/user.php"];
-
 $webLinks = array
 (
-    (object)["name" => "Home", "url" => "/"],
-    (object)["name" => "About", "url" => "/about/"],
-    (object)["name" => "Projects", "url" => "/projects/"],
-    (object)["name" => "Blog", "url" => "/blog/"],
-    (object)$userLink
+    (object)["name" => "Home",
+             "url" => "/",
+             "active" => FALSE],
+    
+    (object)["name" => "About",
+             "url" => "/about/",
+             "active" => FALSE],
+    
+    (object)["name" => "Projects",
+             "url" => "/projects/",
+             "active" => FALSE],
+    
+    (object)["name" => "Blog",
+             "url" => "/blog/",
+             "active" => FALSE],
+    
+    (object)["name" => "Login",
+             "url" => "/users/login.php",
+             "active" => FALSE],
 );
+
+if ($user !== NULL)
+{
+    $webLinks[4]->url = "User";
+    $webLinks[4]->url = "/users/user.php";
+}
+
+switch (str_replace("index.php", "", $_SERVER['PHP_SELF']))
+{
+    case "/":
+        $webLinks[0]->active = TRUE;
+        break;
+    case "/about/":
+        $webLinks[1]->active = TRUE;
+        break;
+    case "/projects/":
+        $webLinks[2]->active = TRUE;
+        break;
+    case "/blog/":
+        $webLinks[3]->active = TRUE;
+        break;
+    case "/users/login.php":
+        $webLinks[4]->active = TRUE;
+        break;
+}
 
 $socialLinks = array
 (
@@ -44,14 +81,19 @@ function printHeader()
     
     for ($i = 0; $i < count($webLinks); ++$i)
     {
-        $urls .= "<a class=\"site-nav\" href=\"{$webLinks[$i]->url}\">{$webLinks[$i]->name}</a>";
+        $activeLink = "";
+        
+        if ($webLinks[$i]->active)
+            $activeLink = " active";
+        
+        $urls .= "<a class=\"vpadding-regular hpadding-regular{$activeLink}\" href=\"{$webLinks[$i]->url}\">{$webLinks[$i]->name}</a>";
     }
     
-    echo '<header class="vpadding-large bg-theme">
-            <div class="content-width hpadding-small clearfix">
+    echo '<header class="bg-theme-d1 hpadding-small">
+            <div class="content-width clearfix">
                 <h1 class="float-l clearfix">
-                    <a class="float-l" href="/">wjbaker.com</a>
-                    <button class="header-nav-button float-r">
+                    <a class="vpadding-regular float-l" href="/">wjbaker.com</a>
+                    <button class="header-nav-button vmargin-regular float-r">
                         <div class="bar-1"></div>
                         <div class="bar-2"></div>
                         <div class="bar-3"></div>
@@ -75,7 +117,7 @@ function printFooter()
         $urls .= "<a class=\"site-nav\" href=\"{$webLinks[$i]->url}\">{$webLinks[$i]->name}</a>";
     }
     
-    echo '<footer class="vpadding-regular bg-theme-l3 text-centered">
+    echo '<footer class="vpadding-mid bg-theme text-centered">
             <section class="navigation section">
                 <h2>Navigation</h2>
                 <p>' . $urls . '</p>
