@@ -933,6 +933,14 @@ header nav > a {
   header nav > a.active {
     background-color: #176bc0;
     color: #17c06c; }
+header .sublinks-container {
+  display: none; }
+  header .sublinks-container ul {
+    list-style: none; }
+  header .sublinks-container a {
+    transition: color 0.2s; }
+    header .sublinks-container a:hover {
+      color: #17c06c; }
 header.open .header-nav-button .bar-1 {
   transform: translateY(13.5px) rotate(45deg);
   transform-origin: center; }
@@ -960,6 +968,13 @@ header.open .header-nav-button .bar-3 {
     width: 50%;
     text-align: center;
     border-top: 1px solid #176bc0; } }
+header .sublinks-container {
+  width: 100%;
+  position: absolute;
+  top: 90px;
+  left: 0;
+  z-index: 1; }
+
 footer .navigation a:not(:last-child) {
   margin-right: 1em; }
 
@@ -999,3 +1014,21 @@ a.site-nav, header nav > a {
     margin-right: 0.5em; }
   .title-bar .return-link:hover {
     color: #176bc0; }
+
+.scroll-top-button {
+  width: 3.5em;
+  height: 3.5em;
+  line-height: 3.5em;
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+  padding: 0;
+  box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.25);
+  transition: opacity 0.5s; }
+  .scroll-top-button.scroll-top-hidden {
+    opacity: 0;
+    pointer-events: none; }
+  @media (max-width: 540px) {
+    .scroll-top-button {
+      right: 50%;
+      transform: translateX(50%); } }

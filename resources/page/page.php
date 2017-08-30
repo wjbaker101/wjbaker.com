@@ -103,6 +103,14 @@ function printHeader()
                     ' . $urls . '
                 </nav>
             </div>
+            <div class="sublinks-container bg-theme hpadding-small">
+                <div class="content-width vpadding-regular text-right">
+                    <h2>About Me</h2>
+                    <ul>
+                        <li><a href="/about/programming.php">Programming</a></li>
+                    </ul>
+                </div>
+            </div>
         </header>';
 }
 
@@ -126,6 +134,15 @@ function printFooter()
                 <p>Copyright &copy; William Baker.<br>All rights reserved.</p>
             </section>
         </footer>';
+    
+    echo '<button class="scroll-top-button bg-theme-d2 hover-bg-theme-d5 border-theme-d2 circle scroll-top-hidden text-centered">
+            <svg width="30" height="30" class="cell-middle" version="1.1" viewBox="0 0 7.9374998 7.9375002" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(0 -289.06)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5">
+                    <path d="m2.6458 291.71 1.3229-1.3229 1.3229 1.3229"/>
+                    <path d="m3.9688 290.39v5.2917"/>
+                </g>
+            </svg>
+        </button>';
 }
 
 function getUser()

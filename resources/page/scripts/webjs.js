@@ -2,6 +2,50 @@
 
 var wjbaker = (function()
 {
+    const init = () =>
+    {
+        const scrollTopButton = document.querySelector(".scroll-top-button");
+
+        const initScrollFadeObserver = () =>
+        {
+            const observe = (elements, observer) =>
+            {
+                elements.forEach((element) =>
+                {
+                    if (element.isIntersecting)
+                    {
+                        element.target.classList.add("show");
+
+                        observer.unobserve(element.target);
+                    }
+                });
+            };
+
+            let observer = new IntersectionObserver(observe, { threshold: 0 });
+
+            Array.from(document.querySelectorAll(".scroll-fade-in")).forEach(e => observer.observe(e));
+        }
+
+        initScrollFadeObserver();
+
+        document.querySelector(".header-nav-button").addEventListener("click", function()
+        {
+            document.querySelector("header").classList.toggle("open");
+        });
+
+        scrollTopButton.addEventListener("click", () =>
+        {
+            document.body.scrollTop = 0;
+        });
+
+        window.addEventListener("scroll", () =>
+        {
+            const scrollY = window.scrollY;
+
+            scrollTopButton.classList.toggle("scroll-top-hidden", scrollY < 250);
+        });
+    };
+    
     const displayInfoMessage = (selector, message) =>
     {
         const messageOutput = document.querySelector(selector);
@@ -49,7 +93,7 @@ var wjbaker = (function()
 
     const ajax = (success, failure, userOptions = {}) =>
     {
-        let defaultOptions =
+        const defaultOptions =
         {
             url: null,
             type: "GET",
@@ -63,9 +107,9 @@ var wjbaker = (function()
             throw new Error("Request URL cannot be null or empty.");
         
         if (options.type !== "GET" && options.type !== "POST")
-            throw new Error("Request type must be \"GET\" or \"POST\".");
+            throw new Error('Request type must be "GET" or "POST".');
         
-        let xhttp = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+        const xhttp = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
 
         xhttp.onreadystatechange = () =>
         {
@@ -73,7 +117,7 @@ var wjbaker = (function()
             {
                 if (xhttp.status == 200)
                 {
-                    let response = JSON.parse(xhttp.responseText);
+                    const response = JSON.parse(xhttp.responseText);
 
                     success(response);
                 }
@@ -86,48 +130,17 @@ var wjbaker = (function()
 
         xhttp.open(options.type, options.url, true);
         
-        Array.from(options.headers)
-             .forEach(e => xhttp.setRequestHeader(e.header, e.value));
+        Array.from(options.headers).forEach(e => xhttp.setRequestHeader(e.header, e.value));
         
         xhttp.send(options.parameters);
     };
 
     return {
+        init: init,
         ajax: ajax,
         displayInfoMessage: displayInfoMessage,
         createResponse: createResponse
     };
 })();
 
-(() =>
-{
-    window.addEventListener("load", () =>
-    {
-        const initScrollFadeObserver = () =>
-        {
-            const observe = (elements, observer) =>
-            {
-                elements.forEach((element) =>
-                {
-                    if (element.isIntersecting)
-                    {
-                        element.target.classList.add("show");
-                        
-                        observer.unobserve(element.target);
-                    }
-                });
-            };
-
-            let observer = new IntersectionObserver(observe, { threshold: 0 });
-
-            Array.from(document.querySelectorAll(".scroll-fade-in")).forEach(e => observer.observe(e));
-        }
-        
-        document.querySelector(".header-nav-button").addEventListener("click", function()
-        {
-            document.querySelector("header").classList.toggle("open");
-        });
-        
-        initScrollFadeObserver();
-    });
-})();
+window.addEventListener("load", wjbaker.init);
