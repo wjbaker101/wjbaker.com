@@ -22,22 +22,22 @@
                 </section>
                 <section class="cell-row section scroll-fade-in">
                     <div class="cell l12 vpadding-regular hpadding-regular bg-white">
-                        <div class="section vpadding-regular hpadding-small border-theme-l4">
+                        <div class="section vpadding-regular hpadding-small border-light-grey">
                             <h2><a href="/">Home</a></h2>
                             <p>Homepage for my website. Includes an overview of content.</p>
                         </div>
-                        <div class="section vpadding-regular hpadding-small border-theme-l4">
+                        <div class="section vpadding-regular hpadding-small border-light-grey">
                             <h2><a href="/about/">About</a></h2>
                             <p>Information about me.</p>
                             <ul>
-                                <li><a class="underline" href="/about/programming.php">Programming</a></li>
+                                <li><a class="page-link-underline" href="/about/programming.php">Programming</a></li>
                             </ul>
                         </div>
-                        <div class="section vpadding-regular hpadding-small border-theme-l4">
+                        <div class="section vpadding-regular hpadding-small border-light-grey">
                             <h2><a href="/projects/">Projects</a></h2>
                             <p>A collection of my programming related projects.</p>
                         </div>
-                        <div class="section vpadding-regular hpadding-small border-theme-l4">
+                        <div class="section vpadding-regular hpadding-small border-light-grey">
                             <h2><a href="/users/login.php">Login</a></h2>
                             <p>A simple user account system, written in PHP.</p>
                         </div>

@@ -50,38 +50,42 @@
                         {
                             setButtonState(button, true);
                             
-                            let xhttp = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
-
-                            xhttp.onreadystatechange = () =>
+                            let parameters = "username=" + username + "&password1=" + password1 + "&password2=" + password2;
+                            
+                            const onComplete = () =>
                             {
-                                if (xhttp.readyState == XMLHttpRequest.DONE)
+                                setButtonState(button, false);
+                            };
+                            
+                            const onSuccess = response =>
+                            {
+                                onComplete();
+                                
+                                wjbaker.displayInfoMessage(".message-output", response);
+                                
+                                if (response.code === "success")
                                 {
-                                    setButtonState(button, false);
-                                    
-                                    if (xhttp.status == 200)
-                                    {
-                                        let response = JSON.parse(xhttp.responseText);
-                                        
-                                        wjbaker.displayInfoMessage(".message-output", response);
-                                        
-                                        if (response.code === "success")
-                                        {
-                                            button.disabled = true;
-                                            
-                                            window.location.href = "/users/login.php";
-                                        }
-                                    }
+                                    button.disabled = true;
+
+                                    window.location.href = "/users/login.php";
                                 }
                             };
-
-                            xhttp.open("POST", "resources/create-user.php", true);
-                            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                            let parameters = "username=" + username +
-                                             "&password1=" + password1 +
-                                             "&password2=" + password2;
                             
-                            xhttp.send(parameters);
+                            const onFailure = () =>
+                            {
+                                onComplete();
+                                
+                                wjbaker.displayInfoMessage(".message-output", wjbaker.createResponse("failed_error", "Unable to log in.", "ERROR"));
+                            };
+                            
+                            let options =
+                            {
+                                url: "resources/create-user.php",
+                                type: "POST",
+                                parameters: parameters
+                            };
+                            
+                            wjbaker.ajax(onSuccess, onFailure, options);
                         }
                     };
                     
@@ -109,20 +113,30 @@
         <?php printHeader(); ?>
         <div class="main-page hpadding-small">
             <div class="content-width vpadding-regular">
-                <section class="cell-row">
+                <section class="cell-row section">
                     <div class="cell l12 vpadding-large hpadding-regular bg-secondary text-centered">
                         <h1 class="fancy-header">New User</h1>
                     </div>
                 </section>
-                <section class="cell-row section">
+                <section class="cell-row section title-bar">
                     <div class="cell l12 vpadding-small hpadding-small bg-theme-d4">
-                        <p class="title-bar"><a class="return-link" href="login.php">To login page...</a></p>
+                        <p>
+                            <a class="page-link" href="/users/login.php">
+                                <svg width="17" height="17" class="back-arrow" version="1.1" viewBox="0 0 4.2333332 4.2333334" xmlns="http://www.w3.org/2000/svg">
+                                    <g transform="translate(0 -292.77)" fill="none" stroke="#fff">
+                                        <path d="m1.5875 294.09-.79375.79375.79375.79375" stroke-width=".52917"/>
+                                        <path d="m.79375 294.88h2.9104" stroke-width=".50664"/>
+                                    </g>
+                                </svg>
+                                To login page...
+                            </a>
+                        </p>
                     </div>
                 </section>
                 <section class="cell-row section scroll-fade-in">
                     <div class="cell l12 vpadding-large hpadding-regular bg-white">
                         <h2>Create</h2>
-                        <p>Choose a Username and Password for your new user.</p>
+                        <p>Choose a <strong>username</strong> and <strong>password</strong> for your new user.</p>
                         <div class="text-input-container section">
                             <i class="icon username"></i><input class="username-input" type="text" placeholder="Username..." autofocus>
                         </div>

@@ -49,7 +49,17 @@ else leave();
                 </section>
                 <section class="cell-row section title-bar">
                     <div class="cell l12 vpadding-small hpadding-small bg-theme-d4">
-                        <p><a class="return-link" href="/projects/">To projects page...</a></p>
+                        <p>
+                            <a class="page-link" href="/projects/">
+                                <svg width="17" height="17" class="back-arrow" version="1.1" viewBox="0 0 4.2333332 4.2333334" xmlns="http://www.w3.org/2000/svg">
+                                    <g transform="translate(0 -292.77)" fill="none" stroke="#fff">
+                                        <path d="m1.5875 294.09-.79375.79375.79375.79375" stroke-width=".52917"/>
+                                        <path d="m.79375 294.88h2.9104" stroke-width=".50664"/>
+                                    </g>
+                                </svg>
+                                To projects page...
+                            </a>
+                        </p>
                     </div>
                 </section>
                 <section class="cell-row section scroll-fade-in">

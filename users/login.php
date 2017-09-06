@@ -51,35 +51,42 @@ if ($user !== NULL)
                         {
                             setButtonState(button, true);
                             
-                            let xhttp = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
-
-                            xhttp.onreadystatechange = () =>
+                            let parameters = "username=" + username + "&password=" + password;
+                            
+                            const onComplete = () =>
                             {
-                                if (xhttp.readyState == XMLHttpRequest.DONE)
+                                setButtonState(button, false);
+                            };
+                            
+                            const onSuccess = response =>
+                            {
+                                onComplete();
+                                
+                                wjbaker.displayInfoMessage(".message-output", response);
+                                
+                                if (response.code === "success")
                                 {
-                                    setButtonState(button, false);
-                                    
-                                    if (xhttp.status == 200)
-                                    {
-                                        let response = JSON.parse(xhttp.responseText);
-                                        
-                                        wjbaker.displayInfoMessage(".message-output", response);
-                                        
-                                        if (response.code === "success")
-                                        {
-                                            button.disabled = true;
-                                            
-                                            window.location.href = "/users/user.php";
-                                        }
-                                    }
+                                    button.disabled = true;
+
+                                    window.location.href = "/users/user.php";
                                 }
                             };
-
-                            xhttp.open("POST", "resources/log-in.php", true);
-                            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                            var parameters = "username=" + username + "&password=" + password;
-                            xhttp.send(parameters);
+                            
+                            const onFailure = () =>
+                            {
+                                onComplete();
+                                
+                                wjbaker.displayInfoMessage(".message-output", wjbaker.createResponse("failed_error", "Unable to log in.", "ERROR"));
+                            };
+                            
+                            let options =
+                            {
+                                url: "resources/log-in.php",
+                                type: "POST",
+                                parameters: parameters
+                            };
+                            
+                            wjbaker.ajax(onSuccess, onFailure, options);
                         }
                     };
                     

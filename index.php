@@ -15,11 +15,6 @@
         <?php printHeader(); ?>
         <div class="main-page hpadding-small">
             <div class="content-width vpadding-regular">
-                <section class="cell-row section">
-                    <div class="cell l12 vpadding-large hpadding-regular bg-secondary text-centered">
-                        <h1>Welcome!</h1>
-                    </div>
-                </section>
                 <section class="cell-row section scroll-fade-in">
                     <div class="cell l7 m6 s12 vpadding-large hpadding-regular bg-white">
                         <p></p>

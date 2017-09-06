@@ -1,10 +1,17 @@
-"use strict";
-
 var wjbaker = (function()
 {
+    "use strict";
+    
     const init = () =>
     {
         const scrollTopButton = document.querySelector(".scroll-top-button");
+        
+        const positions =
+        {
+            top: 0,
+            minScroll: 250,
+            maxScroll: document.body.scrollHeight - document.querySelector("footer[role=footer]").offsetHeight
+        };
 
         const initScrollFadeObserver = () =>
         {
@@ -35,14 +42,14 @@ var wjbaker = (function()
 
         scrollTopButton.addEventListener("click", () =>
         {
-            document.body.scrollTop = 0;
+            document.body.scrollTop = positions.top;
         });
 
         window.addEventListener("scroll", () =>
         {
             const scrollY = window.scrollY;
 
-            scrollTopButton.classList.toggle("scroll-top-hidden", scrollY < 250);
+            scrollTopButton.classList.toggle("scroll-top-hidden", scrollY < positions.minScroll || scrollY > positions.maxScroll - window.innerHeight);
         });
     };
     

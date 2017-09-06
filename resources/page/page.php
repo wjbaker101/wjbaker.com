@@ -89,7 +89,7 @@ function printHeader()
         $urls .= "<a class=\"vpadding-regular hpadding-regular{$activeLink}\" href=\"{$webLinks[$i]->url}\">{$webLinks[$i]->name}</a>";
     }
     
-    echo '<header class="bg-theme-d1 hpadding-small">
+    echo '<header role="header" class="bg-theme-d1 hpadding-small">
             <div class="content-width clearfix">
                 <h1 class="float-l clearfix">
                     <a class="vpadding-regular float-l" href="/">wjbaker.com</a>
@@ -122,17 +122,36 @@ function printFooter()
     
     for ($i = 0; $i < count($webLinks); ++$i)
     {
-        $urls .= "<a class=\"site-nav\" href=\"{$webLinks[$i]->url}\">{$webLinks[$i]->name}</a>";
+        $urls .= "<li><a href=\"{$webLinks[$i]->url}\">{$webLinks[$i]->name}</a></li>";
     }
+    $urls .= '<li><a href="/sitemap.php">Sitemap</a></li>';
     
-    echo '<footer class="vpadding-mid bg-theme text-centered">
-            <section class="navigation section">
-                <h2>Navigation</h2>
-                <p>' . $urls . '</p>
-            </section>
-            <section class="copyright section">
-                <p>Copyright &copy; William Baker.<br>All rights reserved.</p>
-            </section>
+    echo '<footer role="footer" class="bg-theme">
+            <div class="content-width">
+                <div class="cell-row">
+                    <div class="navigation cell l4 s12 vpadding-mid hpadding-small">
+                        <h2>Navigation</h2>
+                        <ul>
+                            ' . $urls . '
+                            
+                        </ul>
+                    </div>
+                    <div class="cell l4 s12 vpadding-mid hpadding-small">
+                        <h2>Copyright</h2>
+                        <p>Copyright &copy; 2015-' . (new DateTime())->format("Y") . ' William Baker.<br>All rights reserved.</p>
+                    </div>
+                    <div class="cell cell-middle s12 vpadding-mid hpadding-small text-centered">
+                        <button class="bg-theme-d2 hover-bg-theme-d5 border-theme-d2 circle scroll-top-hidden text-centered">
+                            <svg width="30" height="30" class="cell-middle" version="1.1" viewBox="0 0 7.9374998 7.9375002" xmlns="http://www.w3.org/2000/svg">
+                                <g transform="translate(0 -289.06)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5">
+                                    <path d="m2.6458 291.71 1.3229-1.3229 1.3229 1.3229"/>
+                                    <path d="m3.9688 290.39v5.2917"/>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </footer>';
     
     echo '<button class="scroll-top-button bg-theme-d2 hover-bg-theme-d5 border-theme-d2 circle scroll-top-hidden text-centered">
