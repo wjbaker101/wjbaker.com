@@ -364,8 +364,6 @@ p, h1, h2, h3, h4, ul, ol, blockquote, figure
 
 header[role=header]
 {
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
-    
     h1
     {
         font-size: 2em;
@@ -543,11 +541,12 @@ footer[role=footer]
     min-height: 498px;
 }
 
-a.page-link-underline
+a.underline
 {
+    display: inline-block;
     position: relative;
     color: GET-COLOUR("THEME");
-    
+
     &:after
     {
         content: '';
@@ -555,11 +554,11 @@ a.page-link-underline
         position: absolute;
         width: 0;
         height: 1px;
-        bottom: 1px;
+        bottom: 0;
         left: 50%;
         background-color: GET-COLOUR("THEME");
         opacity: 0;
-        transition: $duration-short;
+        transition: 0.2s;
     }
 
     &:hover:after
@@ -570,42 +569,34 @@ a.page-link-underline
     }
 }
 
-header nav > a,
-footer .navigation a,
-a.page-link,
-a.page-link-underline
+a.site-nav, header nav > a
 {
     display: inline-block;
     transition: color $duration-short;
-}
-
-header nav > a,
-footer .navigation a,
-{
+    
     &:hover
     {
         color: GET-COLOUR("TERTIARY");
     }
 }
 
-a.page-link,
-a.page-link-underline
+.title-bar
 {
-    &:hover
+    .return-link
     {
-        color: GET-COLOUR("THEME");
+        transition: color $duration-short;
+        
+        &:before
+        {
+            content: '\1f818';
+            margin-right: 0.5em;
+        }
+        
+        &:hover
+        {
+            color: GET-COLOUR("THEME");
+        }
     }
-}
-
-.title-bar .page-link .back-arrow
-{
-    vertical-align: middle;
-}
-
-.title-bar .page-link:hover .back-arrow g
-{
-    stroke: GET-COLOUR("TERTIARY");
-    transition: stroke $duration-short;
 }
 
 .scroll-top-button
@@ -618,7 +609,7 @@ a.page-link-underline
     right: 2em;
     padding: 0;
     box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.25);
-    transition: opacity $duration-mid, right $duration-short;
+    transition: opacity $duration-mid;
     
     &.scroll-top-hidden
     {

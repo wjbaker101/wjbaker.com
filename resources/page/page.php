@@ -70,7 +70,7 @@ function printHead()
     //echo '<link href="https://fonts.googleapis.com/css?family=Heebo" rel="stylesheet">';
     //echo '<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">';
     
-    echo '<script src="/resources/page/scripts/webjs.js"></script>';
+    echo '<script src="/resources/page/scripts/main.js"></script>';
 }
 
 function printHeader()

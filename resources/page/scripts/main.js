@@ -1,7 +1,5 @@
-var wjbaker = (function()
+const wjbaker = (function()
 {
-    "use strict";
-    
     const init = () =>
     {
         const scrollTopButton = document.querySelector(".scroll-top-button");

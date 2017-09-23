@@ -38,24 +38,29 @@
                 position: relative;
             }
             
-            .timeline-container article h3:after
+            .timeline-container article h3 > .node
             {
-                content: '';
                 width: 1em;
                 height: 1em;
                 position: absolute;
                 top: 0.25em;
                 border: 1px solid #176bc0;
-                border-radius: 50%;
                 background-color: #fff;
+                border-radius: 50%;
+                transition: background-color 0.2s;
             }
             
-            .timeline-container article:nth-child(odd) h3:after
+            .timeline-container article h3 > .node:hover
+            {
+                background-color: #cae1f9;
+            }
+            
+            .timeline-container article:nth-child(odd) h3 > .node
             {
                 right: -2.125em;
             }
             
-            .timeline-container article:nth-child(even) h3:after
+            .timeline-container article:nth-child(even) h3 > .node
             {
                 left: -2.125em;
             }
@@ -99,19 +104,31 @@
                         <h2 class="text-centered">My Events Timeline</h2>
                         <div class="timeline-container">
                             <article>
-                                <h3>Today</h3>
+                                <h3>
+                                    <span>Today</span>
+                                    <div class="node"></div>
+                                </h3>
                             </article>
                             <article>
-                                <h3>7th August 2017</h3>
+                                <h3>
+                                    <span>7th August 2017</span>
+                                    <div class="node"></div>
+                                </h3>
                                 <p>Started at Bradleys as Temporary IT Project Assistant.</p>
                             </article>
                             <article>
-                                <h3>October 2016</h3>
+                                <h3>
+                                    <span>October 2016</span>
+                                    <div class="node"></div>
+                                </h3>
                                 <p>Started at Loughborough University.</p>
                                 <p>The beginning of my Computer Science BSci course.</p>
                             </article>
                             <article>
-                                <h3>September 2009</h3>
+                                <h3>
+                                    <span>September 2009</span>
+                                    <div class="node"></div>
+                                </h3>
                                 <p>Started at Oakwood Park Grammar School.</p>
                             </article>
                         </div>

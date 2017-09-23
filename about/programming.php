@@ -77,6 +77,10 @@
                             <i class="programming-icon html-brackets cell-middle"></i>
                             <span>PHP</span>
                         </div>
+                        <div>
+                            <i class="programming-icon html-brackets cell-middle"></i>
+                            <span>Node.js</span>
+                        </div>
                     </div>
                 </section>
                 <section class="cell-row section scroll-fade-in">
@@ -118,6 +122,14 @@
                         <div>
                             <i class="programming-icon database-icon cell-middle"></i>
                             <span>MSSQL</span>
+                        </div>
+                        <div>
+                            <i class="programming-icon database-icon cell-middle"></i>
+                            <span>Firebase</span>
+                        </div>
+                        <div>
+                            <i class="programming-icon database-icon cell-middle"></i>
+                            <span>MongoDB</span>
                         </div>
                     </div>
                 </section>

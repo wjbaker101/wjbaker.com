@@ -2,41 +2,114 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>William Baker | wjbaker.com</title>
+        <title>William Baker | Home</title>
         
         <?php printHead(); ?>
         
-        <style></style>
+        <style>
+            .sliding-background
+            {
+                height: calc(100vh - 90px);
+                min-height: 216px;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .sliding-background .panel
+            {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: -50%;
+                right: -50%;
+                background-image: linear-gradient(-60deg, #176bc0 50%, #17c06c 50%);
+                z-index: -1;
+                opacity: 0.5;
+                animation: sliding 16s ease-in-out infinite alternate;
+            }
+            
+            @keyframes sliding
+            {
+                from { transform: translateX(-25%); }
+                to { transform: translateX(25%); }
+            }
+            
+            .sliding-background .panel:nth-child(2)
+            {
+                animation-direction:alternate-reverse;
+                animation-duration:15s;
+            }
+            
+            .sliding-background .panel:nth-child(3)
+            {
+                animation-duration:14s;
+            }
+            
+            .logo-container
+            {
+                width: 100%;
+                height: 100%;
+            }
+            
+            .logo-container .logo-content
+            {
+                display: table;
+                margin: 0 auto;
+            }
+            
+            .logo
+            {
+                width: 100%;
+                height: 90px;
+            }
+            
+            .logo .name
+            {
+                fill: url(#background);
+                text-anchor: middle;
+                alignment-baseline: central;
+                font-weight: bold;
+                font-size: 6em;
+                font-family: "Athiti", sans-serif;
+                letter-spacing: 0;
+            }
+            
+            @media (max-width: 540px)
+            {
+                .logo .name
+                {
+                    font-size: 4em;
+                }
+            }
+        </style>
         
         <script></script>
     </head>
     
     <body>
         <?php printHeader(); ?>
-        <div class="main-page hpadding-small">
-            <div class="content-width vpadding-regular">
-                <section class="cell-row section scroll-fade-in">
-                    <div class="cell l7 m6 s12 vpadding-large hpadding-regular bg-white">
-                        <p></p>
+        <section class="sliding-background">
+            <div class="panel"></div>
+            <div class="panel"></div>
+            <div class="logo-container cell-row">
+                <div class="cell cell-middle hpadding-small text-centered">
+                    <div class="logo-content vpadding-regular hpadding-regular bg-theme-l5">
+                        <svg class="logo">
+                            <defs>
+                                <linearGradient id="background" x1="30%" y1="0%" x2="70%" y2="100%">
+                                    <stop offset="0%" style="stop-color: #176bc0;" />
+                                    <stop offset="100%" style="stop-color: #17c06c;" />
+                                </linearGradient>
+                            </defs>
+                            <g>
+                                <text class="name" x="50%" y="50%">Will Baker</text>
+                            </g>
+                        </svg>
+                        <h2>Software Engineer and Web Developer</h2>
                     </div>
-                    <div class="cell l5 m6 s12 vpadding-large hpadding-regular bg-theme-l5">
-                        <h2><a href="/projects/">My Projects</a></h2>
-                        <div class="section hpadding-small vpadding-small bg-white hover-bg-light-grey text-centered">
-                            <a href="/projects/view/1/normal-distribution-graph">
-                                <img src="/projects/assets/1/screenshot.jpg">
-                                <h3>Normal Distribution Graph</h3>
-                            </a>
-                        </div>
-                        <div class="section hpadding-small vpadding-small bg-white hover-bg-light-grey text-centered">
-                            <a href="/projects/view/6/train-route-finder">
-                                <img src="/projects/assets/6/screenshot.jpg">
-                                <h3>Train Route Finder</h3>
-                            </a>
-                        </div>
-                    </div>
-                </section>
+                </div>
             </div>
-        </div>
+        </section>
         <?php printFooter(); ?>
     </body>
 </html>
