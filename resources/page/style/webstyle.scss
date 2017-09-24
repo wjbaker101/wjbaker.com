@@ -362,8 +362,10 @@ p, h1, h2, h3, h4, ul, ol, blockquote, figure
     }
 }
 
-header[role=header]
+header.website-header
 {
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+    
     h1
     {
         font-size: 2em;
@@ -473,7 +475,7 @@ header[role=header]
 
 @media (max-width: $breakpoint-large)
 {
-    header[role=header]
+    header.website-header
     {
         h1.float-l, nav.float-r
         {
@@ -496,7 +498,7 @@ header[role=header]
         }
     }
     
-    header[role=header] nav > a
+    header.website-header nav > a
     {
         width: 33.33%;
         text-align: center;
@@ -505,7 +507,7 @@ header[role=header]
 
 @media (max-width: $breakpoint-small)
 {
-    header[role=header] nav > a
+    header.website-header nav > a
     {
         width: 50%;
         text-align: center;
@@ -513,7 +515,7 @@ header[role=header]
     }
 }
 
-header[role=header] .sublinks-container
+header.website-header .sublinks-container
 {
     width: 100%;
     position: absolute;
@@ -522,7 +524,7 @@ header[role=header] .sublinks-container
     z-index: 1;
 }
 
-footer[role=footer]
+footer.website-footer
 {
     .navigation
     {
@@ -541,9 +543,8 @@ footer[role=footer]
     min-height: 498px;
 }
 
-a.underline
+a.page-link-underline
 {
-    display: inline-block;
     position: relative;
     color: GET-COLOUR("THEME");
 
@@ -554,11 +555,11 @@ a.underline
         position: absolute;
         width: 0;
         height: 1px;
-        bottom: 0;
+        bottom: 1px;
         left: 50%;
         background-color: GET-COLOUR("THEME");
         opacity: 0;
-        transition: 0.2s;
+        transition: $duration-short;
     }
 
     &:hover:after
@@ -569,34 +570,42 @@ a.underline
     }
 }
 
-a.site-nav, header nav > a
+header.website-header nav > a,
+footer.website-footer .navigation a,
+a.page-link,
+a.page-link-underline
 {
     display: inline-block;
     transition: color $duration-short;
-    
+}
+
+header.website-header nav > a,
+footer.website-footer .navigation a
+{
     &:hover
     {
         color: GET-COLOUR("TERTIARY");
     }
 }
 
-.title-bar
+a.page-link,
+a.page-link-underline
 {
-    .return-link
+    &:hover
     {
-        transition: color $duration-short;
-        
-        &:before
-        {
-            content: '\1f818';
-            margin-right: 0.5em;
-        }
-        
-        &:hover
-        {
-            color: GET-COLOUR("THEME");
-        }
+        color: GET-COLOUR("THEME");
     }
+}
+
+.title-bar .page-link .back-arrow
+{
+    vertical-align: middle;
+}
+
+.title-bar .page-link:hover .back-arrow g
+{
+    stroke: GET-COLOUR("TERTIARY");
+    transition: stroke $duration-short;
 }
 
 .scroll-top-button
@@ -609,7 +618,7 @@ a.site-nav, header nav > a
     right: 2em;
     padding: 0;
     box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.25);
-    transition: opacity $duration-mid;
+    transition: opacity $duration-mid, right $duration-short;
     
     &.scroll-top-hidden
     {

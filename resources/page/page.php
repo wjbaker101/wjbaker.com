@@ -89,7 +89,7 @@ function printHeader()
         $urls .= "<a class=\"vpadding-regular hpadding-regular{$activeLink}\" href=\"{$webLinks[$i]->url}\">{$webLinks[$i]->name}</a>";
     }
     
-    echo '<header role="header" class="bg-theme-d1 hpadding-small">
+    echo '<header class="website-header bg-theme-d1 hpadding-small">
             <div class="content-width clearfix">
                 <h1 class="float-l clearfix">
                     <a class="vpadding-regular float-l" href="/">wjbaker.com</a>
@@ -126,7 +126,7 @@ function printFooter()
     }
     $urls .= '<li><a href="/sitemap.php">Sitemap</a></li>';
     
-    echo '<footer role="footer" class="bg-theme">
+    echo '<footer class="website-footer bg-theme">
             <div class="content-width">
                 <div class="cell-row">
                     <div class="navigation cell l4 s12 vpadding-mid hpadding-small">

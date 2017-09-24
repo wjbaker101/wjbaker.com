@@ -28,7 +28,7 @@ switch ($code)
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>William Baker | Error<?php echo " " . $code ?></title>
         

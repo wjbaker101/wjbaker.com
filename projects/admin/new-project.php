@@ -6,7 +6,7 @@ $editMode = isset($_GET["edit"]);
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>William Baker | <?php echo $editMode ? "Edit Project" : "New Project" ?></title>
         

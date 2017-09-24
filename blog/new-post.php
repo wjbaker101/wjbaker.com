@@ -34,7 +34,7 @@ if ($editMode = isset($_GET["id"]))
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>William Baker | Edit Blog Post</title>
         

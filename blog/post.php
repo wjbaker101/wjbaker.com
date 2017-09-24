@@ -32,7 +32,7 @@ else leave();
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>William Baker | <?php echo $post["Title"] ?></title>
         

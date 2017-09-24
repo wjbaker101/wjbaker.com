@@ -8,7 +8,7 @@ const wjbaker = (function()
         {
             top: 0,
             minScroll: 250,
-            maxScroll: document.body.scrollHeight - document.querySelector("footer[role=footer]").offsetHeight
+            maxScroll: document.body.scrollHeight - document.querySelector("footer.website-footer").offsetHeight
         };
 
         const initScrollFadeObserver = () =>
@@ -35,7 +35,7 @@ const wjbaker = (function()
 
         document.querySelector(".header-nav-button").addEventListener("click", function()
         {
-            document.querySelector("header").classList.toggle("open");
+            document.querySelector("header.website-header").classList.toggle("open");
         });
 
         scrollTopButton.addEventListener("click", () =>

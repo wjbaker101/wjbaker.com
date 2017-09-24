@@ -37,7 +37,8 @@ $COLOURS:
 
 @each $name, $colour in $COLOURS
 {
-    .bg-#{to-lower-case($name)}, .hover-bg-#{to-lower-case($name)}:hover
+    .bg-#{to-lower-case($name)},
+    .hover-bg-#{to-lower-case($name)}:hover
     {
         background-color: #{$colour};
         
@@ -52,12 +53,39 @@ $COLOURS:
         }
     }
     
-    .border-#{to-lower-case($name)}, .hover-border-#{to-lower-case($name)}:hover
+    .bg-#{to-lower-case($name)}
+    {
+        @if (lightness($colour) < 66)
+        {
+            a.page-link,
+            a.page-link-underline
+            {
+                &:hover
+                {
+                    color: GET-COLOUR("TERTIARY");
+                }
+            }
+
+            a.page-link-underline
+            {
+                color: GET-COLOUR("TERTIARY");
+
+                &:after
+                {
+                    background-color: GET-COLOUR("TERTIARY");
+                }
+            }
+        }
+    }
+    
+    .border-#{to-lower-case($name)},
+    .hover-border-#{to-lower-case($name)}:hover
     {
         border: 1px solid #{$colour};
     }
     
-    .text-#{to-lower-case($name)}, .hover-text-#{to-lower-case($name)}:hover
+    .text-#{to-lower-case($name)},
+    .hover-text-#{to-lower-case($name)}:hover
     {
         color: #{$colour};
     }

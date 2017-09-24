@@ -1,6 +1,6 @@
 <?php require ($_SERVER['DOCUMENT_ROOT'] . "/resources/page/page.php"); ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>William Baker | My Projects</title>
         

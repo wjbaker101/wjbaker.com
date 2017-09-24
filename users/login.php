@@ -10,7 +10,7 @@ if ($user !== NULL)
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>William Baker | Login</title>
         

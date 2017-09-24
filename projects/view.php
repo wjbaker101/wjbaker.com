@@ -29,7 +29,7 @@ else leave();
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>William Baker | Project: <?php echo $project["Title"] ?></title>
         
