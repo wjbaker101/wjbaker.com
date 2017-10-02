@@ -1,8 +1,8 @@
 default.php
-web.config
-php_errors.log
 resources/page/utils/database.php
 resources/page/style/.sass-cache
 resources/page/style/webstyle.css
 resources/page/style/webstyle.min.css
-watch_scss.bat
+*.bat
+*.config
+*.log
