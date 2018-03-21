@@ -1,0 +1,39 @@
+.card
+{
+    background-color: #fff;
+    transition: box-shadow $duration-mid;
+    
+    @include set-border-colour('dark-grey');
+}
+
+.card + .card
+{
+    margin-top: 2rem;
+}
+
+.card-content
+{
+    &::before,
+    &::after
+    {
+        content: '';
+        display: table;
+    }
+    
+    + .card-content
+    {
+        border-top: 1px solid get-colour('dark-grey');
+        border-top: 1px solid var(--dark-grey);
+    }
+}
+
+.card.card-hover:hover
+{
+    box-shadow: $shadow-large;
+}
+
+.v-card-content + .v-card-content
+{
+    border-left: 1px solid get-colour('dark-grey');
+    border-left: 1px solid var(--dark-grey);
+}

@@ -1,0 +1,28 @@
+$sizes:
+(
+    'small': 1rem,
+    'regular': 2rem,
+    'mid': 4rem,
+    'large': 6rem,
+    'xlarge': 8rem,
+);
+
+@each $name, $size in $sizes
+{
+    .vpadding-#{$name}
+    {
+        padding-top: $size;
+        padding-bottom: $size;
+    }
+    
+    .hpadding-#{$name}
+    {
+        padding-left: $size;
+        padding-right: $size;
+    }
+    
+    .padding-#{$name}
+    {
+        padding: $size;
+    }
+}
