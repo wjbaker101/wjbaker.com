@@ -1,0 +1,23 @@
+.content-width
+{
+    width: $page-width;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p
+{
+    max-width: 540px;
+}
+
+.full-height
+{
+    position: relative;
+    height: 100%;
+}
+
+.section + .section
+{
+    margin-top: 2rem;
+}

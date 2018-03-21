@@ -1,0 +1,24 @@
+button,
+.button
+{
+    position: relative;
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    font: inherit;
+    line-height: 1em;
+    letter-spacing: inherit;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: background-color $duration-short, color $duration-short;
+    
+    @include set-background-colour('theme');
+    @include set-border-colour('theme');
+    @include set-text-colour('white');
+
+    &:hover
+    {
+        background-color: transparent;
+        
+        @include set-text-colour('black');
+    }
+}

@@ -1,0 +1,15 @@
+@media (max-width: $breakpoint-large)
+{
+    .m-collapse
+    {
+        display: none;
+    }
+}
+
+@media (max-width: $breakpoint-small)
+{
+    .s-collapse
+    {
+        display: none;
+    }
+}

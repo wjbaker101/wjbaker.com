@@ -1,0 +1,46 @@
+a
+{
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+}
+
+a.page-link,
+a.page-link-underline
+{
+    position: relative;
+    transition: color $duration-short;
+    
+    @include set-text-colour('theme');
+    
+    &:hover
+    {
+        @include set-text-colour('secondary');
+    }
+}
+
+a.page-link-underline
+{
+    &::after
+    {
+        content: '';
+        position: absolute;
+        bottom: 0.25em;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        transform: scaleX(1);
+        transition: transform $duration-short;
+        
+        @include set-background-colour('theme');
+    }
+    
+    &:hover
+    {
+        &::after
+        {
+            transform: scaleX(0);
+            transform-origin: center;
+        }
+    }
+}

@@ -1,8 +1,11 @@
-default.php
-resources/page/utils/database.php
-resources/page/style/.sass-cache
-resources/page/style/webstyle.css
-resources/page/style/webstyle.min.css
-*.bat
+.vscode
+
+node_modules
+
+template.php
+
 *.config
+
 *.log
+
+*.bat
