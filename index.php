@@ -1,4 +1,24 @@
-<?php require_once ($_SERVER['DOCUMENT_ROOT'] . '/resources/php/main/start.php'); ?>
+<?php
+
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/resources/php/main/start.php');
+
+/**
+ * Calculates my age in years.
+ * 
+ * @return Integer The number of years I have lived.
+ */
+function getAge()
+{
+    $timezone = new DateTimeZone('Europe/London');
+    
+    $birthday = DateTime::createFromFormat('d/m/Y', '30/07/1998', $timezone);
+
+    $today = new DateTime();
+
+    return $birthday->diff($today)->y;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -29,7 +49,34 @@
             </header>
             <article>
                 <div class="content-width">
-                    <p>Welcome to my personal website!</p>
+                    <div class="cell-row">
+                        <div class="cell l6 m12 cell-middle">
+                            <h2>Welcome!</h2>
+                            <p>My name is William Baker. I am a <?= getAge() ?> year old software developer with an interest in computing; especially programming, web development and software engineering.</p>
+                            <p>I have been programming for many years working on a wide range of projects, many of which can be found on this website, and can be downloaded.</p>
+                        </div>
+                        <div class="cell l6 m12 cell-middle text-centered">
+                            <img class="circle" src="/resources/images/me.jpg">
+                        </div>
+                    </div>
+                    <div class="vpadding-mid">
+                        <h2>Programming</h2>
+                        <p>These are my favourite languages to use.</p>
+                        <div class="cell-row text-centered">
+                            <div class="cell l3 s12">
+                                <img src="/resources/images/technologies/nodejs.jpg" width="120">
+                            </div>
+                            <div class="cell l3 s12">
+                                <img src="/resources/images/technologies/csharp.jpg" width="120">
+                            </div>
+                            <div class="cell l3 s12">
+                                <img src="/resources/images/technologies/mysql.jpg" width="120">
+                            </div>
+                            <div class="cell l3 s12">
+                                <img src="/resources/images/technologies/php.jpg" width="120">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </article>
             <?php require_once(PAGE_FOOTER); ?>
