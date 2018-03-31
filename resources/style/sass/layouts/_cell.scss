@@ -1,15 +1,14 @@
+$gutter: 15px;
+$doubleGutter: $gutter * 2;
+
 .cell-row
 {
-    width: ($page-width + 30px);
+    width: 100%;
+    width: calc(100% + #{$doubleGutter});
     display: table;
-    border-spacing: 15px;
+    border-spacing: $gutter;
     border-collapse: separate;
-    margin-left: -15px;
-
-    &.fixed
-    {
-        table-layout: fixed;
-    }
+    margin-left: -$gutter;
 }
 
 .cell
