@@ -10,7 +10,9 @@
         
         <?php require_once(PAGE_STYLE); ?>
         
-        <style></style>
+        <style>
+            body { overflow-y: scroll; }
+        </style>
         
         <link rel="stylesheet" href="/resources/style/css/webstyle.css">
         
@@ -29,6 +31,9 @@
             </header>
             <article>
                 <div class="content-width">
+                    <div class="hpadding-small text-centered">
+                        <img src="/resources/images/loading-icon.svg" width="36" height="36" data-loading-icon>
+                    </div>
                     <div class="post-container"></div>
                 </div>
             </article>

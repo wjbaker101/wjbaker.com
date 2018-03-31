@@ -1,0 +1,13 @@
+$icon-size: 36px;
+
+[data-loading-icon]
+{
+    height: 0;
+    display: inline-block;
+    transition: height 0.2s;
+}
+
+[data-loading-icon].loading
+{
+    height: $icon-size;
+}
