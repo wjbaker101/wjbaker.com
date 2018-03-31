@@ -1,0 +1,17 @@
+@each $name, $colour in $colours
+{
+    .bg-#{$name},
+    .hover-bg-#{$name}:hover
+    {
+        background-color: $colour;
+        background-color: var(--#{$name}, $colour);
+    }
+}
+
+@mixin set-background-colour($name)
+{
+    $colour: get-colour($name);
+    
+    background-color: $colour;
+    background-color: var(--#{$name}, $colour);
+}

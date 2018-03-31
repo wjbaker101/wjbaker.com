@@ -1,1 +1,0 @@
-<?php header('Location: normal-distribution-graph.php'); ?>

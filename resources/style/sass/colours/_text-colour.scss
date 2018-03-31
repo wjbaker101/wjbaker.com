@@ -1,0 +1,17 @@
+@each $name, $colour in $colours
+{
+    .text-#{$name},
+    .hover-text-#{$name}:hover
+    {
+        color: $colour;
+        color: var(--#{$name}, $colour);
+    }
+}
+
+@mixin set-text-colour($name)
+{
+    $colour: get-colour($name);
+    
+    color: $colour;
+    color: var(--#{$name}, $colour);
+}

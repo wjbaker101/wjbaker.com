@@ -1,0 +1,8 @@
+main > header
+{
+    padding: 4rem 2rem;
+    border-bottom: 1px solid get-colour('dark-grey');
+    border-bottom: 1px solid var(--dark-grey);
+    
+    @include set-background-colour('light-grey');
+}
