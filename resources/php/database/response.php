@@ -35,7 +35,7 @@ class Response implements JsonSerializable
     
     public function setContents($contents)
     {
-        return new Response($this->code, $this->message, $type, $contents);
+        return new Response($this->code, $this->message, $this->type, $contents);
     }
     
     public function getCode()
