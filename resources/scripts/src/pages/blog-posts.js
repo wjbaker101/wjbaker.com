@@ -9,6 +9,8 @@ class Blog
     {
         this.postContainer = document.querySelector(postContainerSelector);
         
+        this.loadingIcon = document.querySelector('[data-loading-icon]');
+        
         this.requestPosts();
     }
     
@@ -19,15 +21,19 @@ class Blog
     {
         const request = wjbaker.ajax({ url: '/resources/php/query/blog-posts.php' });
         
+        this.loadingIcon.classList.add('loading');
+        
         request.then((response) =>
         {
             this.postContainer.innerHTML = '';
             
             this.displayPosts(response.contents);
+            
+            this.loadingIcon.classList.remove('loading');
         })
         .catch((error) =>
         {
-            console.log(error);
+            this.loadingIcon.classList.remove('loading');
         });
     }
     
@@ -84,10 +90,10 @@ class Blog
         
         const html = `
             <div class="cell l6 m12">
-                <div class="card full-height padding-small">
+                <div class="card full-height padding-small fade-in">
                     <h3>${post.Title}</h3>
                     <p>${formattedDate}</p>
-                    <p><a href="/blog/post/${post.BlogID}/${post.HeaderTitle}/"><button>Read</button></a></p>
+                    <p><a href="/blog/post/${post.BlogID}/${post.TitleURL}/"><button>Read</button></a></p>
                 </div>
             </div>
         `;
