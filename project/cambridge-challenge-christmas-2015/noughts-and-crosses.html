@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <!-- Title for the webpage -->
+        <title>Noughts and Crosses | By William Baker</title>
+        
+        <style>body{margin:0;padding:0;font-family:"Corbel";background:#f0f0f0}.title{height:68px;font-size:28px;font-weight:700;line-height:68px}.subheading{font-size:14px}.mainContent{width:600px;margin:auto;text-align:center}.graphicsCanvas{width:500px;height:500px;border:1px solid;box-shadow:3px 3px 3px #000;margin-top:50px;background:#fff}.userControls{width:600px;height:180px;border:1px solid;margin-top:50px;display:inline-block;box-shadow:3px 3px 3px #CCC;background:#fff}.startButton{width:150px;height:50px;border:2px solid #ffb400;border-radius:2px;background-color:#f0f0f0;margin:auto;margin-top:10px;line-height:50px;font-size:17px;font-weight:700}.startButton:hover{cursor:pointer;background-color:#f0f0ff}.winStatsContent{width:100%;margin-top:20px}.winStats{width:150px;display:inline-block;margin-left:20px;margin-right:20px;margin-top:10px;font-weight:700;font-size:13px}.winStatsNumber{width:50px;height:50px;margin:auto;transition:opacity 2s;font:44px/50px "Calibri"}#winStatPlayer{color:#176bc0}#winStatDraw{color:#000}#winStatComputer{color:#dc3232}</style>
+        
+        <script>function Board(a,b){this.columns=a,this.rows=b,this.pieces=[0,0,0,0,0,0,0,0,0],this.setBoardPiece=function(a,b,c){this.setBoardPieceIndex(a+b*board.columns,c)},this.setBoardPieceIndex=function(a,b){board.pieces[a]=b,turn++,(checkColumnWin()||checkRowWin()||checkDiagonalTLBRWin()||checkDiagonalBLTRWin()||9==turn)&&(gameWon=!0),gameWon&&winGame(),drawGrid()},this.getBoardPieceIndex=function(a,b){return board.pieces[a+b*board.columns]}}function onLoad(){with(canvas=document.getElementById("graphicsCanvas"),graphics=canvas.getContext("2d"),graphics.translate(.5,.5),canvas)onmousemove=function(){canvas_MouseMove()},onmouseup=function(){canvas_MouseUp()},onmouseout=function(){canvas_MouseLeave()};drawGrid()}function drawGrid(){clearCanvas(),graphics.strokeStyle="#000000",graphics.lineWidth="1";for(var a=parseInt(canvas.width/board.columns),b=1;b<board.columns;b++)drawLine(b*a,0,b*a,canvas.height);for(var c=parseInt(canvas.height/board.rows),d=1;d<board.rows;d++)drawLine(0,d*c,canvas.width,d*c);drawPieces(),gameWon&&drawWinner()}function drawPieces(){for(var a=parseInt(canvas.width/board.columns),b=parseInt(canvas.height/board.rows),c=0;c<board.columns;c++)for(var d=0;d<board.rows;d++)switch(board.pieces[c+d*board.columns]){case 1:graphics.strokeStyle="rgba(23, 107, 192, 1.0)",graphics.lineWidth="3",drawCircle(a*(c+.5),b*(d+.5),50);break;case 2:graphics.strokeStyle="rgba(220, 50, 50, 1.0)",graphics.lineWidth="3",drawCross(a*(c+.25),b*(d+.25),a/2,b/2)}}function drawWinner(){if(0==winnerPiece){graphics.fillStyle="rgba(255, 255, 255, 0.6)",graphics.fillRect(0,0,canvas.width,canvas.height);var a="Draw!";graphics.textAlign="center",graphics.textBaseline="middle",graphics.font="200px Calibri",graphics.fillStyle="#000000",graphics.fillText(a,canvas.width/2,canvas.height/2)}else{var b=parseInt(canvas.width/board.columns),c=parseInt(canvas.height/board.rows);graphics.strokeStyle=1==winnerPiece?"rgba(23, 107, 192, 1.0)":"rgba(220, 50, 50, 1.0)",graphics.lineWidth="10",drawLine((winStartColumn+.5)*b,(winStartRow+.5)*c,(winEndColumn+.5)*b,(winEndRow+.5)*c)}}function drawLine(a,b,c,d){graphics.beginPath(),graphics.moveTo(a,b),graphics.lineTo(c,d),graphics.stroke()}function drawCircle(a,b,c){graphics.beginPath(),graphics.arc(a,b,c,0,2*Math.PI,!1),graphics.stroke()}function drawCross(a,b,c,d){drawLine(a,b,a+c,b+d),drawLine(a,b+d,a+c,b)}function clearCanvas(){graphics.clearRect(-1,-1,canvas.width,canvas.height)}function canvas_MouseMove(){if(canvas.style.cursor="default",gameRunning){var a=canvas.getBoundingClientRect(),b=parseInt(event.clientX-a.left),c=parseInt(event.clientY-a.top),d=parseInt(canvas.width/board.columns),e=parseInt(canvas.height/board.rows),f=(b-b%d)/d,g=(c-c%e)/e;drawGrid(),0==board.getBoardPieceIndex(f,g)&&(canvas.style.cursor="pointer",graphics.strokeStyle="rgba(23, 107, 192, 0.3)",graphics.lineWidth="3",drawCircle(d*(f+.5),e*(g+.5),50))}}function canvas_MouseLeave(){drawGrid()}function canvas_MouseUp(){if(gameRunning){var a=canvas.getBoundingClientRect(),b=parseInt(event.clientX-a.left),c=parseInt(event.clientY-a.top),d=parseInt(canvas.width/board.columns),e=parseInt(canvas.height/board.rows),f=(b-b%d)/d,g=(c-c%e)/e;0==board.getBoardPieceIndex(f,g)&&(board.setBoardPiece(f,g,1),turn<9&&!gameWon&&computerPlacePiece(),drawGrid())}}function startNewGame(){gameRunning=!0,gameWon=!1,winStartColumn=-1,winStartRow=-1,winEndColumn=-1,winEndRow=-1,turn=0,winnerPiece=0,board=new Board(3,3),computerPlacePiece(),document.getElementById("startButton").innerHTML="RESET GAME"}function winGame(){switch(gameRunning=!1,winnerPiece){case 0:drawWins++,document.getElementById("winStatDraw").innerHTML=drawWins;break;case 1:playerWins++,document.getElementById("winStatPlayer").innerHTML=playerWins;break;case 2:computerWins++,document.getElementById("winStatComputer").innerHTML=computerWins}}function generateRandomNumber(a){return Math.floor(Math.random()*a)}function computerPlacePiece(){if(0==turn)computerCheckRandom();else{var a=generateRandomNumber(2);if(0==a){if(!computerCheckColumns()&&!computerCheckRows()&&!computerCheckDiagonalTLBR()&&!computerCheckDiagonalBLTR())for(var b=!1;!b;)computerCheckRandom()&&(b=!0)}else for(var b=!1;!b;)computerCheckRandom()&&(b=!0)}}function computerCheckColumns(){for(var a=0;a<board.columns;a++){for(var b=0,c=-1,d=0;d<board.rows;d++){var e=board.getBoardPieceIndex(a,d);1==e&&b++,0==e&&(c=d)}if(2==b&&-1!=c)return board.setBoardPiece(a,c,2),!0}return!1}function computerCheckRows(){for(var a=0;a<board.rows;a++){for(var b=0,c=-1,d=0;d<board.columns;d++){var e=board.getBoardPieceIndex(d,a);1==e&&b++,0==e&&(c=d)}if(2==b&&-1!=c)return board.setBoardPiece(c,a,2),!0}return!1}function computerCheckDiagonalTLBR(){for(var a=0,b=-1,c=0;c<board.columns;c++){var d=board.getBoardPieceIndex(c,c);1==d&&a++,0==d&&(b=c)}return 2==a&&-1!=b?(board.setBoardPiece(b,b,2),!0):!1}function computerCheckDiagonalBLTR(){for(var a=0,b=-1,c=0;c<board.columns;c++){var d=board.getBoardPieceIndex(c,board.columns-c-1);1==d&&a++,0==d&&(b=c)}return 2==a&&-1!=b?(board.setBoardPiece(b,board.columns-b-1,2),!0):!1}function computerCheckRandom(){var a=Math.floor(9*Math.random());return 0==board.pieces[a]?(board.setBoardPieceIndex(a,2),!0):!1}function checkColumnWin(){for(var a=0,b=0;b<board.rows;b++)if(a=board.pieces[b],0!=a&&board.pieces[b+board.rows]==a&&board.pieces[b+2*board.rows]==a)return winStartColumn=b,winStartRow=0,winEndColumn=b,winEndRow=board.rows-1,winnerPiece=a,!0;return!1}function checkRowWin(){for(var a=0,b=0;b<board.rows;b++){var c=3*b;if(a=board.pieces[c],0!=a&&board.pieces[c+1]==a&&board.pieces[c+2]==a)return winStartColumn=0,winStartRow=parseInt(c/3),winEndColumn=board.columns-1,winEndRow=parseInt(c/3),winnerPiece=a,!0}return!1}function checkDiagonalTLBRWin(){var a=board.getBoardPieceIndex(0,0),b=0;if(0==a)return!1;for(var c=0;c<board.columns;c++){var d=board.getBoardPieceIndex(c,c);d==a&&b++}return 3==b?(winStartColumn=0,winStartRow=0,winEndColumn=board.columns-1,winEndRow=board.rows-1,winnerPiece=a,!0):!1}function checkDiagonalBLTRWin(){var a=board.getBoardPieceIndex(0,board.rows-1),b=0;if(0==a)return!1;for(var c=0;c<board.columns;c++){var d=board.getBoardPieceIndex(c,board.columns-c-1);d==a&&b++}return 3==b?(winStartColumn=0,winStartRow=board.rows-1,winEndColumn=board.columns-1,winEndRow=0,winnerPiece=a,!0):!1}var board=new Board(3,3),gameRunning=!1,gameWon=!1,winnerPiece=0,playerWins=0,drawWins=0,computerWins=0,turn=0,canvas,graphics,winStartColumn=-1,winStartRow=-1,winEndColumn=-1,winEndRow=-1;</script>
+    </head>
+    
+    <!-- Main body of the webpage -->
+    <!-- onload event to onLoad() function -->
+    <body onload="onLoad();">
+        <!-- Container for the main content -->
+        <div class="mainContent">
+            <!-- Title of the game -->
+            <div class="title">Noughts and Crosses</div>
+            
+            <!-- Subheading, displaying my name -->
+            <div class="subheading">By William Baker</div>
+            
+            <!-- Canvas for drawing the graphics to -->
+            <canvas class="graphicsCanvas" id="graphicsCanvas" width="500" height="500">Browser does not support HTML5 Canvas</canvas>
+            
+            <!-- Container for the controls for the user -->
+            <div class="userControls">
+                <!-- Start game button -->
+                <!-- onclick event to startNewGame() function -->
+                <div class="startButton" id="startButton" onclick="startNewGame();">START GAME</div>
+                
+                <!-- Container for win stats -->
+                <div class="winStatsContent">
+                    <!-- Win stats for the player -->
+                    <div class="winStats">
+                        PLAYER
+                        <!-- Container displaying the number of wins -->
+                        <div class="winStatsNumber" id="winStatPlayer">0</div>
+                    </div>
+                    
+                    <!-- Win stats for draws -->
+                    <div class="winStats">
+                        DRAWS
+                        <!-- Container displaying the number of draws -->
+                        <div class="winStatsNumber" id="winStatDraw">0</div>
+                    </div>
+                    
+                    <!-- Win stats for the computer -->
+                    <div class="winStats">
+                        COMPUTER
+                        <!-- Container displaying the number of draws -->
+                        <div class="winStatsNumber" id="winStatComputer">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
