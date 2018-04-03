@@ -1,24 +1,21 @@
 button,
 .button
 {
-    position: relative;
-    padding: 0.5rem 1rem;
     display: inline-block;
+    padding: 0.25rem 1.5rem;
     font: inherit;
-    line-height: 1em;
     letter-spacing: inherit;
-    vertical-align: middle;
     cursor: pointer;
-    transition: background-color $duration-short, color $duration-short;
+    vertical-align: middle;
+    transition: background-color $duration-short;
     
-    @include set-background-colour('theme');
-    @include set-border-colour('theme');
     @include set-text-colour('white');
-
-    &:hover
+    @include set-background-colour('theme');
+    @include set-border-colour('dark-grey');
+    
+    &:hover,
+    &:focus
     {
-        background-color: transparent;
-        
-        @include set-text-colour('black');
+        @include set-background-colour('theme-mono');
     }
 }
