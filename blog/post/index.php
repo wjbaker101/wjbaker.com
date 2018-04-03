@@ -42,23 +42,21 @@ $post = $query->getContents();
     
     <body>
         <?php require_once(PAGE_NAV); ?>
+        <header>
+            <div class="content-width hpadding-small vpadding-mid">
+                <h1><?= $post['Title'] ?></h1>
+            </div>
+        </header>
         <main>
-            <header>
-                <div class="content-width">
-                    <h1><?= $post['Title'] ?></h1>
-                </div>
-            </header>
-            <div class="nav-bar padding-small bg-white">
-                <div class="content-width">
+            <div class="nav-bar vpadding-small bg-white">
+                <div class="content-width hpadding-small">
                     <span><a href="/blog/">&larr; Return to Blog</a></span>
                 </div>
             </div>
-            <article>
-                <div class="content-width">
-                    <?= html_entity_decode($post['ContentHTML']) ?>
-                </div>
-            </article>
-            <?php require_once(PAGE_FOOTER); ?>
+            <div class="content-width hpadding-small vpadding-mid">
+                <?= html_entity_decode($post['ContentHTML']) ?>
+            </div>
         </main>
+        <?php require_once(PAGE_FOOTER); ?>
     </body>
 </html>

@@ -21,18 +21,27 @@
     
     <body>
         <?php require_once(PAGE_NAV); ?>
+        <header>
+            <div class="content-width hpadding-small vpadding-mid">
+                <h1>wjbaker.com</h1>
+            </div>
+        </header>
         <main>
-            <header>
-                <div class="content-width">
-                    <h1>wjbaker.com</h1>
+            <div class="content-width hpadding-small vpadding-mid">
+                <div class="card padding-small">
+                    <div class="cell-row">
+                        <div class="cell l6 m12 cell-middle">
+                            <h2>Welcome!</h2>
+                            <p>My name is William Baker. I am a <?= getAge() ?> year old software developer with an interest in computing; especially programming, web development and software engineering.</p>
+                            <p>I have been programming for many years working on a wide range of projects, many of which can be found on this website, and can be downloaded.</p>
+                        </div>
+                        <div class="cell l6 m12 cell-middle text-centered">
+                            <img class="circle" src="/resources/images/me.jpg">
+                        </div>
+                    </div>
                 </div>
-            </header>
-            <article>
-                <div class="content-width">
-                    <p>Welcome to my personal website!</p>
-                </div>
-            </article>
-            <?php require_once(PAGE_FOOTER); ?>
+            </div>
         </main>
+        <?php require_once(PAGE_FOOTER); ?>
     </body>
 </html>
