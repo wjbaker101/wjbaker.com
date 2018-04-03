@@ -1,4 +1,20 @@
-main
+$header-height: 210px;
+$footer-height: 115px;
+
+$content-height: $header-height + $footer-height;
+
+body > main
+{
+    min-height: calc(100% - #{$content-height});
+    margin-left: $nav-width;
+    
+    @media screen and (max-width: $breakpoint-large)
+    {
+        margin-left: 0;
+    }
+}
+
+/*main
 {
     height: 100%;
     margin-left: 8rem;
@@ -21,4 +37,4 @@ main > article
     {
         min-height: calc(100% - 213px - 123px - 4rem);
     }
-}
+}*/
