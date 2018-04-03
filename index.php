@@ -1,4 +1,24 @@
-<?php require_once ($_SERVER['DOCUMENT_ROOT'] . '/resources/php/main/start.php'); ?>
+<?php
+
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/resources/php/main/start.php');
+
+/**
+ * Calculates my age in years.
+ * 
+ * @return Integer The number of years I have lived.
+ */
+function getAge()
+{
+    $timezone = new DateTimeZone('Europe/London');
+    
+    $birthday = DateTime::createFromFormat('d/m/Y', '30/07/1998', $timezone);
+
+    $today = new DateTime();
+
+    return $birthday->diff($today)->y;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
