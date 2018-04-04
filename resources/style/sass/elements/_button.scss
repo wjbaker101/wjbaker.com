@@ -18,4 +18,17 @@ button,
     {
         @include set-background-colour('theme-mono');
     }
+    
+    &.grey-button
+    {
+        @include set-background-colour('white');
+        @include set-border-colour('dark-grey');
+        @include set-text-colour('black');
+        
+        &:hover,
+        &:focus
+        {
+            @include set-background-colour('light-grey');
+        }
+    }
 }
