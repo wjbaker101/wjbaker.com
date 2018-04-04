@@ -47,17 +47,15 @@ function getAge()
             </div>
         </header>
         <main>
-            <div class="content-width hpadding-small vpadding-mid">
-                <div class="card padding-small">
-                    <div class="cell-row">
-                        <div class="cell l6 m12 cell-middle">
-                            <h2>Welcome!</h2>
-                            <p>My name is William Baker. I am a <?= getAge() ?> year old software developer with an interest in computing; especially programming, web development and software engineering.</p>
-                            <p>I have been programming for many years working on a wide range of projects, many of which can be found on this website, and can be downloaded.</p>
-                        </div>
-                        <div class="cell l6 m12 cell-middle text-centered">
-                            <img class="circle" src="/resources/images/me.jpg">
-                        </div>
+            <div class="content-width">
+                <div class="cell-row">
+                    <div class="cell l6 m12 cell-middle">
+                        <h2>Welcome!</h2>
+                        <p>My name is William Baker. I am a <?= getAge() ?> year old software developer with an interest in computing; especially programming, web development and software engineering.</p>
+                        <p>I have been programming for many years working on a wide range of projects, many of which can be found on this website, and can be downloaded.</p>
+                    </div>
+                    <div class="cell l6 m12 cell-middle text-centered">
+                        <img class="circle" src="/resources/images/me.jpg">
                     </div>
                 </div>
             </div>
