@@ -66,7 +66,7 @@
                     <input type="text" name="username" placeholder="Username" size="30" autofocus>
                     <p><label for="password"><strong>Password</strong></label></p>
                     <input type="password" name="password" placeholder="Password" size="30">
-                    <p><button name="login">Login</button></p>
+                    <p><button name="login">Login</button> or <a href="/user/new/"><button class="grey-button">Signup</button></a></p>
                 </div>
                 <div class="card padding-small">
                     <h2>Signup</h2>
