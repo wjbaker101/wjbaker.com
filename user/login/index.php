@@ -72,6 +72,7 @@
                     <h2>Signup</h2>
                     <p>To create a new user, click the button below:</p>
                     <p><a href="/user/new/"><button>Signup</button></a></p>
+                    <p><em>(Passwords are hashed for security so nobody can see them.)</em></p>
                 </div>
             </div>
         </main>
