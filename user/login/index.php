@@ -53,22 +53,29 @@
     
     <body>
         <?php require_once(PAGE_NAV); ?>
+        <header>
+            <div class="content-width hpadding-small vpadding-mid">
+                <h1>Login</h1>
+            </div>
+        </header>
         <main>
-            <header>
-                <div class="content-width">
-                    <h1>Login</h1>
+            <div class="content-width hpadding-small vpadding-mid">
+                <div class="card padding-small">
+                    <h2>Existing User</h2>
+                    <p><label for="username"><strong>Username</strong></label></p>
+                    <input type="text" name="username" placeholder="Username" size="30" autofocus>
+                    <p><label for="password"><strong>Password</strong></label></p>
+                    <input type="password" name="password" placeholder="Password" size="30">
+                    <p><button name="login">Login</button> or <a href="/user/new/"><button class="grey-button">Signup</button></a></p>
                 </div>
-            </header>
-            <article>
-                <div class="content-width">
-                    <p><strong>Username</strong></p>
-                    <input type="text" name="username" autofocus>
-                    <p><strong>Password</strong></p>
-                    <input type="password" name="password">
-                    <p><button name="login">Login</button></p>
+                <div class="card padding-small">
+                    <h2>Signup</h2>
+                    <p>To create a new user, click the button below:</p>
+                    <p><a href="/user/new/"><button>Signup</button></a></p>
+                    <p><em>(Passwords are hashed for security so nobody can see them.)</em></p>
                 </div>
-            </article>
-            <?php require_once(PAGE_FOOTER); ?>
+            </div>
         </main>
+        <?php require_once(PAGE_FOOTER); ?>
     </body>
 </html>

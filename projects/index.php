@@ -21,18 +21,16 @@
 
     <body>
         <?php require_once(PAGE_NAV); ?>
+        <header>
+            <div class="content-width hpadding-small vpadding-mid">
+                <h1>Projects</h1>
+            </div>
+        </header>
         <main>
-            <header>
-                <div class="content-width">
-                    <h1>Projects</h1>
-                </div>
-            </header>
-            <article>
-                <div class="content-width">
-                    <div class="projects-container column-container"></div>
-                </div>
-            </article>
-            <?php require_once(PAGE_FOOTER); ?>
+            <div class="content-width hpadding-small vpadding-mid">
+                <div class="projects-container column-container"></div>
+            </div>
         </main>
+        <?php require_once(PAGE_FOOTER); ?>
     </body>
 </html>

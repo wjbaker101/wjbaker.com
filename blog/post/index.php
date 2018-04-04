@@ -29,6 +29,7 @@ $post = $query->getContents();
         <style>
             .nav-bar
             {
+                background-color: var(--pure-white);
                 border-bottom: 1px solid var(--dark-grey);
             }
         </style>
@@ -42,23 +43,31 @@ $post = $query->getContents();
     
     <body>
         <?php require_once(PAGE_NAV); ?>
+        <header>
+            <div class="content-width hpadding-small vpadding-mid">
+                <h1><?= $post['Title'] ?></h1>
+            </div>
+        </header>
         <main>
-            <header>
-                <div class="content-width">
-                    <h1><?= $post['Title'] ?></h1>
-                </div>
-            </header>
-            <div class="nav-bar padding-small bg-white">
-                <div class="content-width">
-                    <span><a href="/blog/">&larr; Return to Blog</a></span>
+            <div class="nav-bar vpadding-small">
+                <div class="content-width hpadding-small">
+                    <div class="cell-row">
+                        <div class="cell l7 s12 cell-middle">
+                            <strong>Posted: </strong> <?= (new DateTime($post['EntryDate']))->format('d/m/Y H:i') ?><br>
+                            <strong>By: </strong>William Baker
+                        </div>
+                        <div class="cell l5 s12 cell-middle text-right">
+                            <a href="/blog/"><button class="grey-button">&larr; View more Posts</button></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <article>
-                <div class="content-width">
+            <div class="content-width hpadding-small vpadding-mid">
+                <div class="card padding-small">
                     <?= html_entity_decode($post['ContentHTML']) ?>
                 </div>
-            </article>
-            <?php require_once(PAGE_FOOTER); ?>
+            </div>
         </main>
+        <?php require_once(PAGE_FOOTER); ?>
     </body>
 </html>

@@ -23,21 +23,19 @@
     
     <body>
         <?php require_once(PAGE_NAV); ?>
+        <header>
+            <div class="content-width hpadding-small vpadding-mid">
+                <h1>Blog</h1>
+            </div>
+        </header>
         <main>
-            <header>
-                <div class="content-width">
-                    <h1>Blog</h1>
+            <div class="content-width hpadding-small vpadding-mid">
+                <div class="text-centered">
+                    <img src="/resources/images/loading-icon.svg" width="36" height="36" data-loading-icon>
                 </div>
-            </header>
-            <article>
-                <div class="content-width">
-                    <div class="hpadding-small text-centered">
-                        <img src="/resources/images/loading-icon.svg" width="36" height="36" data-loading-icon>
-                    </div>
-                    <div class="post-container"></div>
-                </div>
-            </article>
-            <?php require_once(PAGE_FOOTER); ?>
+                <div class="post-container"></div>
+            </div>
         </main>
+        <?php require_once(PAGE_FOOTER); ?>
     </body>
 </html>

@@ -54,24 +54,26 @@
     
     <body>
         <?php require_once(PAGE_NAV); ?>
+        <header>
+            <div class="content-width hpadding-small vpadding-mid">
+                <h1>Signup</h1>
+            </div>
+        </header>
         <main>
-            <header>
-                <div class="content-width">
-                    <h1>New User</h1>
-                </div>
-            </header>
-            <article>
-                <div class="content-width">
+            <div class="content-width hpadding-small vpadding-mid">
+                <div class="card content-width padding-small">
+                    <h2>Create a New User</h2>
                     <p><label for="username"><strong>Username</strong></label></p>
-                    <input type="text" name="username" autofocus>
+                    <input type="text" name="username" placeholder="Enter username" size="30" autofocus>
                     <p><label for="password1"><strong>Password</strong></label></p>
-                    <input type="password" name="password1">
+                    <input type="password" name="password1" placeholder="Enter password" size="30">
                     <p><label for="password2"><strong>Confirm Password</strong></label></p>
-                    <input type="password" name="password2">
+                    <input type="password" name="password2" placeholder="Re-enter password" size="30">
                     <p><button name="create">Create</button></p>
+                    <p class="output-message"></p>
                 </div>
-            </article>
-            <?php require_once(PAGE_FOOTER); ?>
+            </div>
         </main>
+        <?php require_once(PAGE_FOOTER); ?>
     </body>
 </html>
