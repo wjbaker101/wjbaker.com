@@ -3,6 +3,8 @@ class Projects
     constructor(containerSelector)
     {
         this.projectsContainer = document.querySelector(containerSelector);
+        
+        this.loadingIcon = document.querySelector('[data-loading-icon]');
 
         this.requestProjects();
     }
@@ -14,15 +16,19 @@ class Projects
     {
         const request = wjbaker.ajax({ url: '/resources/php/query/projects.php' });
         
+        this.loadingIcon.classList.add('loading');
+        
         request.then((response) =>
         {
             this.projectsContainer.innerHTML = '';
 
             this.displayProjects(response.contents);
+            
+            this.loadingIcon.classList.remove('loading');
         })
         .catch((error) =>
         {
-            console.log(error);
+            this.loadingIcon.classList.remove('loading');
         });
     }
 
@@ -75,7 +81,7 @@ class Projects
     {
         const html = `
             <div class="cell l6 m12">
-                <div class="card full-height padding-small">
+                <div class="card full-height padding-small fade-in">
                     <h3>${project.Title}</h3>
                     <p><a href="/projects/view/${project.ProjectID}/${project.TitleURL}/"><button>View</button></a></p>
                 </div>
