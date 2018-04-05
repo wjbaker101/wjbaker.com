@@ -1,5 +1,5 @@
-$header-height: 210px;
-$footer-height: 115px;
+$header-height: 243px;
+$footer-height: 117px;
 
 $content-height: $header-height + $footer-height;
 
@@ -13,28 +13,3 @@ body > main
         margin-left: 0;
     }
 }
-
-/*main
-{
-    height: 100%;
-    margin-left: 8rem;
-}
-
-main > article
-{
-    padding: 4rem 2rem;
-    min-height: calc(100% - 213px - 123px);
-}
-
-@media screen and (max-width: $breakpoint-large)
-{
-    main
-    {
-        margin-left: 0;
-    }
-    
-    main > article
-    {
-        min-height: calc(100% - 213px - 123px - 4rem);
-    }
-}*/
