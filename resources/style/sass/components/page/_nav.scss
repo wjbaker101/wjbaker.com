@@ -13,15 +13,13 @@ nav
     {
         width: 4rem;
         height: 4rem;
+        font-size: 1rem;
         line-height: 4rem;
         text-align: center;
         border-radius: 50%;
-        /*margin-left: 6rem;
-        margin-top: 11.17rem;*/
         box-shadow: $shadow-small;
-        transform: translate(6rem, 11.17rem);
+        transform: translate(6rem, 13.172rem);
         cursor: pointer;
-        text-decoration: underline;
         transition: background-color $duration-short;
     
         @include set-background-colour('secondary');
@@ -31,11 +29,15 @@ nav
         {
             @include set-background-colour('secondary-mono');
         }
+        
+        svg
+        {
+            vertical-align: middle;
+        }
     }
     
     .links
     {
-        text-align: right;
         list-style: none;
         padding-left: 1rem;
         padding-right: 1rem;
@@ -49,6 +51,12 @@ nav
             a
             {
                 transition: color $duration-short;
+            
+                svg
+                {
+                    vertical-align: middle;
+                    margin-right: 0.5rem;
+                }
                 
                 &:hover
                 {
