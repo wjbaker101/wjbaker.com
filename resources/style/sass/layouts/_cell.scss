@@ -9,6 +9,8 @@ $doubleGutter: $gutter * 2;
     border-spacing: $gutter;
     border-collapse: separate;
     margin-left: -$gutter;
+    margin-top: -$gutter;
+    margin-bottom: -$gutter;
 }
 
 .cell
