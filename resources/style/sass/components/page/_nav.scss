@@ -30,7 +30,7 @@ nav
             @include set-background-colour('secondary-mono');
         }
         
-        svg
+        .svg-icon
         {
             vertical-align: middle;
         }
@@ -52,7 +52,7 @@ nav
             {
                 transition: color $duration-short;
             
-                svg
+                .svg-icon
                 {
                     vertical-align: middle;
                     margin-right: 0.5rem;
