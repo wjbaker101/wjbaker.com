@@ -4,6 +4,8 @@ require_once ($_SERVER['DOCUMENT_ROOT'] . '/resources/php/main/start.php');
 
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/resources/php/database/query.php');
 
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/resources/php/icons/icons.php');
+
 $query = Query::getBlogPost($_GET['id']);
 
 if ($query->getContents() === null || $query->getCode() !== 'success')
@@ -57,6 +59,7 @@ $post = $query->getContents();
                             <strong>By: </strong>William Baker
                         </div>
                         <div class="cell l5 s12 cell-middle text-right">
+                            <a href="/blog/edit/<?= $post['BlogID'] ?>"><button><?= Icons::edit() ?> Edit</button></a>
                             <a href="/blog/"><button class="grey-button">&larr; View more Posts</button></a>
                         </div>
                     </div>
