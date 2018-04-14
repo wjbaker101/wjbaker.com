@@ -1,0 +1,14 @@
+blockquote
+{
+    position: relative;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-left: 1rem;
+    font-style: italic;
+    
+    @include set-background-colour('light-grey');
+    @include set-border-colour('dark-grey');
+    
+    border-left: 2px solid #176bc0;
+    border-left: 2px solid var(--theme, #176bc0);
+}
