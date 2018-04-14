@@ -39,6 +39,33 @@ class Queries
     }
     
     /**
+     * Converts a string into a url friendly string.
+     * 
+     * @param  String $text The text to convert.
+     * @return String URL friendly string.
+     */
+    private static function getDashedText($text)
+    {
+        // Converts the string to lowercase
+        // As it will be seen in a URL
+        $lowercase = strtolower($text);
+        
+        // Removes whitespace before and after the main body of the text
+        $trimmed = trim($lowercase);
+        
+        // Removes characters, leaving only letters and numbers
+        $letters = preg_replace('/[^a-z0-9_\s-]/', '', $trimmed);
+        
+        // Removes multiple dashes and whitespace
+        $reduced = preg_replace('/[\s-]+/', ' ', $letters);
+        
+        // Replaces whitespace and underscores with dashes
+        $dashed = preg_replace('/[\s_]/', '-', $reduced);
+        
+        return $dashed;
+    }
+    
+    /**
      * Queries the database, retrieving all blog posts.
      * 
      * @return Response Object containing the response, including blog posts if successful.
@@ -85,6 +112,41 @@ class Queries
         return $GLOBALS['successfulResponse']->setMessage('Successfully found blog post.')->setContents($post);
     }
     
+    /**
+     * Queries the database, updating the blog post with the given ID.
+     * 
+     * @param  Number $id          ID of the blog post to update.
+     * @param  String $title       New title of the blog post.
+     * @param  String $blogContent New content of the blog post.
+     * @return Response Object containing the response, whether or not the query was successful.
+     */
+    public static function updateBlogPost($id, $title, $blogContent)
+    {
+        global $connection;
+        
+        if (!$connection) return $GLOBALS['databaseErrorResponse'];
+        
+        $cleanId = self::getCleanText($id);
+        $cleanTitle = self::getCleanText($title);
+        $titleUrl = self::getDashedText($cleanTitle);
+        $cleanBlogContent = self::getCleanText($blogContent, false);
+        
+        $sql = "UPDATE BlogPosts SET Title='{$cleanTitle}', ContentHTML='{$cleanBlogContent}', TitleURL='{$titleUrl}' WHERE BlogID='{$cleanId}'";
+        
+        $result = $connection->query($sql);
+        
+        if (!$result) return $GLOBALS['queryErrorResponse'];
+        
+        return $GLOBALS['successfulResponse']->setMessage('Successfully updated blog post.');
+    }
+    
+    /**
+     * Checks whether the given username and password is of a valid user from the database.
+     * 
+     * @param  String $username Username of the supposed user.
+     * @param  String $password Hashed password of the supposed user.
+     * @return Response Object containing the response, whether or not the query was successful.
+     */
     public static function login($username, $password)
     {
         global $connection;

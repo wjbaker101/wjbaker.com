@@ -24,6 +24,26 @@ class Query
         return Queries::getBlogPost($id);
     }
     
+    public static function updateBlogPost($id, $title, $blogContent)
+    {
+        if (self::isBlank($id))
+        {
+            return new Response('failed_id', 'The ID of the post cannot be blank.', 'error');
+        }
+        
+        if (self::isBlank($title))
+        {
+            return new Response('failed_title', 'The title of the post cannot be blank.', 'error');
+        }
+        
+        if (self::isBlank($blogContent))
+        {
+            return new Response('failed_content', 'The content of the post cannot be blank.', 'error');
+        }
+        
+        return Queries::updateBlogPost($id, $title, $blogContent);
+    }
+    
     public static function login($username, $password)
     {
         if (self::isBlank($username))

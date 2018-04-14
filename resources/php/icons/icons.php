@@ -65,6 +65,18 @@ class Icons
         
         return $icon;
     }
+    
+    /**
+     * Gets the SVG of the edit icon.
+     * 
+     * @return String SVG of the icon.
+     */
+    public static function edit()
+    {
+        $icon = file_get_contents(self::getIconLocation('edit.svg'));
+        
+        return $icon;
+    }
 }
 
 ?>
