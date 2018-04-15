@@ -28,13 +28,7 @@ $project = $query->getContents();
         
         <?php require_once(PAGE_STYLE); ?>
         
-        <style>
-            .nav-bar
-            {
-                background-color: var(--pure-white);
-                border-bottom: 1px solid var(--dark-grey);
-            }
-        </style>
+        <style></style>
         
         <link rel="stylesheet" href="/resources/style/css/webstyle.css">
         
@@ -62,27 +56,60 @@ $project = $query->getContents();
             </div>
             <div class="content-width hpadding-small vpadding-mid">
                 <div class="card padding-small">
-                    <h2>What it's About</h2>
+                    <h2>About This Project</h2>
                     <?= $project['Description'] ?>
                 </div>
                 <div class="card padding-small">
                     <img src="/resources/images/projects/screenshots/<?= $project['ProjectID'] ?>.png">
-                    <p class="note"><?= $project['ScreenshotDescription'] ?></p>
+                    <div class="note">
+                        <p><?= $project['ScreenshotDescription'] ?></p>
+                    </div>
                 </div>
             </div>
-            <div class="bg-light-grey">
+            <div class="full-section">
                 <div class="content-width hpadding-small vpadding-mid">
                     <div class="cell-row text-centered">
                         <div class="card cell l4 s12 padding-small">
-                            <p><button>View on GitHub</button></p>
+                            <h3>View Source</h3>
+                            <a href="<?= $project['GitHub'] ?>" target="_blank" rel="noopener noreferrer"><button><?= Icons::github() ?> GitHub</button></a>
                         </div>
                         <div class="card cell l4 s12 padding-small">
-                            <p>View Online</p>
+                            <h3>Download</h3>
+                            <button><?= Icons::download() ?> Download</button>
                         </div>
                         <div class="card cell l4 s12 padding-small">
-                            <p>Download</p>
+                            <h3>View Online</h3>
+                            <button><?= Icons::view() ?> View</button>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="content-width hpadding-small vpadding-mid">
+                <div class="card padding-small">
+                    <h2>Additional Information</h2>
+                    <table>
+                        <thead class="text-left">
+                            <tr><th colspan="2">Project:</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Creation Date</th>
+                                <td>08/07/2015</td>
+                            </tr>
+                            <tr>
+                                <th>Completion Date</th>
+                                <td>08/07/2015</td>
+                            </tr>
+                            <tr>
+                                <th>Status</th>
+                                <td>Complete</td>
+                            </tr>
+                            <tr>
+                                <th>Download File Size</th>
+                                <td>900GB</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </main>
