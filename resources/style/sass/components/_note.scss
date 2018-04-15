@@ -1,0 +1,13 @@
+.note
+{
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    
+    @include set-background-colour('light-grey');
+    @include set-border-colour('dark-grey');
+    
+    border-left: 2px solid #176bc0;
+    border-left: 2px solid var(--theme, #176bc0);
+}
