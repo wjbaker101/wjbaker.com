@@ -33,12 +33,6 @@ $post = $query->getContents();
         <?php require_once(PAGE_STYLE); ?>
         
         <style>
-            .nav-bar
-            {
-                background-color: var(--pure-white);
-                border-bottom: 1px solid var(--dark-grey);
-            }
-        
             #edit-content-container
             {
                 border-color: #176bc0;
