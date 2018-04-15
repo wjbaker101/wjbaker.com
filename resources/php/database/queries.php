@@ -216,6 +216,31 @@ class Queries
         
         return $GLOBALS['successfulResponse']->setMessage('Successfully found projects!')->setContents($projects);
     }
+    
+    /**
+     * Queries the database for a project with the given ID.
+     * 
+     * @param  Number $id ID of the project to find.
+     * @return Response Object containing the response, whether or not a project was successfully found.
+     */
+    public static function getProject($id)
+    {
+        global $connection;
+        
+        if (!$connection) return $GLOBALS['databaseErrorResponse'];
+        
+        $cleanId = self::getCleanText($id);
+        
+        $sql = "SELECT * FROM Projects WHERE ProjectID='{$cleanId}'";
+        
+        $result = $connection->query($sql);
+        
+        if (!$result) return $GLOBALS['queryErrorResponse'];
+        
+        $project = $result->fetch_assoc();
+        
+        return $GLOBALS['successfulResponse']->setMessage('Successfully found project.')->setContents($project);
+    }
 }
 
 ?>
