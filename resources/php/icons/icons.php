@@ -77,6 +77,42 @@ class Icons
         
         return $icon;
     }
+    
+    /**
+     * Gets the SVG of the download icon.
+     * 
+     * @return String SVG of the icon.
+     */
+    public static function download()
+    {
+        $icon = file_get_contents(self::getIconLocation('download.svg'));
+        
+        return $icon;
+    }
+    
+    /**
+     * Gets the SVG of the view icon.
+     * 
+     * @return String SVG of the icon.
+     */
+    public static function view()
+    {
+        $icon = file_get_contents(self::getIconLocation('view.svg'));
+        
+        return $icon;
+    }
+    
+    /**
+     * Gets the SVG of the Github logo icon.
+     * 
+     * @return String SVG of the icon.
+     */
+    public static function github()
+    {
+        $icon = file_get_contents(self::getIconLocation('github.svg'));
+        
+        return $icon;
+    }
 }
 
 ?>
