@@ -21,3 +21,13 @@ p
 {
     margin-top: 2rem;
 }
+
+.full-section
+{
+    border-top: 1px solid get-colour('dark-grey');
+    border-top: 1px solid var(--dark-grey, get-colour('dark-grey'));
+    border-bottom: 1px solid get-colour('dark-grey');
+    border-bottom: 1px solid var(--dark-grey, get-colour('dark-grey'));
+    
+    @include set-background-colour('light-grey');
+}
