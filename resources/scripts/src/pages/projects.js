@@ -80,11 +80,12 @@ class Projects
     createPostHTML(project)
     {
         const html = `
-            <div class="cell l6 m12">
-                <div class="card full-height padding-small fade-in">
-                    <h3>${project.Title}</h3>
-                    <p><a href="/projects/view/${project.ProjectID}/${project.TitleURL}/"><button>View</button></a></p>
+            <div class="card cell l6 m12 padding-small fade-in">
+                <div class="text-centered">
+                    <img src="/resources/images/projects/thumbnails/${project.ProjectID}.jpg">
                 </div>
+                <h3>${project.Title}</h3>
+                <p><a href="/projects/view/${project.ProjectID}/${project.TitleURL}/"><button>View</button></a></p>
             </div>
         `;
         
