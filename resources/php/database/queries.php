@@ -214,6 +214,13 @@ class Queries
         
         $projects = $result->fetch_all(MYSQLI_ASSOC);
         
+        for ($i = 0; $i < count($projects); ++$i)
+        {
+            $screenshot = $_SERVER['DOCUMENT_ROOT'] . "/resources/images/projects/thumbnails/{$projects[$i]['ProjectID']}.jpg";
+
+            $projects[$i]['Screenshot'] = (!file_exists($screenshot)) ? null : "/resources/images/projects/thumbnails/{$projects[$i]['ProjectID']}.jpg";
+        }
+        
         return $GLOBALS['successfulResponse']->setMessage('Successfully found projects!')->setContents($projects);
     }
     
