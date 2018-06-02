@@ -2,19 +2,19 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
-        <?php require_once(PAGE_META); ?>
+        <?php Page::meta(); ?>
         
         <title>Will Baker - New User</title>
         
         <meta name="description" content="Create a new user.">
         
-        <?php require_once(PAGE_STYLE); ?>
+        <?php Page::style(); ?>
         
         <style></style>
         
         <link rel="stylesheet" href="/resources/style/css/webstyle.css">
         
-        <?php require_once(PAGE_SCRIPTS); ?>
+        <?php Page::scripts(); ?>
         
         <script>
             window.addEventListener('load', () =>
@@ -53,7 +53,7 @@
     </head>
     
     <body>
-        <?php require_once(PAGE_NAV); ?>
+        <?php Page::nav(); ?>
         <header>
             <div class="content-width hpadding-small vpadding-mid">
                 <h1>Signup</h1>
@@ -74,6 +74,6 @@
                 </div>
             </div>
         </main>
-        <?php require_once(PAGE_FOOTER); ?>
+        <?php Page::footer(); ?>
     </body>
 </html>

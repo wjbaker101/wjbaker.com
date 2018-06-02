@@ -24,13 +24,13 @@ $post = $query->getContents();
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
-        <?php require_once(PAGE_META); ?>
+        <?php Page::meta(); ?>
         
         <title><?= $post['Title'] ?></title>
         
         <meta name="description" content="">
         
-        <?php require_once(PAGE_STYLE); ?>
+        <?php Page::style(); ?>
         
         <style>
             #edit-content-container
@@ -42,7 +42,7 @@ $post = $query->getContents();
         
         <link rel="stylesheet" href="/resources/style/css/webstyle.css">
         
-        <?php require_once(PAGE_SCRIPTS); ?>
+        <?php Page::scripts(); ?>
         
         <script src="/resources/external/ckeditor/ckeditor.js" defer></script>
         
@@ -97,7 +97,7 @@ $post = $query->getContents();
     </head>
     
     <body>
-        <?php require_once(PAGE_NAV); ?>
+        <?php Page::nav(); ?>
         <header>
             <div class="content-width hpadding-small vpadding-mid">
                 <h1 class="column-container">
@@ -114,7 +114,7 @@ $post = $query->getContents();
                             <strong>By: </strong>William Baker
                         </div>
                         <div class="cell l5 s12 cell-middle text-right">
-                            <a href="/blog/post/<?= $post['BlogID'] ?>/<?= $post['TitleURL'] ?>/"><button class="grey-button">&larr; Return to Post</button></a>
+                            <a href="/blog/post/<?= $post['BlogID'] ?>/<?= $post['TitleURL'] ?>/"><button>&larr; Return to Post</button></a>
                         </div>
                     </div>
                 </div>
@@ -131,6 +131,6 @@ $post = $query->getContents();
                 </div>
             </div>
         </main>
-        <?php require_once(PAGE_FOOTER); ?>
+        <?php Page::footer(); ?>
     </body>
 </html>
