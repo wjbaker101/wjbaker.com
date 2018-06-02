@@ -15,3 +15,11 @@
     border: 1px solid $colour;
     border: 1px solid var(--#{$name}, $colour);
 }
+
+@mixin set-border-side-colour($name, $side)
+{
+    $colour: get-colour($name);
+    
+    border-#{$side}: 1px solid $colour;
+    border-#{$side}: 1px solid var(--#{$name}, $colour);
+}
