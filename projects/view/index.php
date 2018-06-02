@@ -20,25 +20,25 @@ $project = $query->getContents();
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
-        <?php require_once(PAGE_META); ?>
+        <?php Page::meta(); ?>
         
         <title><?= $project['Title'] ?></title>
         
         <meta name="description" content="">
         
-        <?php require_once(PAGE_STYLE); ?>
+        <?php Page::style(); ?>
         
         <style></style>
         
         <link rel="stylesheet" href="/resources/style/css/webstyle.css">
         
-        <?php require_once(PAGE_SCRIPTS); ?>
+        <?php Page::scripts(); ?>
         
         <script></script>
     </head>
     
     <body>
-        <?php require_once(PAGE_NAV); ?>
+        <?php Page::nav(); ?>
         <header>
             <div class="content-width hpadding-small vpadding-mid">
                 <h1><?= $project['Title'] ?></h1>
@@ -49,7 +49,7 @@ $project = $query->getContents();
                 <div class="content-width hpadding-small">
                     <div class="cell-row">
                         <div class="cell l5 s12 cell-middle text-right">
-                            <a href="/projects/"><button class="grey-button">&larr; View more Projects</button></a>
+                            <a href="/projects/"><button>&larr; View more Projects</button></a>
                         </div>
                     </div>
                 </div>
@@ -113,6 +113,6 @@ $project = $query->getContents();
                 </div>
             </div>
         </main>
-        <?php require_once(PAGE_FOOTER); ?>
+        <?php Page::footer(); ?>
     </body>
 </html>
