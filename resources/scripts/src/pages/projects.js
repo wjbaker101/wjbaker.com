@@ -41,34 +41,7 @@ class Projects
     {
         const projectsHTML = projects.map((project) => this.createPostHTML(project));
         
-        const startHTML = '<div class="cell-row">';
-        const endHTML = '</div>';
-        
-        let html = '';
-        
-        html += startHTML;
-        
-        projectsHTML.forEach((project, index) =>
-        {
-            html += project;
-            
-            if ((index !== 0) && (index !== projectsHTML.length - 1) && ((index - 1) % 2 === 0))
-            {
-                html += `${endHTML}${startHTML}`;
-            }
-        });
-        
-        // Checks whether there are an odd number of project
-        // Adds a dummy project
-        // Prevents last project being 100% width
-        if (projectsHTML.length % 2 !== 0)
-        {
-            html += '<div class="cell l6 m12"></div>';
-        }
-        
-        html += endHTML;
-        
-        this.projectsContainer.innerHTML = html;
+        this.projectsContainer.innerHTML = projectsHTML.join('');
     }
 
     /**
@@ -79,11 +52,23 @@ class Projects
      */
     createPostHTML(project)
     {
+        const description = project.Description.substr(0, 200);
+        
+        const screenshot = project.Screenshot === null ? '/resources/images/icons/projects.svg' : project.Screenshot;
+        
         const html = `
-            <div class="cell l6 m12">
-                <div class="card full-height padding-small fade-in">
-                    <h3>${project.Title}</h3>
-                    <p><a href="/projects/view/${project.ProjectID}/${project.TitleURL}/"><button>View</button></a></p>
+            <div class="project-container card cell-row section">
+                <div class="v-content cell l4 m12 hpadding-small vpadding-mid cell-middle text-centered">
+                    <img src="${screenshot}">
+                </div>
+                <div class="v-content cell l8 m12">
+                    <div class="h-content hpadding-small vpadding-mid">
+                        <h2>${project.Title}</h2>
+                        ${description}
+                    </div>
+                    <div class="h-content hpadding-small">
+                        <p><a href="/projects/view/${project.ProjectID}/${project.TitleURL}/"><button>View</button></a></p>
+                    </div>
                 </div>
             </div>
         `;

@@ -88,6 +88,16 @@ class Query
     {
         return Queries::getProjects();
     }
+    
+    public static function getProject($id)
+    {
+        if (self::isBlank($id))
+        {
+            return new Response('failed_id', 'The project ID cannot be blank.', 'error');
+        }
+        
+        return Queries::getProject($id);
+    }
 }
 
 ?>

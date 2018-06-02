@@ -21,3 +21,45 @@ p
 {
     margin-top: 2rem;
 }
+
+.full-section
+{
+    @include set-border-side-colour('light-grey', 'top');
+    @include set-border-side-colour('light-grey', 'bottom');
+    
+    @include set-background-colour('light-grey');
+}
+
+.h-content + .h-content
+{
+    @include set-border-side-colour('light-grey', 'top');
+}
+
+.v-content + .v-content
+{
+        @include set-border-side-colour('light-grey', 'left');
+}
+
+.v-content.cell.l12 + .v-content.cell.l12
+{
+    border-left: 0;
+        @include set-border-side-colour('light-grey', 'top');
+}
+
+@media screen and (max-width: $breakpoint-large)
+{
+    .v-content.cell.m12 + .v-content.cell.m12
+    {
+        border-left: 0;
+        @include set-border-side-colour('light-grey', 'top');
+    }
+}
+
+@media screen and (max-width: $breakpoint-small)
+{
+    .v-content.cell.s12 + .v-content.cell.s12
+    {
+        border-left: 0;
+        @include set-border-side-colour('light-grey', 'top');
+    }
+}

@@ -20,31 +20,25 @@ $post = $query->getContents();
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
-        <?php require_once(PAGE_META); ?>
+        <?php Page::meta(); ?>
         
         <title><?= $post['Title'] ?></title>
         
         <meta name="description" content="">
         
-        <?php require_once(PAGE_STYLE); ?>
+        <?php Page::style(); ?>
         
-        <style>
-            .nav-bar
-            {
-                background-color: var(--pure-white);
-                border-bottom: 1px solid var(--dark-grey);
-            }
-        </style>
+        <style></style>
         
         <link rel="stylesheet" href="/resources/style/css/webstyle.css">
         
-        <?php require_once(PAGE_SCRIPTS); ?>
+        <?php Page::scripts(); ?>
         
         <script></script>
     </head>
     
     <body>
-        <?php require_once(PAGE_NAV); ?>
+        <?php Page::nav(); ?>
         <header>
             <div class="content-width hpadding-small vpadding-mid">
                 <h1><?= $post['Title'] ?></h1>
@@ -59,8 +53,8 @@ $post = $query->getContents();
                             <strong>By: </strong>William Baker
                         </div>
                         <div class="cell l5 s12 cell-middle text-right">
-                            <a href="/blog/edit/<?= $post['BlogID'] ?>"><button><?= Icons::edit() ?> Edit</button></a>
-                            <a href="/blog/"><button class="grey-button">&larr; View more Posts</button></a>
+                            <a href="/blog/edit/<?= $post['BlogID'] ?>"><button class="grey-button"><?= Icons::edit() ?> Edit</button></a>
+                            <a href="/blog/"><button>&larr; View more Posts</button></a>
                         </div>
                     </div>
                 </div>
@@ -71,6 +65,6 @@ $post = $query->getContents();
                 </div>
             </div>
         </main>
-        <?php require_once(PAGE_FOOTER); ?>
+        <?php Page::footer(); ?>
     </body>
 </html>

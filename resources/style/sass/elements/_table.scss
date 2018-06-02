@@ -1,9 +1,20 @@
 table
 {
+    width: 540px;
+    max-width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
     
     @include set-background-colour('pure-white');
+    
+    thead th
+    {
+        font-weight: bold;
+        
+        @include set-background-colour('theme');
+        @include set-border-colour('theme');
+        @include set-text-colour('white');
+    }
     
     th,
     td
@@ -15,14 +26,10 @@ table
     
     th
     {
+        text-align: left;
         font-weight: normal;
         
         @include set-text-colour('theme');
-    }
-    
-    td
-    {
-        text-align: center;
     }
     
     &.overflow-scroll

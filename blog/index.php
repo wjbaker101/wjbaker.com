@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
-        <?php require_once(PAGE_META); ?>
+        <?php Page::meta(); ?>
         
         <title>Will Baker - Blog</title>
         
         <meta name="description" content="Read what ideas and thoughts I have.">
         
-        <?php require_once(PAGE_STYLE); ?>
+        <?php Page::style(); ?>
         
         <style>
             body { overflow-y: scroll; }
@@ -16,13 +16,13 @@
         
         <link rel="stylesheet" href="/resources/style/css/webstyle.css">
         
-        <?php require_once(PAGE_SCRIPTS); ?>
+        <?php Page::scripts(); ?>
         
         <script src="/resources/scripts/pages/blog-posts.js"></script>
     </head>
     
     <body>
-        <?php require_once(PAGE_NAV); ?>
+        <?php Page::nav(); ?>
         <header>
             <div class="content-width hpadding-small vpadding-mid">
                 <h1>Blog</h1>
@@ -36,6 +36,6 @@
                 <div class="post-container"></div>
             </div>
         </main>
-        <?php require_once(PAGE_FOOTER); ?>
+        <?php Page::footer(); ?>
     </body>
 </html>

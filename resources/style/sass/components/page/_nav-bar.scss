@@ -1,0 +1,7 @@
+.nav-bar
+{
+    border-bottom: 1px solid get-colour('dark-grey');
+    border-bottom: 1px solid var(--dark-grey, get-colour('dark-grey'));
+    
+    @include set-background-colour('pure-white');
+}
