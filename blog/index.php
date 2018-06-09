@@ -12,6 +12,17 @@
         
         <style>
             body { overflow-y: scroll; }
+            
+            .cell-row.blog-container { border-spacing: 0; }
+            
+            img[src="/resources/images/icons/blog.svg"]
+            {
+                width: 128px;
+                height: 128px;
+                padding: 30px;
+                background-color: #176bc0;
+                background-color: var(--theme, #176bc0);
+            }
         </style>
         
         <link rel="stylesheet" href="/resources/style/css/webstyle.css">
