@@ -11,3 +11,5 @@ template.php
 *.bat
 
 ckeditor.zip
+
+resources/style/css/webstyle.css
