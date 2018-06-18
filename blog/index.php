@@ -34,11 +34,7 @@
     
     <body>
         <?php Page::nav(); ?>
-        <header>
-            <div class="content-width hpadding-small vpadding-mid">
-                <h1>Blog</h1>
-            </div>
-        </header>
+        <?php Page::header('Blog'); ?>
         <main>
             <div class="content-width hpadding-small vpadding-mid">
                 <div class="text-centered">
