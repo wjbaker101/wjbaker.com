@@ -43,6 +43,16 @@ class Query
         
         return Queries::updateBlogPost($id, $title, $blogContent);
     }
+
+    public static function deleteBlogPost($id)
+    {
+        if (self::isBlank($id))
+        {
+            return new Response('failed_id', 'The ID of the post cannot be blank.', 'error');
+        }
+
+        return Queries::deleteBlogPost($id);
+    }
     
     public static function login($username, $password)
     {
