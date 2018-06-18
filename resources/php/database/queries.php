@@ -139,6 +139,29 @@ class Queries
         
         return $GLOBALS['successfulResponse']->setMessage('Successfully updated blog post.');
     }
+
+    /**
+     * Deletes the blog post of the given ID.
+     * 
+     * @param  String $id ID of the post to be deleted.
+     * @return Response Object containing the response, whether or not the query was successful.
+     */
+    public static function deleteBlogPost($id)
+    {
+        global $connection;
+
+        if (!$connection) return $GLOBALS['databaseErrorResponse'];
+
+        $cleanId = self::getCleanText($id);
+
+        $sql = "DELETE FROM BlogPosts WHERE BlogID='{$cleanId}'";
+
+        $result = $connection->query($sql);
+        
+        if (!$result) return $GLOBALS['queryErrorResponse'];
+        
+        return $GLOBALS['successfulResponse']->setMessage('Successfully deleted blog post.');
+    }
     
     /**
      * Checks whether the given username and password is of a valid user from the database.

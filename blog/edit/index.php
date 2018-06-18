@@ -93,6 +93,49 @@ $post = $query->getContents();
                     });
                 });
             });
+
+            window.addEventListener('load', () =>
+            {
+                const closeButtons = ['.delete-post-yes', '.delete-post-no'];
+
+                const modal = document.querySelector('.modal-container');
+
+                const toggleModal = (toggle) =>
+                {
+                    modal.classList.toggle('visible', toggle);
+                };
+
+                closeButtons.forEach((selector) =>
+                {
+                    const button = document.querySelector(selector);
+
+                    button.addEventListener('click', () =>
+                    {
+                        toggleModal(false);
+                    });
+                });
+
+                document.querySelector(closeButtons[0]).addEventListener('click', () =>
+                {
+                    const requestDelete = wjbaker.ajax({ url: '/resources/php/query/delete-blog-post.php', method: 'GET', parameters: { id: <?= $post['BlogID'] ?> } });
+
+                    requestDelete.then((response) =>
+                    {
+                        window.location.href = '/blog/';
+                    })
+                    .catch((status) =>
+                    {
+                        console.log('Could not delete blog post.');
+                    })
+                });
+
+                const deleteButton = document.querySelector('.delete-button');
+
+                deleteButton.addEventListener('click', () =>
+                {
+                    toggleModal(true);
+                });
+            });
         </script>
     </head>
     
@@ -120,7 +163,7 @@ $post = $query->getContents();
                 </div>
             </div>
             <div class="content-width hpadding-small vpadding-mid">
-                <div id="edit-content-container" class="card column-container padding-small" contenteditable="true">
+                <div id="edit-content-container" class="card column-container padding-small" contenteditable="true" title="Blog Post Content">
                     <?= html_entity_decode($post['ContentHTML']) ?>
                 </div>
                 <div class="card padding-small">
@@ -129,8 +172,25 @@ $post = $query->getContents();
                     <p><button class="confirm-button">Confirm</button></p>
                     <p class="output-message"></p>
                 </div>
+                <div class="card padding-small">
+                    <h2>Delete Post</h2>
+                    <p>Press the button to permanently delete this blog post.</p>
+                    <p><em><strong>The action cannot be undone.</strong></em></p>
+                    <p><button class="delete-button danger">Delete</button></p>
+                </div>
             </div>
         </main>
         <?php Page::footer(); ?>
+        <div class="modal-container">
+            <div class="modal-wrapper">
+                <div class="modal-content">
+                    <div class="card padding-small">
+                        <h2>Are you Sure?</h2>
+                        <p>Would you like to permanently delete this blog post?</p>
+                        <p><button class="delete-post-yes danger">Yes</button> <button class="delete-post-no grey-button">No</button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

@@ -46,7 +46,7 @@ class Blog
     {
         const postsHTML = posts.map((post) => this.createPostHTML(post));
         
-        const startHTML = '<div class="cell-row">';
+       /* const startHTML = '<div class="cell-row">';
         const endHTML = '</div>';
         
         let html = '';
@@ -73,7 +73,9 @@ class Blog
         
         html += endHTML;
         
-        this.postContainer.innerHTML = html;
+        this.postContainer.innerHTML = html;*/
+
+        this.postContainer.innerHTML = postsHTML.join('');
     }
     
     /**
@@ -88,12 +90,32 @@ class Blog
         
         const formattedDate = this.formatDate(date);
         
-        const html = `
+        /*const html = `
             <div class="cell l6 m12">
                 <div class="card full-height padding-small fade-in">
                     <h3>${post.Title}</h3>
                     <p>${formattedDate}</p>
                     <p><a href="/blog/post/${post.BlogID}/${post.TitleURL}/"><button>Read</button></a></p>
+                </div>
+            </div>
+        `;*/
+
+        const screenshot = '/resources/images/icons/blog.svg';
+
+        const html = `
+            <div class="blog-container card cell-row section">
+                <div class="v-content cell l4 m12 hpadding-small vpadding-mid cell-middle text-centered">
+                    <img src="${screenshot}">
+                </div>
+                <div class="v-content cell l8 m12">
+                    <div class="h-content hpadding-small vpadding-mid">
+                        <h2>${post.Title}</h2>
+                        <p><strong>Posted: </strong>${formattedDate}</p>
+                        <p><strong>By: </strong>William Baker</p>
+                    </div>
+                    <div class="h-content hpadding-small">
+                        <p><a href="/blog/post/${post.BlogID}/${post.TitleURL}/"><button>View</button></a></p>
+                    </div>
                 </div>
             </div>
         `;
@@ -126,14 +148,14 @@ class Blog
      */
     formatDate(entryDate)
     {
-        const day = this.getPostfix(entryDate.getDate());
-        const month = this.getMonth(entryDate.getMonth());
+        const day = this.formatDigits(entryDate.getDate());
+        const month = this.formatDigits(entryDate.getMonth());
         const year = entryDate.getFullYear();
         
         const hour = entryDate.getHours();
         const minutes = entryDate.getMinutes();
         
-        return `${day} ${month} ${year} ${hour}:${minutes}`;
+        return `${day}/${month}/${year} ${hour}:${minutes}`;
     }
     
     /**
@@ -165,6 +187,12 @@ class Blog
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         
         return months[entryMonth];
+    }
+
+    formatDigits(number)
+    {
+        if (number < 10) return `0${number}`;
+        else return `${number}`;
     }
 }
 
