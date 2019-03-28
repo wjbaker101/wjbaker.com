@@ -1,0 +1,37 @@
+$colours: (
+    white: #fff,
+    black: #555,
+    black-dark: #222,
+
+    grey-light: #f8f8f8,
+    grey: #f2f2f2,
+    grey-dark: #ddd,
+
+    primary-light: #eff6fd,
+    primary: #176bc0,
+    primary-dark: #104b86,
+
+    secondary: #59c3c3,
+
+    tertiary: #52489c,
+);
+
+$layouts: (
+    max-width: 720px,
+    border-radius: 3px,
+);
+
+@function theme($colour) {
+    @if map-has-key($colours, $colour) {
+        @return map-get($colours, $colour);
+    }
+    @else {
+        @return map-get($colours, black);
+    }
+}
+
+@function layout($layout) {
+    @if map-has-key($layouts, $layout) {
+        @return map-get($layouts, $layout);
+    }
+}
