@@ -16,7 +16,7 @@
     // Expressions:
     const output = `The value of x is ${x + 1}`;
     // => 'The value of x is 6'
-    
+
     // Function calls:
     const output = `The value of x is ${getX()}`;
     // => 'The value of x is 5'</code></pre>
@@ -41,7 +41,7 @@
     // Variables:
     String s = $"The value of x is {x}";
     // => 'The value of x is 7.123'
-    
+
     // Number Formatting:
     String s = $"The value of x to 2dp is {x:F2}";
     // => 'The value of x to 2dp is 7.12'</code></pre>
@@ -52,11 +52,11 @@
         <p>Here’s the syntax:</p>
         <div class="code-block">
             <pre><code>$output = "The value of x is $x";
-    
+
     $output = "The value of x is ${x}";
-    
+
     $age = "The person is {$person->age} years old!";
-    
+
     $age = "The person is ${person->age} years old!";</code></pre>
         </div>
         <p>For this to work you must use double quotes or HEREDOC.</p>
@@ -68,26 +68,14 @@
 </template>
 
 <script>
+    import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
+
     export default {
         name: 'BlogTest',
 
-        props: [ 'page' ],
-
-        created() {
-            this.$emit('navpageinit', this.page);
-        },
+        mixins: [ BaseRouteMixin ],
     }
 </script>
 
 <style lang="scss">
-    .code-block {
-        margin: 1rem -2rem;
-        padding: 0.5rem 2rem;
-        border-top: 1px solid theme(grey-dark);
-        border-bottom: 1px solid theme(grey-dark);
-        border-left: 2px solid theme(primary-dark);
-        background-color: theme(primary-light);
-        color: theme(black-dark);
-        overflow-x: auto;
-    }
 </style>

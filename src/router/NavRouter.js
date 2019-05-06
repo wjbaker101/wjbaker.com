@@ -14,7 +14,7 @@ const createNavRoute = (path, component, props) => {
 export default class NavRouter {
     static create = () => ({
         routes: [
-            createNavRoute('/', HomeRoute, { page: 'home' }),
+            createNavRoute('/', HomeRoute, { page: 'about' }),
             createNavRoute('/projects', ProjectsRoute, { page: 'projects' }),
             createNavRoute('/blog', BlogTest, { page: 'blog' }),
             createNavRoute('/(.+)', NotFoundRoute, { page: undefined }), // Define 404 Not Found last so it has lowest priority

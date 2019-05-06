@@ -16,13 +16,13 @@
         name: 'Nav',
 
         props: [ 'page' ],
-        
+
         data() {
             return {
                 links: {
-                    'home': {
+                    'about': {
                         id: 0,
-                        name: 'Home',
+                        name: 'About',
                         location: '/',
                         visible: false,
                     },
@@ -72,7 +72,9 @@
         padding: 2rem;
         color: theme(white);
         background-color: theme(primary);
-        border-right: var(--border-thickness) solid theme(tertiary);
+        border-right: var(--border-thickness) solid theme(primary-dark);
+        border-top-right-radius: layout(border-radius);
+        border-bottom-right-radius: layout(border-radius);
 
         h1 {
             color: inherit;

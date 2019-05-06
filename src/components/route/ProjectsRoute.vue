@@ -5,14 +5,12 @@
 </template>
 
 <script>
+    import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
+
     export default {
         name: 'ProjectsRoute',
 
-        props: [ 'page' ],
-
-        created() {
-            this.$emit('navpageinit', this.page);
-        },
+        mixins: [ BaseRouteMixin ],
     }
 </script>
 

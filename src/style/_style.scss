@@ -9,11 +9,13 @@ $colours: (
 
     primary-light: #eff6fd,
     primary: #176bc0,
-    primary-dark: #104b86,
+    primary-dark: darken(#176bc0, 10%),
 
-    secondary: #59c3c3,
+    secondary: #17c06c,
+    secondary-dark: darken(#17c06c, 10%),
 
-    tertiary: #52489c,
+    tertiary: #9617c0,
+    tertiary-dark: darken(#9617c0, 10%),
 );
 
 $layouts: (
