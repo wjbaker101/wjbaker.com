@@ -19,7 +19,7 @@
             </div>
         </div>
         <p>I am a 3rd year Computer Science student at Loughborough University, currently doing a placement year at Yell.</p>
-        <p>Additional information about my experiences can be found on my Linkin page!</p>
+        <p>Additional information about my experiences can be found on my Linkedin page!</p>
     </div>
 </template>
 
