@@ -12,7 +12,7 @@
 
 <script>
     import Nav from '@/components/layout/Nav.vue';
-    
+
     export default {
         name: 'App',
 
@@ -48,7 +48,7 @@
 
         --border-thickness: 1px;
     }
-    
+
     html,
     body,
     .page-container {
@@ -96,7 +96,7 @@
     .page-container > * {
         height: 100%;
     }
-    
+
     main {
         flex: 1;
         padding: 5rem 2rem 2rem 2rem;
@@ -170,5 +170,22 @@
         width: 1rem;
         height: 1rem;
         vertical-align: middle;
+    }
+
+    button {
+        padding: 0.75rem 1rem;
+        font: inherit;
+        line-height: 1em;
+        background-color: theme(secondary);
+        border-radius: layout(border-radius);
+        border: 1px solid theme(secondary-dark);
+        color: theme(black-dark);
+        cursor: pointer;
+        vertical-align: middle;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: theme(secondary-dark);
+        }
     }
 </style>

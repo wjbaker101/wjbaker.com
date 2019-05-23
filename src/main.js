@@ -5,10 +5,8 @@ import NavRouter from '@/router/NavRouter.js';
 
 Vue.use(VueRouter);
 
-const router = new VueRouter(NavRouter.create());
-
 new Vue({
-    router,
+    router: NavRouter,
     render: h => h(App),
 })
 .$mount('#app');
