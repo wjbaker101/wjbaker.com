@@ -3,15 +3,14 @@
         <Nav :page="page" @pageChanged="onPageChanged" />
         <main>
             <router-view @navpageinit="onNavPageinit"></router-view>
-            <footer>
-                <small>Copyright &copy; William Baker 2015 &mdash; {{ year }},<br>All rights reserved.</small>
-            </footer>
+            <Footer />
         </main>
     </div>
 </template>
 
 <script>
     import Nav from '@/components/layout/Nav.vue';
+    import Footer from '@/components/layout/Footer.vue';
 
     export default {
         name: 'App',
@@ -19,12 +18,12 @@
         data() {
             return {
                 page: '',
-                year: new Date().getFullYear(),
             }
         },
 
         components: {
             Nav,
+            Footer,
         },
 
         methods: {
