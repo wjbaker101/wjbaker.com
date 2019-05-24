@@ -1,6 +1,6 @@
 <template>
     <div class="page-container">
-        <Nav :page="page" />
+        <Nav :page="page" @pageChanged="onPageChanged" />
         <main>
             <router-view @navpageinit="onNavPageinit"></router-view>
             <footer>
@@ -30,6 +30,10 @@
         methods: {
             onNavPageinit(page) {
                 this.page = page;
+            },
+
+            onPageChanged(page) {
+                this.$el.querySelector('main').scrollTop = 0;
             },
         },
     }

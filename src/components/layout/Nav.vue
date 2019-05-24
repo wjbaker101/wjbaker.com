@@ -3,7 +3,12 @@
         <div class="nav-content">
             <h1>Will Baker</h1>
             <ul class="nav-links">
-                <router-link :to="link.location" v-bind:key="link.id" v-for="link in links" v-bind:class="{ selected: link.visible }">
+                <router-link
+                    :to="link.location"
+                     v-bind:key="index"
+                     v-for="(link, index) in links"
+                     v-bind:class="{ selected: link.visible }">
+
                     <li>{{ link.name }}</li>
                 </router-link>
             </ul>
@@ -21,19 +26,16 @@
             return {
                 links: {
                     'about': {
-                        id: 0,
                         name: 'About',
                         location: '/',
                         visible: false,
                     },
                     'projects': {
-                        id: 1,
                         name: 'Projects',
                         location: '/projects',
                         visible: false,
                     },
                     'blog': {
-                        id: 2,
                         name: 'Blog',
                         location: '/blog',
                         visible: false,
@@ -59,6 +61,8 @@
                 }
 
                 this.links[page].visible = true;
+
+                this.$emit('pageChanged', this.links[page]);
             },
         },
     }
