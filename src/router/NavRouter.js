@@ -1,23 +1,46 @@
 import VueRouter from 'vue-router';
 
-import HomeRoute from '@/components/route/HomeRoute.vue';
+import AboutRoute from '@/components/route/AboutRoute.vue';
+import ProjectRoute from '@/components/route/ProjectRoute.vue';
 import ProjectsRoute from '@/components/route/ProjectsRoute.vue';
 import BlogTest from '@/components/route/BlogTest.vue';
 import NotFoundRoute from '@/components/route/NotFoundRoute.vue';
 
-const createNavRoute = (path, component, props) => {
-    return {
-        path,
-        component,
-        props: props,
-    }
-};
-
 export default new VueRouter({
     routes: [
-        createNavRoute('/', HomeRoute, { page: 'about' }),
-        createNavRoute('/projects', ProjectsRoute, { page: 'projects' }),
-        createNavRoute('/blog', BlogTest, { page: 'blog' }),
-        createNavRoute('/(.+)', NotFoundRoute, { page: undefined }), // Define 404 Not Found last so it has lowest priority
+        {
+            path: '/',
+            component: AboutRoute,
+            props: {
+                page: 'about',
+            },
+        },
+        {
+            path: '/projects/:projectID',
+            component: ProjectRoute,
+            props: {
+                page: 'project',
+            },
+        },
+        {
+            path: '/projects',
+            component: ProjectsRoute,
+            props: {
+                page: 'projects',
+            },
+        },
+        {
+            path: '/blog',
+            component: BlogTest,
+            props: {
+                page: 'blog',
+            },
+        },
+        {
+            // Define 404 Not Found last so it has lowest priority
+            path: '/(.+)',
+            component: NotFoundRoute,
+            props: {},
+        },
     ],
 });

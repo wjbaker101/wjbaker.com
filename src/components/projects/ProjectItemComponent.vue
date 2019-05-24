@@ -5,9 +5,11 @@
         </div>
         <h2>{{ projectItem.title }}</h2>
         <p><small>{{ projectItem.date }}</small></p>
-        <p>{{ projectItem.description }}</p>
+        <p>{{ projectItem.summary }}</p>
         <p>
-            <button>View</button>
+            <router-link :to="`/projects/${projectItem.id}`">
+                <button>View</button>
+            </router-link>
         </p>
     </article>
 </template>

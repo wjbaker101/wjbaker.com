@@ -202,4 +202,8 @@
             background-color: theme(tertiary-dark);
         }
     }
+
+    .icon-animated {
+        vertical-align: middle;
+    }
 </style>

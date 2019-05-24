@@ -11,4 +11,12 @@ router.get('/projects', async (request, response) => {
     });
 });
 
+router.get('/project/:projectID', async (request, response) => {
+    const project = await projectService.getProject(request.params.projectID);
+
+    response.send({
+        result: project,
+    });
+});
+
 module.exports = router;
