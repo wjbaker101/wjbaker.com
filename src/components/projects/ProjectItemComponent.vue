@@ -35,7 +35,7 @@
 
             img {
                 border-radius: layout(border-radius);
-                box-shadow: 0px 1px 3px theme(shadow);
+                border: 1px solid theme(grey-dark);
             }
         }
     }
