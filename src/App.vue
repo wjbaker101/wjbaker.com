@@ -62,6 +62,12 @@
         margin: 0;
         font-family: 'Heebo', sans-serif;
         font-size: 18px;
+        font-variant-ligatures: none;
+        -webkit-font-variant-ligatures: none;
+        text-rendering: optimizeLegibility;
+        -moz-osx-font-smoothing: grayscale;
+        font-smoothing: antialiased;
+        -webkit-font-smoothing: antialiased;
         line-height: 1.8em;
         letter-spacing: 1px;
         background-color: theme(grey);

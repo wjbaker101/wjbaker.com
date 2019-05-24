@@ -1,29 +1,19 @@
 # wjbaker.com
 
-## Project setup
-```
-npm install
-```
+## Secret Properties
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+These define properties that contains credentials that should be hidden publically.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Location: `/secret-properties.json`
 
-### Run your tests
+Format:
 ```
-npm run test
+{
+    "db-wjbaker": {
+        "host": "<host_name>",
+        "user": "<username>",
+        "password": "<password>",
+        "database": "<database_name>"
+    }
+}
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
