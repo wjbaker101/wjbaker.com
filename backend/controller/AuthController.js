@@ -26,6 +26,7 @@ router.post('/auth/login', auth.doAuthNoUser, (request, response, next) => {
 
 router.get('/auth/logout', (request, response) => {
     request.logout();
+    response.clearCookie('connect.sid');
     response.send({ result: 'Successfully logged out.' });
 });
 
@@ -33,7 +34,7 @@ router.get('/auth/user', auth.doAuth, async (request, response) => {
     const user = await userService
             .getUserByID(request.session.passport.user.id);
 
-    response.send({ user });
+    response.send({ result: user });
 });
 
 module.exports = router;

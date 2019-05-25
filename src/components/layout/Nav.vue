@@ -40,6 +40,11 @@
                         location: '/blog',
                         visible: false,
                     },
+                    'login': {
+                        name: 'Login',
+                        location: '/login',
+                        visible: false,
+                    },
                 },
             }
         },

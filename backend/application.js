@@ -13,6 +13,8 @@ app.use(cookieSession({
     name: 'auth-session',
     keys: [ secretProperties.authentication['session-secret'] ],
     maxAge: 24 * 60 * 60 * 1000,
+    saveUninitialized: false,
+    resave: false,
 }));
 
 app.use(passport.initialize());

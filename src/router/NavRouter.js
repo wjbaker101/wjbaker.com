@@ -5,6 +5,8 @@ import ProjectEditRoute from '@/components/route/ProjectEditRoute.vue';
 import ProjectRoute from '@/components/route/ProjectRoute.vue';
 import ProjectsRoute from '@/components/route/ProjectsRoute.vue';
 import BlogTest from '@/components/route/BlogTest.vue';
+import LoginRoute from '@/components/route/LoginRoute.vue';
+import UserRoute from '@/components/route/UserRoute.vue';
 import NotFoundRoute from '@/components/route/NotFoundRoute.vue';
 
 export default new VueRouter({
@@ -42,6 +44,20 @@ export default new VueRouter({
             component: BlogTest,
             props: {
                 page: 'blog',
+            },
+        },
+        {
+            path: '/login',
+            component: LoginRoute,
+            props: {
+                page: 'login',
+            },
+        },
+        {
+            path: '/user',
+            component: UserRoute,
+            props: {
+                page: 'user',
             },
         },
         {

@@ -3,39 +3,73 @@ import { ImmortalDB } from 'immortal-db';
 
 const baseURL = '/api';
 
-const request = async (endpoint) => {
+const errorResponse = (error) => {
+    if (error.response) {
+        return Promise.reject(error.response.data);
+    }
+};
+
+const request = async (endpoint, cacheable = true) => {
     const cache = await ImmortalDB.get(`cache_${endpoint}`, null);
     const cachedResponse = JSON.parse(cache);
 
-    if (cachedResponse === null
+    if (!cacheable
+            || cachedResponse === null
             || Date.now() - cachedResponse.timestamp > 3600000) {
 
-        const response = await axios.get(`${baseURL}${endpoint}`);
+        try {
+            const response = await axios.get(`${baseURL}${endpoint}`)
+                    .catch(errorResponse);
 
-        await ImmortalDB.set(`cache_${endpoint}`, JSON.stringify({
-            timestamp: Date.now(),
-            data: response.data,
-        }));
+            await ImmortalDB.set(`cache_${endpoint}`, JSON.stringify({
+                timestamp: Date.now(),
+                data: response.data,
+            }));
 
-        return response.data;
+            return response.data;
+        }
+        catch (exception) {
+            return exception;
+        }
     }
 
     return cachedResponse.data;
 };
 
 const post = async (endpoint, body) => {
-    const response = await axios.post(`${baseURL}${endpoint}`, body);
-    return response.data;
+    try {
+        const response = await axios.post(`${baseURL}${endpoint}`, body)
+                .catch(errorResponse);
+
+        return response.data;
+    }
+    catch (exception) {
+        return exception;
+    }
 };
 
 const put = async (endpoint, body) => {
-    const response = await axios.put(`${baseURL}${endpoint}`, body);
-    return response.data;
+    try {
+        const response = await axios.put(`${baseURL}${endpoint}`, body)
+                .catch(errorResponse);
+
+        return response.data;
+    }
+    catch (exception) {
+        return exception;
+    }
 };
 
 const patch = async (endpoint, body) => {
-    const response = await axios.patch(`${baseURL}${endpoint}`, body);
-    return response.data;
+    try {
+        const response = await axios.patch(`${baseURL}${endpoint}`, body)
+                .catch(errorResponse);
+
+        return response.data;
+    }
+    catch (exception) {
+        return exception;
+    }
 };
 
 export default {
