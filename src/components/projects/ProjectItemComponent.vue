@@ -1,5 +1,5 @@
 <template>
-    <article>
+    <article class="note project-item">
         <div class="image-container text-centered" v-if="projectItem.imageURL">
             <img :src="projectItem.imageURL">
         </div>
@@ -23,7 +23,7 @@
 </script>
 
 <style lang="scss">
-    article {
+    .project-item {
         padding: 0.5rem 2rem;
         margin: 0 -2rem;
         border-left: 2px solid theme(primary);

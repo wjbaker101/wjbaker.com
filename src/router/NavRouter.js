@@ -1,6 +1,7 @@
 import VueRouter from 'vue-router';
 
 import AboutRoute from '@/components/route/AboutRoute.vue';
+import ProjectEditRoute from '@/components/route/ProjectEditRoute.vue';
 import ProjectRoute from '@/components/route/ProjectRoute.vue';
 import ProjectsRoute from '@/components/route/ProjectsRoute.vue';
 import BlogTest from '@/components/route/BlogTest.vue';
@@ -13,6 +14,13 @@ export default new VueRouter({
             component: AboutRoute,
             props: {
                 page: 'about',
+            },
+        },
+        {
+            path: '/projects/:projectID/edit',
+            component: ProjectEditRoute,
+            props: {
+                page: 'project-edit',
             },
         },
         {

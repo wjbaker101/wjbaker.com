@@ -15,6 +15,10 @@ class ProjectService {
 
         return result[0];
     }
+
+    async updateProject(project) {
+        return await projectRepository.updateProject(project);
+    }
 }
 
 module.exports = new ProjectService();

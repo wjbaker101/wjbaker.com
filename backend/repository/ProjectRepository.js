@@ -1,30 +1,36 @@
-const mysql = require('promise-mysql');
-const properties = require('../../secret-properties.json');
-
 const projectMapper = require('../mapper/ProjectMapper.js');
-
-const query = async (query) => {
-    const connection = await mysql.createConnection(properties['db-wjbaker']);
-    const result = await connection.query(query);
-
-    connection.end();
-
-    return result;
-};
+const mySQLRepository = require('./MySQLRepository.js');
 
 class ProjectRepository {
 
     async getAllProjects() {
-        const result = await query('SELECT * FROM PROJECTS');
+        const result = await mySQLRepository.query('SELECT * FROM PROJECTS');
 
         return result.map(project => projectMapper.map(project));
     }
 
     async getProject(id) {
-        const result =
-                await query(`SELECT * FROM PROJECTS WHERE URL_ID='${id}'`);
+        const result = await mySQLRepository.query(
+                `SELECT * FROM PROJECTS WHERE URL_ID=?`,
+                id);
 
         return result.map(project => projectMapper.map(project));
+    }
+
+    async updateProject(project) {
+        const insertModel = {
+            TITLE: project.title,
+            URL_ID: project.urlID,
+            DATE: project.date,
+            SUMMARY: project.summary,
+            CONTENT: project.content,
+        };
+
+        const result = await mySQLRepository.query(
+                `UPDATE PROJECTS SET ? WHERE URL_ID=?`,
+                [insertModel, project.urlID]);
+
+        return result;
     }
 }
 

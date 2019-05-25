@@ -9,4 +9,8 @@ export default {
     async getProject(id) {
         return await BaseAPI.request(`/project/${id}`);
     },
+
+    async updateProject(project) {
+        return await BaseAPI.patch('/project', project);
+    },
 }

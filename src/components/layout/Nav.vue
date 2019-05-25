@@ -61,8 +61,6 @@
                 }
 
                 this.links[page].visible = true;
-
-                this.$emit('pageChanged', this.links[page]);
             },
         },
     }

@@ -1,6 +1,6 @@
 <template>
     <div class="page-container">
-        <Nav :page="page" @pageChanged="onPageChanged" />
+        <Nav :page="page" />
         <main>
             <router-view @navpageinit="onNavPageinit"></router-view>
             <Footer />
@@ -26,13 +26,15 @@
             Footer,
         },
 
+        watch: {
+            $route(to, from) {
+                this.$el.querySelector('main').scrollTop = 0;
+            },
+        },
+
         methods: {
             onNavPageinit(page) {
                 this.page = page;
-            },
-
-            onPageChanged(page) {
-                this.$el.querySelector('main').scrollTop = 0;
             },
         },
     }
@@ -154,7 +156,8 @@
         }
     }
 
-    .code-block {
+    .code-block,
+    .note {
         margin: 1rem -2rem;
         padding: 0.5rem 2rem;
         border-top: 1px solid theme(grey-dark);
@@ -162,6 +165,9 @@
         border-left: 2px solid theme(primary-dark);
         background-color: theme(primary-light);
         color: theme(black-dark);
+    }
+
+    .code-block {
         overflow-x: auto;
     }
 
@@ -201,6 +207,26 @@
         &:hover {
             background-color: theme(tertiary-dark);
         }
+    }
+
+    input[type=text],
+    input[type=password],
+    textarea {
+        max-width: 100%;
+        padding: 0 0.5rem;
+        background-color: theme(white);
+        border: 1px solid theme(primary);
+        border-radius: layout(border-radius);
+        font: inherit;
+
+        &:focus {
+            border-color: theme(tertiary);
+        }
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 5rem;
     }
 
     .icon-animated {
