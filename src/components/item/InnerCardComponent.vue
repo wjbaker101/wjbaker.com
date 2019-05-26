@@ -17,5 +17,9 @@
         border: 1px solid theme(grey-dark);
         border-top: 2px solid theme(secondary);
         border-radius: layout(border-radius);
+
+        & + .inner-card {
+            margin-top: 1rem;
+        }
     }
 </style>
