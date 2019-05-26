@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 
 const cookieSession = require('cookie-session');
 const passport = require('passport');
@@ -53,6 +54,8 @@ passport.deserializeUser(async (user, done) => {
     done(null, deserialisedUser);
 });
 
+app.use(express.static(path.join(__dirname, 'frontend')));
+
 const controllers = [
     require('./controller/ProjectController.js'),
     require('./controller/AuthController.js'),
@@ -63,5 +66,5 @@ controllers.forEach(controller => {
 });
 
 app.listen(8082, () => {
-    console.log('Started application in port: 8082')
+    console.log('Started application in port: 8082');
 });

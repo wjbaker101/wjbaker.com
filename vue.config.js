@@ -1,4 +1,8 @@
+const path = require('path');
+
 module.exports = {
+
+    outputDir: path.resolve(__dirname, './backend/frontend'),
 
     chainWebpack: config => {
         config.module.rules.delete('svg');
