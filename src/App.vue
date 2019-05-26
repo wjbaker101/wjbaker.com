@@ -102,10 +102,18 @@
 
     .page-container {
         display: flex;
+
+        @media screen and (max-width: 1024px) {
+            display: block;
+        }
     }
 
     .page-container > * {
         height: 100%;
+
+        @media screen and (max-width: 1024px) {
+            height: auto;
+        }
     }
 
     main {
