@@ -13,7 +13,8 @@
         <p>
             <ButtonComponent
                 @click.native="onLoginClicked"
-                :doShowLoadingIcon="isLoggingIn">
+                :doShowLoadingIcon="isLoggingIn"
+                :isDisabled="isLoggedIn">
 
                 Log In
             </ButtonComponent>
@@ -44,6 +45,7 @@
                     password: '',
                 },
                 isLoggingIn: false,
+                isLoggedIn: false,
                 message: null,
             }
         },
@@ -52,6 +54,19 @@
             async onLoginClicked() {
                 this.message = null;
                 this.isLoggingIn = true;
+                this.isLoggedIn = false;
+
+                if (this.credentials.username.length === 0) {
+                    this.message = 'Please enter your username.';
+                    this.isLoggingIn = false;
+                    return;
+                }
+
+                if (this.credentials.password.length === 0) {
+                    this.message = 'Please enter your password.';
+                    this.isLoggingIn = false;
+                    return;
+                }
 
                 const response = await API.login(
                         this.credentials.username,
@@ -62,6 +77,7 @@
                 this.message = response.error || response.result;
 
                 if (!response.error) {
+                    this.isLoggedIn = true;
                     this.$router.push('/user');
                 }
             },

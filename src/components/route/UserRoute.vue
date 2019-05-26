@@ -76,9 +76,9 @@
                 this.isLoggingOut = true;
                 const response = await API.logout();
                 this.isLoggingOut = false;
-                this.isLoggedOut = true;
 
                 if (!response.error) {
+                    this.isLoggedOut = true;
                     this.$router.push('/login');
                 }
             },
