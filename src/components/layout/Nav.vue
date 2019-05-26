@@ -73,7 +73,7 @@
 
 <style lang="scss">
     nav {
-        width: 35%;
+        width: 25%;
         flex: 0 0 1;
         display: flex;
         padding: 2rem;
