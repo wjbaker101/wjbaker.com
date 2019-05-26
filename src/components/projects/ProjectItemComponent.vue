@@ -1,8 +1,5 @@
 <template>
     <article class="note project-item">
-        <div class="image-container text-centered" v-if="projectItem.imageURL">
-            <img :src="projectItem.imageURL">
-        </div>
         <h2>{{ projectItem.title }}</h2>
         <p><small>{{ projectItem.date }}</small></p>
         <div v-html="projectItem.summary"></div>

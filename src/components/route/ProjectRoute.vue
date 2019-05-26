@@ -6,7 +6,11 @@
         </p>
         <p><small>{{ projectItem.date }}</small></p>
         <div v-html="projectItem.content"></div>
-        <CarouselComponent :images="[1, 2, 3, 4]" />
+        <InnerCardComponent>
+            <router-link :to="`/projects/${$route.params.projectID}/edit`">
+                <EditIcon /> Edit Project
+            </router-link>
+        </InnerCardComponent>
     </div>
 </template>
 
@@ -14,7 +18,9 @@
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
     import BackIcon from '@/assets/icons/arrow-left.svg';
+    import EditIcon from '@/assets/icons/edit.svg';
     import CarouselComponent from '@/components/CarouselComponent.vue';
+    import InnerCardComponent from '@/components/item/InnerCardComponent.vue';
 
     export default {
         name: 'ProjectRoute',
@@ -23,7 +29,9 @@
 
         components: {
             BackIcon,
+            EditIcon,
             CarouselComponent,
+            InnerCardComponent,
         },
 
         data() {
