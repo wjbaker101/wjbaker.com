@@ -11,21 +11,37 @@
         </p>
         <p>
             <label>Summary</label><br>
-            <CKEditor :editor="summaryEditor" v-model="properties.summary" :config="editorConfig"></CKEditor>
+            <CKEditor
+                :editor="summaryEditor"
+                v-model="properties.summary"
+                :config="editorConfig"
+                @ready="loadSummaryEditor" />
         </p>
         <p>
             <label>Content</label><br>
-            <CKEditor :editor="editor" v-model="properties.content" :config="editorConfig"></CKEditor>
+            <CKEditor
+                :editor="editor"
+                v-model="properties.content"
+                :config="editorConfig"
+                @ready="loadContentEditor" />
         </p>
         <p>
-            <button v-on:click="onSubmitClicked">Submit</button>
+            <ButtonComponent
+                @click.native="onSubmitClicked"
+                :doShowLoadingIcon="isSubmitting"
+                :isDisabled="isSubmitted">
+
+                Submit
+            </ButtonComponent>
         </p>
+        <p v-if="message">{{ message }}</p>
     </div>
 </template>
 
 <script>
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
+    import ButtonComponent from '@/components/item/ButtonComponent.vue';
 
     import CKEditor from '@ckeditor/ckeditor5-vue';
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -37,6 +53,7 @@
 
         components: {
             CKEditor: CKEditor.component,
+            ButtonComponent,
         },
 
         data() {
@@ -53,6 +70,9 @@
                 editorConfig: {
                     toolbar: [ 'heading', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList', 'blockQuote' ],
                 },
+                isSubmitted: false,
+                isSubmitting: false,
+                message: null,
             }
         },
 
@@ -68,26 +88,23 @@
 
             const response = await API.getProject(to.params.projectID);
             this.setProject(response.result);
-            ClassicEditor.builtinPlugins.map( plugin => plugin.pluginName );
             next();
-        },
-
-        watch: {
-            projectItem(to, from) {
-                const {
-                    title,
-                    date,
-                    summary,
-                    content,
-                } = this.projectItem;
-
-                this.properties = { title, date, summary, content };
-            },
         },
 
         methods: {
             setProject(project) {
                 this.projectItem = project;
+
+                const {
+                    title,
+                    date,
+                } = project;
+
+                this.properties = {
+                    ...this.properties,
+                    title,
+                    date,
+                };
             },
 
             async onSubmitClicked() {
@@ -96,11 +113,25 @@
                     ...this.properties,
                 };
 
+                this.message = null;
+                this.isSubmitting = true;
                 const response = await API.updateProject(projectModel);
+                this.isSubmitting = false;
+
+                this.message = response.result || response.error;
 
                 if (!response.error) {
+                    this.isSubmitted = true;
                     this.$router.push(`/projects/${this.projectItem.urlID}`);
                 }
+            },
+
+            loadSummaryEditor(editor) {
+                this.properties.summary = this.projectItem.summary || '';
+            },
+
+            loadContentEditor(editor) {
+                this.properties.content = this.projectItem.content || '';
             },
         },
     }

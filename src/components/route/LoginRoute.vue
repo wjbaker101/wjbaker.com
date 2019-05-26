@@ -26,6 +26,7 @@
 <script>
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
+    import { ImmortalDB } from 'immortal-db';
 
     import ButtonComponent from '@/components/item/ButtonComponent.vue';
 
@@ -74,13 +75,26 @@
 
                 this.isLoggingIn = false;
 
-                this.message = response.error || response.result;
-
                 if (!response.error) {
                     this.isLoggedIn = true;
+
+                    await ImmortalDB.set(
+                            'current-user',
+                            JSON.stringify(response.result));
+
                     this.$router.push('/user');
                 }
+                else {
+                    this.message = response.error;
+                }
             },
+        },
+
+        mounted() {
+                console.log(this.currentUser);
+            if (this.currentUser !== null) {
+                this.$router.push('/user');
+            }
         },
     }
 </script>

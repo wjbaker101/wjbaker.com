@@ -22,6 +22,7 @@
     import API from '@/api/API.js';
     import DateUtils from '@/util/DateUtils.js';
     import ButtonComponent from '@/components/item/ButtonComponent.vue';
+    import { ImmortalDB } from 'immortal-db';
 
     export default {
         name: 'UserRoute',
@@ -79,6 +80,7 @@
 
                 if (!response.error) {
                     this.isLoggedOut = true;
+                    await ImmortalDB.remove('current-user');
                     this.$router.push('/login');
                 }
             },

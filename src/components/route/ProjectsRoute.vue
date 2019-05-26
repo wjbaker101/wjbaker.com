@@ -14,7 +14,7 @@
 
 <script>
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
-    import API from '@/api/ProjectAPI.js';
+    import API from '@/api/API.js';
     import LoadingIcon from '@/assets/icons/loading.svg';
 
     import ProjectItemComponent

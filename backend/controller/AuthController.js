@@ -21,7 +21,17 @@ router.post('/auth/login', auth.doAuthNoUser, (request, response, next) => {
         }
 
         request.login(user, (error) => {
-            response.send({ result: 'Successfully logged in.' });
+            const {
+                username,
+                isAdmin,
+            } = user;
+
+            response.send({
+                result: {
+                    username,
+                    isAdmin,
+                }
+            });
         });
     })(request, response, next);
 });

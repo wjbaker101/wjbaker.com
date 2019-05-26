@@ -5,7 +5,7 @@
         </div>
         <h2>{{ projectItem.title }}</h2>
         <p><small>{{ projectItem.date }}</small></p>
-        <p>{{ projectItem.summary }}</p>
+        <div v-html="projectItem.summary"></div>
         <p>
             <router-link :to="`/projects/${projectItem.id}`">
                 <button>View</button>

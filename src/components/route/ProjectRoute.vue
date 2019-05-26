@@ -5,7 +5,7 @@
             <router-link to="/projects"><BackIcon /> Return to projects</router-link>
         </p>
         <p><small>{{ projectItem.date }}</small></p>
-        <p>{{ projectItem.summary }}</p>
+        <div v-html="projectItem.content"></div>
         <CarouselComponent :images="[1, 2, 3, 4]" />
     </div>
 </template>

@@ -15,7 +15,8 @@ const request = async (endpoint, cacheable = true) => {
 
     if (!cacheable
             || cachedResponse === null
-            || Date.now() - cachedResponse.timestamp > 3600000) {
+            || cachedResponse.data.error
+            || Date.now() - cachedResponse.timestamp > 10) {
 
         try {
             const response = await axios.get(`${baseURL}${endpoint}`)
