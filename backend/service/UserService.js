@@ -13,13 +13,18 @@ class UserService {
     }
 
     async getUserByID(id) {
-        const result = await userRepository.getUserByID(id);
+        try {
+            const result = await userRepository.getUserByID(id);
 
-        if (result.length === 0) {
+            if (result.length === 0) {
+                return null;
+            }
+
+            return result[0];
+        }
+        catch (exception) {
             return null;
         }
-
-        return result[0];
     }
 }
 

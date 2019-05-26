@@ -15,7 +15,9 @@ router.post('/auth/login', auth.doAuthNoUser, (request, response, next) => {
         }
 
         if (!user) {
-            return response.status(400).send([user, 'Cannot log in.', info]);
+            return response
+                    .status(400)
+                    .send({ error: `Unable to log in. ${info.message}.` });
         }
 
         request.login(user, (error) => {

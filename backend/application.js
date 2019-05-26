@@ -25,13 +25,18 @@ passport.use(new LocalStrategy({
     passwordField: 'password',
 },
 async (username, password, done) => {
-    const user = await userService.getUser(username, password);
+    try {
+        const user = await userService.getUser(username, password);
 
-    if (user !== null) {
-        done(null, user);
+        if (user !== null) {
+            done(null, user);
+        }
+        else {
+            done(null, false, { message: 'Invalid username or password' });
+        }
     }
-    else {
-        done(null, false, { error: 'Invalid username or password.' });
+    catch(exception) {
+        done(null, false, { message: 'Failed to log in' });
     }
 }));
 

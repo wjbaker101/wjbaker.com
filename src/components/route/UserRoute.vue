@@ -5,7 +5,13 @@
             <p><strong>Created On:</strong> {{ createdOn }}</p>
             <p v-if="user.isAdmin">You are an Admin!</p>
             <p>
-                <button @click="onLogoutClicked">Log Out</button>
+                <ButtonComponent
+                    @click.native="onLogoutClicked"
+                    :doShowLoadingIcon="isLoggingOut"
+                    :isDisabled="isLoggedOut">
+
+                    Log Out
+                </ButtonComponent>
             </p>
         </div>
     </div>
@@ -15,15 +21,22 @@
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
     import DateUtils from '@/util/DateUtils.js';
+    import ButtonComponent from '@/components/item/ButtonComponent.vue';
 
     export default {
         name: 'UserRoute',
 
         mixins: [ BaseRouteMixin ],
 
+        components: {
+            ButtonComponent,
+        },
+
         data() {
             return {
                 user: null,
+                isLoggingOut: false,
+                isLoggedOut: false,
             }
         },
 
@@ -41,24 +54,29 @@
 
         async beforeRouteEnter(to, from, next) {
             const response = await API.getUser();
-            next(vm => vm.setUser(response.result));
+            next(vm => vm.setUser(response));
         },
 
         async beforeRouteUpdate(to, from, next) {
             const response = await API.getUser();
-            this.setUser(response.result);
+            this.setUser(response);
             next();
         },
 
         methods: {
-            setUser(user) {
-                this.user = user;
+            setUser(response) {
+                if (response.error) {
+                    this.$router.push('/login');
+                }
+
+                this.user = response.result;
             },
 
             async onLogoutClicked() {
+                this.isLoggingOut = true;
                 const response = await API.logout();
-
-                console.log(response);
+                this.isLoggingOut = false;
+                this.isLoggedOut = true;
 
                 if (!response.error) {
                     this.$router.push('/login');

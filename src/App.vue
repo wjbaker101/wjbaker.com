@@ -192,23 +192,6 @@
         height: auto;
     }
 
-    button {
-        padding: 0.75rem 1rem;
-        font: inherit;
-        line-height: 1em;
-        background-color: theme(tertiary);
-        border-radius: layout(border-radius);
-        border: 1px solid theme(tertiary-dark);
-        color: theme(white);
-        cursor: pointer;
-        vertical-align: middle;
-        transition: background-color 0.2s;
-
-        &:hover {
-            background-color: theme(tertiary-dark);
-        }
-    }
-
     input[type=text],
     input[type=password],
     textarea {

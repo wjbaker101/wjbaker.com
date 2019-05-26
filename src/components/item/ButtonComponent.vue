@@ -1,0 +1,57 @@
+<template>
+    <button :disabled="isDisabled">
+        <LoadingIcon v-bind:class="{ visible: doShowLoadingIcon }" />
+        <slot />
+    </button>
+</template>
+
+<script>
+    import LoadingIcon from '@/assets/icons/loading.svg';
+
+    export default {
+        name: 'ButtonComponent',
+
+        components: {
+            LoadingIcon,
+        },
+
+        props: [ 'doShowLoadingIcon', 'isDisabled' ],
+    }
+</script>
+
+<style lang="scss">
+    button {
+        padding: 0.75rem 1rem;
+        font: inherit;
+        line-height: 1em;
+        background-color: theme(tertiary);
+        border-radius: layout(border-radius);
+        border: 1px solid theme(tertiary-dark);
+        color: theme(white);
+        cursor: pointer;
+        vertical-align: middle;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: theme(tertiary-dark);
+        }
+
+        .icon-loading {
+            width: 0;
+            opacity: 0;
+            color: theme(white);
+
+            &.visible {
+                width: 2rem;
+                opacity: 1;
+            }
+        }
+
+        &[disabled] {
+            background-color: theme(primary-light);
+            color: theme(grey-dark);
+            border-color: theme(grey-dark);
+            cursor: not-allowed;
+        }
+    }
+</style>

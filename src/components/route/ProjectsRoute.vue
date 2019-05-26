@@ -1,7 +1,9 @@
 <template>
     <div class="page-content">
         <h1>Projects</h1>
-        <p v-if="!isLoaded"><LoadingIcon /> Loading projects</p>
+        <p v-if="!isLoaded">
+            <LoadingIcon class="loading-projects-icon" /> Loading projects
+        </p>
         <ProjectItemComponent
             v-if="isLoaded"
             v-bind:key="index"
@@ -62,4 +64,7 @@
 </script>
 
 <style lang="scss">
+    .loading-projects-icon {
+        color: theme(primary);
+    }
 </style>

@@ -11,8 +11,14 @@
             <input type="password" v-model="credentials.password">
         </p>
         <p>
-            <button @click="onLoginClicked">Log In</button>
+            <ButtonComponent
+                @click.native="onLoginClicked"
+                :doShowLoadingIcon="isLoggingIn">
+
+                Log In
+            </ButtonComponent>
         </p>
+        <p v-if="message">{{ message }}</p>
     </div>
 </template>
 
@@ -20,27 +26,40 @@
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
 
+    import ButtonComponent from '@/components/item/ButtonComponent.vue';
+
     export default {
         name: 'LoginRoute',
 
         mixins: [ BaseRouteMixin ],
+
+        components: {
+            ButtonComponent,
+        },
 
         data() {
             return {
                 credentials: {
                     username: '',
                     password: '',
-                }
+                },
+                isLoggingIn: false,
+                message: null,
             }
         },
 
         methods: {
             async onLoginClicked() {
+                this.message = null;
+                this.isLoggingIn = true;
+
                 const response = await API.login(
                         this.credentials.username,
                         this.credentials.password);
 
-                console.log(response);
+                this.isLoggingIn = false;
+
+                this.message = response.error || response.result;
 
                 if (!response.error) {
                     this.$router.push('/user');
