@@ -121,12 +121,20 @@
         padding: 5rem 2rem 2rem 2rem;
         padding: 12vh 2rem 2rem 2rem;
         overflow: auto;
+
+        @media screen and (max-width: 1024px) {
+            padding: 2rem 0;
+        }
     }
 
     footer {
         padding-bottom: 1rem;
         margin: auto;
         max-width: layout(max-width);
+
+        @media screen and (max-width: 1024px) {
+            padding: 0 2rem;
+        }
     }
 
     .page-content {
