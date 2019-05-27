@@ -150,6 +150,12 @@
         border-radius: layout(border-radius);
         color: theme(white);
 
+        @media screen and (max-width: 1024px) {
+            font-size: 1.5rem;
+            padding: 3rem 2rem;
+            margin: 0 2rem 4rem 0;
+        }
+
         &::after {
             content: '';
             position: absolute;
@@ -161,6 +167,13 @@
             background-color: theme(grey);
             border: 1px solid theme(grey-dark);
             border-radius: layout(border-radius);
+
+            @media screen and (max-width: 1024px) {
+                right: -2rem;
+                left: 2rem;
+                top: 2rem;
+                bottom: -2rem;
+            }
         }
     }
 
