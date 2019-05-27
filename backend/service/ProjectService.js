@@ -1,4 +1,5 @@
 const projectRepository = require('../repository/ProjectRepository.js');
+const imageUploadService = require('./ImageUploadService.js');
 
 class ProjectService {
 
@@ -18,6 +19,15 @@ class ProjectService {
 
     async updateProject(project) {
         return await projectRepository.updateProject(project);
+    }
+
+    async uploadImage(fileBuffer) {
+        try {
+            return await imageUploadService.uploadImage(fileBuffer);
+        }
+        catch (exception) {
+            return exception;
+        }
     }
 }
 

@@ -35,7 +35,12 @@ module.exports = {
                 target: 'http://localhost:8082',
                 ws: true,
                 changeOrigin: true,
-            }
+            },
+            '/static-resources': {
+                target: 'http://localhost:8082',
+                ws: true,
+                changeOrigin: true,
+            },
         }
     },
 };

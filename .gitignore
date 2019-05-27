@@ -22,3 +22,4 @@ yarn-error.log*
 
 secret-properties.json
 /backend/frontend
+/backend/static-resources

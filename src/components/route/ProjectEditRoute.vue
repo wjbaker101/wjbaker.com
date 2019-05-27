@@ -46,6 +46,8 @@
     import CKEditor from '@ckeditor/ckeditor5-vue';
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+    import ImageUploadAdapterPlugin from '@/external/ckeditor/ImageUploadAdapterPlugin.js';
+
     export default {
         name: 'ProjectEditRoute',
 
@@ -68,7 +70,8 @@
                 editor: ClassicEditor,
                 summaryEditor: ClassicEditor,
                 editorConfig: {
-                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList', 'blockQuote' ],
+                    toolbar: [ 'heading', '|', 'undo', 'redo', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'Image' ],
+                    extraPlugins: [ ImageUploadAdapterPlugin, ],
                 },
                 isSubmitted: false,
                 isSubmitting: false,

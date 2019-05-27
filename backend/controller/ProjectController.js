@@ -47,4 +47,17 @@ router.patch('/project', auth.doAuthAdmin, async (request, response) => {
     }
 });
 
+const multer = require('multer');
+const upload = multer({
+    limits: {
+        fileSize: 4 * 1024 * 1024, // 4 MiB
+    },
+});
+
+router.post('/projects/image', upload.single('upload'), async (request, response) => {
+    const result = await projectService.uploadImage(request.file.buffer);
+
+    response.send(result);
+});
+
 module.exports = router;

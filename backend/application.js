@@ -54,6 +54,7 @@ passport.deserializeUser(async (user, done) => {
     done(null, deserialisedUser);
 });
 
+app.use('/static-resources', express.static(path.join(__dirname, 'static-resources')));
 app.use(express.static(path.join(__dirname, 'frontend')));
 
 const controllers = [
