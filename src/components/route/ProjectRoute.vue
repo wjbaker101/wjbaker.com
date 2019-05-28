@@ -6,7 +6,7 @@
         </p>
         <p><small>{{ projectItem.date }}</small></p>
         <div v-html="projectItem.content"></div>
-        <InnerCardComponent>
+        <InnerCardComponent v-if="currentUser && currentUser.isAdmin">
             <router-link :to="`/projects/${$route.params.projectID}/edit`">
                 <EditIcon /> Edit Project
             </router-link>

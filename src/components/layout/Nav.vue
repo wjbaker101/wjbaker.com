@@ -82,10 +82,10 @@
         border-right: var(--border-thickness) solid theme(primary-dark);
         border-top-right-radius: layout(border-radius);
         border-bottom-right-radius: layout(border-radius);
+            text-align: center;
 
         h1 {
             color: inherit;
-            text-align: center;
         }
 
         @media screen and (max-width: 1024px) {
@@ -112,14 +112,16 @@
         padding-left: 0;
 
         @media screen and (max-width: 1024px) {
-            width: 100%;
+            max-width: 100%;
+            display: inline-block;
             position: relative;
             padding: 0.25rem;
             text-align: center;
             overflow-x: auto;
             overflow-y: hidden;
             white-space: nowrap;
-            border: 1px solid theme(primary-dark);
+            border-left: 1px solid theme(primary-dark);
+            border-right: 1px solid theme(primary-dark);
             border-radius: layout(border-radius);
         }
 

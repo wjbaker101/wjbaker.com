@@ -68,6 +68,7 @@
             setUser(response) {
                 if (response.error) {
                     this.$router.push('/login');
+                    return;
                 }
 
                 this.user = response.result;

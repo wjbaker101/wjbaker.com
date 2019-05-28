@@ -11,18 +11,15 @@ export default {
     },
 
     async beforeRouteEnter(to, from, next) {
-        const user = await ImmortalDB.get('current-user', null);
-        next(vm => vm.setCurrentUser(JSON.parse(user)));
-    },
+        const user = JSON.parse(await ImmortalDB.get('current-user', null));
 
-    async beforeRouteUpdate(to, from, next) {
-        const user = await ImmortalDB.get('current-user', null);
-        this.setCurrentUser(JSON.parse(user));
-        next();
+        next(vm => {
+            vm.setUser(user);
+        });
     },
 
     methods: {
-        setCurrentUser(user) {
+        setUser(user) {
             this.currentUser = user;
         },
     },

@@ -40,6 +40,7 @@
 
 <script>
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
+    import RequireAdminRouteMixin from '@/mixin/RequireAdminRouteMixin.js';
     import API from '@/api/API.js';
     import ButtonComponent from '@/components/item/ButtonComponent.vue';
 
@@ -51,7 +52,7 @@
     export default {
         name: 'ProjectEditRoute',
 
-        mixins: [ BaseRouteMixin ],
+        mixins: [ BaseRouteMixin, RequireAdminRouteMixin('/login') ],
 
         components: {
             CKEditor: CKEditor.component,
@@ -70,7 +71,7 @@
                 editor: ClassicEditor,
                 summaryEditor: ClassicEditor,
                 editorConfig: {
-                    toolbar: [ 'heading', '|', 'undo', 'redo', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'Image' ],
+                    toolbar: [ 'heading', '|', 'undo', 'redo', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList', 'blockQuote', 'imageUpload' ],
                     extraPlugins: [ ImageUploadAdapterPlugin, ],
                 },
                 isSubmitted: false,

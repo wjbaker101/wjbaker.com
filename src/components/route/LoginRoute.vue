@@ -89,13 +89,6 @@
                 }
             },
         },
-
-        mounted() {
-                console.log(this.currentUser);
-            if (this.currentUser !== null) {
-                this.$router.push('/user');
-            }
-        },
     }
 </script>
 
