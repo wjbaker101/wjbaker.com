@@ -27,7 +27,7 @@
     export default {
         name: 'UserRoute',
 
-        mixins: [ BaseRouteMixin ],
+        mixins: [ BaseRouteMixin() ],
 
         components: {
             ButtonComponent,
@@ -55,17 +55,18 @@
 
         async beforeRouteEnter(to, from, next) {
             const response = await API.getUser();
-            next(vm => vm.setUser(response));
+            console.log(response);
+            next(vm => vm.setPageUser(response));
         },
 
         async beforeRouteUpdate(to, from, next) {
             const response = await API.getUser();
-            this.setUser(response);
+            this.setPageUser(response);
             next();
         },
 
         methods: {
-            setUser(response) {
+            setPageUser(response) {
                 if (response.error) {
                     this.$router.push('/login');
                     return;

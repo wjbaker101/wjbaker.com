@@ -33,7 +33,7 @@
     export default {
         name: 'LoginRoute',
 
-        mixins: [ BaseRouteMixin ],
+        mixins: [ BaseRouteMixin('anonymous') ],
 
         components: {
             ButtonComponent,
@@ -75,8 +75,9 @@
 
                 this.isLoggingIn = false;
 
-                if (!response.error) {
+                if (!response || !response.error) {
                     this.isLoggedIn = true;
+                    this.message = 'Successfully logged in!';
 
                     await ImmortalDB.set(
                             'current-user',

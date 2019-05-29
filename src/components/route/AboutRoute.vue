@@ -72,7 +72,7 @@
     export default {
         name: 'HomeRoute',
 
-        mixins: [ BaseRouteMixin ],
+        mixins: [ BaseRouteMixin() ],
 
         components: {
             ExternalLink,

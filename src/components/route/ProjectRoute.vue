@@ -25,7 +25,7 @@
     export default {
         name: 'ProjectRoute',
 
-        mixins: [ BaseRouteMixin ],
+        mixins: [ BaseRouteMixin() ],
 
         components: {
             BackIcon,

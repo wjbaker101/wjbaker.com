@@ -1,6 +1,8 @@
 import { ImmortalDB } from 'immortal-db';
 
-export default {
+import Permissions from '@/auth/MixinPermissions.js';
+
+export default (permissionLevel = 'none') => ({
 
     props: [ 'page' ],
 
@@ -13,9 +15,7 @@ export default {
     async beforeRouteEnter(to, from, next) {
         const user = JSON.parse(await ImmortalDB.get('current-user', null));
 
-        next(vm => {
-            vm.setUser(user);
-        });
+        Permissions(user, next, from.path)[permissionLevel]();
     },
 
     methods: {
@@ -32,4 +32,4 @@ export default {
     created() {
         this.$emit('navpageinit', this.page);
     },
-}
+})

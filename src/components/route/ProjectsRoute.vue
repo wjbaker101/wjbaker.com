@@ -4,11 +4,12 @@
         <p v-if="!isLoaded">
             <LoadingIcon class="loading-projects-icon" /> Loading projects
         </p>
-        <ProjectItemComponent
-            v-if="isLoaded"
-            v-bind:key="index"
-            v-for="(project, index) in projects"
-            :projectItem="project" />
+        <div v-if="isLoaded">
+            <ProjectItemComponent
+                v-bind:key="index"
+                v-for="(project, index) in projects"
+                :projectItem="project" />
+        </div>
     </div>
 </template>
 
@@ -23,7 +24,7 @@
     export default {
         name: 'ProjectsRoute',
 
-        mixins: [ BaseRouteMixin ],
+        mixins: [ BaseRouteMixin() ],
 
         components: {
             ProjectItemComponent,

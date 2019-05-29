@@ -73,7 +73,7 @@
     export default {
         name: 'BlogTest',
 
-        mixins: [ BaseRouteMixin ],
+        mixins: [ BaseRouteMixin() ],
     }
 </script>
 

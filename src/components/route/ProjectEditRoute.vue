@@ -40,7 +40,6 @@
 
 <script>
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
-    import RequireAdminRouteMixin from '@/mixin/RequireAdminRouteMixin.js';
     import API from '@/api/API.js';
     import ButtonComponent from '@/components/item/ButtonComponent.vue';
 
@@ -52,7 +51,7 @@
     export default {
         name: 'ProjectEditRoute',
 
-        mixins: [ BaseRouteMixin, RequireAdminRouteMixin('/login') ],
+        mixins: [ BaseRouteMixin() ],
 
         components: {
             CKEditor: CKEditor.component,
