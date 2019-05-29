@@ -55,7 +55,6 @@
 
         async beforeRouteEnter(to, from, next) {
             const response = await API.getUser();
-            console.log(response);
             next(vm => vm.setPageUser(response));
         },
 

@@ -22,7 +22,6 @@ export default (user, next, previousURL) => ({
     },
 
     anonymous() {
-        console.log(user);
         if (user) {
             next(previousURL);
         }
