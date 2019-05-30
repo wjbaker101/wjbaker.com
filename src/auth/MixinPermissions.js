@@ -23,7 +23,7 @@ export default (user, next, previousURL) => ({
 
     anonymous() {
         if (user) {
-            next(previousURL);
+            next('/user');
         }
         else {
             next();

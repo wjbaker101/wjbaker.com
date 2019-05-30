@@ -49,4 +49,8 @@ router.get('/auth/user', auth.doAuth, async (request, response) => {
     response.send({ result: user });
 });
 
+router.get('/auth/check', (request, response, next) => {
+    response.send({ result: request.isAuthenticated() });
+})
+
 module.exports = router;

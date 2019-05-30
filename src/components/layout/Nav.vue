@@ -120,9 +120,6 @@
             overflow-x: auto;
             overflow-y: hidden;
             white-space: nowrap;
-            border-left: 1px solid theme(primary-dark);
-            border-right: 1px solid theme(primary-dark);
-            border-radius: layout(border-radius);
         }
 
         & > * {

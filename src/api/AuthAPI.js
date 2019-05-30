@@ -16,4 +16,8 @@ export default {
     async getUser() {
         return await BaseAPI.request('/auth/user', false);
     },
+
+    async authCheck() {
+        return await BaseAPI.request('/auth/check', false);
+    },
 }

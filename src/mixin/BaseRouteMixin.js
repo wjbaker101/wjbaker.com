@@ -1,5 +1,5 @@
 import { ImmortalDB } from 'immortal-db';
-
+import API from '@/api/API.js';
 import Permissions from '@/auth/MixinPermissions.js';
 
 export default (permissionLevel = 'none') => ({
@@ -13,6 +13,12 @@ export default (permissionLevel = 'none') => ({
     },
 
     async beforeRouteEnter(to, from, next) {
+        const isAuthenticated = await API.authCheck();
+
+        if (!isAuthenticated || !isAuthenticated.result) {
+            await ImmortalDB.remove('current-user');
+        }
+
         const user = JSON.parse(await ImmortalDB.get('current-user', null));
 
         Permissions(user, next, from.path)[permissionLevel]();
