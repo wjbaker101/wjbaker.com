@@ -40,21 +40,18 @@
 
 <script>
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
+    import CKEditorMixin from '@/mixin/CKEditorMixin.js';
     import API from '@/api/API.js';
     import ButtonComponent from '@/components/item/ButtonComponent.vue';
 
-    import CKEditor from '@ckeditor/ckeditor5-vue';
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
-    import ImageUploadAdapterPlugin from '@/external/ckeditor/ImageUploadAdapterPlugin.js';
 
     export default {
         name: 'ProjectEditRoute',
 
-        mixins: [ BaseRouteMixin() ],
+        mixins: [ BaseRouteMixin(), CKEditorMixin ],
 
         components: {
-            CKEditor: CKEditor.component,
             ButtonComponent,
         },
 
@@ -69,10 +66,6 @@
                 },
                 editor: ClassicEditor,
                 summaryEditor: ClassicEditor,
-                editorConfig: {
-                    toolbar: [ 'heading', '|', 'undo', 'redo', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList', 'blockQuote', 'imageUpload' ],
-                    extraPlugins: [ ImageUploadAdapterPlugin, ],
-                },
                 isSubmitted: false,
                 isSubmitting: false,
                 message: null,
