@@ -4,13 +4,15 @@ import AboutRoute from '@/components/route/AboutRoute.vue';
 import ProjectEditRoute from '@/components/route/ProjectEditRoute.vue';
 import ProjectRoute from '@/components/route/ProjectRoute.vue';
 import ProjectsRoute from '@/components/route/ProjectsRoute.vue';
-import BlogTest from '@/components/route/BlogTest.vue';
 import LoginRoute from '@/components/route/LoginRoute.vue';
 import UserRoute from '@/components/route/UserRoute.vue';
 import NotFoundRoute from '@/components/route/NotFoundRoute.vue';
 
+import BlogRouter from '@/router/BlogRouter.js';
+
 export default new VueRouter({
     routes: [
+        ...BlogRouter,
         {
             path: '/',
             component: AboutRoute,
@@ -37,13 +39,6 @@ export default new VueRouter({
             component: ProjectsRoute,
             props: {
                 page: 'projects',
-            },
-        },
-        {
-            path: '/blog',
-            component: BlogTest,
-            props: {
-                page: 'blog',
             },
         },
         {

@@ -58,8 +58,9 @@ app.use('/static-resources', express.static(path.join(__dirname, 'static-resourc
 app.use(express.static(path.join(__dirname, 'frontend')));
 
 const controllers = [
-    require('./controller/ProjectController.js'),
     require('./controller/AuthController.js'),
+    require('./controller/BlogController.js'),
+    require('./controller/ProjectController.js'),
 ];
 
 controllers.forEach(controller => {

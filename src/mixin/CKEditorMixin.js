@@ -27,10 +27,7 @@ export default {
                     'blockQuote',
                     '|',
                     'imageUpload',
-                    'codeBlock',
-                ],
-                plugins: [
-                    new CodeBlockPlugin(),
+                    // 'codeBlock',
                 ],
                 extraPlugins: [
                     ImageUploadAdapterPlugin,
