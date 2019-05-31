@@ -10,6 +10,8 @@ import NotFoundRoute from '@/components/route/NotFoundRoute.vue';
 
 import BlogRouter from '@/router/BlogRouter.js';
 
+import TitleUtils from '@/util/TitleUtils.js';
+
 export default new VueRouter({
     routes: [
         ...BlogRouter,
@@ -19,6 +21,7 @@ export default new VueRouter({
             props: {
                 page: 'about',
             },
+            beforeEnter: (to, from, next) => TitleUtils.setTitle('About', next),
         },
         {
             path: '/projects/:projectID/edit',
@@ -26,6 +29,8 @@ export default new VueRouter({
             props: {
                 page: 'project-edit',
             },
+            beforeEnter: (to, from, next) =>
+                    TitleUtils.setTitle('Edit Project', next),
         },
         {
             path: '/projects/:projectID',
@@ -33,6 +38,8 @@ export default new VueRouter({
             props: {
                 page: 'project',
             },
+            beforeEnter: (to, from, next) =>
+                    TitleUtils.setTitle('Project', next),
         },
         {
             path: '/projects',
@@ -40,6 +47,8 @@ export default new VueRouter({
             props: {
                 page: 'projects',
             },
+            beforeEnter: (to, from, next) =>
+                    TitleUtils.setTitle('Projects', next),
         },
         {
             path: '/login',
@@ -47,6 +56,7 @@ export default new VueRouter({
             props: {
                 page: 'login',
             },
+            beforeEnter: (to, from, next) => TitleUtils.setTitle('Login', next),
         },
         {
             path: '/user',
@@ -54,12 +64,15 @@ export default new VueRouter({
             props: {
                 page: 'user',
             },
+            beforeEnter: (to, from, next) => TitleUtils.setTitle('User', next),
         },
         {
             // Define 404 Not Found last so it has lowest priority
             path: '/(.+)',
             component: NotFoundRoute,
             props: {},
+            beforeEnter: (to, from, next) =>
+                    TitleUtils.setTitle('Page Not Found', next),
         },
     ],
 });
