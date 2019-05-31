@@ -1,21 +1,15 @@
 const mySQLRepository = require('./MySQLRepository.js');
 
-const blogMapper = require('../mapper/BlogMapper.js');
+const blogPostMapper = require('../mapper/BlogPostMapper.js');
 
 class BlogRepository {
 
-    async createBlog(blog) {
-        const blogModel = {
-            TITLE: blog.title,
-            TITLE_URL: blog.titleUrl,
-            CONTENT: blog.content,
-            SUMMARY: blog.summary,
-            CREATED_ON: blog.createdOn,
-        };
+    async createBlog(blogPost) {
+        const blogPostModel = blogPostMapper.mapToDBModel(blogPost);
 
         const result = await mySQLRepository.query(
                 'INSERT INTO BLOG_POSTS SET ?',
-                blogModel);
+                blogPostModel);
 
         return result.insertId;
     }
@@ -32,7 +26,17 @@ class BlogRepository {
         const result = await mySQLRepository.query(
                 'SELECT * FROM BLOG_POSTS WHERE IS_PUBLISHED=1');
 
-        return result.map(blogPost => blogMapper.map(blogPost));
+        return result.map(blogPost => blogPostMapper.map(blogPost));
+    }
+
+    async updateBlogPost(blogPost) {
+        const blogPostModel = blogPostMapper.mapToDBModel(blogPost);
+
+        const result = await mySQLRepository.query(
+                `UPDATE BLOG_POSTS SET ? WHERE BLOG_ID=?`,
+                [blogPostModel, blogPost.blogID]);
+
+        return result;
     }
 }
 

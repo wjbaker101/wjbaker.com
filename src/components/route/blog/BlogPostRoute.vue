@@ -7,7 +7,7 @@
         <p><small>{{ date }}</small></p>
         <div v-html="blogPostItem.content"></div>
         <InnerCardComponent v-if="currentUser && currentUser.isAdmin">
-            <router-link :to="`/blog/${$route.params.blogID}/edit`">
+            <router-link :to="`/blog/${$route.params.blogPostID}/edit`">
                 <EditIcon /> Edit Blog Post
             </router-link>
         </InnerCardComponent>

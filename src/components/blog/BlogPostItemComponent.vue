@@ -4,7 +4,7 @@
         <h2>{{ blogPostItem.title }}</h2>
         <div v-html="blogPostItem.summary"></div>
         <p>
-            <router-link :to="`/blog/${blogPostItem.blogId}`">
+            <router-link :to="`/blog/${blogPostItem.blogID}`">
                 <button>View</button>
             </router-link>
         </p>

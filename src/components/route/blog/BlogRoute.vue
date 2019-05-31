@@ -2,7 +2,7 @@
     <div class="page-content">
         <h1>Blog</h1>
         <p v-if="!isLoaded">
-            <LoadingIcon class="loading-projects-icon" /> Loading Blog postst
+            <LoadingIcon class="loading-projects-icon" /> Loading Blog posts
         </p>
         <div v-if="isLoaded">
             <BlogPostItemComponent

@@ -13,4 +13,8 @@ export default {
     async getPublishedBlogPosts() {
         return await BaseAPI.request('/blog/posts');
     },
+
+    async updateBlogPost(blogPost) {
+        return await BaseAPI.patch('/blog', blogPost);
+    },
 }

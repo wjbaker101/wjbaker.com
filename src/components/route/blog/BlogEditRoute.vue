@@ -1,6 +1,6 @@
 <template>
     <div class="page-content">
-        <h1>Create Blog Post</h1>
+        <h1>Edit Blog Post</h1>
         <p>
             <label>Title</label><br>
             <input type="text" class="textbox-wide" v-model="properties.title">
@@ -10,14 +10,16 @@
             <CKEditor
                 :editor="summaryEditor"
                 v-model="properties.summary"
-                :config="editorConfig" />
+                :config="editorConfig"
+                @ready="loadSummaryEditor" />
         </p>
         <p>
             <label>Content</label><br>
             <CKEditor
-                :editor="editor"
+                :editor="contentEditor"
                 v-model="properties.content"
-                :config="editorConfig" />
+                :config="editorConfig"
+                @ready="loadContentEditor" />
         </p>
         <p>
             <ButtonComponent
@@ -51,21 +53,48 @@
 
         data() {
             return {
+                blogPostItem: null,
                 properties: {
                     title: '',
                     summary: '',
                     content: '',
                     isPublished: false,
                 },
-                editor: ClassicEditor,
                 summaryEditor: ClassicEditor,
+                contentEditor: ClassicEditor,
                 isSubmitted: false,
                 isSubmitting: false,
                 message: null,
             }
         },
 
+        async beforeRouteEnter(to, from, next) {
+            const response = await API.getBlogPost(to.params.blogPostID);
+            next(vm => vm.setBlogPost(response.result));
+        },
+
+        async beforeRouteUpdate(to, from, next) {
+            const response = await API.getBlogPost(to.params.blogPostID);
+            this.setBlogPost(response.result);
+            next();
+        },
+
         methods: {
+            setBlogPost(blogPost) {
+                this.blogPostItem = blogPost;
+
+                const {
+                    title,
+                    isPublished,
+                } = blogPost;
+
+                this.properties = {
+                    ...this.properties,
+                    title,
+                    isPublished,
+                };
+            },
+
             async onSubmitClicked() {
                 if (!this.properties.title) {
                     this.message = 'Please enter a title for your Blog post.';
@@ -74,22 +103,33 @@
 
                 const blogModel = {
                     ...this.properties,
-                    createdOn: new Date(),
+                    modifiedOn: new Date(),
+                    titleUrl: this.blogPostItem.titleUrl,
+                    createdOn: this.blogPostItem.createdOn,
+                    blogID: this.blogPostItem.blogID,
                 };
 
                 this.message = null;
                 this.isSubmitting = true;
-                const response = await API.createBlog(blogModel);
+                const response = await API.updateBlogPost(blogModel);
                 this.isSubmitting = false;
 
                 if (!response || !response.error) {
                     this.isSubmitted = true;
-                    this.message = 'Successfully created Blog post!';
-                    // this.$router.push(`/blog/${this.projectItem.urlID}`);
+                    this.message = 'Successfully updated Blog post!';
+                    this.$router.push(`/blog/${this.blogPostItem.blogID}`);
                 }
                 else {
                     this.message = response.error;
                 }
+            },
+
+            loadSummaryEditor(editor) {
+                this.properties.summary = this.blogPostItem.summary || '';
+            },
+
+            loadContentEditor(editor) {
+                this.properties.content = this.blogPostItem.content || '';
             },
         },
     }

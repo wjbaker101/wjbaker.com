@@ -1,6 +1,6 @@
 const blogRepository = require('../repository/BlogRepository.js');
 
-class UserService {
+class BlogService {
 
     async createBlog(blog) {
         if (!blog.title) {
@@ -53,6 +53,10 @@ class UserService {
     async getPublishedBlogPosts() {
         return await blogRepository.getPublishedBlogPosts();
     }
+
+    async updateBlogPost(blogPost) {
+        return await blogRepository.updateBlogPost(blogPost);
+    }
 }
 
-module.exports = new UserService();
+module.exports = new BlogService();
