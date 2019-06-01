@@ -1,28 +1,30 @@
 <template>
     <div class="page-content">
         <h1>Timeline</h1>
+        <p>
+            <router-link to="/"><BackIcon /> Return to About page</router-link>
+        </p>
         <div class="timeline-container">
             <article>
                 <h3>
                     <span>October 2016</span>
                     <div class="node"></div>
                 </h3>
-                <p>Started at Loughborough University.</p>
-                <p>The beginning of my Computer Science BSci course.</p>
+                <p>The beginning of my Computer Science BSci course at Loughborough University</p>
             </article>
             <article>
                 <h3>
                     <span>August 2017</span>
                     <div class="node"></div>
                 </h3>
-                <p>Started at Bradleys as Temporary IT Project Assistant.</p>
+                <p>Started at Bradleys as Temporary IT Project Assistant</p>
             </article>
             <article>
                 <h3>
                     <span>July 2018</span>
                     <div class="node"></div>
                 </h3>
-                <p>Started at Yell as Undergraduate Software Developer.</p>
+                <p>Started at Yell as Undergraduate Software Developer</p>
                 <p>For my University placement year.</p>
             </article>
             <article>
@@ -38,12 +40,16 @@
 <script>
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
 
+    import BackIcon from '@/assets/icons/arrow-left.svg';
+
     export default {
         name: 'AboutTimelineRoute',
 
         mixins: [ BaseRouteMixin() ],
 
-        components: {},
+        components: {
+            BackIcon,
+        },
     }
 </script>
 
