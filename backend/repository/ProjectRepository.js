@@ -32,6 +32,16 @@ class ProjectRepository {
 
         return result;
     }
+
+    async createProject(project) {
+        const projectModel = projectMapper.mapToDBModel(project);
+
+        const result = await mySQLRepository.query(
+                'INSERT INTO PROJECTS SET ?',
+                projectModel);
+
+        return result.insertId;
+    }
 }
 
 module.exports = new ProjectRepository();

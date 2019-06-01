@@ -47,6 +47,17 @@ router.patch('/project', auth.doAuthAdmin, async (request, response) => {
     }
 });
 
+router.post('/project', async (request, response, next) => {
+    try {
+        const result = await projectService.createProject(request.body);
+
+        response.send(result);
+    }
+    catch (exception) {
+        response.send({ error: exception.message });
+    }
+});
+
 const multer = require('multer');
 const upload = multer({
     limits: {

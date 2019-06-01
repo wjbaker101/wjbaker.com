@@ -44,5 +44,5 @@ module.exports = {
             MODIFIED_ON,
             IS_PUBLISHED,
         }
-    }
+    },
 }

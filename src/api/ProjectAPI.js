@@ -13,4 +13,8 @@ export default {
     async updateProject(project) {
         return await BaseAPI.patch('/project', project);
     },
+
+    async createProject(project) {
+        return await BaseAPI.post('/project', project);
+    },
 }
