@@ -1,5 +1,6 @@
 import VueRouter from 'vue-router';
 
+import LandingRoute from '@/components/route/LandingRoute.vue';
 import LoginRoute from '@/components/route/LoginRoute.vue';
 import UserRoute from '@/components/route/UserRoute.vue';
 import NotFoundRoute from '@/components/route/NotFoundRoute.vue';
@@ -15,6 +16,15 @@ export default new VueRouter({
         ...BlogRouter,
         ...ProjectRouter,
         ...AboutRouter,
+        {
+            path: '/',
+            component: LandingRoute,
+            props: {
+                page: 'landing',
+            },
+            beforeEnter: (to, from, next) =>
+                    TitleUtils.setTitle('Will Baker', next),
+        },
         {
             path: '/login',
             component: LoginRoute,

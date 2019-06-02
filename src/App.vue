@@ -1,7 +1,7 @@
 <template>
     <div class="page-container">
         <Nav :page="page" />
-        <main>
+        <main id="main">
             <router-view @navpageinit="onNavPageinit"></router-view>
             <Footer />
         </main>
@@ -147,7 +147,7 @@
         border-radius: layout(border-radius);
     }
 
-    .page-content h1 {
+    main h1 {
         position: relative;
         font-size: 2.5rem;
         padding: 6rem;

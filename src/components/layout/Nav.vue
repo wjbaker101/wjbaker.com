@@ -1,12 +1,15 @@
 <template>
     <nav>
         <div class="nav-content">
-            <h1>Will Baker</h1>
+            <router-link :to="links.landing.location">
+                <h1>{{ links.landing.name }}</h1>
+            </router-link>
             <ul class="nav-links">
                 <router-link
                     :to="link.location"
                      v-bind:key="index"
-                     v-for="(link, index) in links"
+                     v-for="(link, name, index) in links"
+                     v-if="name !== 'landing'"
                      v-bind:class="{ selected: link.visible }">
 
                     <li>{{ link.name }}</li>
@@ -25,9 +28,14 @@
         data() {
             return {
                 links: {
+                    'landing': {
+                        name: 'Will Baker',
+                        location: '/',
+                        visible: false,
+                    },
                     'about': {
                         name: 'About',
-                        location: '/',
+                        location: '/about',
                         visible: false,
                     },
                     'projects': {
@@ -82,7 +90,17 @@
         border-right: var(--border-thickness) solid theme(primary-dark);
         border-top-right-radius: layout(border-radius);
         border-bottom-right-radius: layout(border-radius);
-            text-align: center;
+        text-align: center;
+
+        a {
+            color: theme(white);
+            text-decoration: none;
+
+            &:hover {
+                color: theme(white);
+                text-decoration: none;
+            }
+        }
 
         h1 {
             color: inherit;
@@ -128,14 +146,7 @@
             line-height: 1em;
             padding: 0.5rem 1rem;
             position: relative;
-            color: theme(white);
-            text-decoration: none;
             cursor: pointer;
-
-            &:hover {
-                color: theme(white);
-                text-decoration: none;
-            }
 
             &::before,
             &::after {

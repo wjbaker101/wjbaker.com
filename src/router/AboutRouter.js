@@ -5,7 +5,7 @@ import TitleUtils from '@/util/TitleUtils.js';
 
 export default [
     {
-        path: '/',
+        path: '/about',
         component: AboutRoute,
         props: {
             page: 'about',
