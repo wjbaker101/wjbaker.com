@@ -1,6 +1,8 @@
 <template>
     <div class="page-content">
-        <h1>Create Blog Post</h1>
+        <h1>
+            <span class="page-heading">Create Blog Post</span>
+        </h1>
         <p>
             <label>Title</label><br>
             <input type="text" class="textbox-wide" v-model="properties.title">

@@ -1,6 +1,8 @@
 <template>
     <div class="page-content" v-if="projectItem">
-        <h1>{{ projectItem.title }}</h1>
+        <h1>
+            <span class="page-heading">{{ projectItem.title }}</span>
+        </h1>
         <p>
             <router-link to="/projects"><BackIcon /> Return to projects</router-link>
         </p>

@@ -1,7 +1,9 @@
 <template>
     <div class="page-content">
         <div v-if="user">
-            <h1>{{ user.username }}</h1>
+            <h1>
+            <span class="page-heading">{{ user.username }}</span>
+        </h1>
             <p><strong>Created On:</strong> {{ createdOn }}</p>
             <p v-if="user.isAdmin">You are an Admin!</p>
             <p>

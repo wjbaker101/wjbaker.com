@@ -1,7 +1,10 @@
 <template>
     <div class="page-container">
         <Nav :page="page" />
-        <router-view @navpageinit="onNavPageinit"></router-view>
+        <router-view
+            @navpageinit="onNavPageinit"
+            @particlesinit="onParticlesInit"
+            :doInit="doInitParticles" />
     </div>
 </template>
 
@@ -15,6 +18,7 @@
         data() {
             return {
                 page: '',
+                doInitParticles: true,
             }
         },
 
@@ -25,14 +29,17 @@
 
         watch: {
             $route(to, from) {
-                // this.$el.querySelector('main').scrollTop = 0;
+                this.$el.querySelector('main').scrollTop = 0;
             },
         },
 
         methods: {
             onNavPageinit(page) {
                 this.page = page;
-                console.log('cheese');
+            },
+
+            onParticlesInit() {
+                this.doInitParticles = false;
             },
         },
     }
@@ -161,6 +168,11 @@
         border-radius: layout(border-radius);
         color: theme(white);
 
+        .page-heading {
+            display: inline-block;
+            animation: page-heading-anim 0.5s;
+        }
+
         @media screen and (max-width: 1024px) {
             font-size: 1.5rem;
             padding: 3rem 2rem;
@@ -185,6 +197,17 @@
                 top: 2rem;
                 bottom: -2rem;
             }
+        }
+    }
+
+    @keyframes page-heading-anim {
+        from {
+            transform: translateX(-2rem);
+            opacity: 0.1;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
         }
     }
 

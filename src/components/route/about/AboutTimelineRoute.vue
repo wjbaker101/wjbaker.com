@@ -1,6 +1,8 @@
 <template>
     <div class="page-content">
-        <h1>Timeline</h1>
+        <h1>
+            <span class="page-heading">Timeline</span>
+        </h1>
         <p>
             <router-link to="/about"><BackIcon /> Return to About page</router-link>
         </p>

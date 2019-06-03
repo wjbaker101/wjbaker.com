@@ -1,6 +1,8 @@
 <template>
     <div class="page-content">
-        <h1>Login</h1>
+        <h1>
+            <span class="page-heading">Login</span>
+        </h1>
         <p>Log into a user. Some pages and actions require an Admin user.</p>
         <p>
             <label>Username</label><br>

@@ -1,6 +1,8 @@
 <template>
     <div class="page-content">
-        <h1>Projects</h1>
+        <h1>
+            <span class="page-heading">Projects</span>
+        </h1>
         <p v-if="!isLoaded">
             <LoadingIcon class="loading-projects-icon" /> Loading projects
         </p>

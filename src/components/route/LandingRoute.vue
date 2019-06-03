@@ -3,8 +3,10 @@
         <div id="particles-container">
             <div class="landing-title-container">
                 <h1>
-                    William Baker<br>
-                    <span class="title-subheading">Software Developer</span>
+                    <span class="landing-title-content">
+                        William Baker<br>
+                        <span class="title-subheading">Software Developer</span>
+                    </span>
                 </h1>
             </div>
         </div>
@@ -20,6 +22,8 @@
 
         mixins: [ BaseRouteMixin() ],
 
+        props: [ 'doInit' ],
+
         mounted() {
             require('particles.js');
 
@@ -31,6 +35,7 @@
         methods: {
             init() {
                 particlesJS('particles-container', particlesJSConfig);
+                this.$emit('particlesinit');
             },
         },
     }
@@ -75,5 +80,37 @@
 
     .particles-js-canvas-el {
         z-index: -1;
+    }
+
+    .landing-title-content {
+        display: inline-block;
+        animation: landing-anim 0.65s;
+    }
+
+    .title-subheading {
+        display: inline-block;
+        animation: landing-subheading-anim 0.65s;
+    }
+
+    @keyframes landing-anim {
+        from {
+            transform: translateX(-2rem);
+            opacity: 0.1;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes landing-subheading-anim {
+        from {
+            transform: translateX(4rem);
+            opacity: 0.1;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
     }
 </style>

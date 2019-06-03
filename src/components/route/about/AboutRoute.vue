@@ -1,6 +1,8 @@
 <template>
     <div class="page-content">
-        <h1>About</h1>
+        <h1>
+            <span class="page-heading">About</span>
+        </h1>
         <p>Hey, my name's Will! I'm a software developer with an interest in web, mobile and software development.</p>
         <p>I have been programming for over 10 years and over this time have utilised a wide range of languages, frameworks and techniques.</p>
         <p>If you have any interest in what I have been creating, feel free to have a look at my GitHub or projects page!</p>

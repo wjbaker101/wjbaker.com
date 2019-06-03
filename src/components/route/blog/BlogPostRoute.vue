@@ -1,6 +1,8 @@
 <template>
     <div class="page-content" v-if="blogPostItem">
-        <h1>{{ blogPostItem.title }}</h1>
+        <h1>
+            <span class="page-heading">{{ blogPostItem.title }}</span>
+        </h1>
         <p>
             <router-link to="/blog"><BackIcon /> Return to Blog</router-link>
         </p>

@@ -1,6 +1,8 @@
 <template>
     <div class="page-content">
-        <h1>Create Project</h1>
+        <h1>
+            <span class="page-heading">Create Project</span>
+        </h1>
         <p>
             <label>Title</label><br>
             <input type="text" class="textbox-wide" v-model="properties.title">
