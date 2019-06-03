@@ -1,10 +1,7 @@
 <template>
     <div class="page-container">
         <Nav :page="page" />
-        <main id="main">
-            <router-view @navpageinit="onNavPageinit"></router-view>
-            <Footer />
-        </main>
+        <router-view @navpageinit="onNavPageinit"></router-view>
     </div>
 </template>
 
@@ -28,13 +25,14 @@
 
         watch: {
             $route(to, from) {
-                this.$el.querySelector('main').scrollTop = 0;
+                // this.$el.querySelector('main').scrollTop = 0;
             },
         },
 
         methods: {
             onNavPageinit(page) {
                 this.page = page;
+                console.log('cheese');
             },
         },
     }
@@ -104,7 +102,11 @@
         display: flex;
 
         @media screen and (max-width: 1024px) {
-            display: block;
+            flex-direction: column;
+
+            nav {
+                height: auto;
+            }
         }
     }
 
@@ -112,15 +114,16 @@
         height: 100%;
 
         @media screen and (max-width: 1024px) {
-            height: auto;
+            height: 70vh;
         }
     }
 
     main {
+        position: relative;
         flex: 1;
+        overflow: auto;
         padding: 5rem 2rem 2rem 2rem;
         padding: 12vh 2rem 2rem 2rem;
-        overflow: auto;
 
         @media screen and (max-width: 1024px) {
             padding: 2rem 0;

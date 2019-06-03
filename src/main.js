@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from '@/App.vue';
-import NavRouter from '@/router/NavRouter.js';
+import AppRouter from '@/router/AppRouter.js';
 
 Vue.use(VueRouter);
 
 new Vue({
-    router: NavRouter,
+    router: AppRouter,
     render: h => h(App),
 })
 .$mount('#app');
