@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+const history = require('connect-history-api-fallback');
+
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -56,6 +58,8 @@ passport.deserializeUser(async (user, done) => {
 
 app.use('/static-resources', express.static(path.join(__dirname, 'static-resources')));
 app.use(express.static(path.join(__dirname, 'frontend')));
+
+app.use(history());
 
 const controllers = [
     require('./controller/AuthController.js'),

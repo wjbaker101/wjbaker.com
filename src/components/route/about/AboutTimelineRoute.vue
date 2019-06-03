@@ -2,7 +2,7 @@
     <div class="page-content">
         <h1>Timeline</h1>
         <p>
-            <router-link to="/"><BackIcon /> Return to About page</router-link>
+            <router-link to="/about"><BackIcon /> Return to About page</router-link>
         </p>
         <div class="timeline-container">
             <article>

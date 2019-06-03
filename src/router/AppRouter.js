@@ -8,6 +8,7 @@ import LandingRoute from '@/components/route/LandingRoute.vue';
 import TitleUtils from '@/util/TitleUtils.js';
 
 export default new VueRouter({
+    mode: 'history',
     routes: [
         {
             path: '/',
