@@ -69,6 +69,11 @@ const controllers = [
 
 controllers.forEach(controller => {
     app.use('/api', controller);
+
+    controller.stack
+            .filter(r => r && r.route && r.route.path)
+            .map(r => r.route.path)
+            .forEach(p => console.log(`Exposing: /api${p}`));
 });
 
 app.listen(8082, () => {
