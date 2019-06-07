@@ -57,7 +57,7 @@
             const response = await API.getBlogPost(to.params.blogPostID);
             next(vm =>{
                 vm.setBlogPost(response.result);
-                next(`/blog/${vm.blogPostItem.blogID}/${vm.blogPostItem.titleUrl}`);
+                next();
             });
         },
 
@@ -69,7 +69,7 @@
 
             const response = await API.getBlogPost(to.params.blogPostID);
             this.setBlogPost(response.result);
-            next(`/blog/${this.blogPostItem.blogID}/${this.blogPostItem.titleUrl}`);
+            next();
         },
 
         methods: {

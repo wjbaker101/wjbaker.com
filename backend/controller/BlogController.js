@@ -19,7 +19,10 @@ router.post('/blog', async (request, response, next) => {
 
 router.get('/blog/posts', async (request, response, next) => {
     try {
-        const result = await blogService.getPublishedBlogPosts();
+        const isAdmin = request.isAuthenticated()
+                && request.session.passport.user.isAdmin;
+
+        const result = await blogService.getBlogPosts(isAdmin);
 
         response.send({ result });
     }

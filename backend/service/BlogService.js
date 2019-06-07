@@ -57,6 +57,13 @@ class BlogService {
     async updateBlogPost(blogPost) {
         return await blogRepository.updateBlogPost(blogPost);
     }
+
+    async getBlogPosts(isAdmin) {
+        const blogPosts = await blogRepository.getBlogPosts();
+
+        return blogPosts.filter(blogPost =>
+                blogPost.isPublished || (!blogPost.isPublished && isAdmin));
+    }
 }
 
 module.exports = new BlogService();

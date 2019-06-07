@@ -105,6 +105,18 @@
         }
     }
 
+    .link-no-style {
+        color: inherit;
+        text-decoration: none;
+        font-weight: normal;
+
+        &:hover {
+            color: inherit;
+            text-decoration: none;
+            font-weight: normal;
+        }
+    }
+
     .page-container {
         display: flex;
 

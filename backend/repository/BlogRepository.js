@@ -38,6 +38,13 @@ class BlogRepository {
 
         return result;
     }
+
+    async getBlogPosts() {
+        const result = await mySQLRepository.query(
+                'SELECT * FROM BLOG_POSTS ORDER BY CREATED_ON DESC');
+
+        return result.map(blogPost => blogPostMapper.map(blogPost));
+    }
 }
 
 module.exports = new BlogRepository();

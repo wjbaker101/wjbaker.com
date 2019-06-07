@@ -6,7 +6,7 @@
         <p v-if="!isLoaded">
             <LoadingIcon class="loading-projects-icon" /> Loading Blog posts
         </p>
-        <div v-if="isLoaded">
+        <div class="blog-post-container" v-if="isLoaded">
             <BlogPostItemComponent
                 v-bind:key="index"
                 v-for="(blogPost, index) in blogPosts"
@@ -57,4 +57,21 @@
 </script>
 
 <style lang="scss">
+    .blog-post-container {
+        display: flex;
+        align-items: stretch;
+
+        & > * {
+            width: 50%;
+            flex: 1;
+
+            &:nth-child(odd) {
+                margin-right: 0.5rem;
+            }
+
+            &:nth-child(even) {
+                margin-left: 0.5rem;
+            }
+        }
+    }
 </style>
