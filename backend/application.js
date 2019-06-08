@@ -59,8 +59,6 @@ passport.deserializeUser(async (user, done) => {
 app.use('/static-resources', express.static(path.join(__dirname, 'static-resources')));
 app.use(express.static(path.join(__dirname, 'frontend')));
 
-app.use(history());
-
 const controllers = [
     require('./controller/AuthController.js'),
     require('./controller/BlogController.js'),
@@ -76,6 +74,8 @@ controllers.forEach(controller => {
             .map(r => r.route.path)
             .forEach(p => console.log(`Exposing: /api${p}`));
 });
+
+app.use(history());
 
 app.listen(8082, () => {
     console.log('Started application in port: 8082');

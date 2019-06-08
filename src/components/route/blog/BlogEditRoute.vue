@@ -23,6 +23,13 @@
                 :config="editorConfig"
                 @ready="loadContentEditor" />
         </p>
+        <FormContainerComponent title="Settings">
+            <CheckBoxComponent
+                id="checkbox-published"
+                label="Published"
+                val="isPublished"
+                v-model="properties.isPublished" />
+        </FormContainerComponent>
         <p>
             <ButtonComponent
                 @click.native="onSubmitClicked"
@@ -41,6 +48,8 @@
     import CKEditorMixin from '@/mixin/CKEditorMixin.js';
     import API from '@/api/API.js';
     import ButtonComponent from '@/components/item/ButtonComponent.vue';
+    import FormContainerComponent from '@/components/item/FormContainerComponent.vue';
+    import CheckBoxComponent from '@/components/item/CheckBoxComponent.vue';
 
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
@@ -51,6 +60,8 @@
 
         components: {
             ButtonComponent,
+            FormContainerComponent,
+            CheckBoxComponent,
         },
 
         data() {
@@ -83,16 +94,23 @@
 
         methods: {
             setBlogPost(blogPost) {
+                if (!blogPost.isPublished) {
+                    blogPost.isPublished = false;
+                }
+
                 this.blogPostItem = blogPost;
 
                 const {
                     title,
+                    summary,
+                    content,
                     isPublished,
-                } = blogPost;
+                } = this.blogPostItem;
 
                 this.properties = {
-                    ...this.properties,
                     title,
+                    summary,
+                    content,
                     isPublished,
                 };
             },

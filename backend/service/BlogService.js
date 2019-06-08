@@ -42,7 +42,7 @@ class BlogService {
                 summary,
                 createdOn,
                 modifiedOn,
-                isPublished,
+                isPublished: isPublished === 1,
             }
         }
         catch (exception) {
