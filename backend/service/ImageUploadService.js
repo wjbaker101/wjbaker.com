@@ -17,6 +17,15 @@ class ImageUploadService {
             this.checkDirectoryExists();
 
             fs.open(filePath, 'w', (error, fd) => {
+                if (error) {
+                    reject({
+                        uploaded: 0,
+                        error: {
+                            message: 'Unable save the image.',
+                        }
+                    });
+                }
+
                 fs.write(fd, fileBuffer, 0, fileBuffer.length, null, (error) => {
                     if (error) {
                         reject({

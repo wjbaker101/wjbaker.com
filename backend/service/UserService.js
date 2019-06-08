@@ -1,4 +1,5 @@
 const userRepository = require('../repository/UserRepository.js');
+const imageUploadService = require('./ImageUploadService.js');
 
 class UserService {
 
@@ -24,6 +25,23 @@ class UserService {
         }
         catch (exception) {
             return null;
+        }
+    }
+
+    async uploadAvatar(fileBuffer, user) {
+        try {
+            const avatarImageId
+                    = await imageUploadService.uploadImage(fileBuffer);
+
+            await userRepository.updateAvatar({
+                userID: user.id,
+                avatarID: avatarImageId.fileName,
+            });
+
+            return avatarImageId.url;
+        }
+        catch (exception) {
+            return exception;
         }
     }
 }

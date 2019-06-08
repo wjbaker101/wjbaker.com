@@ -2,11 +2,35 @@
     <div class="page-content">
         <div v-if="user">
             <h1>
-            <span class="page-heading">{{ user.username }}</span>
-        </h1>
+                <img class="avatar-image" width="54" height="54" :src="avatarUrl">
+                <span class="page-heading">{{ user.username }}</span>
+            </h1>
             <p><strong>Created On:</strong> {{ createdOn }}</p>
             <p v-if="user.isAdmin">You are an Admin!</p>
-            <p>
+            <FormContainerComponent title="Avatar">
+                <p>Upload an image to use as your avatar.</p>
+                <p>This will be visible when creating blog posts, as your name will appear at the bottom to show it was created by you!</p>
+                <p>
+                    <input
+                        type="file"
+                        @change="onAvatarUploadFileChange($event.target.name, $event.target.files)">
+                </p>
+                <p>
+                    <ButtonComponent
+                        @click.native="onAvatarUploadSubmit"
+                        :doShowLoadingIcon="isAvatarUploading">
+
+                        Submit
+                    </ButtonComponent>
+                    <ButtonComponent
+                        isGhostButton="true">
+
+                        Delete Avatar
+                    </ButtonComponent>
+                </p>
+                <p v-if="avatarUploadMessage">{{ avatarUploadMessage }}</p>
+            </FormContainerComponent>
+            <FormContainerComponent title="Logout">
                 <ButtonComponent
                     @click.native="onLogoutClicked"
                     :doShowLoadingIcon="isLoggingOut"
@@ -14,7 +38,7 @@
 
                     Log Out
                 </ButtonComponent>
-            </p>
+            </FormContainerComponent>
         </div>
     </div>
 </template>
@@ -24,6 +48,7 @@
     import API from '@/api/API.js';
     import DateUtils from '@/util/DateUtils.js';
     import ButtonComponent from '@/components/item/ButtonComponent.vue';
+    import FormContainerComponent from '@/components/item/FormContainerComponent.vue';
     import { ImmortalDB } from 'immortal-db';
 
     export default {
@@ -33,13 +58,20 @@
 
         components: {
             ButtonComponent,
+            FormContainerComponent,
         },
 
         data() {
             return {
                 user: null,
+
                 isLoggingOut: false,
                 isLoggedOut: false,
+
+                avatarFile: null,
+                isAvatarUploading: false,
+                avatarUploadMessage: null,
+                avatarUrl: null,
             }
         },
 
@@ -74,6 +106,7 @@
                 }
 
                 this.user = response.result;
+                this.avatarUrl = `/static-resources/images/${this.user.avatarID}`;
             },
 
             async onLogoutClicked() {
@@ -87,10 +120,39 @@
                     this.$router.push('/login');
                 }
             },
+
+            onAvatarUploadFileChange(fieldName, fileList) {
+                this.avatarFile = fileList[0];
+            },
+
+            async onAvatarUploadSubmit() {
+                this.isAvatarUploading = true;
+
+                const formData = new FormData();
+                formData.append('avatar', this.avatarFile);
+
+                const response = await API.uploadAvatar(formData);
+
+                if (!response.error) {
+                    this.avatarUrl = response.result;
+                    this.avatarUploadMessage = 'Successfully updated avatar!';
+                    setTimeout(() => (this.avatarUploadMessage = null), 3000);
+                }
+                else {
+                    this.avatarUploadMessage = response.error;
+                }
+
+                this.isAvatarUploading = false;
+            },
         },
     }
 </script>
 
 <style lang="scss">
-
+    .avatar-image {
+        margin-right: 1rem;
+        vertical-align: middle;
+        border-radius: 50%;
+        line-height: 0;
+    }
 </style>

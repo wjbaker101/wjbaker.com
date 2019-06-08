@@ -1,5 +1,8 @@
 <template>
-    <button :disabled="isDisabled">
+    <button
+        :disabled="isDisabled"
+        v-bind:class="{ 'ghost-button': isGhostButton }">
+
         <LoadingIcon v-bind:class="{ visible: doShowLoadingIcon }" />
         <slot />
     </button>
@@ -15,7 +18,7 @@
             LoadingIcon,
         },
 
-        props: [ 'doShowLoadingIcon', 'isDisabled' ],
+        props: [ 'doShowLoadingIcon', 'isDisabled', 'isGhostButton' ],
     }
 </script>
 
@@ -52,6 +55,19 @@
             color: theme(grey-dark);
             border-color: theme(grey-dark);
             cursor: not-allowed;
+        }
+
+        & + button {
+            margin-left: 0.5rem;
+        }
+
+        &.ghost-button {
+            background-color: theme(white);
+            color: theme(black);
+
+            &:hover {
+                background-color: theme(tertiary-light);
+            }
         }
     }
 </style>

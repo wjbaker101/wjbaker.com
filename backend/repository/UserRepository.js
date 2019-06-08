@@ -18,6 +18,14 @@ class UserRepository {
 
         return result.map(user => userMapper.map(user));
     }
+
+    async updateAvatar(updateInfo) {
+        await mySQLRepository.query(
+            'UPDATE USERS SET AVATAR_ID = ? WHERE USER_ID = ?',
+            [updateInfo.avatarID, updateInfo.userID]);
+
+        return 'Successfully updated avatar.';
+    }
 }
 
 module.exports = new UserRepository();

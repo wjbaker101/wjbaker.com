@@ -7,6 +7,7 @@ module.exports = {
             PASSWORD: password,
             CREATED_ON: createdOn,
             IS_ADMIN: isAdmin,
+            AVATAR_ID: avatarID,
         } = user;
 
         return {
@@ -15,6 +16,7 @@ module.exports = {
             password,
             createdOn: new Date(createdOn),
             isAdmin: isAdmin === 1,
+            avatarID,
         }
     },
 }

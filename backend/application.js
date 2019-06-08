@@ -65,6 +65,7 @@ const controllers = [
     require('./controller/AuthController.js'),
     require('./controller/BlogController.js'),
     require('./controller/ProjectController.js'),
+    require('./controller/UserController.js'),
 ];
 
 controllers.forEach(controller => {
