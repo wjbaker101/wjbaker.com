@@ -3,7 +3,17 @@
         <h1>
             <span class="page-heading">About</span>
         </h1>
-        <p>Hey, my name's Will! I'm a software developer with an interest in web, mobile and software development.</p>
+        <div class="flex-row">
+            <div class="text-centered">
+                <img width="240" height="240" src="@/assets/images/me.jpg" alt="That's me! William Baker." class="photo-image">
+            </div>
+            <div class="flex-row">
+                <div style="margin: auto">
+                    <p>Hey, I'm Will!</p>
+                    <p>I'm a software developer originally from Kent, with an interest in web, mobile and software development, tennis and cooking!</p>
+                </div>
+            </div>
+        </div>
         <p>I have been programming for over 10 years and over this time have utilised a wide range of languages, frameworks and techniques.</p>
         <p>If you have any interest in what I have been creating, feel free to have a look at my GitHub or projects page!</p>
         <div class="note flex-row text-centered">
@@ -70,5 +80,12 @@
                 color: theme(tertiary-dark);
             }
         }
+    }
+
+    .photo-image {
+        border-radius: 50%;
+        padding: 2px;
+        background-color: theme(grey);
+        border: 2px solid theme(primary);
     }
 </style>
