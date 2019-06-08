@@ -13,15 +13,21 @@ export default (permissionLevel = 'none') => ({
     },
 
     async beforeRouteEnter(to, from, next) {
-        const isAuthenticated = await API.authCheck();
+        const cache = await ImmortalDB.get('current-user', null);
+        const cachedUser = JSON.parse(cache);
 
-        if (!isAuthenticated || !isAuthenticated.result) {
-            await ImmortalDB.remove('current-user');
+        if (cachedUser === null) {
+            Permissions(false, next, from.path)[permissionLevel]();
+            return;
         }
 
-        const user = JSON.parse(await ImmortalDB.get('current-user', null));
+        if (Date.now() - cachedUser.timestamp > 24 * 60 * 60 * 1000) {
+            await ImmortalDB.remove('current-user');
+            Permissions(false, next, from.path)[permissionLevel]();
+            return;
+        }
 
-        Permissions(user, next, from.path)[permissionLevel]();
+        Permissions(cachedUser.user, next, from.path)[permissionLevel]();
     },
 
     methods: {

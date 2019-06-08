@@ -81,9 +81,14 @@
                     this.isLoggedIn = true;
                     this.message = 'Successfully logged in!';
 
+                    const cachedUser = {
+                        user: response.result,
+                        timestamp: Date.now(),
+                    };
+
                     await ImmortalDB.set(
                             'current-user',
-                            JSON.stringify(response.result));
+                            JSON.stringify(cachedUser));
 
                     this.$router.push('/user');
                 }
