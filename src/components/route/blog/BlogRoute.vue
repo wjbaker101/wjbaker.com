@@ -3,6 +3,7 @@
         <h1>
             <span class="page-heading">Blog</span>
         </h1>
+        <p v-if="errorMessage">{{ errorMessage }}</p>
         <p v-if="!isLoaded">
             <LoadingIcon class="loading-projects-icon" /> Loading Blog posts
         </p>
@@ -34,6 +35,7 @@
         data() {
             return {
                 isLoaded: false,
+                errorMessage: null,
                 blogPosts: [],
             }
         },
@@ -48,7 +50,15 @@
 
                 const blogPosts = await API.getPublishedBlogPosts();
 
+                if (!blogPosts || blogPosts.error) {
+                    this.errorMessage = blogPosts.error;
+                }
+
                 this.blogPosts = blogPosts.result;
+
+                if (Array(this.blogPosts).length) {
+                    this.errorMessage = 'No Blog posts yet, make sure to check back at a later date!';
+                }
 
                 this.isLoaded = true;
             },
