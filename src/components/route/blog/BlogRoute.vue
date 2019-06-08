@@ -56,7 +56,7 @@
 
                 this.blogPosts = blogPosts.result;
 
-                if (Array(this.blogPosts).length) {
+                if (this.blogPosts.length === 0) {
                     this.errorMessage = 'No Blog posts yet, make sure to check back at a later date!';
                 }
 
