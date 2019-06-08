@@ -6,11 +6,19 @@
         <p>Log into a user. Some pages and actions require an Admin user.</p>
         <p>
             <label>Username</label><br>
-            <input type="text" v-model="credentials.username">
+            <input
+                ref="usernameInput"
+                type="text"
+                v-model="credentials.username"
+                @keyup.enter="onUsernameEnter">
         </p>
         <p>
             <label>Password</label><br>
-            <input type="password" v-model="credentials.password">
+            <input
+                ref="passwordInput"
+                type="password"
+                v-model="credentials.password"
+                @keyup.enter="onPasswordEnter">
         </p>
         <p>
             <ButtonComponent
@@ -95,6 +103,24 @@
                 else {
                     this.message = response.error;
                 }
+            },
+
+            onUsernameEnter(e) {
+                if (this.credentials.password.length === 0) {
+                    this.$refs.passwordInput.focus();
+                    return;
+                }
+
+                this.onLoginClicked();
+            },
+
+            onPasswordEnter(e) {
+                if (this.credentials.username.length === 0) {
+                    this.$refs.usernameInput.focus();
+                    return;
+                }
+
+                this.onLoginClicked();
             },
         },
     }
