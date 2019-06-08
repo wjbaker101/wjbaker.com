@@ -10,7 +10,7 @@
             <div class="flex-row">
                 <div style="margin: auto">
                     <p>Hey, I'm Will!</p>
-                    <p>I'm a software developer originally from Kent, with an interest in web, mobile and software development, tennis and cooking!</p>
+                    <p>I'm a software developer originally from Kent, with an interest in web, mobile and software development, tennis, cooking and baking!</p>
                 </div>
             </div>
         </div>
