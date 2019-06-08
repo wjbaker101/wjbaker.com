@@ -1,6 +1,6 @@
 <template>
     <router-link class="link-no-style" :to="`/blog/${blogPostItem.blogID}/${blogPostItem.titleUrl}`">
-        <CardComponent class="blog-post-item">
+        <CardComponent class="blog-post-item" v-bind:class="{ 'is-published': blogPostItem.isPublished }">
             <p><small>{{ blogPostDate }}</small></p>
             <h2>{{ blogPostItem.title }}</h2>
             <div v-html="blogPostItem.summary"></div>
@@ -33,8 +33,15 @@
 <style lang="scss">
     .blog-post-item {
         height: 100%;
-        background-color: theme(grey-light);
+        background-color: theme(grey-dark);
+        border-right-color: theme(black-light);
+        border-top-color: theme(black-light);
+        border-bottom-color: theme(black-light);
         transition: border-color 0.3s;
+
+        &.is-published {
+            background-color: theme(grey-light);
+        }
 
         &:hover {
             padding-left: calc(1rem - 2px);

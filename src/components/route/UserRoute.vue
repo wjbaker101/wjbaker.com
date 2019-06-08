@@ -89,18 +89,19 @@
 
         async beforeRouteEnter(to, from, next) {
             const response = await API.getUser();
-            next(vm => vm.setPageUser(response));
+            next(async vm => await vm.setPageUser(response));
         },
 
         async beforeRouteUpdate(to, from, next) {
             const response = await API.getUser();
-            this.setPageUser(response);
+            await this.setPageUser(response);
             next();
         },
 
         methods: {
-            setPageUser(response) {
+            async setPageUser(response) {
                 if (response.error) {
+                    await ImmortalDB.remove('current-user');
                     this.$router.push('/login');
                     return;
                 }
