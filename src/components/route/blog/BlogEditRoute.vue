@@ -9,19 +9,11 @@
         </p>
         <p>
             <label>Summary</label><br>
-            <CKEditor
-                :editor="summaryEditor"
-                v-model="properties.summary"
-                :config="editorConfig"
-                @ready="loadSummaryEditor" />
+            <wysiwyg v-model="properties.summary" />
         </p>
         <p>
             <label>Content</label><br>
-            <CKEditor
-                :editor="contentEditor"
-                v-model="properties.content"
-                :config="editorConfig"
-                @ready="loadContentEditor" />
+            <wysiwyg v-model="properties.content" />
         </p>
         <FormContainerComponent title="Settings">
             <CheckBoxComponent
@@ -45,18 +37,15 @@
 
 <script>
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
-    import CKEditorMixin from '@/mixin/CKEditorMixin.js';
     import API from '@/api/API.js';
     import ButtonComponent from '@/components/item/ButtonComponent.vue';
     import FormContainerComponent from '@/components/item/FormContainerComponent.vue';
     import CheckBoxComponent from '@/components/item/CheckBoxComponent.vue';
 
-    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
     export default {
         name: 'BlogCreateRoute',
 
-        mixins: [ BaseRouteMixin('admin'), CKEditorMixin ],
+        mixins: [ BaseRouteMixin('admin') ],
 
         components: {
             ButtonComponent,
@@ -73,8 +62,6 @@
                     content: '',
                     isPublished: false,
                 },
-                summaryEditor: ClassicEditor,
-                contentEditor: ClassicEditor,
                 isSubmitted: false,
                 isSubmitting: false,
                 message: null,
@@ -99,20 +86,7 @@
                 }
 
                 this.blogPostItem = blogPost;
-
-                const {
-                    title,
-                    summary,
-                    content,
-                    isPublished,
-                } = this.blogPostItem;
-
-                this.properties = {
-                    title,
-                    summary,
-                    content,
-                    isPublished,
-                };
+                this.properties = this.blogPostItem;
             },
 
             async onSubmitClicked() {

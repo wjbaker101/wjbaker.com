@@ -65,8 +65,10 @@ const upload = multer({
     },
 });
 
-router.post('/projects/image', upload.single('upload'), async (request, response) => {
+router.post('/projects/image', upload.single('file'), async (request, response) => {
     const result = await projectService.uploadImage(request.file.buffer);
+
+    console.log(result);
 
     response.send(result);
 });

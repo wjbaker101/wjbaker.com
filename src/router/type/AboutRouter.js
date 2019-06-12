@@ -1,5 +1,5 @@
-import AboutRoute from '@/components/route/about/AboutRoute.vue';
-import AboutTimelineRoute from '@/components/route/about/AboutTimelineRoute.vue';
+const AboutRoute = () => import('@/components/route/about/AboutRoute.vue');
+const AboutTimelineRoute = () => import('@/components/route/about/AboutTimelineRoute.vue');
 
 import TitleUtils from '@/util/TitleUtils.js';
 

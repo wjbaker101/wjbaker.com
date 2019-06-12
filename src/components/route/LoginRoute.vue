@@ -61,6 +61,10 @@
             }
         },
 
+        mounted() {
+            this.$refs.usernameInput.focus();
+        },
+
         methods: {
             async onLoginClicked() {
                 this.message = null;

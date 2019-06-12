@@ -37,11 +37,7 @@ class ImageUploadService {
                     }
 
                     fs.close(fd, () => {
-                        resolve({
-                            uploaded: 1,
-                            fileName: id,
-                            url: `/static-resources/images/${id}`,
-                        });
+                        resolve(`/static-resources/images/${id}`);
                     });
                 });
             });

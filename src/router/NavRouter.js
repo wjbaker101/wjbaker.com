@@ -1,7 +1,6 @@
-import LandingRoute from '@/components/route/LandingRoute.vue';
-import LoginRoute from '@/components/route/LoginRoute.vue';
-import UserRoute from '@/components/route/UserRoute.vue';
-import NotFoundRoute from '@/components/route/NotFoundRoute.vue';
+const LoginRoute = () => import('@/components/route/LoginRoute.vue');
+const UserRoute = () => import('@/components/route/UserRoute.vue');
+const NotFoundRoute = () => import('@/components/route/NotFoundRoute.vue');
 
 import BlogRouter from '@/router/type/BlogRouter.js';
 import ProjectRouter from '@/router/type/ProjectRouter.js';
@@ -13,15 +12,6 @@ export default [
     ...BlogRouter,
     ...ProjectRouter,
     ...AboutRouter,
-    {
-        path: '/',
-        component: LandingRoute,
-        props: {
-            page: 'landing',
-        },
-        beforeEnter: (to, from, next) =>
-                TitleUtils.setTitle('Will Baker', next),
-    },
     {
         path: '/login',
         component: LoginRoute,

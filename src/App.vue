@@ -46,6 +46,8 @@
 </script>
 
 <style lang="scss">
+    @import '@/style/vue-wysiwyg.scss';
+
     :root {
         --primary: #176bc0;
         --secondary: #59c3c3;

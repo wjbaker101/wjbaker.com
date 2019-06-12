@@ -2,8 +2,8 @@ import VueRouter from 'vue-router';
 
 import NavRouter from '@/router/NavRouter.js';
 
-import PageRoute from '@/components/route/PageRoute.vue';
-import LandingRoute from '@/components/route/LandingRoute.vue';
+const PageRoute = () => import('@/components/route/PageRoute.vue');
+const LandingRoute = () => import('@/components/route/LandingRoute.vue');
 
 import TitleUtils from '@/util/TitleUtils.js';
 

@@ -13,17 +13,11 @@
         </p>
         <p>
             <label>Summary</label><br>
-            <CKEditor
-                :editor="summaryEditor"
-                v-model="properties.summary"
-                :config="editorConfig" />
+            <wysiwyg v-model="properties.summary" />
         </p>
         <p>
             <label>Content</label><br>
-            <CKEditor
-                :editor="editor"
-                v-model="properties.content"
-                :config="editorConfig" />
+            <wysiwyg v-model="properties.content" />
         </p>
         <p>
             <ButtonComponent
@@ -40,16 +34,13 @@
 
 <script>
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
-    import CKEditorMixin from '@/mixin/CKEditorMixin.js';
     import API from '@/api/API.js';
     import ButtonComponent from '@/components/item/ButtonComponent.vue';
-
-    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
     export default {
         name: 'ProjectEditRoute',
 
-        mixins: [ BaseRouteMixin(), CKEditorMixin ],
+        mixins: [ BaseRouteMixin() ],
 
         components: {
             ButtonComponent,
@@ -63,8 +54,6 @@
                     summary: '',
                     content: '',
                 },
-                editor: ClassicEditor,
-                summaryEditor: ClassicEditor,
                 isSubmitted: false,
                 isSubmitting: false,
                 message: null,

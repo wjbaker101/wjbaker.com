@@ -84,8 +84,7 @@
 
     .photo-image {
         border-radius: 50%;
-        padding: 2px;
         background-color: theme(grey);
-        border: 2px solid theme(primary);
+        border: 2px solid theme(grey-dark);
     }
 </style>

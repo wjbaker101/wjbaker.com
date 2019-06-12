@@ -1,7 +1,7 @@
-import BlogCreateRoute from '@/components/route/blog/BlogCreateRoute.vue';
-import BlogPostRoute from '@/components/route/blog/BlogPostRoute.vue';
-import BlogRoute from '@/components/route/blog/BlogRoute.vue';
-import BlogEditRoute from '@/components/route/blog/BlogEditRoute.vue';
+const BlogCreateRoute = () => import('@/components/route/blog/BlogCreateRoute.vue');
+const BlogPostRoute = () => import('@/components/route/blog/BlogPostRoute.vue');
+const BlogRoute = () => import('@/components/route/blog/BlogRoute.vue');
+const BlogEditRoute = () => import('@/components/route/blog/BlogEditRoute.vue');
 
 import TitleUtils from '@/util/TitleUtils.js';
 
