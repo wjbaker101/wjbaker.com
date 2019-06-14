@@ -15,6 +15,13 @@
             <label>Content</label><br>
             <wysiwyg v-model="properties.content" />
         </p>
+        <FormContainerComponent title="Settings">
+            <CheckBoxComponent
+                id="checkbox-published"
+                label="Published"
+                val="isPublished"
+                v-model="properties.isPublished" />
+        </FormContainerComponent>
         <p>
             <ButtonComponent
                 @click.native="onSubmitClicked"
@@ -32,6 +39,8 @@
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
     import ButtonComponent from '@/components/item/ButtonComponent.vue';
+    import FormContainerComponent from '@/components/item/FormContainerComponent.vue';
+    import CheckBoxComponent from '@/components/item/CheckBoxComponent.vue';
 
     export default {
         name: 'BlogCreateRoute',
@@ -40,6 +49,8 @@
 
         components: {
             ButtonComponent,
+            FormContainerComponent,
+            CheckBoxComponent,
         },
 
         data() {

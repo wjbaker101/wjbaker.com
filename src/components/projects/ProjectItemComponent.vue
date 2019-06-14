@@ -5,7 +5,7 @@
         <div v-html="projectItem.summary"></div>
         <p>
             <router-link :to="`/projects/${projectItem.id}`">
-                <button>View</button>
+                <ButtonComponent>View</ButtonComponent>
             </router-link>
         </p>
     </InnerCardComponent>
@@ -13,6 +13,7 @@
 
 <script>
     import InnerCardComponent from '@/components/item/InnerCardComponent.vue';
+    import ButtonComponent from '@/components/item/ButtonComponent.vue';
 
     export default {
         name: 'ProjectItemComponent',
@@ -21,6 +22,7 @@
 
         components: {
             InnerCardComponent,
+            ButtonComponent,
         },
     }
 </script>
