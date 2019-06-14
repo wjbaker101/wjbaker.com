@@ -3,6 +3,11 @@
         <h1>
             <span class="page-heading">Projects</span>
         </h1>
+        <InnerCardComponent v-if="currentUser && currentUser.isAdmin">
+            <router-link :to="`/projects/create`">
+                <PlusIcon /> New Project
+            </router-link>
+        </InnerCardComponent>
         <p v-if="!isLoaded">
             <LoadingIcon class="loading-projects-icon" /> Loading projects
         </p>
@@ -19,9 +24,13 @@
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
     import LoadingIcon from '@/assets/icons/loading.svg';
+    import PlusIcon from '@/assets/icons/plus.svg';
 
     import ProjectItemComponent
             from '@/components/projects/ProjectItemComponent.vue';
+
+    import InnerCardComponent
+            from '@/components/item/InnerCardComponent.vue';
 
     export default {
         name: 'ProjectsRoute',
@@ -31,6 +40,8 @@
         components: {
             ProjectItemComponent,
             LoadingIcon,
+            InnerCardComponent,
+            PlusIcon,
         },
 
         data() {

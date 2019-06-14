@@ -1,9 +1,10 @@
 <template>
     <button
+        class="wjb-button"
         :disabled="isDisabled"
         v-bind:class="{ 'ghost-button': isGhostButton }">
 
-        <LoadingIcon v-bind:class="{ visible: doShowLoadingIcon }" />
+        <LoadingIcon v-if="doShowLoadingIcon" />
         <slot />
     </button>
 </template>
@@ -23,13 +24,13 @@
 </script>
 
 <style lang="scss">
-    button {
+    .wjb-button {
         padding: 0.75rem 1rem;
         font: inherit;
         line-height: 1em;
         background-color: theme(tertiary);
         border-radius: layout(border-radius);
-        border: 1px solid theme(tertiary-dark);
+        border: 2px solid theme(tertiary-dark);
         color: theme(white);
         cursor: pointer;
         vertical-align: middle;
@@ -62,11 +63,14 @@
         }
 
         &.ghost-button {
+            border: 2px solid theme(tertiary);
             background-color: theme(white);
             color: theme(black);
 
             &:hover {
-                background-color: theme(tertiary-light);
+                border: 2px solid theme(tertiary-dark);
+                background-color: theme(tertiary);
+                color: theme(white);
             }
         }
     }
