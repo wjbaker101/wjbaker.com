@@ -175,7 +175,7 @@
         position: relative;
         font-size: 2.5rem;
         padding: 6rem;
-        margin: 0 4rem 6rem 0;
+        margin: 0 4rem 5rem 0;
         transform-style: preserve-3d;
         background-color: theme(primary);
         border: 1px solid theme(primary-dark);

@@ -77,20 +77,12 @@
 
 <style lang="scss">
     .blog-post-container {
-        display: flex;
-        align-items: stretch;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1rem;
 
         & > * {
-            width: 50%;
-            flex: 1;
-
-            &:nth-child(odd) {
-                margin-right: 0.5rem;
-            }
-
-            &:nth-child(even) {
-                margin-left: 0.5rem;
-            }
+            grid-column: span 1;
         }
     }
 </style>

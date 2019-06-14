@@ -3,16 +3,16 @@
         <h1>
             <span class="page-heading">{{ blogPostItem.title }}</span>
         </h1>
+        <InnerCardComponent v-if="currentUser && currentUser.isAdmin">
+            <router-link :to="`/blog/${$route.params.blogPostID}/edit`">
+                <EditIcon /> Edit Post
+            </router-link>
+        </InnerCardComponent>
         <p>
             <router-link to="/blog"><BackIcon /> Return to Blog</router-link>
         </p>
         <p><small>{{ date }}</small></p>
         <div v-html="blogPostItem.content"></div>
-        <InnerCardComponent v-if="currentUser && currentUser.isAdmin">
-            <router-link :to="`/blog/${$route.params.blogPostID}/edit`">
-                <EditIcon /> Edit Blog Post
-            </router-link>
-        </InnerCardComponent>
     </div>
 </template>
 

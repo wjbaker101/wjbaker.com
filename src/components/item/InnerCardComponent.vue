@@ -13,6 +13,7 @@
 <style lang="scss">
     .inner-card {
         padding: 1rem;
+        margin: 1rem 0;
         background-color: theme(grey);
         border: 1px solid theme(grey-dark);
         border-top: 2px solid theme(secondary);
