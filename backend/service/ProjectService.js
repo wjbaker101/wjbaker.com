@@ -1,7 +1,8 @@
 const projectRepository = require('../repository/ProjectRepository.js');
-const imageUploadService = require('./ImageUploadService.js');
+const imageUploadClient = require('../client/ImageUploadClient.js');
 
 const titleParser = require('../parse/TitleParser.js');
+const properties = require('../../properties.json');
 
 class ProjectService {
 
@@ -25,7 +26,11 @@ class ProjectService {
 
     async uploadImage(fileBuffer) {
         try {
-            return await imageUploadService.uploadImage(fileBuffer);
+            const imageURL = await imageUploadClient.uploadImage(
+                    'avatar.jpg',
+                    fileBuffer);
+
+            return `${properties['image-upload-service']['base-url']}${imageURL}`;
         }
         catch (exception) {
             return exception;

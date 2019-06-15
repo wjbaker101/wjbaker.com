@@ -107,7 +107,7 @@
                 }
 
                 this.user = response.result;
-                this.avatarUrl = `/static-resources/images/${this.user.avatarID}`;
+                this.avatarUrl = this.user.avatarID;
             },
 
             async onLogoutClicked() {

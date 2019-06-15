@@ -1,5 +1,6 @@
 const userRepository = require('../repository/UserRepository.js');
-const imageUploadService = require('./ImageUploadService.js');
+const imageUploadClient = require('../client/ImageUploadClient.js');
+const properties = require('../../properties.json');
 
 class UserService {
 
@@ -30,15 +31,18 @@ class UserService {
 
     async uploadAvatar(fileBuffer, user) {
         try {
-            const avatarImageId
-                    = await imageUploadService.uploadImage(fileBuffer);
+            const imageURL = await imageUploadClient.uploadImage(
+                    'avatar.jpg',
+                    fileBuffer);
+
+            const fullImageURL = `${properties['image-upload-service']['base-url']}${imageURL}`;
 
             await userRepository.updateAvatar({
                 userID: user.id,
-                avatarID: avatarImageId.fileName,
+                avatarID: fullImageURL,
             });
 
-            return avatarImageId.url;
+            return fullImageURL;
         }
         catch (exception) {
             return exception;
