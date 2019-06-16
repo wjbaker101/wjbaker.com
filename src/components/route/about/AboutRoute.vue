@@ -39,6 +39,7 @@
         <p>I am a 3rd year Computer Science student at Loughborough University, currently doing a placement year at Yell.</p>
         <p>Additional information about my experiences can be found on my Linkedin page!</p>
         <p>View my events <router-link to="/about/timeline">timeline</router-link>!</p>
+        <p>My CV can be found <router-link to="/about/cv">here</router-link>!</p>
     </div>
 </template>
 

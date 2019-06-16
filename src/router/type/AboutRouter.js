@@ -1,5 +1,6 @@
 const AboutRoute = () => import('@/components/route/about/AboutRoute.vue');
 const AboutTimelineRoute = () => import('@/components/route/about/AboutTimelineRoute.vue');
+const CVRoute = () => import('@/components/route/about/CVRoute.vue');
 
 import TitleUtils from '@/util/TitleUtils.js';
 
@@ -17,5 +18,11 @@ export default [
         component: AboutTimelineRoute,
         props: {},
         beforeEnter: (to, from, next) => TitleUtils.setTitle('Timeline', next),
-    }
+    },
+    {
+        path: '/about/cv',
+        component: CVRoute,
+        props: {},
+        beforeEnter: (to, from, next) => TitleUtils.setTitle('CV', next),
+    },
 ]
