@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const compression = require('compression');
 
 const history = require('connect-history-api-fallback');
 
@@ -11,6 +12,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const secretProperties = require('../secret-properties.json');
 
 const userService = require('./service/UserService.js');
+
+app.use(compression());
 
 app.use(cookieSession({
     name: 'auth-session',
