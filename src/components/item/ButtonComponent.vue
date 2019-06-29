@@ -3,8 +3,11 @@
         class="wjb-button"
         :disabled="isDisabled"
         v-bind:class="{ 'ghost-button': isGhostButton }">
+        <span>
 
-        <LoadingIcon v-if="doShowLoadingIcon" />
+        <LoadingIcon v-show="doShowLoadingIcon" />
+        </span>
+
         <slot />
     </button>
 </template>
@@ -19,7 +22,25 @@
             LoadingIcon,
         },
 
-        props: [ 'doShowLoadingIcon', 'isDisabled', 'isGhostButton' ],
+        props: {
+            'doShowLoadingIcon': {
+                type: Boolean,
+                required: false,
+                default: false,
+            },
+
+            'isDisabled': {
+                type: Boolean,
+                required: false,
+                default: false,
+            },
+
+            'isGhostButton': {
+                type: Boolean,
+                required: false,
+                default: false,
+            },
+        },
     }
 </script>
 
@@ -38,17 +59,6 @@
 
         &:hover {
             background-color: theme(tertiary-dark);
-        }
-
-        .icon-loading {
-            width: 0;
-            opacity: 0;
-            color: theme(white);
-
-            &.visible {
-                width: 2rem;
-                opacity: 1;
-            }
         }
 
         &[disabled] {

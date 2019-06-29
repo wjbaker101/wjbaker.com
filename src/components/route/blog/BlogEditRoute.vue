@@ -7,14 +7,10 @@
             <label>Title</label><br>
             <input type="text" class="textbox-wide" v-model="properties.title">
         </p>
-        <p>
-            <label>Summary</label><br>
-            <wysiwyg v-model="properties.summary" />
-        </p>
-        <p>
-            <label>Content</label><br>
-            <wysiwyg v-model="properties.content" />
-        </p>
+        <label>Summary</label><br>
+        <TipTapEditorComponent :editor="summaryEditor" />
+        <label>Content</label><br>
+        <TipTapEditorComponent :editor="contentEditor" />
         <FormContainerComponent title="Settings">
             <CheckBoxComponent
                 id="checkbox-published"
@@ -41,6 +37,8 @@
     import ButtonComponent from '@/components/item/ButtonComponent.vue';
     import FormContainerComponent from '@/components/item/FormContainerComponent.vue';
     import CheckBoxComponent from '@/components/item/CheckBoxComponent.vue';
+    import TipTapEditorComponent from '@/components/tiptap-editor/TipTapEditorComponent.vue';
+    import TipTapEditor from '@/external/tiptap-editor/TipTapEditor.js';
 
     export default {
         name: 'BlogCreateRoute',
@@ -51,6 +49,7 @@
             ButtonComponent,
             FormContainerComponent,
             CheckBoxComponent,
+            TipTapEditorComponent,
         },
 
         data() {
@@ -58,13 +57,13 @@
                 blogPostItem: null,
                 properties: {
                     title: '',
-                    summary: '',
-                    content: '',
                     isPublished: false,
                 },
                 isSubmitted: false,
                 isSubmitting: false,
                 message: null,
+                summaryEditor: null,
+                contentEditor: null,
             }
         },
 
@@ -87,6 +86,14 @@
 
                 this.blogPostItem = blogPost;
                 this.properties = this.blogPostItem;
+
+                this.summaryEditor = TipTapEditor.newEditor({
+                    content: this.properties.summary,
+                });
+
+                this.contentEditor = TipTapEditor.newEditor({
+                    content: this.properties.content,
+                });
             },
 
             async onSubmitClicked() {
@@ -97,6 +104,8 @@
 
                 const blogModel = {
                     ...this.properties,
+                    // summary: this.summaryEditor.getHTML(),
+                    // content: this.contentEditor.getHTML(),
                     modifiedOn: new Date(),
                     titleUrl: this.blogPostItem.titleUrl,
                     createdOn: this.blogPostItem.createdOn,
@@ -130,7 +139,5 @@
 </script>
 
 <style lang="scss">
-    .textbox-wide {
-        width: 100%;
-    }
+
 </style>
