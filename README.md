@@ -17,6 +17,10 @@ Format:
     },
     "authentication": {
         "session-secret": "<secret_key>"
+        "bcrypt-salt": <auth_salt>
+    },
+    "image-upload-service": {
+        "api-key": "<api_key>"
     }
 }
 ```
