@@ -11,6 +11,14 @@ class UserRepository {
         return result.map(user => userMapper.map(user));
     }
 
+    async getUserByUsername(username) {
+        const result = await mySQLRepository.query(
+                'SELECT * FROM USERS WHERE USERNAME=?',
+                [username]);
+
+        return result.map(user => userMapper.map(user));
+    }
+
     async getUserByID(id) {
         const result = await mySQLRepository.query(
                 'SELECT * FROM USERS WHERE USER_ID=?',

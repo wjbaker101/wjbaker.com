@@ -1,17 +1,28 @@
 const userRepository = require('../repository/UserRepository.js');
 const imageUploadClient = require('../client/ImageUploadClient.js');
+const cipherService = require('./CipherService.js');
 const properties = require('../../properties.json');
 
 class UserService {
 
     async getUser(username, password) {
-        const result = await userRepository.getUser(username, password);
+        const result =
+            await userRepository.getUserByUsername(username);
 
         if (result.length === 0) {
             return null;
         }
 
-        return result[0];
+        const user = result[0];
+
+        const doPasswordsMatch =
+            await cipherService.verifyPassword(password, user.password);
+
+        if (!doPasswordsMatch) {
+            return null;
+        }
+
+        return user;
     }
 
     async getUserByID(id) {
