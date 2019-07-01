@@ -6,7 +6,7 @@ const auth = require('../middleware/AuthMiddleware.js');
 
 router.use(express.json());
 
-router.post('/blog', async (request, response, next) => {
+router.post('/blog', auth.doAuthAdmin, async (request, response, next) => {
     try {
         const result = await blogService.createBlog(request.body);
 
@@ -45,7 +45,7 @@ router.get('/blog/:blogPostID', async (request, response, next) => {
     }
 });
 
-router.patch('/blog', async (request, response, next) => {
+router.patch('/blog', auth.doAuthAdmin, async (request, response, next) => {
     try {
         await blogService.updateBlogPost(request.body);
 

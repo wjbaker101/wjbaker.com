@@ -35,7 +35,7 @@ class TitleParser {
                     currentTitleURL.substring(0, currentTitleURL.length);
         }
 
-        return currentTitleURL;
+        return currentTitleURL.toLowerCase();
     }
 }
 

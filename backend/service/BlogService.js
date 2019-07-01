@@ -1,4 +1,5 @@
 const blogRepository = require('../repository/BlogRepository.js');
+const titleParser = require('../parse/TitleParser.js');
 
 class BlogService {
 
@@ -7,8 +8,13 @@ class BlogService {
             throw new Error('Please add a title for your Blog post.');
         }
 
+        const titleUrl = titleParser.getTitleURL(blog.title);
+
         try {
-            await blogRepository.createBlog(blog);
+            await blogRepository.createBlog({
+                titleUrl,
+                ...blog,
+            });
         }
         catch (exception) {
             throw new Error('Unable to create the Blog post.');
