@@ -24,7 +24,7 @@ module.exports = {
         }
     },
 
-    mapToDBModel(blogPost) {
+    toEntity(blogPost) {
         const {
             title: TITLE,
             titleUrl: TITLE_URL,

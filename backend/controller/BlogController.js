@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const ValidationError = require('../error/ValidationError.js');
+
 const blogService = require('../service/BlogService.js');
 const auth = require('../middleware/AuthMiddleware.js');
 
@@ -10,10 +12,31 @@ router.post('/blog', auth.doAuthAdmin, async (request, response, next) => {
     try {
         const result = await blogService.createBlog(request.body);
 
-        response.send(result);
+        response.status(201).send(result);
     }
     catch (exception) {
-        response.send({ error: exception.message });
+        if (exception instanceof ValidationError) {
+            response.status(400).send({ error: exception.message });
+        }
+        else {
+            response.status(500).send({ error: exception.message });
+        }
+    }
+});
+
+router.patch('/blog', auth.doAuthAdmin, async (request, response, next) => {
+    try {
+        await blogService.updateBlogPost(request.body);
+
+        response.send({ result: 'Successfully updated Blog post.' });
+    }
+    catch (exception) {
+        if (exception instanceof ValidationError) {
+            response.status(400).send({ error: exception.message });
+        }
+        else {
+            response.status(500).send({ error: exception.message });
+        }
     }
 });
 
@@ -27,8 +50,7 @@ router.get('/blog/posts', async (request, response, next) => {
         response.send({ result });
     }
     catch (exception) {
-        console.log(exception);
-        response.send({ error: 'Unable to get list of Blog posts.' });
+        response.status(500).send({ error: exception.message });
     }
 });
 
@@ -41,18 +63,7 @@ router.get('/blog/:blogPostID', async (request, response, next) => {
         response.send({ result });
     }
     catch (exception) {
-        response.send({ error: exception.message });
-    }
-});
-
-router.patch('/blog', auth.doAuthAdmin, async (request, response, next) => {
-    try {
-        await blogService.updateBlogPost(request.body);
-
-        response.send({ result: 'Successfully updated Blog post.' });
-    }
-    catch (exception) {
-        response.send({ error: exception.message });
+        response.status(500).send({ error: exception.message });
     }
 });
 

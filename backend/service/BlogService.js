@@ -1,24 +1,48 @@
 const blogRepository = require('../repository/BlogRepository.js');
 const titleParser = require('../parse/TitleParser.js');
+const dtoValidator = require('../validator/DTOValidator.js');
+
+const createOrUpdateBlogPost = async (blogPost, isUpdate = false) => {
+    const validProperties = [
+        'title',
+        'content',
+        'summary',
+        'createdOn',
+        'modifiedOn',
+        'isPublished',
+    ];
+
+    const validBlogDto = dtoValidator.isValidDTO(blogPost, validProperties);
+    const titleUrl = titleParser.getTitleURL(blog.title);
+
+    const dto = {
+        titleUrl,
+        ...validBlogDto,
+    };
+
+    if (isUpdate) {
+        await blogRepository.updateBlogPost(dto);
+    }
+    else {
+        await blogRepository.createBlog(dto);
+    }
+};
 
 class BlogService {
 
-    async createBlog(blog) {
-        if (!blog.title) {
-            throw new Error('Please add a title for your Blog post.');
-        }
+    async createBlog(blogPost) {
+        createOrUpdateBlogPost(blogPost, false);
+    }
 
-        const titleUrl = titleParser.getTitleURL(blog.title);
+    async updateBlogPost(blogPost) {
+        createOrUpdateBlogPost(blogPost, true);
+    }
 
-        try {
-            await blogRepository.createBlog({
-                titleUrl,
-                ...blog,
-            });
-        }
-        catch (exception) {
-            throw new Error('Unable to create the Blog post.');
-        }
+    async getBlogPosts(isAdmin) {
+        const blogPosts = await blogRepository.getBlogPosts();
+
+        return blogPosts.filter(blogPost =>
+                blogPost.isPublished || (!blogPost.isPublished && isAdmin));
     }
 
     async getBlogPost(blogPostID) {
@@ -58,17 +82,6 @@ class BlogService {
 
     async getPublishedBlogPosts() {
         return await blogRepository.getPublishedBlogPosts();
-    }
-
-    async updateBlogPost(blogPost) {
-        return await blogRepository.updateBlogPost(blogPost);
-    }
-
-    async getBlogPosts(isAdmin) {
-        const blogPosts = await blogRepository.getBlogPosts();
-
-        return blogPosts.filter(blogPost =>
-                blogPost.isPublished || (!blogPost.isPublished && isAdmin));
     }
 }
 

@@ -30,9 +30,9 @@ class TitleParser {
             }
         }
 
-        if (currentTitleURL.endsWith('-')) {
-            currentTitleURL =
-                    currentTitleURL.substring(0, currentTitleURL.length);
+        while (currentTitleURL.endsWith('-')) {
+            currentTitleURL=
+                    currentTitleURL.substring(0, currentTitleURL.length - 1);
         }
 
         return currentTitleURL.toLowerCase();
