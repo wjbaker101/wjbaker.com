@@ -18,7 +18,7 @@
                 <p>
                     <ButtonComponent
                         @click.native="onAvatarUploadSubmit"
-                        :doShowLoadingIcon="isAvatarUploading">
+                        :isLoading="isAvatarUploading">
 
                         Submit
                     </ButtonComponent>
@@ -33,7 +33,7 @@
             <FormContainerComponent title="Logout">
                 <ButtonComponent
                     @click.native="onLogoutClicked"
-                    :doShowLoadingIcon="isLoggingOut"
+                    :isLoading="isLoggingOut"
                     :isDisabled="isLoggedOut">
 
                     Log Out

@@ -23,11 +23,8 @@
         <p>
             <ButtonComponent
                 @click.native="onLoginClicked"
-                :doShowLoadingIcon="isLoggingIn"
-                :isDisabled="isLoggedIn">
-
-                Log In
-            </ButtonComponent>
+                :isLoading="isLoggingIn"
+                :isDisabled="isLoggedIn">{{ loginButtonContent }}</ButtonComponent>
         </p>
         <p v-if="message">{{ message }}</p>
     </div>
@@ -63,6 +60,12 @@
 
         mounted() {
             this.$refs.usernameInput.focus();
+        },
+
+        computed: {
+            loginButtonContent: function() {
+                return this.isLoggingIn ? 'Logging In' : 'Log In';
+            },
         },
 
         methods: {

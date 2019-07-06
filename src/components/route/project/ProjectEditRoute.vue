@@ -22,7 +22,7 @@
         <p>
             <ButtonComponent
                 @click.native="onSubmitClicked"
-                :doShowLoadingIcon="isSubmitting"
+                :isLoading="isSubmitting"
                 :isDisabled="isSubmitted">
 
                 Submit

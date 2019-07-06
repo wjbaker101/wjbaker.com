@@ -5,6 +5,7 @@ const NotFoundRoute = () => import('@/components/route/NotFoundRoute.vue');
 import BlogRouter from '@/router/type/BlogRouter.js';
 import ProjectRouter from '@/router/type/ProjectRouter.js';
 import AboutRouter from '@/router/type/AboutRouter.js';
+import WebsiteRouter from '@/router/type/WebsiteRouter.js';
 
 import TitleUtils from '@/util/TitleUtils.js';
 
@@ -12,6 +13,7 @@ export default [
     ...BlogRouter,
     ...ProjectRouter,
     ...AboutRouter,
+    ...WebsiteRouter,
     {
         path: '/login',
         component: LoginRoute,
