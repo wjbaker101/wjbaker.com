@@ -126,6 +126,7 @@
         }
 
         h1 {
+            font-size: 1.5em;
             color: inherit;
         }
 
