@@ -1,5 +1,6 @@
 const projectRepository = require('../repository/ProjectRepository.js');
 const imageUploadClient = require('../client/ImageUploadClient.js');
+const loggingService = require('./LoggingService.js');
 
 const titleParser = require('../parse/TitleParser.js');
 const properties = require('../../properties.json');
@@ -11,6 +12,8 @@ class ProjectService {
     }
 
     async getProject(id) {
+        loggingService.addLogEventInBackground('EVENT_PROJECTS_GET', `projectId=${id}`);
+
         const result = await projectRepository.getProject(id);
 
         if (result.length === 0) {

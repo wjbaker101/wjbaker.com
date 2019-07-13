@@ -4,6 +4,7 @@ const router = express.Router();
 const passport = require('passport');
 
 const userService = require('../service/UserService.js');
+const loggingService = require('../service/LoggingService.js');
 const auth = require('../middleware/AuthMiddleware.js');
 
 router.use(express.json());
@@ -21,6 +22,8 @@ router.post('/auth/login', auth.doAuthNoUser, (request, response, next) => {
         }
 
         request.login(user, (error) => {
+            loggingService.addLogEventInBackground('EVENT_AUTH_LOGIN', `userId=${user.id}`);
+
             const {
                 username,
                 isAdmin,
@@ -37,6 +40,8 @@ router.post('/auth/login', auth.doAuthNoUser, (request, response, next) => {
 });
 
 router.get('/auth/logout', (request, response) => {
+    loggingService.addLogEventInBackground('EVENT_AUTH_LOGOUT', `userId=${request.session.passport.user.id}`);
+
     request.logout();
     response.clearCookie('connect.sid');
     response.send({ result: 'Successfully logged out.' });

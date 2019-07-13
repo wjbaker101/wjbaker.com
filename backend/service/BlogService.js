@@ -1,6 +1,7 @@
 const blogRepository = require('../repository/BlogRepository.js');
 const titleParser = require('../parse/TitleParser.js');
 const dtoValidator = require('../validator/DTOValidator.js');
+const loggingService = require('./LoggingService.js');
 
 const createOrUpdateBlogPost = async (blogPost, isUpdate = false) => {
     const validProperties = [
@@ -47,6 +48,8 @@ class BlogService {
 
     async getBlogPost(blogPostID) {
         try {
+            loggingService.addLogEventInBackground('EVENT_BLOG_GET_POST', `PostId=${blogPostID}`);
+
             const result = await blogRepository.getBlogPost(blogPostID);
 
             if (result.length === 0) {

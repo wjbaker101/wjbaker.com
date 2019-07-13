@@ -2,7 +2,7 @@
     <div class="project-item">
         <div class="project-link-container">
             <router-link :to="`/projects/${projectItem.id}`">
-                <ButtonComponent class="circle-button" isGhostButton="true">
+                <ButtonComponent isIconButton="true">
                     <RightArrow />
                 </ButtonComponent>
             </router-link>
@@ -77,29 +77,6 @@
 
         .description-container {
             flex: 1;
-        }
-
-        .circle-button {
-            $size: 1rem;
-            width: $size;
-            height: $size;
-            padding: 1rem;
-            margin: 0;
-            line-height: 1em;
-            border-radius: 50%;
-            color: theme(secondary);
-            border: 2px solid theme(secondary);
-
-            .icon {
-                position: relative;
-                transform: translate(-50%, -50%);
-            }
-
-            &:hover {
-                border: 2px solid theme(secondary-dark);
-                background-color: theme(secondary);
-                color: theme(white);
-            }
         }
     }
 </style>
