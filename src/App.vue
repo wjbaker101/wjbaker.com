@@ -193,6 +193,10 @@
         & > * {
             flex: 1;
         }
+
+        @media screen and (max-width: 1024px) {
+            display: block;
+        }
     }
 
     .text-centered { text-align: center; }
