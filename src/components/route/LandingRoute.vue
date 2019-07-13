@@ -1,16 +1,14 @@
 <template>
-    <main>
-        <div id="particles-container">
-            <div class="landing-title-container">
-                <h1>
-                    <span class="landing-title-content">
-                        William Baker<br>
-                        <span class="title-subheading">Software Developer</span>
-                    </span>
-                </h1>
-            </div>
+    <div id="particles-container">
+        <div class="landing-title-container">
+            <h1>
+                <span class="landing-title-content">
+                    William Baker<br>
+                    <span class="title-subheading">Software Developer</span>
+                </span>
+            </h1>
         </div>
-    </main>
+    </div>
 </template>
 
 <script>

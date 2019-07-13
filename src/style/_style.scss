@@ -23,6 +23,7 @@ $colours: (
 $layouts: (
     max-width: 720px,
     border-radius: 3px,
+    aside-nav-width: 25%,
 );
 
 @function theme($colour) {

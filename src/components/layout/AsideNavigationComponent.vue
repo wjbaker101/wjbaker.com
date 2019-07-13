@@ -1,5 +1,24 @@
 <template>
-    <nav>
+    <aside class="navigation">
+        <nav>
+            <router-link :to="links.landing.location">
+                <h1>{{ links.landing.name }}</h1>
+            </router-link>
+            <ul class="nav-links">
+                <router-link
+                    :to="link.location"
+                     v-bind:key="index"
+                     v-for="(link, name, index) in links"
+                     v-if="name !== 'landing'"
+                     v-bind:class="{ selected: link.visible }">
+
+                    <li>{{ link.name }}</li>
+                </router-link>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- <nav>
         <div class="nav-content">
             <router-link :to="links.landing.location">
                 <h1>{{ links.landing.name }}</h1>
@@ -16,12 +35,12 @@
                 </router-link>
             </ul>
         </div>
-    </nav>
+    </nav> -->
 </template>
 
 <script>
     export default {
-        name: 'Nav',
+        name: 'AsideNavigationComponent',
 
         props: [ 'page' ],
 
@@ -80,10 +99,14 @@
 </script>
 
 <style lang="scss">
-    nav {
-        width: 25%;
+    aside.navigation {
+        width: layout(aside-nav-width);
+        height: 100%;
         flex: 0 0 1;
         display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
         padding: 2rem;
         color: theme(white);
         background-color: theme(primary);
@@ -108,6 +131,8 @@
 
         @media screen and (max-width: 1024px) {
             width: 100%;
+            height: auto;
+            position: static;
             padding: 0 2rem;
             border-top-right-radius: 0;
             border-right: 0;
@@ -115,14 +140,14 @@
             border-bottom-left-radius: layout(border-radius);
             border-bottom-right-radius: layout(border-radius);
         }
-    }
 
-    .nav-content {
-        width: 100%;
-        overflow: hidden;
-        display: block;
-        flex: 1;
-        margin: auto;
+        nav {
+            width: 100%;
+            overflow: hidden;
+            display: block;
+            flex: 1;
+            margin: auto;
+        }
     }
 
     .nav-links {

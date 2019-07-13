@@ -46,7 +46,7 @@
     import ExternalLink from '@/components/ExternalLink.vue';
 
     export default {
-        name: 'Footer',
+        name: 'FooterComponent',
 
         components: {
             GitHubIcon,
@@ -67,15 +67,26 @@
 </script>
 
 <style lang="scss">
-    .social-links-container {
-        & > * + * {
-            margin-left: 0.5rem;
+    footer {
+        padding-bottom: 1rem;
+        margin: auto;
+        max-width: layout(max-width);
+
+        @media screen and (max-width: 1024px) {
+            padding: 0 2rem;
         }
 
-        .social-icon {
-            width: 1em;
-            height: 1em;
-            vertical-align: middle;
+
+        .social-links-container {
+            & > * + * {
+                margin-left: 0.5rem;
+            }
+
+            .social-icon {
+                width: 1em;
+                height: 1em;
+                vertical-align: middle;
+            }
         }
     }
 </style>

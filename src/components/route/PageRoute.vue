@@ -1,18 +1,18 @@
 <template>
-    <main>
+    <div>
         <router-view @navpageinit="onNavPageinit"></router-view>
-        <Footer />
-    </main>
+        <FooterComponent />
+    </div>
 </template>
 
 <script>
-    import Footer from '@/components/layout/Footer.vue';
+    import FooterComponent from '@/components/layout/FooterComponent.vue';
 
     export default {
         name: 'PageRoute',
 
         components: {
-            Footer,
+            FooterComponent,
         },
 
         methods: {
@@ -27,5 +27,13 @@
 </script>
 
 <style lang="scss">
-
+    .page-content {
+        position: relative;
+        max-width: layout(max-width);
+        padding: 2rem;
+        margin: auto auto 1rem auto;
+        background-color: theme(grey-light);
+        border: 1px solid theme(grey-dark);
+        border-radius: layout(border-radius);
+    }
 </style>

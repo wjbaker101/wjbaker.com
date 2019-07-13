@@ -1,16 +1,14 @@
 <template>
-    <div class="page-container">
-        <Nav :page="page" />
-        <router-view
-            @navpageinit="onNavPageinit"
-            @particlesinit="onParticlesInit"
-            :doInit="doInitParticles" />
+    <div class="body-content">
+        <AsideNavigationComponent :page="page" />
+        <main>
+            <router-view @navpageinit="onNavPageinit" />
+        </main>
     </div>
 </template>
 
 <script>
-    import Nav from '@/components/layout/Nav.vue';
-    import Footer from '@/components/layout/Footer.vue';
+    import AsideNavigationComponent from '@/components/layout/AsideNavigationComponent.vue';
 
     export default {
         name: 'App',
@@ -18,28 +16,16 @@
         data() {
             return {
                 page: '',
-                doInitParticles: true,
             }
         },
 
         components: {
-            Nav,
-            Footer,
-        },
-
-        watch: {
-            $route(to, from) {
-                this.$el.querySelector('main').scrollTop = 0;
-            },
+            AsideNavigationComponent,
         },
 
         methods: {
             onNavPageinit(page) {
                 this.page = page;
-            },
-
-            onParticlesInit() {
-                this.doInitParticles = false;
             },
         },
     }
@@ -63,7 +49,7 @@
 
     html,
     body,
-    .page-container {
+    .body-content {
         height: 100%;
     }
 
@@ -119,56 +105,17 @@
         }
     }
 
-    .page-container {
-        display: flex;
-
-        @media screen and (max-width: 1024px) {
-            flex-direction: column;
-
-            nav {
-                height: auto;
-            }
-        }
-    }
-
-    .page-container > * {
-        height: 100%;
-
-        @media screen and (max-width: 1024px) {
-            height: 70vh;
-        }
-    }
-
     main {
+        min-height: 100%;
         position: relative;
-        flex: 1;
-        overflow: auto;
-        padding: 5rem 2rem 2rem 2rem;
-        padding: 12vh 2rem 2rem 2rem;
+        margin-left: layout(aside-nav-width);
+        padding: 6rem 2rem 2rem 2rem;
 
         @media screen and (max-width: 1024px) {
+            min-height: calc(100% - 175px);
             padding: 2rem 0;
+            margin-left: 0;
         }
-    }
-
-    footer {
-        padding-bottom: 1rem;
-        margin: auto;
-        max-width: layout(max-width);
-
-        @media screen and (max-width: 1024px) {
-            padding: 0 2rem;
-        }
-    }
-
-    .page-content {
-        position: relative;
-        max-width: layout(max-width);
-        padding: 2rem;
-        margin: auto auto 1rem auto;
-        background-color: theme(grey-light);
-        border: 1px solid theme(grey-dark);
-        border-radius: layout(border-radius);
     }
 
     main h1 {
