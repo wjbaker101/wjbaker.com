@@ -4,17 +4,18 @@ const dtoValidator = require('../validator/DTOValidator.js');
 const loggingService = require('./LoggingService.js');
 
 const createOrUpdateBlogPost = async (blogPost, isUpdate = false) => {
+    const updatedProperties = isUpdate ? ['blogID', 'modifiedOn'] : [];
+
     const validProperties = [
         'title',
         'content',
         'summary',
         'createdOn',
-        'modifiedOn',
         'isPublished',
-    ];
+    ].concat(updatedProperties);
 
     const validBlogDto = dtoValidator.isValidDTO(blogPost, validProperties);
-    const titleUrl = titleParser.getTitleURL(blog.title);
+    const titleUrl = titleParser.getTitleURL(blogPost.title);
 
     const dto = {
         titleUrl,

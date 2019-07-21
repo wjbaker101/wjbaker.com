@@ -23,6 +23,8 @@ class BlogRepository {
         try {
             const blogPostModel = blogPostMapper.toEntity(blogPost);
 
+            console.log(blogPost);
+
             const result = await mySQLRepository.query(
                     `UPDATE BLOG_POSTS SET ? WHERE BLOG_ID=?`,
                     [blogPostModel, blogPost.blogID]);
