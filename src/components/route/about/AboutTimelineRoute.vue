@@ -6,6 +6,7 @@
         <p>
             <router-link to="/about"><BackIcon /> Return to About page</router-link>
         </p>
+        <p>Any notable events I will add to this timeline. These may be big events or accomplishments that I am proud of.</p>
         <div class="timeline-container">
             <article>
                 <h3>
@@ -19,19 +20,25 @@
                     <span>August 2017</span>
                     <div class="node"></div>
                 </h3>
-                <p>Started at Bradleys as Temporary IT Project Assistant</p>
+                <p>Started at Bradleys Foods as IT Project Assistant</p>
             </article>
             <article>
                 <h3>
                     <span>July 2018</span>
                     <div class="node"></div>
                 </h3>
-                <p>Started at Yell as Undergraduate Software Developer</p>
-                <p>For my University placement year.</p>
+                <p>Started at Yell as Undergraduate Software Developer, for my University placement year</p>
             </article>
             <article>
                 <h3>
-                    <span>Today</span>
+                    <span>August 2019</span>
+                    <div class="node"></div>
+                </h3>
+                <p>Started a 6 week Mandarin course in Taiwan at the Taiwanese Mandarin Institute</p>
+            </article>
+            <article>
+                <h3>
+                    <span>Today!</span>
                     <div class="node"></div>
                 </h3>
             </article>

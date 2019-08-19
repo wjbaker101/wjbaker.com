@@ -5,7 +5,7 @@
         </h1>
         <div class="flex-row">
             <div class="text-centered">
-                <img width="240" height="240" src="@/assets/images/me.jpg" alt="That's me! William Baker." class="photo-image">
+                <img width="240" height="240" src="@/assets/images/me_09-08-2019.jpg" alt="That's me! William Baker." class="photo-image">
             </div>
             <div class="flex-row">
                 <div style="margin: auto">
@@ -14,8 +14,9 @@
                 </div>
             </div>
         </div>
-        <p>I have been programming for over 10 years and over this time have utilised a wide range of languages, frameworks and techniques.</p>
-        <p>If you have any interest in what I have been creating, feel free to have a look at my GitHub or projects page!</p>
+        <p>This website will mainly act as a way of showcasing what projects I have worked on so you can view and learn more about them.</p>
+        <p>I have been programming for over 10 years and over this time have utilised a wide range of languages, frameworks and techniques. Another aim for this website is to hopefully be able to see the development of my skills in the projects I take on.</p>
+        <p>If you have any interest in what I have been doing, feel free to have a look at my GitHub, Linkedin or projects page! Links found here:</p>
         <div class="note flex-row text-centered">
             <div class="link-container">
                 <ExternalLink href="https://github.com/wjbaker101">
@@ -36,10 +37,11 @@
                 <h2>Projects</h2>
             </div>
         </div>
-        <p>I am a 3rd year Computer Science student at Loughborough University, currently doing a placement year at Yell.</p>
-        <p>Additional information about my experiences can be found on my Linkedin page!</p>
-        <p>View my events <router-link to="/about/timeline">timeline</router-link>!</p>
-        <p>My CV can be found <router-link to="/about/cv">here</router-link>!</p>
+        <h2>Present Day</h2>
+        <p>I am a final year Computer Science student at Loughborough University, including a placement year (where I was fortunate enough to work at Yell!)</p>
+        <p>A lot of my career activity is viewable on Linkedin, however if you would like to see a copy of my CV <router-link to="/about/cv">click here</router-link>. This will give you even more of an understanding of what skills I will have.</p>
+        <h2>In the Past</h2>
+        <p>If you've had enough of looking at text but want to know more about when certain events happened, <router-link to="/about/timeline">view my events timeline</router-link>!</p>
     </div>
 </template>
 
