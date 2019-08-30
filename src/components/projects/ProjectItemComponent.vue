@@ -16,7 +16,6 @@
 </template>
 
 <script>
-    import InnerCardComponent from '@/components/item/InnerCardComponent.vue';
     import ButtonComponent from '@/components/item/ButtonComponent.vue';
     import RightArrow from '@/assets/icons/arrow-right.svg';
 
@@ -26,7 +25,6 @@
         props: [ 'projectItem' ],
 
         components: {
-            InnerCardComponent,
             ButtonComponent,
             RightArrow,
         },

@@ -73,6 +73,7 @@
     *::before,
     *::after {
         box-sizing: border-box;
+        vertical-align: middle;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -234,5 +235,9 @@
 
     .icon-animated {
         vertical-align: middle;
+    }
+
+    .icon-loading {
+        color: theme(primary);
     }
 </style>

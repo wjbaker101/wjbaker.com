@@ -17,7 +17,7 @@
     export default {
         name: 'ButtonComponent',
 
-        props: [ 'isLoading', 'isDisabled', 'isGhostButton', 'isIconButton' ],
+        props: [ 'isLoading', 'isDisabled', 'isGhostButton', 'isIconButton', 'isNegative' ],
 
         components: {
             LoadingIcon,
@@ -29,6 +29,7 @@
                     'is-ghost': this.isGhostButton,
                     'is-loading': this.isLoading,
                     'is-icon-button': this.isIconButton,
+                    'is-negative': this.isNegative,
                 }
             },
             disabled: function() {
@@ -50,7 +51,7 @@
         color: theme(white);
         cursor: pointer;
         vertical-align: middle;
-        transition: background-color 0.2s;
+        transition: all 0.2s;
 
         .button-content {
             vertical-align: middle;
@@ -106,6 +107,22 @@
                 background-color: theme(secondary);
                 color: theme(white);
                 border-color: theme(secondary-dark);
+            }
+        }
+
+        &.is-negative {
+            border-color: theme(negative);
+            color: theme(negative);
+
+            &:hover {
+                border-color: theme(negative-dark);
+                color: theme(negative-dark);
+            }
+
+            &.is-icon-button {
+                &:hover {
+                    background-color: theme(negative-light);
+                }
             }
         }
 

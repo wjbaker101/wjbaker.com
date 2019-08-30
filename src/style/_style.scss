@@ -12,12 +12,17 @@ $colours: (
     primary: #176bc0,
     primary-dark: darken(#176bc0, 10%),
 
+    secondary-light: lighten(#17c06c, 10%),
     secondary: #17c06c,
     secondary-dark: darken(#17c06c, 10%),
 
     tertiary-light: lighten(#8e1aa3, 10%),
     tertiary: #8e1aa3,
     tertiary-dark: darken(#8e1aa3, 10%),
+
+    negative-light: lighten(#b22, 10%),
+    negative: #b22,
+    negative-dark: darken(#b22, 10%),
 );
 
 $layouts: (

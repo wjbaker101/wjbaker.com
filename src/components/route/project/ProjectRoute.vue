@@ -8,21 +8,18 @@
         </p>
         <p><small>{{ projectItem.date }}</small></p>
         <div v-html="projectItem.content"></div>
-        <InnerCardComponent v-if="currentUser && currentUser.isAdmin">
-            <router-link :to="`/projects/${$route.params.projectID}/edit`">
-                <EditIcon /> Edit Project
-            </router-link>
-        </InnerCardComponent>
+        <AdminControlsContainer :contents="adminContent" :user="currentUser" />
     </div>
 </template>
 
 <script>
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
+
     import BackIcon from '@/assets/icons/arrow-left.svg';
-    import EditIcon from '@/assets/icons/edit.svg';
-    import CarouselComponent from '@/components/CarouselComponent.vue';
-    import InnerCardComponent from '@/components/item/InnerCardComponent.vue';
+    import PencilIcon from '@/assets/icons/pencil.svg';
+
+    import AdminControlsContainer from '@/components/admin/AdminControlsContainer.vue';
 
     export default {
         name: 'ProjectRoute',
@@ -31,14 +28,23 @@
 
         components: {
             BackIcon,
-            EditIcon,
-            CarouselComponent,
-            InnerCardComponent,
+            AdminControlsContainer,
         },
 
         data() {
             return {
                 projectItem: null,
+
+                adminContent: [
+                    {
+                        icon: PencilIcon,
+                        action: () => {
+                            this.$router.push({
+                                path: `/projects/${this.$route.params.projectID}/edit`,
+                            });
+                        },
+                    },
+                ],
             }
         },
 

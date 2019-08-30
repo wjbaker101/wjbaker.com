@@ -3,26 +3,24 @@
         <h1>
             <span class="page-heading">{{ blogPostItem.title }}</span>
         </h1>
-        <InnerCardComponent v-if="currentUser && currentUser.isAdmin">
-            <router-link :to="`/blog/${$route.params.blogPostID}/edit`">
-                <EditIcon /> Edit Post
-            </router-link>
-        </InnerCardComponent>
         <p>
             <router-link to="/blog"><BackIcon /> Return to Blog</router-link>
         </p>
         <p><small>{{ date }}</small></p>
         <div v-html="blogPostItem.content"></div>
+        <AdminControlsContainer :contents="adminContent" :user="currentUser" />
     </div>
 </template>
 
 <script>
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
+
     import BackIcon from '@/assets/icons/arrow-left.svg';
-    import EditIcon from '@/assets/icons/edit.svg';
-    import CarouselComponent from '@/components/CarouselComponent.vue';
-    import InnerCardComponent from '@/components/item/InnerCardComponent.vue';
+    import PencilIcon from '@/assets/icons/pencil.svg';
+
+    import AdminControlsContainer from '@/components/admin/AdminControlsContainer.vue';
+
     import DateUtils from '@/util/DateUtils.js';
 
     export default {
@@ -32,14 +30,23 @@
 
         components: {
             BackIcon,
-            EditIcon,
-            CarouselComponent,
-            InnerCardComponent,
+            AdminControlsContainer,
         },
 
         data() {
             return {
                 blogPostItem: null,
+
+                adminContent: [
+                    {
+                        icon: PencilIcon,
+                        action: () => {
+                            this.$router.push({
+                                path: `/blog/${this.$route.params.blogPostID}/edit`,
+                            });
+                        },
+                    },
+                ],
             }
         },
 
