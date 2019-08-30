@@ -14,8 +14,8 @@
                 </div>
             </div>
         </div>
-        <p>This website will mainly act as a way of showcasing what projects I have worked on so you can view and learn more about them.</p>
-        <p>I have been programming for over 10 years and over this time have utilised a wide range of languages, frameworks and techniques. Another aim for this website is to hopefully be able to see the development of my skills in the projects I take on.</p>
+        <p>My website will be a way of showcasing what projects I have worked on, giving you an easy way of viewing and learning more about them.</p>
+        <p>I have been programming for over 10 years and over this time have utilised a wide range of languages, frameworks and techniques. Another aim for my website is to able to see the development of my skills over time when looking at old versus current projects.</p>
         <p>If you have any interest in what I have been doing, feel free to have a look at my GitHub, Linkedin or projects page! Links found here:</p>
         <div class="note flex-row text-centered">
             <div class="link-container">
@@ -38,10 +38,10 @@
             </div>
         </div>
         <h2>Present Day</h2>
-        <p>I am a final year Computer Science student at Loughborough University, including a placement year (where I was fortunate enough to work at Yell!)</p>
-        <p>A lot of my career activity is viewable on Linkedin, however if you would like to see a copy of my CV <router-link to="/about/cv">click here</router-link>. This will give you even more of an understanding of what skills I will have.</p>
-        <h2>In the Past</h2>
-        <p>If you've had enough of looking at text but want to know more about when certain events happened, <router-link to="/about/timeline">view my events timeline</router-link>!</p>
+        <p>I am a final year Computer Science student at Loughborough University, where I also did a placement year (at Yell!).</p>
+        <p>A lot of my career activity is viewable on Linkedin, however if you would like to see a copy of my CV, <router-link to="/about/cv">click here</router-link>. This will give you even more of an understanding of what skills I will have.</p>
+        <h2>Past Achievements</h2>
+        <p>Take a look at my <router-link to="/about/timeline">events timeline</router-link> for a visual outline of what I've been up to!</p>
     </div>
 </template>
 
