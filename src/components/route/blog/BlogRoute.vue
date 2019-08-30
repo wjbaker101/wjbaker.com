@@ -4,9 +4,7 @@
             <span class="page-heading">Blog</span>
         </h1>
         <p v-if="errorMessage">{{ errorMessage }}</p>
-        <p v-if="!isLoaded">
-            <LoadingIcon class="loading-projects-icon" /> Loading Blog posts
-        </p>
+        <LoadingComponent :isVisible="!isLoaded" />
         <div class="blog-post-container" v-if="isLoaded">
             <BlogPostItemComponent
                 v-bind:key="index"
@@ -21,9 +19,9 @@
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
 
-    import LoadingIcon from '@/assets/icons/loading.svg';
     import PlusIcon from '@/assets/icons/plus.svg';
 
+    import LoadingComponent from '@/components/LoadingComponent.vue';
     import BlogPostItemComponent from '@/components/blog/BlogPostItemComponent.vue';
     import AdminControlsContainer from '@/components/admin/AdminControlsContainer.vue';
 
@@ -33,7 +31,7 @@
         mixins: [ BaseRouteMixin() ],
 
         components: {
-            LoadingIcon,
+            LoadingComponent,
             BlogPostItemComponent,
             AdminControlsContainer,
         },

@@ -3,9 +3,7 @@
         <h1>
             <span class="page-heading">Projects</span>
         </h1>
-        <p v-if="!isLoaded">
-            <LoadingIcon class="loading-projects-icon" /> Loading projects
-        </p>
+        <LoadingComponent :isVisible="!isLoaded" />
         <div v-if="isLoaded">
             <ProjectItemComponent
                 v-bind:key="index"
@@ -20,9 +18,9 @@
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
 
-    import LoadingIcon from '@/assets/icons/loading.svg';
     import PlusIcon from '@/assets/icons/plus.svg';
 
+    import LoadingComponent from '@/components/LoadingComponent.vue';
     import ProjectItemComponent from '@/components/projects/ProjectItemComponent.vue';
     import AdminControlsContainer from '@/components/admin/AdminControlsContainer.vue';
 
@@ -32,7 +30,7 @@
         mixins: [ BaseRouteMixin() ],
 
         components: {
-            LoadingIcon,
+            LoadingComponent,
             ProjectItemComponent,
             AdminControlsContainer,
         },
