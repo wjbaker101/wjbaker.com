@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import CardComponent from '@/components/item/CardComponent.vue';
+    import CardComponent from '@/components/CardComponent.vue';
     import DateUtils from '@/util/DateUtils.js';
 
     export default {

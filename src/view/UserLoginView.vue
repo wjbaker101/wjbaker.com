@@ -35,7 +35,7 @@
     import API from '@/api/API.js';
     import { ImmortalDB } from 'immortal-db';
 
-    import ButtonComponent from '@/components/item/ButtonComponent.vue';
+    import ButtonComponent from '@/components/ButtonComponent.vue';
 
     export default {
         name: 'LoginRoute',

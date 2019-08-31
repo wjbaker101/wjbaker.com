@@ -47,8 +47,8 @@
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
     import DateUtils from '@/util/DateUtils.js';
-    import ButtonComponent from '@/components/item/ButtonComponent.vue';
-    import FormContainerComponent from '@/components/item/FormContainerComponent.vue';
+    import ButtonComponent from '@/components/ButtonComponent.vue';
+    import FormContainerComponent from '@/components/FormContainerComponent.vue';
     import { ImmortalDB } from 'immortal-db';
 
     export default {

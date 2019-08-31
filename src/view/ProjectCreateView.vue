@@ -1,7 +1,7 @@
 <template>
     <div class="page-content">
         <h1>
-            <span class="page-heading">Edit Project</span>
+            <span class="page-heading">Create Project</span>
         </h1>
         <p>
             <label>Title</label><br>
@@ -35,7 +35,7 @@
 <script>
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
-    import ButtonComponent from '@/components/item/ButtonComponent.vue';
+    import ButtonComponent from '@/components/ButtonComponent.vue';
 
     export default {
         name: 'ProjectEditRoute',
@@ -48,7 +48,6 @@
 
         data() {
             return {
-                projectItem: null,
                 properties: {
                     title: '',
                     date: '',
@@ -61,52 +60,23 @@
             }
         },
 
-        async beforeRouteEnter(to, from, next) {
-            const response = await API.getProject(to.params.projectID);
-            next(vm => vm.setProject(response.result));
-        },
-
-        async beforeRouteUpdate(to, from, next) {
-            if (to.params.projectID === from.params.projectID) {
-                return;
-            }
-
-            const response = await API.getProject(to.params.projectID);
-            this.setProject(response.result);
-            next();
-        },
-
         methods: {
-            setProject(project) {
-                this.projectItem = project;
-                this.properties = this.projectItem;
-            },
-
             async onSubmitClicked() {
                 const projectModel = {
-                    urlID: this.projectItem.urlID,
                     ...this.properties,
                 };
 
                 this.message = null;
                 this.isSubmitting = true;
-                const response = await API.updateProject(projectModel);
+                const response = await API.createProject(projectModel);
                 this.isSubmitting = false;
 
                 this.message = response.result || response.error;
 
                 if (!response.error) {
                     this.isSubmitted = true;
-                    this.$router.push(`/projects/${this.projectItem.urlID}`);
+                    this.$router.push(`/projects/${response.result}`);
                 }
-            },
-
-            loadSummaryEditor(editor) {
-                this.properties.summary = this.projectItem.summary || '';
-            },
-
-            loadContentEditor(editor) {
-                this.properties.content = this.projectItem.content || '';
             },
         },
     }

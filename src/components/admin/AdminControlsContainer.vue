@@ -18,7 +18,7 @@
     import CogIcon from '@/assets/icons/cog.svg';
     import CloseIcon from '@/assets/icons/times.svg';
 
-    import ButtonComponent from '@/components/item/ButtonComponent.vue';
+    import ButtonComponent from '@/components/ButtonComponent.vue';
 
     export default {
         name: 'AdminControlsContainer',

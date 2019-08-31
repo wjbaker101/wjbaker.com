@@ -27,7 +27,7 @@
 </template>
 
 <script>
-    import ButtonComponent from '@/components/item/ButtonComponent.vue';
+    import ButtonComponent from '@/components/ButtonComponent.vue';
 
     import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
 

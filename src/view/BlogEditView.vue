@@ -38,9 +38,9 @@
 <script>
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
-    import ButtonComponent from '@/components/item/ButtonComponent.vue';
-    import FormContainerComponent from '@/components/item/FormContainerComponent.vue';
-    import CheckBoxComponent from '@/components/item/CheckBoxComponent.vue';
+    import ButtonComponent from '@/components/ButtonComponent.vue';
+    import FormContainerComponent from '@/components/FormContainerComponent.vue';
+    import CheckBoxComponent from '@/components/CheckBoxComponent.vue';
 
     export default {
         name: 'BlogCreateRoute',

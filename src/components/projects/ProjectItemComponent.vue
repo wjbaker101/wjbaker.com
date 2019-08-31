@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import ButtonComponent from '@/components/item/ButtonComponent.vue';
+    import ButtonComponent from '@/components/ButtonComponent.vue';
     import RightArrow from '@/assets/icons/arrow-right.svg';
 
     export default {

@@ -1,14 +1,9 @@
-const BlogCreateRoute = () => import('@/components/route/blog/BlogCreateRoute.vue');
-const BlogPostRoute = () => import('@/components/route/blog/BlogPostRoute.vue');
-const BlogRoute = () => import('@/components/route/blog/BlogRoute.vue');
-const BlogEditRoute = () => import('@/components/route/blog/BlogEditRoute.vue');
-
 import TitleUtils from '@/util/TitleUtils.js';
 
 export default [
     {
         path: '/blog',
-        component: BlogRoute,
+        component: () => import('@/view/BlogView.vue'),
         props: {
             page: 'blog',
         },
@@ -16,21 +11,21 @@ export default [
     },
     {
         path: '/blog/create',
-        component: BlogCreateRoute,
+        component: () => import('@/view/BlogCreateView.vue'),
         props: {},
         beforeEnter: (to, from, next) =>
                 TitleUtils.setTitle('Create Blog Post', next),
     },
     {
         path: '/blog/:blogPostID/edit',
-        component: BlogEditRoute,
+        component: () => import('@/view/BlogEditView.vue'),
         props: {},
         beforeEnter: (to, from, next) =>
                 TitleUtils.setTitle('Edit Blog Post', next),
     },
     {
         path: '/blog/:blogPostID/(.*)?',
-        component: BlogPostRoute,
+        component: () => import('@/view/BlogPostView.vue'),
         props: {},
         beforeEnter: (to, from, next) => TitleUtils.setTitle('Blog Post', next),
     },

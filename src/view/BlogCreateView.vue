@@ -1,15 +1,11 @@
 <template>
     <div class="page-content">
         <h1>
-            <span class="page-heading">Create Project</span>
+            <span class="page-heading">Create Blog Post</span>
         </h1>
         <p>
             <label>Title</label><br>
             <input type="text" class="textbox-wide" v-model="properties.title">
-        </p>
-        <p>
-            <label>Date</label><br>
-            <input type="text" v-model="properties.date">
         </p>
         <p>
             <label>Summary</label><br>
@@ -19,6 +15,13 @@
             <label>Content</label><br>
             <wysiwyg v-model="properties.content" />
         </p>
+        <FormContainerComponent title="Settings">
+            <CheckBoxComponent
+                id="checkbox-published"
+                label="Published"
+                val="isPublished"
+                v-model="properties.isPublished" />
+        </FormContainerComponent>
         <p>
             <ButtonComponent
                 @click.native="onSubmitClicked"
@@ -35,24 +38,28 @@
 <script>
     import BaseRouteMixin from '@/mixin/BaseRouteMixin.js';
     import API from '@/api/API.js';
-    import ButtonComponent from '@/components/item/ButtonComponent.vue';
+    import ButtonComponent from '@/components/ButtonComponent.vue';
+    import FormContainerComponent from '@/components/FormContainerComponent.vue';
+    import CheckBoxComponent from '@/components/CheckBoxComponent.vue';
 
     export default {
-        name: 'ProjectEditRoute',
+        name: 'BlogCreateRoute',
 
-        mixins: [ BaseRouteMixin() ],
+        mixins: [ BaseRouteMixin('admin') ],
 
         components: {
             ButtonComponent,
+            FormContainerComponent,
+            CheckBoxComponent,
         },
 
         data() {
             return {
                 properties: {
                     title: '',
-                    date: '',
                     summary: '',
                     content: '',
+                    isPublished: false,
                 },
                 isSubmitted: false,
                 isSubmitting: false,
@@ -62,20 +69,28 @@
 
         methods: {
             async onSubmitClicked() {
-                const projectModel = {
+                if (!this.properties.title) {
+                    this.message = 'Please enter a title for your Blog post.';
+                    return;
+                }
+
+                const blogModel = {
                     ...this.properties,
+                    createdOn: new Date(),
                 };
 
                 this.message = null;
                 this.isSubmitting = true;
-                const response = await API.createProject(projectModel);
+                const response = await API.createBlog(blogModel);
                 this.isSubmitting = false;
 
-                this.message = response.result || response.error;
-
-                if (!response.error) {
+                if (!response || !response.error) {
                     this.isSubmitted = true;
-                    this.$router.push(`/projects/${response.result}`);
+                    this.message = 'Successfully created Blog post!';
+                    // this.$router.push(`/blog/${this.projectItem.urlID}`);
+                }
+                else {
+                    this.message = response.error;
                 }
             },
         },

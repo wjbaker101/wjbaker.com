@@ -1,13 +1,9 @@
-const AboutRoute = () => import('@/components/route/about/AboutRoute.vue');
-const AboutTimelineRoute = () => import('@/components/route/about/AboutTimelineRoute.vue');
-const CVRoute = () => import('@/components/route/about/CVRoute.vue');
-
 import TitleUtils from '@/util/TitleUtils.js';
 
 export default [
     {
         path: '/about',
-        component: AboutRoute,
+        component: () => import('@/view/AboutView.vue'),
         props: {
             page: 'about',
         },
@@ -15,13 +11,13 @@ export default [
     },
     {
         path: '/about/timeline',
-        component: AboutTimelineRoute,
+        component: () => import('@/view/AboutTimelineView.vue'),
         props: {},
         beforeEnter: (to, from, next) => TitleUtils.setTitle('Timeline', next),
     },
     {
         path: '/about/cv',
-        component: CVRoute,
+        component: () => import('@/view/AboutCVView.vue'),
         props: {},
         beforeEnter: (to, from, next) => TitleUtils.setTitle('CV', next),
     },

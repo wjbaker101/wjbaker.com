@@ -1,11 +1,9 @@
-const ComponentsRoute = () => import('@/components/route/website/ComponentsRoute.vue');
-
 import TitleUtils from '@/util/TitleUtils.js';
 
 export default [
     {
         path: '/website/components',
-        component: ComponentsRoute,
+        component: () => import('@/view/WebsiteComponentsView.vue'),
         props: {
             page: 'website-components',
         },
