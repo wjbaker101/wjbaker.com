@@ -110,7 +110,7 @@
         padding: 2rem;
         color: theme(white);
         background-color: theme(primary);
-        border-right: var(--border-thickness) solid theme(primary-dark);
+        border-right: 1px solid theme(primary-dark);
         border-top-right-radius: layout(border-radius);
         border-bottom-right-radius: layout(border-radius);
         text-align: center;
@@ -130,14 +130,14 @@
             color: inherit;
         }
 
-        @media screen and (max-width: 1024px) {
+        @media screen and (max-width: layout(breakpoint-large)) {
             width: 100%;
             height: auto;
             position: static;
             padding: 0 2rem;
             border-top-right-radius: 0;
             border-right: 0;
-            border-bottom: var(--border-thickness) solid theme(primary-dark);
+            border-bottom: 1px solid theme(primary-dark);
             border-bottom-left-radius: layout(border-radius);
             border-bottom-right-radius: layout(border-radius);
         }
@@ -155,7 +155,7 @@
         list-style: none;
         padding-left: 0;
 
-        @media screen and (max-width: 1024px) {
+        @media screen and (max-width: layout(breakpoint-large)) {
             max-width: 100%;
             display: inline-block;
             position: relative;
@@ -182,7 +182,7 @@
                 display: table;
                 position: absolute;
                 opacity: 0;
-                transition: border-color 0.2s, opacity 0.2s, transform 0.2s;
+                transition: border-color animation(duration-short), opacity animation(duration-short), transform animation(duration-short);
             }
 
             &::before {
@@ -217,7 +217,7 @@
                 border-color: theme(white);
             }
 
-            @media screen and (max-width: 1024px) {
+            @media screen and (max-width: layout(breakpoint-large)) {
                 display: inline-block;
                 margin: 0;
             }

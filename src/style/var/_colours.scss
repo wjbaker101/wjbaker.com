@@ -25,23 +25,11 @@ $colours: (
     negative-dark: darken(#b22, 10%),
 );
 
-$layouts: (
-    max-width: 720px,
-    border-radius: 3px,
-    aside-nav-width: 25%,
-);
-
 @function theme($colour) {
     @if map-has-key($colours, $colour) {
         @return map-get($colours, $colour);
     }
     @else {
         @return map-get($colours, black);
-    }
-}
-
-@function layout($layout) {
-    @if map-has-key($layouts, $layout) {
-        @return map-get($layouts, $layout);
     }
 }

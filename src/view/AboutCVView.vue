@@ -216,7 +216,7 @@
     .cv-row-half {
         display: flex;
 
-        @media screen and (max-width: 720px) {
+        @media screen and (max-width: layout(breakpoint-small)) {
             flex-direction: column;
         }
 

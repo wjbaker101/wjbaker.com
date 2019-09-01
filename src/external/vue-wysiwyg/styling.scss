@@ -331,11 +331,11 @@
       .dropzone .dz-preview.dz-image-preview {
         background: white; }
         .dropzone .dz-preview.dz-image-preview .dz-details {
-          -webkit-transition: opacity 0.2s linear;
-          -moz-transition: opacity 0.2s linear;
-          -ms-transition: opacity 0.2s linear;
-          -o-transition: opacity 0.2s linear;
-          transition: opacity 0.2s linear; }
+          -webkit-transition: opacity animation(duration-short) linear;
+          -moz-transition: opacity animation(duration-short) linear;
+          -ms-transition: opacity animation(duration-short) linear;
+          -o-transition: opacity animation(duration-short) linear;
+          transition: opacity animation(duration-short) linear; }
       .dropzone .dz-preview .dz-remove {
         font-size: 14px;
         text-align: center;
@@ -423,11 +423,11 @@
           height: 54px; }
       .dropzone .dz-preview.dz-processing .dz-progress {
         opacity: 1;
-        -webkit-transition: all 0.2s linear;
-        -moz-transition: all 0.2s linear;
-        -ms-transition: all 0.2s linear;
-        -o-transition: all 0.2s linear;
-        transition: all 0.2s linear; }
+        -webkit-transition: all animation(duration-short) linear;
+        -moz-transition: all animation(duration-short) linear;
+        -ms-transition: all animation(duration-short) linear;
+        -o-transition: all animation(duration-short) linear;
+        transition: all animation(duration-short) linear; }
       .dropzone .dz-preview.dz-complete .dz-progress {
         opacity: 0;
         -webkit-transition: opacity 0.4s ease-in;
@@ -511,7 +511,7 @@
     font-family: 'Arial', sans-serif;
     letter-spacing: 0.2px;
     color: #777;
-    transition: background-color 0.2s linear;
+    transition: background-color animation(duration-short) linear;
   }
   .vue-dropzone:hover {
     background-color: #F6F6F6;

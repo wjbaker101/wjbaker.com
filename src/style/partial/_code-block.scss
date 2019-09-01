@@ -1,0 +1,14 @@
+.code-block,
+.note {
+    margin: 1rem -2rem;
+    padding: 0.5rem 2rem;
+    border-top: 1px solid theme(grey-dark);
+    border-bottom: 1px solid theme(grey-dark);
+    border-left: 2px solid theme(primary-dark);
+    background-color: theme(primary-light);
+    color: theme(black-dark);
+}
+
+.code-block {
+    overflow-x: auto;
+}

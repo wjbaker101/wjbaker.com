@@ -66,7 +66,7 @@
             background-color: theme(white);
             border-radius: layout(border-radius);
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: background-color animation(duration-short);
 
             .checkbox-tick {
                 width: 0.65rem;
@@ -79,7 +79,7 @@
                 border-bottom: 2px solid theme(white);
                 transform: rotate(-45deg);
                 opacity: 0;
-                transition: opacity 0.4s;
+                transition: opacity animation(duration-short);
             }
         }
 

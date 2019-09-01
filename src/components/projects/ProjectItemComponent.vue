@@ -41,7 +41,7 @@
         background-color: theme(white);
         overflow: hidden;
 
-        @media screen and (max-width: 720px) {
+        @media screen and (max-width: layout(breakpoint-small)) {
             flex-direction: column;
         }
 
@@ -66,7 +66,7 @@
                 margin: auto;
             }
 
-            @media screen and (max-width: 720px) {
+            @media screen and (max-width: layout(breakpoint-small)) {
                 order: 2;
                 border-right: 0;
                 border-top: 1px solid theme(grey-dark);

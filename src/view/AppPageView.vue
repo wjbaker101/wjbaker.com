@@ -29,7 +29,7 @@
 <style lang="scss">
     .page-content {
         position: relative;
-        max-width: layout(max-width);
+        max-width: layout(breakpoint-small);
         padding: 2rem;
         margin: auto auto 1rem auto;
         background-color: theme(grey-light);

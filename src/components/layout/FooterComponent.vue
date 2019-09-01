@@ -70,9 +70,9 @@
     footer {
         padding-bottom: 1rem;
         margin: auto;
-        max-width: layout(max-width);
+        max-width: layout(breakpoint-small);
 
-        @media screen and (max-width: 1024px) {
+        @media screen and (max-width: layout(breakpoint-large)) {
             padding: 0 2rem;
         }
 

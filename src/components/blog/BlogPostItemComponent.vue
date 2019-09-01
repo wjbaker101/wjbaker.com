@@ -37,7 +37,7 @@
         border-right-color: theme(black-light);
         border-top-color: theme(black-light);
         border-bottom-color: theme(black-light);
-        transition: border-color 0.3s;
+        transition: border-color animation(duration-mid);
 
         &.is-published {
             background-color: theme(grey-light);

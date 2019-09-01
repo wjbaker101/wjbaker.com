@@ -62,7 +62,7 @@
     .admin-controls-content {
         opacity: 0;
         overflow: hidden;
-        transition: opacity 0.2s;
+        transition: opacity animation(duration-short);
 
         &.is-expanded {
             opacity: 1;

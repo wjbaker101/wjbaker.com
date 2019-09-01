@@ -77,7 +77,7 @@
             width: $size;
             height: $size;
             color: theme(tertiary);
-            transition: color 0.2s;
+            transition: color animation(duration-short);
 
             &:hover {
                 color: theme(tertiary-dark);

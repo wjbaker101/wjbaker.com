@@ -1,0 +1,12 @@
+$animations: (
+    duration-short: 0.2s,
+    duration-mid: 0.45s,
+    duration-long: 0.8s,
+    duration-extended: 1.25s,
+);
+
+@function animation($animation) {
+    @if map-has-key($animations, $animation) {
+        @return map-get($animations, $animation);
+    }
+}

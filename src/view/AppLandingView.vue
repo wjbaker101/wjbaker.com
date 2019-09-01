@@ -43,7 +43,7 @@
     .landing-title-container {
         display: table;
         margin: auto;
-        width: layout(max-width);
+        width: layout(breakpoint-small);
         max-width: 100%;
         padding: 2rem 0;
         padding-right: 4rem;
@@ -55,8 +55,8 @@
             margin: auto;
         }
 
-        @media screen and (max-width: 1024px) {
-            width: layout(max-width) / 1.5;
+        @media screen and (max-width: layout(breakpoint-large)) {
+            width: layout(breakpoint-small) / 1.5;
         }
     }
 
@@ -82,12 +82,12 @@
 
     .landing-title-content {
         display: inline-block;
-        animation: landing-anim 0.65s;
+        animation: landing-anim animation(duration-long);
     }
 
     .title-subheading {
         display: inline-block;
-        animation: landing-subheading-anim 0.65s;
+        animation: landing-subheading-anim animation(duration-long);
     }
 
     @keyframes landing-anim {

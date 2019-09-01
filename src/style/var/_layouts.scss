@@ -1,0 +1,13 @@
+$layouts: (
+    breakpoint-large: 1024px,
+    breakpoint-small: 720px,
+
+    border-radius: 3px,
+    aside-nav-width: 25%,
+);
+
+@function layout($layout) {
+    @if map-has-key($layouts, $layout) {
+        @return map-get($layouts, $layout);
+    }
+}

@@ -51,7 +51,7 @@
         color: theme(white);
         cursor: pointer;
         vertical-align: middle;
-        transition: all 0.2s;
+        transition: all animation(duration-short);
 
         .button-content {
             vertical-align: middle;

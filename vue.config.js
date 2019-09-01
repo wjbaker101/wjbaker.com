@@ -23,7 +23,7 @@ module.exports = {
         loaderOptions: {
             sass: {
                 data: `
-                    @import '@/style/_style.scss';
+                    @import '@/style/webstyle.scss';
                 `
             }
         }

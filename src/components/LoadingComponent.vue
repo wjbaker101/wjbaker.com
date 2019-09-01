@@ -33,7 +33,7 @@
         text-align: center;
 
         $spinner-size: 2rem;
-        $spinner-speed: 1.25s;
+        $spinner-speed: animation(duration-extended);
 
         .loading-spinner {
             min-width: $spinner-size;
@@ -59,7 +59,7 @@
                 height: 0.5rem;
                 display: table;
                 position: absolute;
-                transition: border-color 0.2s, opacity 0.2s, transform 0.2s;
+                transition: border-color animation(duration-short), opacity animation(duration-short), transform animation(duration-short);
             }
 
             &::before {
