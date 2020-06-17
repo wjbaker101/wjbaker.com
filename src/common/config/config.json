@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "backend": {
+            "port": 8082,
+            "baseURL": "/api"
+        }
+    },
+
+    "production": {
+        "backend": {
+            "port": 8082,
+            "baseURL": "/api"
+        }
+    }
+}
