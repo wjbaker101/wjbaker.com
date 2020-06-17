@@ -26,6 +26,7 @@
 
     import { API } from '@frontend/api/API';
     import { DateUtils } from '@frontend/util/DateUtils';
+    import { Utils } from '@frontend/util/Utils';
 
     import { BlogPostModel } from '@common/model/BlogPostModel';
 
@@ -78,14 +79,17 @@
                 return;
             }
 
-
             this.blogPost = blogPost;
             this.isLoading = false;
 
-            if (this.blogPost !== null) {
-                const blogTitleURL = 'yell-placement-year';
-                history.pushState({}, '', `/blog/post/${this.blogPost.id}/${blogTitleURL}`);
+            if (this.blogPost === null) {
+                return;
             }
+
+            const blogTitleURL = 'yell-placement-year';
+            history.pushState({}, '', `/blog/post/${this.blogPost.id}/${blogTitleURL}`);
+
+            Utils.updateTitle(this.blogPost.title);
         }
     }
 </script>

@@ -30,6 +30,7 @@
     import { ProjectModel } from '@common/model/ProjectModel';
 
     import { API } from '@frontend/api/API';
+    import { Utils } from '@frontend/util/Utils';
 
     import PageContentComponent from '@frontend/component/page/PageContentComponent.vue';
     import PageTitleComponent from '@frontend/component/page/PageTitleComponent.vue';
@@ -74,12 +75,14 @@
                 return;
             }
 
-            if (project === null) {
+            this.project = project;
+            this.isLoading = false;
+
+            if (this.project === null) {
                 return;
             }
 
-            this.project = project;
-            this.isLoading = false;
+            Utils.updateTitle(this.project.title);
         }
     }
 </script>

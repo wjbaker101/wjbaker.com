@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter, { Route } from 'vue-router';
 import { Position, NavigationGuardNext } from 'vue-router/types/router';
 
+import { Utils } from '@frontend/util/Utils';
+
 import LandingView from '@frontend/view/LandingView.vue';
 
 Vue.use(VueRouter);
@@ -61,9 +63,7 @@ const appRouter = new VueRouter({
 });
 
 appRouter.beforeEach((to: Route, from: Route, next: NavigationGuardNext) => {
-    document.title = to.meta.title
-            ? `${to.meta.title} | wjbaker.com`
-            : 'wjbaker.com';
+    Utils.updateTitle(to.meta.title || null);
 
     next();
 });
