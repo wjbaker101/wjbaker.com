@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { Route } from 'vue-router';
-import { Position } from 'vue-router/types/router';
+import { Position, NavigationGuardNext } from 'vue-router/types/router';
 
 import LandingView from '@frontend/view/LandingView.vue';
 
@@ -17,29 +17,55 @@ const appRouter = new VueRouter({
     routes: [
         {
             path: '/',
+            meta: {
+                title: 'Will Baker',
+            },
             component: LandingView,
         },
         {
             path: '/about',
+            meta: {
+                title: 'About',
+            },
             component: () => import('@frontend/view/AboutView.vue'),
         },
         {
             path: '/projects',
+            meta: {
+                title: 'Projects',
+            },
             component: () => import('@frontend/view/ProjectsView.vue'),
         },
         {
             path: '/project/:projectID',
+            meta: {
+                title: 'Project',
+            },
             component: () => import('@frontend/view/ProjectView.vue'),
         },
         {
             path: '/blog',
+            meta: {
+                title: 'Blog',
+            },
             component: () => import('@frontend/view/BlogView.vue'),
         },
         {
             path: '/blog/post/:blogID/(.*)?',
+            meta: {
+                title: 'Blog Post',
+            },
             component: () => import('@frontend/view/BlogPostView.vue'),
         },
     ],
+});
+
+appRouter.beforeEach((to: Route, from: Route, next: NavigationGuardNext) => {
+    document.title = to.meta.title
+            ? `${to.meta.title} | wjbaker.com`
+            : 'wjbaker.com';
+
+    next();
 });
 
 export { appRouter };
