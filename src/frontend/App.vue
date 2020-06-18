@@ -24,6 +24,7 @@
 
 <style lang="scss">
     @import './style/main';
+    @import './style/wysiwyg';
 
     #app {
         height: 100%;

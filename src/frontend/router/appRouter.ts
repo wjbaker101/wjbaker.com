@@ -59,6 +59,20 @@ const appRouter = new VueRouter({
             },
             component: () => import('@frontend/view/BlogPostView.vue'),
         },
+        {
+            path: '/blog/edit/:blogID',
+            meta: {
+                title: 'Edit Blog Post',
+            },
+            component: () => import('@frontend/view/BlogEditView.vue'),
+        },
+        {
+            path: '/blog/create',
+            meta: {
+                title: 'New Blog Post',
+            },
+            component: () => import('@frontend/view/BlogEditView.vue'),
+        },
     ],
 });
 

@@ -1,6 +1,7 @@
 import path from 'path';
 import express from 'express';
 import history from 'connect-history-api-fallback';
+import bodyParser from 'body-parser';
 
 import { BlogController } from './controller/BlogController';
 import { ProjectController } from '@backend/controller/ProjectController';
@@ -15,6 +16,8 @@ const controllers = [
     BlogController,
     ProjectController,
 ];
+
+app.use(bodyParser.json());
 
 controllers.forEach(controller => {
     app.use(config.backend.baseURL, controller);

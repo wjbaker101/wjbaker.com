@@ -8,9 +8,9 @@ export const BlogAPI = {
         try {
             const response = await APIClient.get<APIResponse<BlogPostModel[]>>('/blog');
 
-            return response.data.result.map(p => ({
-                ...p,
-                postDate: new Date(p.postDate),
+            return response.data.result.map(blogPost => ({
+                ...blogPost,
+                postDate: new Date(blogPost.postDate),
             }));
         }
         catch (exception) {
@@ -30,8 +30,33 @@ export const BlogAPI = {
 
             return {
                 ...blogPost,
-                postDate: new Date(blogPost?.postDate),
+                postDate: new Date(blogPost.postDate),
             }
+        }
+        catch (exception) {
+            return new Error(exception);
+        }
+    },
+
+    async createBlogPost(blogPost: BlogPostModel): Promise<BlogPostModel | Error> {
+        try {
+            const response = await APIClient.post<APIResponse<BlogPostModel>>('/blog/post', blogPost);
+
+            const createdBlogPost = response.data.result;
+
+            return {
+                ...createdBlogPost,
+                postDate: new Date(createdBlogPost.postDate),
+            }
+        }
+        catch (exception) {
+            return new Error(exception);
+        }
+    },
+
+    async updateBlogPost(blogPost: BlogPostModel): Promise<void | Error> {
+        try {
+            await APIClient.patch<APIResponse<boolean>>(`/blog/post/${blogPost.id}`, blogPost);
         }
         catch (exception) {
             return new Error(exception);

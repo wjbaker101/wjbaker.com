@@ -9,3 +9,5 @@ declare module '*.svg' {
   }
 
 declare module 'particles-bg-vue';
+
+declare module 'vue-wysiwyg-lite';

@@ -86,8 +86,8 @@
                 return;
             }
 
-            const blogTitleURL = 'yell-placement-year';
-            history.pushState({}, '', `/blog/post/${this.blogPost.id}/${blogTitleURL}`);
+            // const blogTitleURL = 'yell-placement-year';
+            // history.pushState({}, '', `/blog/post/${this.blogPost.id}/${blogTitleURL}`);
 
             Utils.updateTitle(this.blogPost.title);
         }

@@ -29,9 +29,36 @@ const routes = {
 
         return response.send(ResponseFactory.result(blogPost === null ? null : BlogPostMapper.map(blogPost)));
     },
+
+    async createBlogPost(request: Request, response: Response) {
+        const blogPost = request.body;
+
+        const insertedBlogPost = await BlogService.createBlogPost(blogPost);
+
+        if (insertedBlogPost instanceof Error) {
+            return response.status(500).send(ResponseFactory.error('Something went wrong when creating blog post.'));
+        }
+
+        return response.status(201)
+                .send(ResponseFactory.result(insertedBlogPost));
+    },
+
+    async updateBlogPost(request: Request, response: Response) {
+        const blogPost = request.body;
+
+        const insertedBlogPost = await BlogService.updateBlogPost(blogPost);
+
+        if (insertedBlogPost instanceof Error) {
+            return response.status(500).send(ResponseFactory.error('Something went wrong when updating blog post.'));
+        }
+
+        return response.send(ResponseFactory.result(true));
+    },
 };
 
 router.get('/blog', routes.getBlogPosts);
+router.post('/blog/post', routes.createBlogPost);
 router.get('/blog/post/:id', routes.getBlogPost);
+router.patch('/blog/post/:id', routes.updateBlogPost);
 
 export { router as BlogController };
