@@ -1,5 +1,4 @@
 import { MySQLClient } from '@backend/client/MySQLClient';
-import { TrianglifyClient } from '@backend/client/TrianglifyClient';
 import { Logger } from '@backend/util/Logger';
 import { BlogPostEntity } from '@backend/entity/BlogPostEntity';
 
@@ -29,9 +28,5 @@ export const BlogService = {
             Logger.log(exception);
             return new Error(exception);
         }
-    },
-
-    createBlogPost() {
-        const image = TrianglifyClient.generateSVG(330, 253, 60);
     },
 }
