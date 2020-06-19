@@ -1,6 +1,6 @@
 <template>
     <PageContentComponent class="blog-post-view">
-        <PageTitleComponent title="Edit Blog Post" />
+        <PageTitleComponent :title="pageTitle" />
         <LoadingComponent v-if="isLoading" message="Loading Blog Post" />
         <ErrorComponent v-else-if="this.$route.params.blogID && blogPost === null" message="Unable to load the blog post; please check the ID is correct." />
         <div v-else>
@@ -55,6 +55,12 @@
         private content: string = '';
 
         private isLoading: boolean = false;
+
+        get pageTitle(): string {
+            return this.$route.params.blogID
+                    ? 'Edit Blog Post'
+                    : 'Create New Blog Post';
+        }
 
         async mounted(): Promise<void> {
             if (!this.$route.params.blogID) {
@@ -120,6 +126,4 @@
 </script>
 
 <style lang="scss">
-    .blog-edit-view {
-    }
 </style>
