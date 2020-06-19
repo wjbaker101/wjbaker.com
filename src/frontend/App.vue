@@ -24,7 +24,8 @@
 
 <style lang="scss">
     @import './style/main';
-    @import './style/wysiwyg';
+    // @import './style/wysiwyg';
+    @import '~vue-wysiwyg-lite/dist/vueWysiwyg.css';
 
     #app {
         height: 100%;

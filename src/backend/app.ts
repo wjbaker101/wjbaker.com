@@ -3,7 +3,8 @@ import express from 'express';
 import history from 'connect-history-api-fallback';
 import bodyParser from 'body-parser';
 
-import { BlogController } from './controller/BlogController';
+import { BlogController } from '@backend/controller/BlogController';
+import { ImageController } from '@backend/controller/ImageController';
 import { ProjectController } from '@backend/controller/ProjectController';
 import { Logger } from '@backend/util/Logger';
 import { Env } from '@common/util/Env';
@@ -14,6 +15,7 @@ const app = express();
 
 const controllers = [
     BlogController,
+    ImageController,
     ProjectController,
 ];
 
