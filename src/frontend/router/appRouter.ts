@@ -39,6 +39,20 @@ const appRouter = new VueRouter({
             component: () => import('@frontend/view/ProjectsView.vue'),
         },
         {
+            path: '/projects/edit/:projectID',
+            meta: {
+                title: 'Edit Project',
+            },
+            component: () => import('@frontend/view/ProjectEditView.vue'),
+        },
+        {
+            path: '/projects/create',
+            meta: {
+                title: 'New Project',
+            },
+            component: () => import('@frontend/view/ProjectEditView.vue'),
+        },
+        {
             path: '/project/:projectID',
             meta: {
                 title: 'Project',

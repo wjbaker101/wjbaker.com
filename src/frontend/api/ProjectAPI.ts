@@ -25,4 +25,24 @@ export const ProjectAPI = {
             return new Error(exception);
         }
     },
+
+    async createProject(project: ProjectModel): Promise<ProjectModel | Error> {
+        try {
+            const response = await APIClient.post<APIResponse<ProjectModel>>('/project', project);
+
+            return response.data.result;
+        }
+        catch (exception) {
+            return new Error(exception);
+        }
+    },
+
+    async updateProject(project: ProjectModel): Promise<void | Error> {
+        try {
+            await APIClient.patch<APIResponse<boolean>>(`/project/${project.id}`, project);
+        }
+        catch (exception) {
+            return new Error(exception);
+        }
+    },
 }

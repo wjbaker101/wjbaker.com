@@ -29,9 +29,36 @@ const routes = {
 
         return response.send(ResponseFactory.result(project === null ? null : ProjectMapper.map(project)));
     },
+
+    async createProject(request: Request, response: Response) {
+        const project = request.body;
+
+        const insertedProject = await ProjectService.createProject(project);
+
+        if (insertedProject instanceof Error) {
+            return response.status(500).send(ResponseFactory.error('Something went wrong when creating project.'));
+        }
+
+        return response.status(201)
+                .send(ResponseFactory.result(insertedProject));
+    },
+
+    async updateProject(request: Request, response: Response) {
+        const project = request.body;
+
+        const insertedProject = await ProjectService.updateProject(project);
+
+        if (insertedProject instanceof Error) {
+            return response.status(500).send(ResponseFactory.error('Something went wrong when updating project.'));
+        }
+
+        return response.send(ResponseFactory.result(true));
+    },
 };
 
 router.get('/projects', routes.getProjects);
+router.post('/project', routes.createProject);
 router.get('/project/:id', routes.getProject);
+router.patch('/project/:id', routes.updateProject);
 
 export { router as ProjectController };

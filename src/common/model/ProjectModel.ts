@@ -3,6 +3,6 @@ export interface ProjectModel {
     title: string,
     startDate: string,
     summary: string,
-    sourceCodeURL: string,
+    sourceCodeURL: string | null,
     description?: string,
 }

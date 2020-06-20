@@ -4,6 +4,6 @@ import { ProjectAPI } from '@frontend/api/ProjectAPI';
 const API = {
     ...BlogAPI,
     ...ProjectAPI,
-}
+};
 
 export { API };
