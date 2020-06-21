@@ -38,4 +38,10 @@ export const AuthMiddleware = {
 
         next();
     },
+
+    logout(request: Request, response: Response, next: NextFunction) {
+        request.logout();
+
+        response.send(ResponseFactory.result(true));
+    },
 }

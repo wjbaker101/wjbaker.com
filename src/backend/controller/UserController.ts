@@ -46,5 +46,6 @@ const routes = {
 
 router.post('/user', AuthMiddleware.requireAnonymous, routes.createUser);
 router.post('/user/login', routes.login);
+router.post('/user/logout', AuthMiddleware.logout);
 
 export { router as UserController };

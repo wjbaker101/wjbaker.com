@@ -42,4 +42,13 @@ export const UserAPI = {
             return new Error(exception);
         }
     },
+
+    async logout(): Promise<void | Error> {
+        try {
+            await APIClient.post<boolean>('/user/logout');
+        }
+        catch (exception) {
+            return new Error(exception);
+        }
+    },
 }
