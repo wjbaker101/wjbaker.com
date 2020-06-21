@@ -1,12 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import { UserService } from '@frontend/service/UserService';
 import { State } from '@frontend/model/State';
 import { BlogPostModel } from '@common/model/BlogPostModel';
 import { ProjectModel } from '@common/model/ProjectModel';
 import { UserModel } from '@common/model/UserModel';
 
 Vue.use(Vuex);
+
+export const initialiseAppStore = async () => {
+    appStore.state.user = await UserService.getUser();
+};
 
 export const appStore = new Vuex.Store({
 
@@ -20,16 +25,18 @@ export const appStore = new Vuex.Store({
 
     mutations: {
 
-        setProjects(state, projects: ProjectModel[]) {
+        setProjects(state: State, projects: ProjectModel[]) {
             state.projects = projects;
         },
 
-        setBlogPosts(state, blogPosts: BlogPostModel[]) {
+        setBlogPosts(state: State, blogPosts: BlogPostModel[]) {
             state.blogPosts = blogPosts;
         },
 
-        setUser(state, user: UserModel) {
+        async setUser(state: State, user: UserModel) {
             state.user = user;
+
+            await UserService.setUser(state.user);
         },
 
     },
@@ -44,8 +51,12 @@ export const appStore = new Vuex.Store({
             context.commit('setBlogPosts', blogPosts);
         },
 
-        setUser(context, user:UserModel) {
+        setUser(context, user: UserModel) {
             context.commit('setUser', user);
+        },
+
+        async initialise(context) {
+            context.commit('initialise');
         },
 
     },
