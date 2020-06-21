@@ -29,8 +29,8 @@
 
 <style lang="scss">
     .page-title-component {
-        width: 600px;
-        max-width: 100%;
+        width: 100%;
+        max-width: 600px;
         display: table;
         margin: 0 auto 2rem auto;
         position: relative;

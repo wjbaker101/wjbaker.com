@@ -54,6 +54,7 @@
         }
 
         .title-container {
+            width: 100%;
             margin: auto;
         }
     }
