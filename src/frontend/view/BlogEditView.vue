@@ -19,6 +19,7 @@
             <p>
                 <ButtonComponent @click.native="submitBlogPost">Submit Post</ButtonComponent>
             </p>
+            <ErrorComponent v-if="error != null" :message="error" />
         </div>
     </PageContentComponent>
 </template>
@@ -54,7 +55,9 @@
         private summary: string = '';
         private content: string = '';
 
+        private error: string | null = null;
         private isLoading: boolean = false;
+        private isSubmitting: boolean = false;
 
         get pageTitle(): string {
             return this.$route.params.blogID
@@ -72,11 +75,14 @@
 
         async getBlogPost(): Promise<void> {
             this.isLoading = true;
+            this.error = null;
 
             const blogPost = await API.getBlogPost(this.$route.params.blogID);
 
+            this.isLoading = false;
+
             if (blogPost instanceof Error || blogPost === null) {
-                this.isLoading = false;
+                this.error = 'Sorry, the blog post was unable to be retrieved.';
                 return;
             }
 
@@ -85,11 +91,11 @@
             this.title = blogPost.title;
             this.summary = blogPost.summary;
             this.content = blogPost.content || '';
-
-            this.isLoading = false;
         }
 
         async submitBlogPost(): Promise<void> {
+            this.isSubmitting = true;
+
             if (this.$route.params.blogID && this.blogPost !== null) {
                 const result = await API.updateBlogPost({
                     ...this.blogPost,
@@ -98,8 +104,10 @@
                     content: this.content,
                 });
 
+                this.isSubmitting = false;
+
                 if (result instanceof Error) {
-                    console.log(result);
+                    this.error = 'Sorry, the blog post was unable to be updated.';
                     return;
                 }
 
@@ -114,8 +122,10 @@
                     content: this.content,
                 });
 
+                this.isSubmitting = false;
+
                 if (blogPost instanceof Error) {
-                    console.log(blogPost);
+                    this.error = 'Sorry, the blog post was unable to be created.';
                     return;
                 }
 

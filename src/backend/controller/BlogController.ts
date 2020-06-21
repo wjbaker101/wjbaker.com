@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express';
 import { ResponseFactory } from '@backend/factory/ResponseFactory';
 import { BlogService } from '@backend/service/BlogService';
 import { BlogPostMapper } from '@backend/mapper/BlogPostMapper';
+import { AuthMiddleware } from '@backend/middleware/AuthMiddleware';
 
 const router = express.Router();
 
@@ -57,8 +58,8 @@ const routes = {
 };
 
 router.get('/blog', routes.getBlogPosts);
-router.post('/blog/post', routes.createBlogPost);
+router.post('/blog/post', AuthMiddleware.requireAdmin, routes.createBlogPost);
 router.get('/blog/post/:id', routes.getBlogPost);
-router.patch('/blog/post/:id', routes.updateBlogPost);
+router.patch('/blog/post/:id', AuthMiddleware.requireAdmin, routes.updateBlogPost);
 
 export { router as BlogController };

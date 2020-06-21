@@ -7,7 +7,7 @@
             <ul>
                 <li
                     :key="`link-${index}`"
-                    v-for="(link, index) in links"
+                    v-for="(link, index) in links.concat(userLink)"
                 >
                     <router-link
                         :to="link.url"
@@ -27,6 +27,8 @@
 <script lang="ts">
     import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
+    import { UserModel } from '@common/model/UserModel';
+
     interface Link {
         title: string,
         url: string,
@@ -41,10 +43,21 @@
             this.link('About', '/about'),
             this.link('Projects', '/projects'),
             this.link('Blog', '/blog'),
-            // this.link('Login', '/login'),
         ];
 
         private currentLocation: string = '';
+
+        get user(): UserModel {
+            return this.$store.state.user;
+        }
+
+        get userLink(): Link {
+            if (this.user === null) {
+                return this.link('Login', '/user/login');
+            }
+
+            return this.link('Your User', '/user');
+        }
 
         private link(title: string, url: string): Link {
             return {

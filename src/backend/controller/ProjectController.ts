@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express';
 import { ProjectService } from '@backend/service/ProjectService';
 import { ResponseFactory } from '@backend/factory/ResponseFactory';
 import { ProjectMapper } from '@backend/mapper/ProjectMapper';
+import { AuthMiddleware } from '@backend/middleware/AuthMiddleware';
 
 const router = express.Router();
 
@@ -57,8 +58,8 @@ const routes = {
 };
 
 router.get('/projects', routes.getProjects);
-router.post('/project', routes.createProject);
+router.post('/project', AuthMiddleware.requireAdmin, routes.createProject);
 router.get('/project/:id', routes.getProject);
-router.patch('/project/:id', routes.updateProject);
+router.patch('/project/:id', AuthMiddleware.requireAdmin, routes.updateProject);
 
 export { router as ProjectController };

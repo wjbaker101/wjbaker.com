@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 
 import { ResponseFactory } from '@backend/factory/ResponseFactory';
 import { MulterMiddleware } from '@backend/middleware/MulterMiddleware';
+import { AuthMiddleware } from '@backend/middleware/AuthMiddleware';
 import { ImageService } from '@backend/service/ImageService';
 
 const router = express.Router();
@@ -21,6 +22,7 @@ const routes = {
 };
 
 router.post('/image',
+        AuthMiddleware.requireAdmin,
         MulterMiddleware.single('file'),
         routes.uploadImage);
 

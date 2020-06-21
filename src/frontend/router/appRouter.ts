@@ -5,6 +5,8 @@ import { Position, NavigationGuardNext } from 'vue-router/types/router';
 import { Utils } from '@frontend/util/Utils';
 
 import LandingView from '@frontend/view/LandingView.vue';
+import { appStore } from '@frontend/store/appStore';
+import { AuthHandler } from './AuthHandler';
 
 Vue.use(VueRouter);
 
@@ -42,6 +44,7 @@ const appRouter = new VueRouter({
             path: '/projects/edit/:projectID',
             meta: {
                 title: 'Edit Project',
+                auth: 'admin',
             },
             component: () => import('@frontend/view/ProjectEditView.vue'),
         },
@@ -49,6 +52,7 @@ const appRouter = new VueRouter({
             path: '/projects/create',
             meta: {
                 title: 'New Project',
+                auth: 'admin',
             },
             component: () => import('@frontend/view/ProjectEditView.vue'),
         },
@@ -77,6 +81,7 @@ const appRouter = new VueRouter({
             path: '/blog/edit/:blogID',
             meta: {
                 title: 'Edit Blog Post',
+                auth: 'admin',
             },
             component: () => import('@frontend/view/BlogEditView.vue'),
         },
@@ -84,14 +89,43 @@ const appRouter = new VueRouter({
             path: '/blog/create',
             meta: {
                 title: 'New Blog Post',
+                auth: 'admin',
             },
             component: () => import('@frontend/view/BlogEditView.vue'),
+        },
+        {
+            path: '/user',
+            meta: {
+                title: 'User',
+                auth: 'user',
+            },
+            component: () => import('@frontend/view/UserView.vue'),
+        },
+        {
+            path: '/user/login',
+            meta: {
+                title: 'Login',
+                auth: 'anonymous',
+            },
+            component: () => import('@frontend/view/UserLoginView.vue'),
+        },
+        {
+            path: '/user/create',
+            meta: {
+                title: 'Create User',
+                auth: 'anonymous',
+            },
+            component: () => import('@frontend/view/UserCreateView.vue'),
         },
     ],
 });
 
 appRouter.beforeEach((to: Route, from: Route, next: NavigationGuardNext) => {
     Utils.updateTitle(to.meta.title || null);
+
+    if (to.meta.auth) {
+        AuthHandler.handle(to.meta.auth, next);
+    }
 
     next();
 });

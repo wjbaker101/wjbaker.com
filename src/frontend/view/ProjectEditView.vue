@@ -32,6 +32,7 @@
                     Submit Project
                 </ButtonComponent>
             </p>
+            <ErrorComponent v-if="error !== null" :message="error" />
         </div>
     </PageContentComponent>
 </template>
@@ -70,7 +71,9 @@
         private summary: string = '';
         private description: string = '';
 
+        private error: string | null = null;
         private isLoading: boolean = false;
+        private isSubmitting: boolean = false;
 
         get pageTitle(): string {
             return this.$route.params.projectID
@@ -83,16 +86,19 @@
                 return;
             }
 
-            await this.getBlogPost();
+            await this.getProject();
         }
 
-        async getBlogPost(): Promise<void> {
+        async getProject(): Promise<void> {
             this.isLoading = true;
+            this.error = null;
 
             const project = await API.getProject(this.$route.params.projectID);
 
+            this.isLoading = false;
+
             if (project instanceof Error || project === null) {
-                this.isLoading = false;
+                this.error = 'Sorry, the project was unable to be retrieved';
                 return;
             }
 
@@ -108,6 +114,8 @@
         }
 
         async submitProject(): Promise<void> {
+            this.isSubmitting = true;
+
             const sourceCodeURL = (this.sourceCodeURL === null
                     || this.sourceCodeURL.length === 0)
                             ? null
@@ -123,7 +131,10 @@
                     description: this.description,
                 });
 
+                this.isSubmitting = true;
+
                 if (result instanceof Error) {
+                    this.error = 'Sorry, the project was unable to be updated.';
                     return;
                 }
 
@@ -139,7 +150,10 @@
                     description: this.description,
                 });
 
+                this.isSubmitting = true;
+
                 if (project instanceof Error) {
+                    this.error = 'Sorry, the project was unable to be created.';
                     return;
                 }
 

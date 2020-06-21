@@ -1,16 +1,21 @@
 <template>
-    <button class="button-component">
+    <button class="button-component" @click="onClick">
         <slot />
     </button>
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 
     @Component({
         components: {},
     })
     export default class ButtonComponent extends Vue {
+
+        @Emit('click')
+        onClick(e: MouseEvent): MouseEvent {
+            return e;
+        }
     }
 </script>
 

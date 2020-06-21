@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 import { State } from '@frontend/model/State';
 import { BlogPostModel } from '@common/model/BlogPostModel';
 import { ProjectModel } from '@common/model/ProjectModel';
+import { UserModel } from '@common/model/UserModel';
 
 Vue.use(Vuex);
 
@@ -13,6 +14,7 @@ export const appStore = new Vuex.Store({
 
         blogPosts: null,
         projects: null,
+        user: null,
 
     } as State,
 
@@ -26,6 +28,10 @@ export const appStore = new Vuex.Store({
             state.blogPosts = blogPosts;
         },
 
+        setUser(state, user: UserModel) {
+            state.user = user;
+        },
+
     },
 
     actions: {
@@ -36,6 +42,10 @@ export const appStore = new Vuex.Store({
 
         setBlogPosts(context, blogPosts: BlogPostModel[]) {
             context.commit('setBlogPosts', blogPosts);
+        },
+
+        setUser(context, user:UserModel) {
+            context.commit('setUser', user);
         },
 
     },
