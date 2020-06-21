@@ -43,7 +43,7 @@
             }
 
             p, h2, h3, h4, h5, h6 {
-                max-width: 30rem;
+                max-width: 32rem;
                 margin-right: auto;
                 margin-left: auto;
             }
