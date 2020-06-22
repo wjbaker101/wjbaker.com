@@ -34,6 +34,13 @@ const appRouter = new VueRouter({
             component: () => import('@frontend/view/AboutView.vue'),
         },
         {
+            path: '/about/cv',
+            meta: {
+                title: 'CV',
+            },
+            component: () => import('@frontend/view/AboutCVView.vue'),
+        },
+        {
             path: '/projects',
             meta: {
                 title: 'Projects',

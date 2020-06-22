@@ -20,7 +20,7 @@
         <p>I have been programming for over 10 years and over this time have utilised a wide range of languages, frameworks and techniques. Another aim for my website is to able to visualise the development of my skills over time when looking at old projects versus new ones.</p>
         <p>If you'd like to see the source code of my projects, please visit my <LinkComponent href="https://github.com/wjbaker101">GitHub</LinkComponent> page!</p>
         <h2>Career</h2>
-        <p>For more information on my career path and experience, feel free to visit my <LinkComponent href="https://linkedin.com/in/wjbaker101">LinkedIn</LinkComponent> page!</p>
+        <p>For more information on my career path and experience, feel free to visit my <LinkComponent href="https://linkedin.com/in/wjbaker101">LinkedIn</LinkComponent> or <router-link to="/about/cv">view my CV</router-link>!</p>
         <p>Prior to uni, I had never had a job related to programming. During the summer of my first year, I contacted a company in Ashford called Bradleys who specialise in wholesale bakery deliveries where they I got the job as an IT Project Assistant.</p>
         <p>In my time at Bradleys I mainly worked on content management and SEO optimisation of their main website. Later on, I was given the project to create the website <LinkComponent href="https://cakecraftcentrenorwich.co.uk">cakecraftcentrenorwich.co.uk</LinkComponent>. I still continue to update and maintain the website.</p>
         <p>Moving on deeper into univeristy, as part of my Computer Science course, I also did a year in industry. So, for a year, I worked at Yell as a Backend Software Developer in Reading.</p>
