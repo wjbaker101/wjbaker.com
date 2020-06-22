@@ -13,7 +13,7 @@
                         :to="link.url"
                         class="link"
                         :class="{
-                            'is-selected': currentLocation.startsWith(link.url),
+                            'is-selected': currentLocation === link.url,
                         }"
                     >
                         {{ link.title }}
