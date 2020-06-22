@@ -1,18 +1,27 @@
 <template>
     <PageContentComponent class="blog-post-view" v-if="blogPost !== null">
         <PageTitleComponent :title="blogPost.title" />
-        <div class="return-container">
-            <div class="return">
+        <div class="return-container flex">
+            <div class="return flex-1">
                 <router-link to="/blog">
                     <LeftArrowIcon />Return to Blog
                 </router-link>
             </div>
-            <div class="date">
+            <div class="date flex-auto">
                 <span :title="blogPost.postDate">
                     <strong>Published:</strong>
                     {{ postDate }}
                 </span>
             </div>
+            <router-link
+                v-if="user !== null && user.isAdmin"
+                :to="`/blog/edit/${blogPost.id}`"
+                class="edit flex-auto"
+            >
+                <ButtonComponent :isGhost="true">
+                    <EditIcon />
+                </ButtonComponent>
+            </router-link>
         </div>
         <div v-if="isLoading">
             <LoadingComponent message="Loading Blog Post Content" />
@@ -29,19 +38,24 @@
     import { Utils } from '@frontend/util/Utils';
 
     import { BlogPostModel } from '@common/model/BlogPostModel';
+    import { UserModel } from '@common/model/UserModel';
 
     import PageContentComponent from '@frontend/component/page/PageContentComponent.vue';
     import PageTitleComponent from '@frontend/component/page/PageTitleComponent.vue';
 
+    import ButtonComponent from '@frontend/component/ButtonComponent.vue';
     import LoadingComponent from '@frontend/component/LoadingComponent.vue';
 
+    import EditIcon from '@frontend/assets/icon/pencil.svg';
     import LeftArrowIcon from '@frontend/assets/icon/arrow-left.svg';
 
     @Component({
         components: {
             PageContentComponent,
             PageTitleComponent,
+            ButtonComponent,
             LoadingComponent,
+            EditIcon,
             LeftArrowIcon,
         },
     })
@@ -57,6 +71,10 @@
             }
 
             return DateUtils.dateTimeVariableYear(this.blogPost.postDate);
+        }
+
+        get user(): UserModel {
+            return this.$store.state.user;
         }
 
         async created(): Promise<void> {
@@ -98,7 +116,6 @@
     .blog-post-view {
 
         .return-container {
-            display: flex;
             padding: 1rem;
             margin-bottom: 2rem;
             border: 1px solid theme(secondary);
@@ -108,16 +125,12 @@
                 margin: auto 0;
             }
 
-            .return {
-                flex: 1;
-
-                .svg-icon {
-                    margin-right: 0.25rem;
-                }
+            .icon-arrow-left {
+                margin-right: 0.25rem;
             }
 
-            .date {
-                flex: 0 0 auto;
+            .edit {
+                margin-left: 0.25rem;
             }
         }
     }

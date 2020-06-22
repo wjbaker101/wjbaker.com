@@ -5,9 +5,18 @@
             <small>{{ date }}</small>
         </p>
         <p>{{ blogPost.summary }}</p>
-        <p>
-            <router-link :to="`/blog/post/${blogPost.id}`">
+        <p class="flex">
+            <router-link :to="`/blog/post/${blogPost.id}`" class="flex-1">
                 <ButtonComponent>Read Full Post</ButtonComponent>
+            </router-link>
+            <router-link
+                v-if="user !== null && user.isAdmin"
+                :to="`/blog/edit/${blogPost.id}`"
+                class="edit flex-auto"
+            >
+                <ButtonComponent :isGhost="true">
+                    <EditIcon />
+                </ButtonComponent>
             </router-link>
         </p>
     </div>
@@ -19,12 +28,16 @@
     import { DateUtils } from '@frontend/util/DateUtils';
 
     import { BlogPostModel } from '@common/model/BlogPostModel';
+    import { UserModel } from '@common/model/UserModel';
 
     import ButtonComponent from '@frontend/component/ButtonComponent.vue';
+
+    import EditIcon from '@frontend/assets/icon/pencil.svg';
 
     @Component({
         components: {
             ButtonComponent,
+            EditIcon,
         },
     })
     export default class BlogPostComponent extends Vue {
@@ -37,11 +50,19 @@
         get date(): string {
             return DateUtils.dateTimeVariableYear(this.blogPost.postDate);
         }
+
+        get user(): UserModel {
+            return this.$store.state.user;
+        }
     }
 </script>
 
 <style lang="scss">
     .blog-post-component {
+
+        .edit {
+            margin-left: 0.25rem;
+        }
 
         & + .blog-post-component {
             margin-top: 2rem;

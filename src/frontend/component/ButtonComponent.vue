@@ -1,5 +1,9 @@
 <template>
-    <button class="button-component" @click="onClick">
+    <button
+        class="button-component"
+        :class="{ 'is-ghost': isGhost }"
+        @click="onClick"
+    >
         <slot />
     </button>
 </template>
@@ -11,6 +15,9 @@
         components: {},
     })
     export default class ButtonComponent extends Vue {
+
+        @Prop()
+        private readonly isGhost!: boolean;
 
         @Emit('click')
         onClick(e: MouseEvent): MouseEvent {
@@ -31,10 +38,20 @@
         border-radius: border-radius();
         color: theme(white);
         cursor: pointer;
-        transition: background-color animation(duration-short);
+        transition: all animation(duration-short);
 
         &:hover {
             background-color: theme(primary-dark);
+        }
+
+        &.is-ghost {
+            border: 1px solid theme(primary);
+            background-color: transparent;
+            color: theme(black);
+
+            &:hover {
+                background-color: theme(tertiary);
+            }
         }
     }
 </style>

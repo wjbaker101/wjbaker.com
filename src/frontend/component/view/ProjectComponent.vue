@@ -23,6 +23,15 @@
                         <GitHubIcon />
                     </ButtonComponent>
                 </LinkComponent>
+                <router-link
+                    v-if="user !== null && user.isAdmin"
+                    :to="`/projects/edit/${project.id}`"
+                    class="edit flex-auto"
+                >
+                    <ButtonComponent :isGhost="true">
+                        <EditIcon />
+                    </ButtonComponent>
+                </router-link>
             </div>
         </div>
     </div>
@@ -32,15 +41,18 @@
     import { Component, Prop, Vue } from 'vue-property-decorator';
 
     import { ProjectModel } from '@common/model/ProjectModel';
+    import { UserModel } from '@common/model/UserModel';
 
     import ButtonComponent from '@frontend/component/ButtonComponent.vue';
 
     import GitHubIcon from '@frontend/assets/icon/github.svg';
+    import EditIcon from '@frontend/assets/icon/pencil.svg';
 
     @Component({
         components: {
             ButtonComponent,
             GitHubIcon,
+            EditIcon,
         },
     })
     export default class ProjectComponent extends Vue {
@@ -49,6 +61,10 @@
             required: true,
         })
         private readonly project!: ProjectModel;
+
+        get user(): UserModel | null {
+            return this.$store.state.user;
+        }
     }
 </script>
 
@@ -73,12 +89,8 @@
                 display: flex;
             }
 
-            .view,
-            .github {
-                width: unset;
-            }
-
-            .github {
+            .github,
+            .edit {
                 margin-left: 0.25rem;
             }
         }
