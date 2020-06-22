@@ -1,14 +1,11 @@
 <template>
     <PageContentComponent class="project-view" v-if="project !== null">
         <PageTitleComponent :title="project.title" />
-        <div class="return-container flex">
-            <div class="flex-1">
-                <router-link to="/projects">
-                    <LeftArrowIcon />Return to Projects
-                </router-link>
-            </div>
+        <ReturnContainerComponent
+            returnLink="/projects"
+            returnText="Return to Projects"
+        >
             <LinkComponent
-                class="github flex-auto"
                 :href="project.sourceCodeURL"
                 v-if="project.sourceCodeURL !== null"
                 target="_blank"
@@ -20,13 +17,12 @@
             <router-link
                 v-if="user !== null && user.isAdmin"
                 :to="`/projects/edit/${project.id}`"
-                class="edit flex-auto"
             >
                 <ButtonComponent :isGhost="true">
                     <EditIcon />
                 </ButtonComponent>
             </router-link>
-        </div>
+        </ReturnContainerComponent>
         <div v-if="isLoading">
             <LoadingComponent message="Loading Project Details" />
         </div>
@@ -45,23 +41,23 @@
 
     import PageContentComponent from '@frontend/component/page/PageContentComponent.vue';
     import PageTitleComponent from '@frontend/component/page/PageTitleComponent.vue';
+    import ReturnContainerComponent from '@frontend/component/page/ReturnContainerComponent.vue';
 
     import ButtonComponent from '@frontend/component/ButtonComponent.vue';
     import LoadingComponent from '@frontend/component/LoadingComponent.vue';
 
     import GitHubIcon from '@frontend/assets/icon/github.svg';
     import EditIcon from '@frontend/assets/icon/pencil.svg';
-    import LeftArrowIcon from '@frontend/assets/icon/arrow-left.svg';
 
     @Component({
         components: {
             PageContentComponent,
             PageTitleComponent,
+            ReturnContainerComponent,
             ButtonComponent,
             LoadingComponent,
             GitHubIcon,
             EditIcon,
-            LeftArrowIcon,
         },
     })
     export default class ProjectView extends Vue {
@@ -105,24 +101,4 @@
 </script>
 
 <style lang="scss">
-    .project-view {
-
-        .return-container {
-            padding: 1rem;
-            margin-bottom: 2rem;
-            border: 1px solid theme(secondary);
-            border-radius: border-radius();
-
-            & > * {
-                margin: auto 0;
-            }
-            .icon-arrow-left {
-                margin-right: 0.25rem;
-            }
-
-            .edit {
-                margin-left: 0.25rem;
-            }
-        }
-    }
 </style>

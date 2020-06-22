@@ -1,13 +1,11 @@
 <template>
     <PageContentComponent class="blog-post-view" v-if="blogPost !== null">
         <PageTitleComponent :title="blogPost.title" />
-        <div class="return-container flex">
-            <div class="return flex-1">
-                <router-link to="/blog">
-                    <LeftArrowIcon />Return to Blog
-                </router-link>
-            </div>
-            <div class="date flex-auto">
+        <ReturnContainerComponent
+            returnLink="/blog"
+            returnText="Return to Blog"
+        >
+            <div>
                 <span :title="blogPost.postDate">
                     <strong>Published:</strong>
                     {{ postDate }}
@@ -16,13 +14,12 @@
             <router-link
                 v-if="user !== null && user.isAdmin"
                 :to="`/blog/edit/${blogPost.id}`"
-                class="edit flex-auto"
             >
                 <ButtonComponent :isGhost="true">
                     <EditIcon />
                 </ButtonComponent>
             </router-link>
-        </div>
+        </ReturnContainerComponent>
         <div v-if="isLoading">
             <LoadingComponent message="Loading Blog Post Content" />
         </div>
@@ -42,21 +39,21 @@
 
     import PageContentComponent from '@frontend/component/page/PageContentComponent.vue';
     import PageTitleComponent from '@frontend/component/page/PageTitleComponent.vue';
+    import ReturnContainerComponent from '@frontend/component/page/ReturnContainerComponent.vue';
 
     import ButtonComponent from '@frontend/component/ButtonComponent.vue';
     import LoadingComponent from '@frontend/component/LoadingComponent.vue';
 
     import EditIcon from '@frontend/assets/icon/pencil.svg';
-    import LeftArrowIcon from '@frontend/assets/icon/arrow-left.svg';
 
     @Component({
         components: {
             PageContentComponent,
             PageTitleComponent,
+            ReturnContainerComponent,
             ButtonComponent,
             LoadingComponent,
             EditIcon,
-            LeftArrowIcon,
         },
     })
     export default class BlogPostView extends Vue {
@@ -113,25 +110,4 @@
 </script>
 
 <style lang="scss">
-    .blog-post-view {
-
-        .return-container {
-            padding: 1rem;
-            margin-bottom: 2rem;
-            border: 1px solid theme(secondary);
-            border-radius: border-radius();
-
-            & > * {
-                margin: auto 0;
-            }
-
-            .icon-arrow-left {
-                margin-right: 0.25rem;
-            }
-
-            .edit {
-                margin-left: 0.25rem;
-            }
-        }
-    }
 </style>
