@@ -5,7 +5,7 @@
             <small>{{ date }}</small>
         </p>
         <p>{{ blogPost.summary }}</p>
-        <p class="flex">
+        <p class="actions-container flex">
             <router-link :to="`/blog/post/${blogPost.id}`" class="flex-1">
                 <ButtonComponent>Read Full Post</ButtonComponent>
             </router-link>
@@ -59,6 +59,18 @@
 
 <style lang="scss">
     .blog-post-component {
+
+        :first-child {
+            margin-top: 0;
+        }
+
+        :last-child {
+            margin-bottom: 0;
+        }
+
+        .actions-container {
+            display: flex;
+        }
 
         .edit {
             margin-left: 0.25rem;
