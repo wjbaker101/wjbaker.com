@@ -65,11 +65,11 @@ module.exports = {
             display: 'minimal-ui',
         },
         iconPaths: {
-            favicon32: 'resource/icon/favicon-32x32.png',
-            favicon16: 'resource/icon/favicon-16x16.png',
-            appleTouchIcon: 'resource/icon/apple-touch-icon-180x180.png',
-            maskIcon: 'resource/icon/safari-pinned-tab.svg',
-            msTileImage: 'resource/icon/msapplication-icon-144x144.png',
+            favicon32: 'img/icons/favicon-32x32.png',
+            favicon16: 'img/icons/favicon-16x16.png',
+            appleTouchIcon: 'img/icons/apple-touch-icon-180x180.png',
+            maskIcon: 'img/icons/safari-pinned-tab.svg',
+            msTileImage: 'img/icons/msapplication-icon-144x144.png',
         },
     },
 
