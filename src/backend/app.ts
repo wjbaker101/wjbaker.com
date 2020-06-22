@@ -30,7 +30,9 @@ const session = expressSession({
     secret: secretConfig.backend.secret,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: true },
+    cookie: {
+        secure: Env.isProduction(),
+    },
 });
 
 app.use(bodyParser.json());
