@@ -90,10 +90,24 @@
         background-color: theme(primary);
         color: theme(white);
 
+        @media screen and (max-width: breakpoint()) {
+            width: 100%;
+            max-width: 100%;
+            position: static;
+            border-right: 0;
+            border-bottom: 1px solid theme(primary-dark);
+            border-top-right-radius: 0;
+            border-bottom-left-radius: border-radius();
+        }
+
         .content {
             display: table;
             margin: auto;
             text-align: center;
+
+            @media screen and (max-width: breakpoint()) {
+                width: 100%;
+            }
         }
 
         h1 {
@@ -104,8 +118,19 @@
             padding-left: 0;
             list-style: none;
 
-            li + li {
-                margin-top: 0.5rem;
+            li {
+                & + li {
+                    margin-top: 0.5rem;
+                }
+
+                @media screen and (max-width: breakpoint()) {
+                    display: inline-block;
+
+                    & + li {
+                        margin-top: 0;
+                        margin-left: 2rem;
+                    }
+                }
             }
         }
 

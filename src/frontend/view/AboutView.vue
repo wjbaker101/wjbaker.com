@@ -1,8 +1,8 @@
 <template>
     <PageContentComponent class="about-view">
         <PageTitleComponent title="About" />
-        <div class="photo-row">
-            <div>
+        <div class="flex">
+            <div class="flex-auto flex-v-center text-center">
                 <img
                     width="240" height="240"
                     class="me"
@@ -10,7 +10,7 @@
                     alt="Photo of me!"
                 >
             </div>
-            <div>
+            <div class="flex-1 flex-v-center">
                 <p>Hello, welcome to my personal website!</p>
                 <p>I'm a software developer originally from Kent, with an interest in web, mobile and software development, tennis, cooking and baking!</p>
                 <p>The main purpose of this website is to create a space where I can showcase some of the projects I have been working on.</p>
@@ -48,20 +48,16 @@
 <style lang="scss">
     .about-view {
 
-        .photo-row {
-            display: flex;
-
-            & > * {
-                margin: auto 0;
-            }
-        }
-
         .me {
             max-width: initial;
             margin-right: 1rem;
             background-color: theme(primary);
             border-radius: 50%;
             color: theme(white);
+
+            @media screen and (max-width: breakpoint-large()) {
+                margin-right: 0;
+            }
         }
     }
 </style>

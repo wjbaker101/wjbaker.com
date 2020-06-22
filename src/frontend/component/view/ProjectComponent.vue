@@ -1,17 +1,20 @@
 <template>
-    <div class="project-component">
-        <div class="content-container">
+    <div class="project-component flex">
+        <div class="image-container flex-1 flex-vh-center text-center">
+            <img :src="`/resource/image/project/${project.id}.jpg`">
+        </div>
+        <div class="content-container flex-1">
             <h3>{{ project.title }}</h3>
             <p>
                 <small>{{ project.startDate }}</small>
             </p>
             <p>{{ project.summary }}</p>
-            <div class="actions">
-                <router-link :to="`/project/${project.id}`" class="view">
+            <div class="actions flex">
+                <router-link :to="`/project/${project.id}`" class="view flex-1">
                     <ButtonComponent>View Project</ButtonComponent>
                 </router-link>
                 <LinkComponent
-                    class="github"
+                    class="github flex-auto"
                     :href="project.sourceCodeURL"
                     v-if="project.sourceCodeURL !== null"
                     target="_blank"
@@ -21,9 +24,6 @@
                     </ButtonComponent>
                 </LinkComponent>
             </div>
-        </div>
-        <div class="image-container">
-            <img :src="`/resource/image/project/${project.id}.jpg`">
         </div>
     </div>
 </template>
@@ -54,14 +54,13 @@
 
 <style lang="scss">
     .project-component {
-        display: flex;
 
         .content-container {
             overflow: hidden;
         }
 
         .image-container {
-            text-align: center;
+            order: 2;
         }
 
         img {
@@ -69,27 +68,23 @@
         }
 
         .actions {
-            display: flex;
+
+            @media screen and (max-width: breakpoint-large()) {
+                display: flex;
+            }
 
             .view,
             .github {
                 width: unset;
             }
 
-            .view {
-                flex: 1;
-            }
-
             .github {
-                flex: 0 0 auto;
                 margin-left: 0.25rem;
             }
         }
 
         & > * {
-            flex: 1;
             padding: 0 1rem;
-            margin: auto 0;
 
             & > :first-child {
                 margin-top: 0;

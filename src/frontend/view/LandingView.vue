@@ -43,6 +43,10 @@
         display: flex;
         position: relative;
 
+        @media screen and (max-width: breakpoint()) {
+            height: calc(100vh - 114px);
+        }
+
         #particles,
         .particles-js-canvas-el {
             position: absolute;

@@ -48,6 +48,19 @@
             color: theme(white);
             z-index: 1;
 
+            @media screen and (max-width: breakpoint-small()) {
+                height: 150px;
+                margin: 0 2rem 2rem 0;
+
+                h1 {
+                    font-size: 2rem;
+                }
+
+                h6 {
+                    font-size: 1rem;
+                }
+            }
+
             & > div {
                 margin: auto;
             }

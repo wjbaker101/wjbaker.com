@@ -31,6 +31,10 @@
         max-width: 720px;
         margin: 8rem auto 1rem auto;
 
+        @media screen and (max-width: breakpoint()) {
+            margin-top: 0;
+        }
+
         .content {
             padding: 2rem;
             background-color: theme(white);

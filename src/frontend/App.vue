@@ -31,6 +31,11 @@
         height: 100%;
         display: flex;
 
+        @media screen and (max-width: breakpoint()) {
+            height: auto;
+            display: block;
+        }
+
         main {
             flex: 1;
         }

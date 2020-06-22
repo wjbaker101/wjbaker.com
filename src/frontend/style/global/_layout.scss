@@ -1,3 +1,15 @@
 @function border-radius() {
     @return 3px;
 }
+
+@function breakpoint-small() {
+    @return 440px;
+}
+
+@function breakpoint() {
+    @return 770px;
+}
+
+@function breakpoint-large() {
+    @return 920px;
+}
