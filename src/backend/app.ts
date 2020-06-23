@@ -35,6 +35,9 @@ const session = expressSession({
     },
 });
 
+app.use(history());
+app.use(express.static(path.join(__dirname, '../frontend')));
+
 app.use(bodyParser.json());
 
 app.use(session);
@@ -49,8 +52,5 @@ controllers.forEach(controller => {
             .map(r => r.route.path)
             .forEach(p => Logger.log(`Exposing: ${config.backend.baseURL}${p}`));
 });
-
-app.use(express.static(path.join(__dirname, '../frontend')));
-app.use(history());
 
 export { app };
