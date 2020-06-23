@@ -5,7 +5,7 @@
         </div>
         <footer>
             <p>
-                Copyright © William Baker 2015 — {{ year }},
+                Copyright © William Baker 2015 &ndash; {{ year }},
                 <br>
                 All rights reserved.
             </p>
