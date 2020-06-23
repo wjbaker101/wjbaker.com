@@ -1,6 +1,6 @@
 <template>
-    <aside class="aside-component">
-        <div class="content">
+    <aside class="aside-component flex flex-auto">
+        <div class="content flex-vh-center">
             <h1>
                 <router-link to="/">Will Baker</router-link>
             </h1>
@@ -82,8 +82,6 @@
         top: 0;
         bottom: 0;
         left: 0;
-        display: flex;
-        flex: 0 0 auto;
         border-right: 1px solid theme(primary-dark);
         border-top-right-radius: border-radius();
         border-bottom-right-radius: border-radius();
@@ -102,7 +100,6 @@
 
         .content {
             display: table;
-            margin: auto;
             text-align: center;
 
             @media screen and (max-width: breakpoint()) {

@@ -68,10 +68,6 @@
             margin-bottom: 0;
         }
 
-        .actions-container {
-            display: flex;
-        }
-
         .edit {
             margin-left: 0.25rem;
         }

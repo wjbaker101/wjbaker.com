@@ -1,5 +1,5 @@
 <template>
-    <div class="landing-view">
+    <div class="landing-view flex">
         <Particles
             type="cobweb"
             color="#176bc0"
@@ -40,7 +40,6 @@
     .landing-view {
         height: 100%;
         padding: 1rem;
-        display: flex;
         position: relative;
 
         @media screen and (max-width: breakpoint()) {

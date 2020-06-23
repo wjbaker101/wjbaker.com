@@ -1,7 +1,7 @@
 <template>
     <PageContentComponent class="about-view">
         <PageTitleComponent title="About" />
-        <div class="flex">
+        <div class="flex flex-responsive">
             <div class="flex-auto flex-v-center text-center">
                 <img
                     width="240" height="240"

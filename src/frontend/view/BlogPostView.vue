@@ -2,6 +2,7 @@
     <PageContentComponent class="blog-post-view" v-if="blogPost !== null">
         <PageTitleComponent :title="blogPost.title" />
         <ReturnContainerComponent
+            class="flex-responsive"
             returnLink="/blog"
             returnText="Return to Blog"
         >

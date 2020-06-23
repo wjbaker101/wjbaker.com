@@ -1,8 +1,8 @@
 <template>
-    <div id="app">
+    <div id="app" class="flex">
         <AsideComponent />
         <div class="aside-placeholder"></div>
-        <main>
+        <main class="flex-1">
             <router-view></router-view>
         </main>
     </div>
@@ -29,15 +29,10 @@
 
     #app {
         height: 100%;
-        display: flex;
 
         @media screen and (max-width: breakpoint()) {
             height: auto;
             display: block;
-        }
-
-        main {
-            flex: 1;
         }
 
         .aside-placeholder {

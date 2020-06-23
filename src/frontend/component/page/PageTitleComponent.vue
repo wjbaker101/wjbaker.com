@@ -1,6 +1,6 @@
 <template>
     <div class="page-title-component">
-        <div class="text">
+        <div class="text flex">
             <div>
                 <h1>{{ title }}</h1>
                 <h6 v-if="subheading">{{ subheading }}</h6>
@@ -38,7 +38,6 @@
 
         .text {
             height: 214px;
-            display: flex;
             flex-direction: column;
             position: relative;
             margin: 0 4rem 4rem 0;

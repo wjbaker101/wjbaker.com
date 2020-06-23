@@ -1,5 +1,5 @@
 <template>
-    <div class="project-component flex">
+    <div class="project-component flex flex-responsive">
         <div class="image-container flex-1 flex-vh-center text-center">
             <img :src="`/resource/image/project/${project.id}.jpg`">
         </div>
@@ -9,7 +9,7 @@
                 <small>{{ project.startDate }}</small>
             </p>
             <p>{{ project.summary }}</p>
-            <div class="actions flex">
+            <div class="actions flex flex-1">
                 <router-link :to="`/project/${project.id}`" class="view flex-1">
                     <ButtonComponent>View Project</ButtonComponent>
                 </router-link>
@@ -84,11 +84,6 @@
         }
 
         .actions {
-
-            @media screen and (max-width: breakpoint-large()) {
-                display: flex;
-            }
-
             .github,
             .edit {
                 margin-left: 0.25rem;

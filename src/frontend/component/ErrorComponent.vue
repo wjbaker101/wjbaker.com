@@ -1,6 +1,6 @@
 <template>
-    <div class="error-component">
-        <ErrorCircleIcon />
+    <div class="error-component flex">
+        <ErrorCircleIcon class="flex-auto" />
         <div>
             <span>{{ message }}</span>
         </div>
@@ -28,7 +28,6 @@
 
 <style lang="scss">
     .error-component {
-        display: flex;
         padding: 1rem;
         background-color: theme(negative-light);
         border: 1px solid theme(negative);
@@ -36,7 +35,6 @@
         color: theme(white);
 
         .icon-exclamation-circle {
-            flex: 0 0 auto;
             margin: auto 1rem auto 0;
         }
     }

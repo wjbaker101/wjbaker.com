@@ -2,7 +2,9 @@
     display: flex;
 
     @media screen and (max-width: breakpoint-large()) {
-        display: block;
+        &.flex-responsive {
+            display: block;
+        }
     }
 
     .flex-vh-center {
