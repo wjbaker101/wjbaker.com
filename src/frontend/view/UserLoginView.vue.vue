@@ -3,11 +3,22 @@
         <PageTitleComponent title="Login" />
         <p>
             <label>Username</label>
-            <input type="text" v-model="username" v-autofocus>
+            <input
+                ref="usernameInput"
+                type="text"
+                v-model="username"
+                @keyup.enter="onUsernameInputEnter"
+                v-autofocus
+            >
         </p>
         <p>
             <label>Password</label>
-            <input type="password" v-model="password">
+            <input
+                ref="passwordInput"
+                type="password"
+                v-model="password"
+                @keyup.enter="onPasswordInputEnter"
+            >
         </p>
         <p>
             <ButtonComponent @click="onLogin">Login</ButtonComponent>
@@ -20,7 +31,7 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
 
     import { API } from '@frontend/api/API';
 
@@ -41,6 +52,12 @@
         },
     })
     export default class UserLoginView extends Vue {
+
+        @Ref('usernameInput')
+        private readonly usernameInput!: HTMLInputElement;
+
+        @Ref('passwordInput')
+        private readonly passwordInput!: HTMLInputElement;
 
         private username: string = '';
         private password: string = '';
@@ -94,6 +111,24 @@
             }
 
             return true;
+        }
+
+        onUsernameInputEnter(): void {
+            if (this.password.length === 0) {
+                this.passwordInput.focus();
+            }
+            else {
+                this.onLogin();
+            }
+        }
+
+        onPasswordInputEnter(): void {
+            if (this.username.length === 0) {
+                this.usernameInput.focus();
+            }
+            else {
+                this.onLogin();
+            }
         }
     }
 </script>

@@ -7,15 +7,31 @@
         />
         <p>
             <label>Username</label>
-            <input type="text" v-model="username" v-autofocus>
+            <input
+                ref="usernameInput"
+                type="text"
+                v-model="username"
+                @keyup.enter="onUsernameInputEnter"
+                v-autofocus
+            >
         </p>
         <p>
             <label>Password</label>
-            <input type="password" v-model="password1">
+            <input
+                ref="password1Input"
+                type="password"
+                v-model="password1"
+                @keyup.enter="onPassword1InputEnter"
+            >
         </p>
         <p>
             <label>Confirm Password</label>
-            <input type="password" v-model="password2">
+            <input
+                ref="password2Input"
+                type="password"
+                v-model="password2"
+                @keyup.enter="onPassword2InputEnter"
+                >
         </p>
         <p>
             <ButtonComponent @click="onLogin">Login</ButtonComponent>
@@ -25,7 +41,7 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
 
     import { API } from '@frontend/api/API';
 
@@ -48,6 +64,15 @@
         },
     })
     export default class UserCreateView extends Vue {
+
+        @Ref('usernameInput')
+        private readonly usernameInput!: HTMLInputElement;
+
+        @Ref('password1Input')
+        private readonly password1Input!: HTMLInputElement;
+
+        @Ref('password2Input')
+        private readonly password2Input!: HTMLInputElement;
 
         private username: string = '';
         private password1: string = '';
@@ -110,6 +135,42 @@
             }
 
             return true;
+        }
+
+        onUsernameInputEnter(): void {
+            if (this.password1.length === 0) {
+                this.password1Input.focus();
+            }
+            else if (this.password2.length === 0) {
+                this.password2Input.focus();
+            }
+            else {
+                this.onLogin();
+            }
+        }
+
+        onPassword1InputEnter(): void {
+            if (this.password2.length === 0) {
+                this.password2Input.focus();
+            }
+            else if (this.username.length === 0) {
+                this.usernameInput.focus();
+            }
+            else {
+                this.onLogin();
+            }
+        }
+
+        onPassword2InputEnter(): void {
+            if (this.username.length === 0) {
+                this.usernameInput.focus();
+            }
+            else if (this.password1.length === 0) {
+                this.password1Input.focus();
+            }
+            else {
+                this.onLogin();
+            }
         }
     }
 </script>
