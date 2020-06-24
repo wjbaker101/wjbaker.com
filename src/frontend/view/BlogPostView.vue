@@ -26,7 +26,7 @@
         </div>
         <div v-else v-html="blogPost.content"></div>
     </PageContentComponent>
-    <PageContentComponent class="blog-post-view" v-else>
+    <PageContentComponent class="blog-post-view" v-else-if="!isLoading">
         <PageTitleComponent title="Blog Post Not Found" />
         <ErrorComponent message="The blog post you were looking for could not be found." />
         <p>

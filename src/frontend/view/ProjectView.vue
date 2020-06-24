@@ -28,7 +28,7 @@
         </div>
         <div v-else v-html="project.description"></div>
     </PageContentComponent>
-    <PageContentComponent class="project-view" v-else>
+    <PageContentComponent class="project-view" v-else-if="!isLoading">
         <PageTitleComponent title="Project Not Found" />
         <ErrorComponent message="The project you were looking for could not be found." />
         <p>
