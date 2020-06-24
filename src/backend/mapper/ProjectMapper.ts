@@ -11,6 +11,7 @@ export const ProjectMapper: IMapper<ProjectEntity, ProjectModel> = {
             START_DATE: startDate,
             DESCRIPTION: description,
             SUMMARY: summary,
+            VIEW_LINK: viewLink,
             SOURCE_CODE_URL: sourceCodeURL,
         } = value;
 
@@ -20,6 +21,7 @@ export const ProjectMapper: IMapper<ProjectEntity, ProjectModel> = {
             startDate,
             description,
             summary,
+            viewLink,
             sourceCodeURL,
         }
     },

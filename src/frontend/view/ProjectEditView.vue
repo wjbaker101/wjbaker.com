@@ -16,6 +16,10 @@
                 <input type="text" class="small" v-model="startDate">
             </p>
             <p>
+                <label>Viewable Link URL</label>
+                <input type="text" v-model="viewLink">
+            </p>
+            <p>
                 <label>Source Code URL</label>
                 <input type="text" v-model="sourceCodeURL">
             </p>
@@ -67,6 +71,7 @@
 
         private title: string = '';
         private startDate: string = '';
+        private viewLink: string | null = '';
         private sourceCodeURL: string | null = '';
         private summary: string = '';
         private description: string = '';
@@ -106,6 +111,7 @@
 
             this.title = project.title;
             this.startDate = project.startDate;
+            this.viewLink = project.viewLink;
             this.sourceCodeURL = project.sourceCodeURL;
             this.summary = project.summary;
             this.description = project.description || '';
@@ -121,11 +127,17 @@
                             ? null
                             : this.sourceCodeURL;
 
+            const viewLink = (this.viewLink === null
+                    || this.viewLink.length === 0)
+                            ? null
+                            : this.viewLink;
+
             if (this.$route.params.projectID && this.project !== null) {
                 const result = await API.updateProject({
                     ...this.project,
                     title: this.title,
                     startDate: this.startDate,
+                    viewLink,
                     sourceCodeURL,
                     summary: this.summary,
                     description: this.description,
@@ -145,6 +157,7 @@
                     id: '',
                     title: this.title,
                     startDate: this.startDate,
+                    viewLink,
                     sourceCodeURL,
                     summary: this.summary,
                     description: this.description,

@@ -14,10 +14,18 @@
                     <ButtonComponent>View Project</ButtonComponent>
                 </router-link>
                 <LinkComponent
-                    class="github flex-auto"
+                    class="view-link flex-auto flex-v-center"
+                    :href="project.viewLink"
+                    v-if="project.viewLink !== null"
+                >
+                    <ButtonComponent>
+                        <LinkIcon />
+                    </ButtonComponent>
+                </LinkComponent>
+                <LinkComponent
+                    class="github flex-auto flex-v-center"
                     :href="project.sourceCodeURL"
                     v-if="project.sourceCodeURL !== null"
-                    target="_blank"
                 >
                     <ButtonComponent>
                         <GitHubIcon />
@@ -26,7 +34,7 @@
                 <router-link
                     v-if="user !== null && user.isAdmin"
                     :to="`/projects/edit/${project.id}`"
-                    class="edit flex-auto"
+                    class="edit flex-auto flex-v-center"
                 >
                     <ButtonComponent :isGhost="true">
                         <EditIcon />
@@ -45,12 +53,14 @@
 
     import ButtonComponent from '@frontend/component/ButtonComponent.vue';
 
+    import LinkIcon from '@frontend/assets/icon/external-link.svg';
     import GitHubIcon from '@frontend/assets/icon/github.svg';
     import EditIcon from '@frontend/assets/icon/pencil.svg';
 
     @Component({
         components: {
             ButtonComponent,
+            LinkIcon,
             GitHubIcon,
             EditIcon,
         },
@@ -84,6 +94,7 @@
         }
 
         .actions {
+            .view-link,
             .github,
             .edit {
                 margin-left: 0.25rem;

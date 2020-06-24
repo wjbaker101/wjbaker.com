@@ -29,9 +29,8 @@
 <style lang="scss">
     .button-component {
         width: 100%;
-        padding: 0.75rem 1rem;
+        padding: (0.75rem - 0.4rem) 1rem;
         font: inherit;
-        line-height: 1em;
         letter-spacing: inherit;
         background-color: theme(primary);
         border: 1px solid theme(tertiary);

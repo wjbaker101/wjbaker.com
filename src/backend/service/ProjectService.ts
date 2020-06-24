@@ -8,7 +8,7 @@ export const ProjectService = {
 
     async getProjects(): Promise<ProjectEntity[] | Error> {
         try {
-            return await MySQLClient.query<ProjectEntity[]>('SELECT `ID`, `TITLE`, `START_DATE`, `SUMMARY`, `SOURCE_CODE_URL` FROM Projects ORDER BY LIST_ORDER ASC', []);
+            return await MySQLClient.query<ProjectEntity[]>('SELECT `ID`, `TITLE`, `START_DATE`, `SUMMARY`, `VIEW_LINK`, `SOURCE_CODE_URL` FROM Projects ORDER BY LIST_ORDER ASC', []);
         }
         catch (exception) {
             Logger.log(exception);
@@ -18,7 +18,7 @@ export const ProjectService = {
 
     async getProject(id: string): Promise<ProjectEntity | null | Error> {
         try {
-            const results = await MySQLClient.query<ProjectEntity[]>('SELECT `ID`, `TITLE`, `START_DATE`, `DESCRIPTION`, `SUMMARY`, `SOURCE_CODE_URL` FROM Projects WHERE ID = ? LIMIT 1', [id]);
+            const results = await MySQLClient.query<ProjectEntity[]>('SELECT `ID`, `TITLE`, `START_DATE`, `DESCRIPTION`, `SUMMARY`, `VIEW_LINK`, `SOURCE_CODE_URL` FROM Projects WHERE ID = ? LIMIT 1', [id]);
 
             if (results.length === 0) {
                 return null;
@@ -41,10 +41,11 @@ export const ProjectService = {
                 return id;
             }
 
-            await MySQLClient.query<ProjectEntity[]>('INSERT INTO Projects (ID, TITLE, START_DATE, SOURCE_CODE_URL, SUMMARY, DESCRIPTION) VALUES(?, ?, ?, ?, ?, ?)', [
+            await MySQLClient.query<ProjectEntity[]>('INSERT INTO Projects (ID, TITLE, START_DATE, VIEW_LINK, SOURCE_CODE_URL, SUMMARY, DESCRIPTION) VALUES(?, ?, ?, ?, ?, ?, ?)', [
                 id,
                 project.title,
                 project.startDate,
+                project.viewLink,
                 project.sourceCodeURL,
                 project.summary,
                 project.description,
@@ -63,9 +64,10 @@ export const ProjectService = {
 
     async updateProject(project: ProjectModel): Promise<void | Error> {
         try {
-            await MySQLClient.query<ProjectEntity[]>('UPDATE Projects Set TITLE = ?, START_DATE = ?, SOURCE_CODE_URL = ?, SUMMARY = ?, DESCRIPTION = ? WHERE ID = ?', [
+            await MySQLClient.query<ProjectEntity[]>('UPDATE Projects Set TITLE = ?, START_DATE = ?, VIEW_LINK = ?, SOURCE_CODE_URL = ?, SUMMARY = ?, DESCRIPTION = ? WHERE ID = ?', [
                 project.title,
                 project.startDate,
+                project.viewLink,
                 project.sourceCodeURL,
                 project.summary,
                 project.description,

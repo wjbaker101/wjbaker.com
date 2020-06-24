@@ -6,9 +6,16 @@
             returnText="Return to Projects"
         >
             <LinkComponent
+                :href="project.viewLink"
+                v-if="project.viewLink !== null"
+            >
+                <ButtonComponent>
+                    <LinkIcon />
+                </ButtonComponent>
+            </LinkComponent>
+            <LinkComponent
                 :href="project.sourceCodeURL"
                 v-if="project.sourceCodeURL !== null"
-                target="_blank"
             >
                 <ButtonComponent>
                     <GitHubIcon />
@@ -56,6 +63,7 @@
     import ErrorComponent from '@frontend/component/ErrorComponent.vue';
     import LoadingComponent from '@frontend/component/LoadingComponent.vue';
 
+    import LinkIcon from '@frontend/assets/icon/external-link.svg';
     import GitHubIcon from '@frontend/assets/icon/github.svg';
     import EditIcon from '@frontend/assets/icon/pencil.svg';
 
@@ -67,6 +75,7 @@
             ButtonComponent,
             ErrorComponent,
             LoadingComponent,
+            LinkIcon,
             GitHubIcon,
             EditIcon,
         },
