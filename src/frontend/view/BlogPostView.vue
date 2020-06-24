@@ -26,6 +26,15 @@
         </div>
         <div v-else v-html="blogPost.content"></div>
     </PageContentComponent>
+    <PageContentComponent class="blog-post-view" v-else>
+        <PageTitleComponent title="Blog Post Not Found" />
+        <ErrorComponent message="The blog post you were looking for could not be found." />
+        <p>
+            <router-link to="/blog">
+                <ButtonComponent>Return to Blog</ButtonComponent>
+            </router-link>
+        </p>
+    </PageContentComponent>
 </template>
 
 <script lang="ts">
@@ -43,6 +52,7 @@
     import ReturnContainerComponent from '@frontend/component/page/ReturnContainerComponent.vue';
 
     import ButtonComponent from '@frontend/component/ButtonComponent.vue';
+    import ErrorComponent from '@frontend/component/ErrorComponent.vue';
     import LoadingComponent from '@frontend/component/LoadingComponent.vue';
 
     import EditIcon from '@frontend/assets/icon/pencil.svg';
@@ -53,6 +63,7 @@
             PageTitleComponent,
             ReturnContainerComponent,
             ButtonComponent,
+            ErrorComponent,
             LoadingComponent,
             EditIcon,
         },
