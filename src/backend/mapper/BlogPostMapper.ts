@@ -8,6 +8,7 @@ export const BlogPostMapper: IMapper<BlogPostEntity, BlogPostModel> = {
         const {
             ID: id,
             TITLE: title,
+            URL_TITLE: urlTitle,
             POST_DATE: postDate,
             SUMMARY: summary,
             CONTENT: content,
@@ -16,6 +17,7 @@ export const BlogPostMapper: IMapper<BlogPostEntity, BlogPostModel> = {
         return {
             id,
             title,
+            urlTitle,
             postDate,
             summary,
             content,

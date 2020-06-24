@@ -6,7 +6,10 @@
         </p>
         <p>{{ blogPost.summary }}</p>
         <p class="actions-container flex">
-            <router-link :to="`/blog/post/${blogPost.id}`" class="flex-1">
+            <router-link
+                :to="`/blog/post/${blogPost.id}/${blogPost.urlTitle}`"
+                class="flex-1"
+            >
                 <ButtonComponent>Read Full Post</ButtonComponent>
             </router-link>
             <router-link

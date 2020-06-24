@@ -111,13 +111,14 @@
                     return;
                 }
 
-                this.$router.push({ path: `/blog/post/${this.blogPost.id}`, });
+                this.$router.push({ path: `/blog/post/${this.blogPost.id}/${this.blogPost.urlTitle}`, });
             }
             else {
                 const blogPost = await API.createBlogPost({
                     id: '',
                     postDate: new Date(),
                     title: this.title,
+                    urlTitle: '',
                     summary: this.summary,
                     content: this.content,
                 });
@@ -129,7 +130,9 @@
                     return;
                 }
 
-                this.$router.push({ path: `/blog/post/${blogPost.id}`, });
+                console.log(blogPost)
+
+                this.$router.push({ path: `/blog/post/${blogPost.id}/${blogPost.urlTitle}`, });
             }
         }
     }
