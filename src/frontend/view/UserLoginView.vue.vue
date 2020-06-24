@@ -12,6 +12,9 @@
         <p>
             <ButtonComponent @click="onLogin">Login</ButtonComponent>
         </p>
+        <p class="text-center">
+            <router-link to="/user/create">Create User</router-link>
+        </p>
         <ErrorComponent v-if="error !== null" :message="error" />
     </PageContentComponent>
 </template>

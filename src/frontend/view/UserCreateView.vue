@@ -1,6 +1,10 @@
 <template>
     <PageContentComponent class="user-create-view">
-        <PageTitleComponent title="Login" />
+        <PageTitleComponent title="Create User" />
+        <ReturnContainerComponent
+            returnLink="/user/login"
+            returnText="Return to Login"
+        />
         <p>
             <label>Username</label>
             <input type="text" v-model="username" v-autofocus>
@@ -27,6 +31,7 @@
 
     import PageContentComponent from '@frontend/component/page/PageContentComponent.vue';
     import PageTitleComponent from '@frontend/component/page/PageTitleComponent.vue';
+    import ReturnContainerComponent from '@frontend/component/page/ReturnContainerComponent.vue';
 
     import ButtonComponent from '@frontend/component/ButtonComponent.vue';
     import ErrorComponent from '@frontend/component/ErrorComponent.vue';
@@ -36,6 +41,7 @@
         components: {
             ButtonComponent,
             PageContentComponent,
+            ReturnContainerComponent,
             PageTitleComponent,
             ErrorComponent,
             LoadingComponent,
