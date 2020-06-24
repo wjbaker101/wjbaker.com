@@ -28,6 +28,15 @@
         </div>
         <div v-else v-html="project.description"></div>
     </PageContentComponent>
+    <PageContentComponent class="project-view" v-else>
+        <PageTitleComponent title="Project Not Found" />
+        <ErrorComponent message="The project you were looking for could not be found." />
+        <p>
+            <router-link to="/projects">
+                <ButtonComponent>Return to Projects</ButtonComponent>
+            </router-link>
+        </p>
+    </PageContentComponent>
 </template>
 
 <script lang="ts">
@@ -44,6 +53,7 @@
     import ReturnContainerComponent from '@frontend/component/page/ReturnContainerComponent.vue';
 
     import ButtonComponent from '@frontend/component/ButtonComponent.vue';
+    import ErrorComponent from '@frontend/component/ErrorComponent.vue';
     import LoadingComponent from '@frontend/component/LoadingComponent.vue';
 
     import GitHubIcon from '@frontend/assets/icon/github.svg';
@@ -55,6 +65,7 @@
             PageTitleComponent,
             ReturnContainerComponent,
             ButtonComponent,
+            ErrorComponent,
             LoadingComponent,
             GitHubIcon,
             EditIcon,
