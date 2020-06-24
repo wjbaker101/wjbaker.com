@@ -9,7 +9,7 @@
                 <br>
                 All rights reserved.
             </p>
-            <p>Icons provided by <LinkComponent href="https://fontawesome.com/license" target="_blank">Font Awesome</LinkComponent>.</p>
+            <p>Icons provided by <LinkComponent href="https://fontawesome.com/license">Font Awesome</LinkComponent>.</p>
         </footer>
     </div>
 </template>
