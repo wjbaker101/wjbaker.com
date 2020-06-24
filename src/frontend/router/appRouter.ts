@@ -124,6 +124,14 @@ const appRouter = new VueRouter({
             },
             component: () => import('@frontend/view/UserCreateView.vue'),
         },
+
+        {
+            path: '*',
+            meta: {
+                title: 'Page Not Found',
+            },
+            component: () => import('@frontend/view/ErrorNotFoundView.vue'),
+        },
     ],
 });
 
