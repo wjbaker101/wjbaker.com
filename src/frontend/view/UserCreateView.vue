@@ -3,7 +3,7 @@
         <PageTitleComponent title="Login" />
         <p>
             <label>Username</label>
-            <input type="text" v-model="username">
+            <input type="text" v-model="username" v-autofocus>
         </p>
         <p>
             <label>Password</label>
