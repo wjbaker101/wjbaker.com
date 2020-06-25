@@ -11,7 +11,7 @@
             <p>{{ project.summary }}</p>
             <div class="actions flex flex-1">
                 <router-link :to="`/project/${project.id}`" class="view flex-1">
-                    <ButtonComponent>View Project</ButtonComponent>
+                    <ButtonComponent>Read More</ButtonComponent>
                 </router-link>
                 <LinkComponent
                     class="view-link flex-auto flex-v-center"
