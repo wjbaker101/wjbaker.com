@@ -27,7 +27,7 @@
                 <label>Preview Image</label>
                 <input id="previewImageInput" type="file" @change="onImageUploaded">
                 <label for="previewImageInput">Upload File</label>
-                <img ref="imagePreview" class="preview-image" :src="project.previewImageURL">
+                <img ref="imagePreview" class="preview-image" :src="project === null ? '' : project.previewImageURL">
             </p>
             <p>
                 <label>Summary</label>
