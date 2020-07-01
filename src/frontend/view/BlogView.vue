@@ -1,7 +1,7 @@
 <template>
     <PageContentComponent class="blog-view">
         <PageTitleComponent title="Blog" />
-        <PageActionsComponent>
+        <PageActionsComponent v-if="user !== null && user.isAdmin">
             <router-link to="/blog/create">
                 <ButtonComponent :isGhost="true">+</ButtonComponent>
             </router-link>
@@ -39,6 +39,7 @@
     import ButtonComponent from '@frontend/component/ButtonComponent.vue';
     import ErrorComponent from '@frontend/component/ErrorComponent.vue';
     import LoadingComponent from '@frontend/component/LoadingComponent.vue';
+import { UserModel } from '../../common/model/UserModel';
 
     @Component({
         components: {
@@ -54,6 +55,10 @@
     export default class BlogView extends Vue {
 
         private isLoading: boolean = false;
+
+        get user(): UserModel | null {
+            return this.$store.state.user;
+        }
 
         get blogPosts(): BlogPostModel[] | null {
             return this.$store.state.blogPosts;
