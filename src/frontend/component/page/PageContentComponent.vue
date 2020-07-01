@@ -4,6 +4,16 @@
             <slot />
         </div>
         <footer>
+            <p class="social-link">
+                <LinkComponent href="https://github.com/wjbaker101">
+                    <GithubIcon />
+                    <span>GitHub</span>
+                </LinkComponent>
+                <LinkComponent href="https://linkedin.com/in/wjbaker101">
+                    <LinkedInIcon />
+                    <span>LinkedIn</span>
+                </LinkComponent>
+            </p>
             <p>
                 Copyright © William Baker 2015&ndash;{{ year }},
                 <br>
@@ -17,8 +27,14 @@
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
 
+    import GithubIcon from '@frontend/assets/icon/github.svg';
+    import LinkedInIcon from '@frontend/assets/icon/linkedin.svg';
+
     @Component({
-        components: {},
+        components: {
+            GithubIcon,
+            LinkedInIcon,
+        },
     })
     export default class PageContentComponent extends Vue {
 
@@ -73,6 +89,16 @@
 
             &:hover {
                 text-decoration: none;
+            }
+        }
+
+        .social-link {
+            svg {
+                margin-right: 0.25rem;
+            }
+
+            & a + a {
+                margin-left: 1rem;
             }
         }
     }
