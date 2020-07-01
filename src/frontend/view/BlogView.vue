@@ -1,6 +1,11 @@
 <template>
     <PageContentComponent class="blog-view">
         <PageTitleComponent title="Blog" />
+        <PageActionsComponent>
+            <router-link to="/blog/create">
+                <ButtonComponent :isGhost="true">+</ButtonComponent>
+            </router-link>
+        </PageActionsComponent>
         <div v-if="isLoading">
             <LoadingComponent message="Loading Blog Posts" />
         </div>
@@ -28,8 +33,10 @@
 
     import PageContentComponent from '@frontend/component/page/PageContentComponent.vue';
     import PageTitleComponent from '@frontend/component/page/PageTitleComponent.vue';
+    import PageActionsComponent from '@frontend/component/page/PageActionsComponent.vue';
     import BlogPostComponent from '@frontend/component/view/BlogPostComponent.vue';
 
+    import ButtonComponent from '@frontend/component/ButtonComponent.vue';
     import ErrorComponent from '@frontend/component/ErrorComponent.vue';
     import LoadingComponent from '@frontend/component/LoadingComponent.vue';
 
@@ -37,7 +44,9 @@
         components: {
             PageContentComponent,
             PageTitleComponent,
+            PageActionsComponent,
             BlogPostComponent,
+            ButtonComponent,
             ErrorComponent,
             LoadingComponent,
         },
