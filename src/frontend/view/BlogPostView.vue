@@ -1,7 +1,7 @@
 <template>
     <PageContentComponent class="blog-post-view" v-if="blogPost !== null">
         <PageTitleComponent :title="blogPost.title" />
-        <ReturnContainerComponent
+        <PageActionsComponent
             class="flex-responsive"
             returnLink="/blog"
             returnText="Return to Blog"
@@ -20,7 +20,7 @@
                     <EditIcon />
                 </ButtonComponent>
             </router-link>
-        </ReturnContainerComponent>
+        </PageActionsComponent>
         <div v-if="isLoading">
             <LoadingComponent message="Loading Blog Post Content" />
         </div>
@@ -49,7 +49,7 @@
 
     import PageContentComponent from '@frontend/component/page/PageContentComponent.vue';
     import PageTitleComponent from '@frontend/component/page/PageTitleComponent.vue';
-    import ReturnContainerComponent from '@frontend/component/page/ReturnContainerComponent.vue';
+    import PageActionsComponent from '@frontend/component/page/PageActionsComponent.vue';
 
     import ButtonComponent from '@frontend/component/ButtonComponent.vue';
     import ErrorComponent from '@frontend/component/ErrorComponent.vue';
@@ -61,7 +61,7 @@
         components: {
             PageContentComponent,
             PageTitleComponent,
-            ReturnContainerComponent,
+            PageActionsComponent,
             ButtonComponent,
             ErrorComponent,
             LoadingComponent,

@@ -13,7 +13,7 @@ export const initialiseAppStore = async () => {
     appStore.state.user = await UserService.getUser();
 };
 
-export const appStore = new Vuex.Store({
+export const appStore = new Vuex.Store<State>({
 
     state: {
 
@@ -21,7 +21,7 @@ export const appStore = new Vuex.Store({
         projects: null,
         user: null,
 
-    } as State,
+    },
 
     mutations: {
 

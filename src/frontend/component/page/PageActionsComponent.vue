@@ -1,7 +1,7 @@
 <template>
     <div class="return-container-component flex">
         <div class="return flex-1">
-            <router-link :to="returnLink">
+            <router-link v-if="returnLink !== null" :to="returnLink">
                 <LeftArrowIcon />{{ returnText }}
             </router-link>
         </div>
@@ -21,12 +21,12 @@
             LeftArrowIcon,
         },
     })
-    export default class ReturnContainerComponent extends Vue {
+    export default class PageActionsComponent extends Vue {
 
         @Prop({
-            required: true,
+            default: null,
         })
-        private readonly returnLink!: string;
+        private readonly returnLink!: string | null;
 
         @Prop()
         private readonly returnText!: string;

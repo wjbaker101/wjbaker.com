@@ -1,7 +1,7 @@
 <template>
     <PageContentComponent class="user-create-view">
         <PageTitleComponent title="Create User" />
-        <ReturnContainerComponent
+        <PageActionsComponent
             returnLink="/user/login"
             returnText="Return to Login"
         />
@@ -47,7 +47,7 @@
 
     import PageContentComponent from '@frontend/component/page/PageContentComponent.vue';
     import PageTitleComponent from '@frontend/component/page/PageTitleComponent.vue';
-    import ReturnContainerComponent from '@frontend/component/page/ReturnContainerComponent.vue';
+    import PageActionsComponent from '@frontend/component/page/PageActionsComponent.vue';
 
     import ButtonComponent from '@frontend/component/ButtonComponent.vue';
     import ErrorComponent from '@frontend/component/ErrorComponent.vue';
@@ -57,7 +57,7 @@
         components: {
             ButtonComponent,
             PageContentComponent,
-            ReturnContainerComponent,
+            PageActionsComponent,
             PageTitleComponent,
             ErrorComponent,
             LoadingComponent,

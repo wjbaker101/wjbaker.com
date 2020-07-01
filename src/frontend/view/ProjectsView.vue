@@ -1,6 +1,11 @@
 <template>
     <PageContentComponent class="projects-view">
         <PageTitleComponent title="Projects" />
+        <PageActionsComponent v-if="user !== null && user.isAdmin">
+            <router-link to="/projects/create">
+                <ButtonComponent :isGhost="true">+</ButtonComponent>
+            </router-link>
+        </PageActionsComponent>
         <div v-if="isLoading">
             <LoadingComponent message="Loading Projects" />
         </div>
@@ -24,11 +29,14 @@
     import { API } from '@frontend/api/API';
 
     import { ProjectModel } from '@common/model/ProjectModel';
+    import { UserModel } from '@common/model/UserModel';
 
     import PageContentComponent from '@frontend/component/page/PageContentComponent.vue';
     import PageTitleComponent from '@frontend/component/page/PageTitleComponent.vue';
+    import PageActionsComponent from '@frontend/component/page/PageActionsComponent.vue';
     import ProjectComponent from '@frontend/component/view/ProjectComponent.vue';
 
+    import ButtonComponent from '@frontend/component/ButtonComponent.vue';
     import ErrorComponent from '@frontend/component/ErrorComponent.vue';
     import LoadingComponent from '@frontend/component/LoadingComponent.vue';
 
@@ -36,7 +44,9 @@
         components: {
             PageContentComponent,
             PageTitleComponent,
+            PageActionsComponent,
             ProjectComponent,
+            ButtonComponent,
             ErrorComponent,
             LoadingComponent,
         },
@@ -44,6 +54,10 @@
     export default class ProjectsView extends Vue {
 
         private isLoading: boolean = false;
+
+        get user(): UserModel | null {
+            return this.$store.state.user;
+        }
 
         get projects(): ProjectModel[] | null {
             return this.$store.state.projects;

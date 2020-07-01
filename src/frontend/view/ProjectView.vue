@@ -1,7 +1,7 @@
 <template>
     <PageContentComponent class="project-view" v-if="project !== null">
         <PageTitleComponent :title="project.title" />
-        <ReturnContainerComponent
+        <PageActionsComponent
             returnLink="/projects"
             returnText="Return to Projects"
         >
@@ -29,7 +29,7 @@
                     <EditIcon />
                 </ButtonComponent>
             </router-link>
-        </ReturnContainerComponent>
+        </PageActionsComponent>
         <div v-if="isLoading">
             <LoadingComponent message="Loading Project Details" />
         </div>
@@ -57,7 +57,7 @@
 
     import PageContentComponent from '@frontend/component/page/PageContentComponent.vue';
     import PageTitleComponent from '@frontend/component/page/PageTitleComponent.vue';
-    import ReturnContainerComponent from '@frontend/component/page/ReturnContainerComponent.vue';
+    import PageActionsComponent from '@frontend/component/page/PageActionsComponent.vue';
 
     import ButtonComponent from '@frontend/component/ButtonComponent.vue';
     import ErrorComponent from '@frontend/component/ErrorComponent.vue';
@@ -71,7 +71,7 @@
         components: {
             PageContentComponent,
             PageTitleComponent,
-            ReturnContainerComponent,
+            PageActionsComponent,
             ButtonComponent,
             ErrorComponent,
             LoadingComponent,
