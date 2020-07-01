@@ -14,19 +14,22 @@ const ImgurAPI = axios.create({
 
 export const ImgurClient = {
 
-    async uploadImage(
-            image: Buffer,
-            album: string | null = null): Promise<string> {
-
+    async uploadImage(image: Buffer): Promise<string> {
         const formData = new FormData();
         formData.append('type', 'file');
         formData.append('image', image);
 
-        if (album !== null) {
-            formData.append('album', album);
-        }
-
         const result = await ImgurAPI.post<ImgurImageUploadEntity>('/upload', image);
+
+        return result.data.data.link;
+    },
+
+    async uploadImageBase64(imageBase64: string): Promise<string> {
+        const formData = new FormData();
+        formData.append('type', 'base64');
+        formData.append('image', imageBase64);
+
+        const result = await ImgurAPI.post<ImgurImageUploadEntity>('/upload', imageBase64);
 
         return result.data.data.link;
     },

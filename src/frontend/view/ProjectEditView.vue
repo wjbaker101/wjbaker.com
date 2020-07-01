@@ -24,6 +24,12 @@
                 <input type="text" v-model="sourceCodeURL">
             </p>
             <p>
+                <label>Preview Image</label>
+                <input id="previewImageInput" type="file" @change="onImageUploaded">
+                <label for="previewImageInput">Upload File</label>
+                <img ref="imagePreview" class="preview-image" :src="project.previewImageURL">
+            </p>
+            <p>
                 <label>Summary</label>
                 <textarea v-model="summary"></textarea>
             </p>
@@ -42,7 +48,7 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Component, Prop, Vue, Ref } from 'vue-property-decorator';
 
     import { API } from '@frontend/api/API';
     import { Utils } from '@frontend/util/Utils';
@@ -67,12 +73,16 @@
     })
     export default class ProjectEditView extends Vue {
 
+        @Ref('imagePreview')
+        private readonly imagePreview!: HTMLImageElement;
+
         private project: ProjectModel | null = null;
 
         private title: string = '';
         private startDate: string = '';
-        private viewLink: string | null = '';
-        private sourceCodeURL: string | null = '';
+        private viewLink: string | null = null;
+        private sourceCodeURL: string | null = null;
+        private previewImageBase64: string | null = null;
         private summary: string = '';
         private description: string = '';
 
@@ -139,6 +149,7 @@
                     startDate: this.startDate,
                     viewLink,
                     sourceCodeURL,
+                    previewImageBase64: this.previewImageBase64,
                     summary: this.summary,
                     description: this.description,
                 });
@@ -159,6 +170,8 @@
                     startDate: this.startDate,
                     viewLink,
                     sourceCodeURL,
+                    previewImageURL: null,
+                    previewImageBase64: this.previewImageBase64,
                     summary: this.summary,
                     description: this.description,
                 });
@@ -173,8 +186,33 @@
                 this.$router.push({ path: `/project/${project.id}`, });
             }
         }
+
+        onImageUploaded(event: Event): void {
+            const fileInput = event.target as HTMLInputElement;
+
+            if (fileInput.files === null) {
+                return;
+            }
+
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(fileInput.files[0]);
+
+            fileReader.onload = () => {
+                const imageBase64 = String(fileReader.result);
+
+                this.imagePreview.src = imageBase64;
+                this.previewImageBase64 = imageBase64;
+            };
+        }
     }
 </script>
 
 <style lang="scss">
+    .project-edit-view {
+
+        .preview-image {
+            margin-top: 1rem;
+            border-radius: border-radius();
+        }
+    }
 </style>

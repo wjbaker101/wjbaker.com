@@ -5,5 +5,6 @@ export interface ProjectModel {
     summary: string,
     viewLink: string | null,
     sourceCodeURL: string | null,
+    previewImageURL: string | null,
     description?: string,
 }

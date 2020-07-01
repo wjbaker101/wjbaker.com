@@ -1,7 +1,11 @@
 <template>
     <div class="project-component flex flex-responsive">
         <div class="image-container flex-1 flex-vh-center text-center">
-            <img :src="`/resource/image/project/${project.id}.jpg`">
+            <img
+                v-if="project.previewImageURL !== null"
+                :src="project.previewImageURL"
+            >
+            <ProjectIcon v-else />
         </div>
         <div class="content-container flex-1">
             <h3>{{ project.title }}</h3>
@@ -56,6 +60,7 @@
     import LinkIcon from '@frontend/assets/icon/external-link.svg';
     import GitHubIcon from '@frontend/assets/icon/github.svg';
     import EditIcon from '@frontend/assets/icon/pencil.svg';
+    import ProjectIcon from '@frontend/assets/icon/folder-open.svg';
 
     @Component({
         components: {
@@ -63,6 +68,7 @@
             LinkIcon,
             GitHubIcon,
             EditIcon,
+            ProjectIcon,
         },
     })
     export default class ProjectComponent extends Vue {
@@ -87,6 +93,14 @@
 
         .image-container {
             order: 2;
+            color: theme(secondary);
+
+            svg {
+                $size: 5rem;
+
+                width: $size;
+                height: $size;
+            }
         }
 
         img {

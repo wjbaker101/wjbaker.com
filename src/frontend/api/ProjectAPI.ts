@@ -1,6 +1,7 @@
 import { APIClient } from '@frontend/api/APIClient';
 import { ProjectModel } from '@common/model/ProjectModel';
 import { APIResponse } from '@common/interface/APIResponse';
+import { CreateProjectModel } from '@common/model/CreateProjectModel';
 
 export const ProjectAPI = {
 
@@ -26,7 +27,7 @@ export const ProjectAPI = {
         }
     },
 
-    async createProject(project: ProjectModel): Promise<ProjectModel | Error> {
+    async createProject(project: CreateProjectModel): Promise<ProjectModel | Error> {
         try {
             const response = await APIClient.post<APIResponse<ProjectModel>>('/project', project);
 
@@ -37,7 +38,7 @@ export const ProjectAPI = {
         }
     },
 
-    async updateProject(project: ProjectModel): Promise<void | Error> {
+    async updateProject(project: CreateProjectModel): Promise<void | Error> {
         try {
             await APIClient.patch<APIResponse<boolean>>(`/project/${project.id}`, project);
         }
