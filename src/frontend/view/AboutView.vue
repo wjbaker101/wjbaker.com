@@ -12,12 +12,13 @@
             </div>
             <div class="flex-1 flex-v-center">
                 <p>Hello, welcome to my personal website!</p>
-                <p>I'm a software developer originally from Kent, with an interest in software development, tennis, gaming and cooking!</p>
-                <p>The main purpose of this website is to create a space where I can showcase some of the projects I have been working on.</p>
-                <p>Feel free to look around, play with and download my projects.</p>
+                <p>I'm a software developer originally from Kent, who's goal is creating interesting and helpful software which anyone can use.</p>
+                <p>The main purpose of this website is for you to know me better and to create a space where I can showcase some of the projects I have been working on.</p>
+                <p>Feel free to read about, play with and download what you find!</p>
             </div>
         </div>
         <h2>About Me</h2>
+        <p>Of course, my main interest is in software development; but tennis, gaming, cooking and baking are all passions of mine!</p>
         <p>I have been programming for over 10 years and over this time have utilised a wide range of languages, frameworks and techniques. Another aim for my website is to able to visualise the development of my skills over time when looking at old projects versus new ones.</p>
         <p>If you'd like to see the source codes and additional projects, please visit my <LinkComponent href="https://github.com/wjbaker101">GitHub</LinkComponent> page!</p>
         <p>I went to Loughborough University to study Computer Science, where I also did a placement year (more on that later!).</p>
