@@ -1,0 +1,867 @@
+<html>
+    <head>
+        <!-- Title for the webpage -->
+        <title>Noughts and Crosses | By William Baker</title>
+        
+        <style>
+            /* CSS for the main body of the webpage */
+            body
+            {
+                margin: 0;
+                padding: 0;
+                font-family: "Corbel";
+                background: rgb(240, 240, 240);
+            }
+            
+            /* CSS for the title of the game */
+            .title
+            {
+                height: 68px;
+                font-size: 28px;
+                font-weight: bold;
+                line-height: 68px;
+            }
+            
+            /* CSS for the subheading */
+            .subheading
+            {
+                font-size: 14px;
+            }
+            
+            /* CSS for the main content container */
+            .mainContent
+            {
+                width: 600px;
+                margin: auto;
+                text-align: center;
+            }
+            
+            /* CSS for the canvas */
+            .graphicsCanvas
+            {
+                width: 500px;
+                height: 500px;
+                border: 1px solid;
+                box-shadow: 3px 3px 3px #000000;
+                margin-top: 50px;
+                background: white;
+            }
+            
+            /* CSS for the user controls container */
+            .userControls
+            {
+                width: 600px;
+                height: 180px;
+                border: 1px solid;
+                margin-top: 50px;
+                display: inline-block;
+                box-shadow: 3px 3px 3px #CCCCCC;
+                background: white;
+            }
+            
+            /* CSS for the start button */
+            .startButton
+            {
+                width: 150px;
+                height: 50px;
+                border: 2px solid #ffb400;
+                border-radius: 2px;
+                background-color: rgb(240, 240, 240);
+                margin: auto;
+                margin-top: 10px;
+                line-height: 50px;
+                font-size: 17px;
+                font-weight: bold;
+            }
+            
+            /* CSS for the start button when the mouse is over it */
+            .startButton:hover
+            {
+                cursor: pointer;
+                background-color: rgb(240, 240, 255);
+            }
+            
+            /* CSS for the win stats container */
+            .winStatsContent
+            {
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            /* CSS for each win stat */
+            .winStats
+            {
+                width: 150px;
+                display: inline-block;
+                margin-left: 20px;
+                margin-right: 20px;
+                margin-top: 10px;
+                font-weight: bold;
+                font-size: 13px;
+            }
+            
+            /* CSS for the number display of the win stats */
+            .winStatsNumber
+            {
+                width: 50px;
+                height: 50px;
+                margin: auto;
+                line-height: 50px;
+                font-family: "Calibri";
+                font-size: 44px;
+                transition: opacity 2s;
+            }
+            
+            /* CSS for the win stats of the player */
+            #winStatPlayer
+            {
+                color: #176bc0;
+            }
+            
+            /* CSS for the win stats of draws */
+            #winStatDraw
+            {
+                color: #000000;
+            }
+            
+            /* CSS for the win stats of the computer */
+            #winStatComputer
+            {
+                color: rgb(220, 50, 50);
+            }
+        </style>
+        
+        <script>
+            var board = new Board(3, 3); // Variable stores a Board object
+            var gameRunning = false; // Whether the game is currently running
+            var gameWon = false; // Whether the game has been won by the user, computer or a draw
+            
+            var winnerPiece = 0; // The winning piece
+            var playerWins = 0; // Total number of wins by the player
+            var drawWins = 0; // Total number of draws
+            var computerWins = 0; // Total number of wins by the computer
+            var turn = 0; // The current turn
+            
+            var canvas; // The canvas element
+            var graphics; // The graphics used to draw on the canvas
+            
+            var winStartColumn = -1; // The winning row, column or diagonal start x coordinate
+            var winStartRow = -1; // The winning row, column or diagonal start y coordinate
+            var winEndColumn = -1; // The winning row, column or diagonal end x coordinate
+            var winEndRow = -1; // The winning row, column or diagonal end y coordinate
+            
+            /*
+            * Board object, stores all the pieces and handles when a piece is placed
+            * ARGS: c (Number of columns), r (Number of rows)
+            */
+            function Board(c, r)
+            {
+                this.columns = c; // Number of columns in the board
+                this.rows = r; // Number of rows in the board
+                
+                // Array of integers representing the type of piece on the square
+                // 0 = Blank, 1 = Nought, 2 = Cross
+                this.pieces = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+                
+                /*
+                * Sets the board piece at the given column and row
+                * ARGS: column (The column), row (The row), pieceIndex (The index of the piece being placed)
+                */
+                this.setBoardPiece = function setBoardPiece(column, row, pieceIndex)
+                {
+                    // Sets the element in the 'pieces' array to the new piece index
+                    // Uses the function setBoardPieceIndex
+                    this.setBoardPieceIndex(column + (row * board.columns), pieceIndex);
+                }
+                
+                /*
+                * Sets the board piece at the given index
+                * ARGS: index (Index of the pieces array to place piece), pieceIndex (The index of the piece being placed)
+                */
+                this.setBoardPieceIndex = function setBoardPieceIndex(index, pieceIndex)
+                {
+                    board.pieces[index] = pieceIndex; // Sets the element of the 'pieces' array at the index
+                    
+                    turn ++; // Increments turn by +1
+                    
+                    // Checks whether there is win by any piece
+                    if (checkColumnWin() || checkRowWin() || checkDiagonalTLBRWin() || checkDiagonalBLTRWin() || turn == 9)
+                    {
+                        gameWon = true; // Sets the game to be won
+                    }
+                    
+                    // Checks whether the game has been won or if the current turn is 9 (Draw)
+                    if (gameWon)
+                        winGame(); // Executes the winGame function
+                    
+                    drawGrid(); // Updates the grid by redrawing
+                }
+                
+                /*
+                * Gets a piece on the board with given column and row
+                * ARGS: column (The column), row (The row)
+                */
+                this.getBoardPieceIndex = function getBoardPieceIndex(column, row)
+                {
+                    // Returns the element in the 'pieces' array
+                    return board.pieces[column + (row * board.columns)];
+                }
+            }
+            
+            /*
+            * Function called when the document is loaded, initiates variables and functions
+            */
+            function onLoad()
+            {
+                canvas = document.getElementById("graphicsCanvas"); // Sets the canvas variable to the canvas element in the webpage
+                graphics = canvas.getContext("2d"); // Sets the graphics object to the graphics of the canvas
+                graphics.translate(0.5, 0.5); // Translates all graphics by +0.5 x and +0.5 y, reduces blurring of graphics being drawn
+                
+                with (canvas) // Does the following with the variable canvas
+                {
+                    onmousemove = function(){ canvas_MouseMove(); } // Sets the canvas_MouseMove to be called when the mouse is moved on the canvas
+                    onmouseup = function(){ canvas_MouseUp(); } // Sets the canvas_MouseUp to be called when the mouse is up on the canvas
+                    onmouseout = function() { canvas_MouseLeave(); } // Sets the canvas_MouseLeave to be called when the mouse leaves the canvas
+                }
+                
+                // Initially draws the grid onto the canvas when the game loads
+                drawGrid();
+            }
+            
+            /*
+            * Draw the grid onto the canvas
+            */
+            function drawGrid()
+            {
+                clearCanvas(); // Clears the canvas of current graphics
+                graphics.strokeStyle = "#000000"; // Sets the stroke colour to black (#000000)
+                graphics.lineWidth = "1"; // Sets the line width to 1 pixel
+                var columnWidth = parseInt(canvas.width / board.columns); // Gets the width of a column
+                // Loops through each column in the board
+                for (var x = 1; x < board.columns; x++)
+                {
+                    // Draws a line from the top of the canvas to the bottom of the canvas for each column
+                    drawLine(x * columnWidth, 0, x * columnWidth, canvas.height);
+                }
+                
+                var rowHeight = parseInt(canvas.height / board.rows); // Gets the height of a row
+                // Loops through each row in the board
+                for (var y = 1; y < board.rows; y++)
+                {
+                    // Draws a line from the left of the canvas to the right of the canvas for each row
+                    drawLine(0, y * rowHeight, canvas.width, y * rowHeight);
+                }
+                
+                // Draws the pieces onto the canvas
+                drawPieces();
+                
+                // Checks to see if the game has been won
+                if(gameWon)
+                    // Draws the winner line onto the canvas
+                    drawWinner();
+            }
+            
+            /*
+            * Draws the pieces onto the canvas
+            */
+            function drawPieces()
+            {
+                var columnWidth = parseInt(canvas.width / board.columns); // Gets the width of a column
+                var rowHeight = parseInt(canvas.height / board.rows); // Gets the height of a row
+                
+                // Loops through the columns in the board
+                for (var x = 0; x < board.columns; x++)
+                {
+                    // Loops through the rows in the board
+                    for (var y = 0; y < board.rows; y++)
+                    {
+                        // Checks what the piece index is in the 'pieces' array from the current column and row in the array
+                        switch(board.pieces[x + (y * board.columns)])
+                        {
+                            case 1: // If the piece is of type 1
+                                graphics.strokeStyle = "rgba(23, 107, 192, 1.0)"; // Sets the graphics colour to blue (23, 107, 192)
+                                graphics.lineWidth = "3"; // Sets the line width to 3 pixels
+                                drawCircle(columnWidth * (x + 0.5), rowHeight * (y + 0.5), 50); // Draws a circle in the column and row, representing a nought
+                                break;
+                            case 2: // If the piece is of type 2
+                                graphics.strokeStyle = "rgba(220, 50, 50, 1.0)"; // Sets the graphics colour to red (220, 50, 50)
+                                graphics.lineWidth = "3"; // Sets the line width to 3 pixels
+                                drawCross(columnWidth * (x + 0.25), rowHeight * (y + 0.25), columnWidth / 2, rowHeight / 2); // Draws a cross in the column and row, representing a cross
+                                break;
+                        }
+                    }
+                }
+            }
+            
+            /*
+            * Draws the line showing the winning move
+            */
+            function drawWinner()
+            {
+                // Checks whether the game is a draw
+                if (winnerPiece == 0)
+                {
+                    graphics.fillStyle = "rgba(255, 255, 255, 0.6)"; // Sets the graphics fill style to white with 0.6 opacity
+                    graphics.fillRect(0, 0, canvas.width, canvas.height); // Fills a rectangle across the whole canvas
+                    
+                    var drawMessage = "Draw!"; // Stores the message to be displayed
+                    graphics.textAlign = 'center'; // Centers the text
+                    graphics.textBaseline = 'middle'; // Centers the text
+                    graphics.font = "200px Calibri"; // Sets the font to 200 pixels
+                    graphics.fillStyle = "#000000"; // Sets the fill style to black
+                    graphics.fillText(drawMessage, (canvas.width / 2), (canvas.height / 2)); // Draws text onto the canvas
+                }
+                else
+                {
+                    var columnWidth = parseInt(canvas.width / board.columns); // Gets the width of a column
+                    var rowHeight = parseInt(canvas.height / board.rows); // Gets the height of a row
+
+                    // Sets the colour of the graphics depending on who won, player (blue) or computer (red)
+                    graphics.strokeStyle = winnerPiece == 1 ? "rgba(23, 107, 192, 1.0)" : "rgba(220, 50, 50, 1.0)";
+
+                    graphics.lineWidth = "10"; // Sets the line width to 10 pixels
+                    // Draws a line from the start column and row to the end column and row
+                    drawLine((winStartColumn + 0.5) * columnWidth, (winStartRow + 0.5) * rowHeight, (winEndColumn + 0.5) * columnWidth, (winEndRow + 0.5) * rowHeight);
+                }
+            }
+            
+            /*
+            * Draws a line between 2 points
+            * ARGS: x1 (Start x coordinate), y1 (Start y coordinate), x2 (End x coordinate), y2 (End y coordinate)
+            */
+            function drawLine(x1, y1, x2, y2)
+            {
+                graphics.beginPath(); // Starts the drawing process
+                graphics.moveTo(x1, y1); // Moves to the start position
+                graphics.lineTo(x2, y2); // Draws the line
+                graphics.stroke(); // Draws the graphics
+            }
+            
+            /*
+            * Draws a circle at a point with a given radius
+            * ARGS: x (x position), y (y position), radius (radius of circle)
+            */
+            function drawCircle(x, y, radius)
+            {
+                graphics.beginPath(); // Starts the drawing process
+                graphics.arc(x, y, radius, 0, 2 * Math.PI, false); // Draws an arc at given position into a circle
+                graphics.stroke(); // Draws the graphics
+            }
+            
+            /*
+            * Draws a cross at a given point with given width and height
+            * ARGS: x (x position), y (y position), width (Width of cross), height (Height of cross)
+            */
+            function drawCross(x, y, width, height)
+            {
+                drawLine(x, y, x + width, y + height); // Draws a line from top left to bottom right
+                drawLine(x, y + height, x + width, y); // Draws a line from bottom left to top right
+            }
+            
+            /*
+            * Clears the canvas of any graphics
+            */
+            function clearCanvas()
+            {
+                // Clears graphics from the point -1, -1 with the width and height of the canvas
+                graphics.clearRect(-1, -1, canvas.width, canvas.height);
+            }
+            
+            /*
+            * Function called when the mouse is moved on the canvas
+            */
+            function canvas_MouseMove()
+            {
+                // Sets the cursor to the default look
+                canvas.style.cursor = "default";
+                
+                // Checks to see if the game is running
+                // If not the code in the function will not run
+                if (!gameRunning)
+                    return;
+                
+                var canvasBounds = canvas.getBoundingClientRect(); // Gets the bounding rectangle of the canvas
+                var mouseX = parseInt(event.clientX - canvasBounds.left); // Gets the mouse x position relative to the canvas
+                var mouseY = parseInt(event.clientY - canvasBounds.top); // Gets the mouse y position relative to the canvas
+                
+                var columnWidth = parseInt(canvas.width / board.columns); // Gets the width of a column
+                var rowHeight = parseInt(canvas.height / board.rows); // Gets the height of a row
+                
+                var column = (mouseX - (mouseX % columnWidth)) / columnWidth; // Gets the column index
+                var row = (mouseY - (mouseY % rowHeight)) / rowHeight; // Gets the row index
+                
+                // Redraws the grid
+                drawGrid();
+                
+                // Checks whether the board piece is equal to 0 (Blank space)
+                if (board.getBoardPieceIndex(column, row) == 0)
+                {
+                    canvas.style.cursor = "pointer"; // Sets the cursor to the hand pointer
+                    graphics.strokeStyle = "rgba(23, 107, 192, 0.3)"; // Sets the graphics colour to blue (23, 107, 192) with an opacity of 0.3
+                    graphics.lineWidth = "3"; // Sets the line width to 3 pixels
+                    drawCircle(columnWidth * (column + 0.5), rowHeight * (row + 0.5), 50); // Draws a circle at the mouse current column and row
+                }
+            }
+            
+            /*
+            * Function called when the mouse leaves the canvas element on the webpage
+            */
+            function canvas_MouseLeave()
+            {
+                drawGrid(); // Redraws the grid
+            }
+            
+            /*
+            * Function called when the mouse is lifted on the canvas
+            * Used to indicate when the player has placed a piece
+            */
+            function canvas_MouseUp()
+            {
+                // Checks to see if the game is running
+                // If not the code in the function will not run
+                if (!gameRunning)
+                    return;
+                
+                var canvasBounds = canvas.getBoundingClientRect(); // Gets the bounding rectangle of the canvas
+                var mouseX = parseInt(event.clientX - canvasBounds.left); // Gets the mouse x position relative to the canvas
+                var mouseY = parseInt(event.clientY - canvasBounds.top); // Gets the mouse y position relative to the canvas
+                
+                var columnWidth = parseInt(canvas.width / board.columns); // Gets the width of a column
+                var rowHeight = parseInt(canvas.height / board.rows); // Gets the height of a row
+                
+                var column = (mouseX - (mouseX % columnWidth)) / columnWidth; // Gets the column index
+                var row = (mouseY - (mouseY % rowHeight)) / rowHeight; // Gets the row index
+                
+                // Checks whether the board piece is equal to 0 (Blank space)
+                if (board.getBoardPieceIndex(column, row) == 0)
+                {
+                    // Sets the board piece at the current column and row to a nought
+                    board.setBoardPiece(column, row, 1);
+                    
+                    // Checks whether the current turn is less than 9 and if the game has not been won
+                    if (turn < 9 && !gameWon)
+                        // Allows the computer to take its turn
+                        computerPlacePiece();
+                    
+                    // Redraws the grid
+                    drawGrid();
+                }
+            }
+            
+            /*
+            * Starts a new game, settings all values to the initial value
+            */
+            function startNewGame()
+            {
+                gameRunning = true; // Sets game running to true
+                gameWon = false; // Sets game won to false
+                winStartColumn = -1; // Sets the winning start column to a false position
+                winStartRow = -1; // Sets the winning start row to a false position
+                winEndColumn = -1; // Sets the winning end column to a false position
+                winEndRow = -1; // Sets the winning end row to a false position
+                turn = 0; // Sets the turn to 0
+                winnerPiece = 0; // Sets the winning piece to 0
+                board = new Board(3, 3); // Creates a new board so no pieces are present on it
+                computerPlacePiece(); // Allows the computer to make the first move
+                
+                // Sets the 'startButton' text on the webpage
+                document.getElementById("startButton").innerHTML = "RESET GAME";
+            }
+            
+            /*
+            * When the game has been won
+            */
+            function winGame()
+            {
+                gameRunning = false; // Sets the game running to false
+                
+                // Checks what the winning piece is
+                switch (winnerPiece)
+                {
+                    case 0: // If the piece is 0 (Default)
+                        drawWins ++; // Increments the draws by +1
+                        // Updates the webpage to display the number of draws
+                        document.getElementById("winStatDraw").innerHTML = drawWins;
+                        break;
+                    case 1: // If the piece is 1
+                        playerWins ++; // Increments the player wins by +1
+                        // Updates the webpage to display the number of player wins
+                        document.getElementById("winStatPlayer").innerHTML = playerWins;
+                        break;
+                    case 2: // If the piece is 2
+                        computerWins ++; // Increments the computer wins by +1
+                        // Updates the webpage to display the number of computer wins
+                        document.getElementById("winStatComputer").innerHTML = computerWins;
+                        break;
+                }
+            }
+            
+            /*
+            * Generates a random number with a maximum value
+            */
+            function generateRandomNumber(max)
+            {
+                // Math.random function returns a number between 0 and 1 inclusive
+                // Returns a formatted random number with the given max value
+                return Math.floor(Math.random() * max);
+            }
+            
+            /*
+            * Allows the computer to place a piece onto the board
+            */
+            function computerPlacePiece()
+            {
+                // Checks whether it is the first placement of the game
+                if (turn == 0)
+                {
+                    // Computer will place a piece in a random position
+                    computerCheckRandom();
+                }
+                else
+                {
+                    // Generates a random number between 0 and 1
+                    // So 50% chance for the computer to place a piece in a random position
+                    var randomNumber = generateRandomNumber(2);
+                    
+                    if (randomNumber == 0) // Checks whether the random number is 0
+                    {
+                        if (!computerCheckColumns()) // Continues if computer has not found a valid column to place a piece
+                        {
+                            if (!computerCheckRows()) // Continues if computer has not found a valid row to place a piece
+                            {
+                                if (!computerCheckDiagonalTLBR()) // Continues if computer has not found a valid diagonal (Top left to bottom right) to place a piece
+                                {
+                                    if (!computerCheckDiagonalBLTR()) // Continues if computer has not found a valid diagonal (Bottom left to top right) to place a piece
+                                    {
+                                        var stopChecking = false; // Stores whether the loop should stop checking
+                                        // Loops until stopChecking is false
+                                        while (!stopChecking)
+                                        {
+                                            // Checks whether the computer has found a valid spot to place a piece
+                                            if (computerCheckRandom())
+                                                // Sets stopChecking to true
+                                                stopChecking = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var stopChecking = false; // Stores whether the loop should stop checking
+                        // Loops until stopChecking is false
+                        while (!stopChecking)
+                        {
+                            // Checks whether the computer has found a valid spot to place a piece
+                            if (computerCheckRandom())
+                                // Sets stopChecking to true
+                                stopChecking = true;
+                        }
+                    }
+                }
+            }
+            
+            /*
+            * Checks each column in the board for computer to place a piece
+            */
+            function computerCheckColumns()
+            {
+                // Loops through each column in the board
+                for (var column = 0; column < board.columns; column ++)
+                {
+                    var numberOfNoughts = 0; // Stores the number of noughts found in the current column
+                    var blankRow = -1; // Stores which row the blank space is in
+                    // Loops through the rows in the board
+                    for (var row = 0; row < board.rows; row ++)
+                    {
+                        // Stores the piece in the current column and row
+                        var pieceIndex = board.getBoardPieceIndex(column, row);
+                        if (pieceIndex == 1) // Checks whether the piece is of type 1
+                            numberOfNoughts ++; // Increments the number of noughts found by +1
+                        if (pieceIndex == 0) // Checks whether the piece if of type 0
+                            blankRow = row; // Sets the blank row to the current row
+                    }
+                    
+                    // Checks whether the number of noughts is 2 and the blank row is valid
+                    if (numberOfNoughts == 2 && blankRow != -1)
+                    {
+                        board.setBoardPiece(column, blankRow, 2); // Sets the board piece to a cross at the found blank space
+                        return true; // Returns true if the computer has placed a new piece
+                    }
+                }
+                return false; // Returns false by default
+            }
+            
+            /*
+            * Checks each row in the board for computer to place a piece
+            */
+            function computerCheckRows()
+            {
+                // Loops through the rows in the board
+                for (var row = 0; row < board.rows; row ++)
+                {
+                    var numberOfNoughts = 0; // Stores the number of noughts found in the current row
+                    var blankColumn = -1; // Stores which column the blank space is in
+                    // Loops through each column in the board
+                    for (var column = 0; column < board.columns; column ++)
+                    {
+                        // Stores the piece in the current column and row
+                        var pieceIndex = board.getBoardPieceIndex(column, row);
+                        if (pieceIndex == 1) // Checks whether the piece if of type 1
+                            numberOfNoughts ++; // Increments the number of noughts found by +1
+                        if (pieceIndex == 0) // Checks whether the piece if of type 0
+                            blankColumn = column; // Sets the blank row to the current column
+                    }
+                    
+                    // Checks whether the number of noughts is 2 and the blank column is valid
+                    if (numberOfNoughts == 2 && blankColumn != -1)
+                    {
+                        board.setBoardPiece(blankColumn, row, 2); // Sets the board piece to a cross at the found blank space
+                        return true; // Returns true if the computer has placed a new piece
+                    }
+                }
+                return false; // Returns false by default
+            }
+            
+            /*
+            * Checks the top left to bottom right diagonal in the board for computer to place a piece
+            */
+            function computerCheckDiagonalTLBR()
+            {
+                var numberOfNoughts = 0; // Stores the number of noughts found in the current position
+                var blankSpace = -1; // Stores which column the blank space is in
+                // Loops through each column in the board
+                for (var column = 0; column < board.columns; column ++)
+                {
+                    // Gets the board piece. Since the board is a square with equal columns and rows, 'column' is used to represent the row
+                    var pieceIndex = board.getBoardPieceIndex(column, column);
+                    if (pieceIndex == 1) // Checks whether the piece is of type 1
+                        numberOfNoughts ++; // Increments the number of noughts found by +1
+                    if (pieceIndex == 0) // Checks whether the piece if of type 0
+                        blankSpace = column; // Sets the blank space to the current position
+                }
+                
+                // Checks whether the number of noughts is 2 and the blank column is valid
+                if (numberOfNoughts == 2 && blankSpace != -1)
+                {
+                    board.setBoardPiece(blankSpace, blankSpace, 2); // Sets the board piece to a cross at the found blank space
+                    return true; // Returns true if the computer has placed a new piece
+                }
+                return false; // Returns false by default
+            }
+            
+            /*
+            * Checks the bottom left to top right diagonal in the board for computer to place a piece
+            */
+            function computerCheckDiagonalBLTR()
+            {
+                var numberOfNoughts = 0; // Stores the number of noughts found in the current position
+                var blankSpace = -1; // Stores which column the blank space is in
+                // Loops through each column in the board
+                for (var column = 0; column < board.columns; column ++)
+                {
+                    // Gets the board piece. Since the board is a square with equal columns and rows, row is equal to the total number of columns - the current column - 1
+                    var pieceIndex = board.getBoardPieceIndex(column, board.columns - column - 1);
+                    if (pieceIndex == 1) // Checks whether the piece is of type 1
+                        numberOfNoughts ++; // Increments the number of noughts found by +1
+                    if (pieceIndex == 0) // Checks whether the piece if of type 0
+                        blankSpace = column; // Sets the blank space to the current position
+                }
+                
+                // Checks whether the number of noughts is 2 and the blank column is valid
+                if (numberOfNoughts == 2 && blankSpace != -1)
+                {
+                    board.setBoardPiece(blankSpace, board.columns - blankSpace - 1, 2); // Sets the board piece to a cross at the found blank space
+                    return true; // Returns true if the computer has placed a new piece
+                }
+                return false; // Returns false by default
+            }
+            
+            /*
+            * Checks all spots in the board for the computer to place a piece
+            */
+            function computerCheckRandom()
+            {
+                var placement = Math.floor(Math.random() * 9); // Generates a random number between 0 and 8 representing the index in the 'pieces' array in the board
+                // Checks whether the piece is 0
+                if (board.pieces[placement] == 0)
+                {
+                    board.setBoardPieceIndex(placement, 2); // Sets the board piece to a cross at the found blank space
+                    return true; // Returns true if the computer has placed a new piece
+                }
+                return false; // Returns false by default
+            }
+            
+            /*
+            * Checks columns if there is a winning formation
+            */
+            function checkColumnWin()
+            {
+                var piece = 0; // Stores the piece being checked
+                // Loops through each row
+                for (var i = 0; i < board.rows; i++)
+                {
+                    piece = board.pieces[i]; // Gets the index in the 'pieces' array
+                    if (piece != 0) // Checks whether the piece is not equal to 0
+                    {
+                        // Checks whether the 3rd and 9th piece along in the array are of the same type
+                        if (board.pieces[i + board.rows] == piece && board.pieces[i + (board.rows * 2)] == piece)
+                        {
+                            winStartColumn = i; // Sets the win start column to the current column
+                            winStartRow = 0; // Sets the win start row to the row to the first row
+                            winEndColumn = i; // Sets the end start column to the current column
+                            winEndRow = board.rows - 1; // Sets the end start row to the last row
+                            winnerPiece = piece; // Sets the winning piece to the check piece
+                            
+                            // Returns true if a win has been found
+                            return true;
+                        }
+                    }
+                }
+                return false; // Returns false by default
+            }
+            
+            /*
+            * Checks rows if there is a winning formation
+            */
+            function checkRowWin()
+            {
+                var piece = 0; // Stores the piece being checked
+                // Loops through each column
+                for (var i = 0; i < board.rows; i++)
+                {
+                    var checkIndex = i * 3; // Gets the index in the 'pieces' array
+                    piece = board.pieces[checkIndex]; // Sets piece to the piece found in the array
+                    if (piece != 0) // Checks whether the piece is not equal to 0
+                    {
+                        // Checks to see if the next 2 pieces in the array are the same type
+                        if (board.pieces[checkIndex + 1] == piece && board.pieces[checkIndex + 2] == piece)
+                        {
+                            winStartColumn = 0; // Sets the win start column to the first column
+                            winStartRow = parseInt(checkIndex / 3); // Sets the win start row to the row being checked
+                            winEndColumn = board.columns - 1; // Sets the end start column to the last column
+                            winEndRow = parseInt(checkIndex / 3); // Sets the end start row to the row being checked
+                            winnerPiece = piece; // Sets the winning piece to the check piece
+                            
+                            // Returns true if a win has been found
+                            return true;
+                        }
+                    }
+                }
+                return false; // Returns false by default
+            }
+            
+            /*
+            * Checks the top left to bottom right diagonal if there is a winning formation
+            */
+            function checkDiagonalTLBRWin()
+            {
+                var checkPiece = board.getBoardPieceIndex(0, 0); // Gets the board piece at 0, 0
+                var numberOfPieces = 0; // Stores the number of pieces found
+                if (checkPiece == 0) // Checks whether the piece if of type 0
+                        return false; // Returns false
+                
+                // Loops through each column in the board
+                for (var column = 0; column < board.columns; column ++)
+                {
+                    var pieceIndex = board.getBoardPieceIndex(column, column); // Gets the board piece at the current column and row
+                    if (pieceIndex == checkPiece) // Checks whether the piece is equal to the piece being checked
+                        numberOfPieces ++; // Increments the number of pieces found by +1
+                }
+                
+                // Checks whether the number of pieces found is 3
+                if (numberOfPieces == 3)
+                {
+                    winStartColumn = 0; // Sets the winning start column to 0
+                    winStartRow = 0; // Sets the winning start row to 0
+                    winEndColumn = board.columns - 1; // Sets the winning end column to the last column
+                    winEndRow = board.rows - 1; // Sets the winning end row to the last row
+                    winnerPiece = checkPiece; // Sets the winning piece to the check piece
+                    return true; // Returns true
+                }
+                
+                return false; // Returns false by default
+            }
+            
+            /*
+            * Checks the bottom left to top right diagonal if there is a winning formation
+            */
+            function checkDiagonalBLTRWin()
+            {
+                var checkPiece = board.getBoardPieceIndex(0, board.rows - 1); // Gets the board piece at 0 and the last row
+                var numberOfPieces = 0; // Stores the number of pieces found
+                if (checkPiece == 0) // Checks whether the piece if of type 0
+                        return false; // Returns false
+                
+                // Loops through each column in the board
+                for (var column = 0; column < board.columns; column ++)
+                {
+                    var pieceIndex = board.getBoardPieceIndex(column, board.columns - column - 1);
+                    if (pieceIndex == checkPiece) // Checks whether the piece is equal to the piece being checked
+                        numberOfPieces ++; // Increments the number of pieces found by +1
+                }
+                    
+                // Checks whether the number of pieces found is 3
+                if (numberOfPieces == 3)
+                {
+                    winStartColumn = 0; // Sets the winning start column to 0
+                    winStartRow = board.rows - 1; // Sets the winning start row to the last row
+                    winEndColumn = board.columns - 1; // Sets the winning end column to the last column
+                    winEndRow = 0; // Sets the winning end row to 0
+                    winnerPiece = checkPiece; // Sets the winning piece to the check piece
+                    return true; // Returns true
+                }
+                
+                return false; // Returns false by default
+            }
+        </script>
+    </head>
+    
+    <!-- Main body of the webpage -->
+    <!-- onload event to onLoad() function -->
+    <body onload="onLoad();">
+        <!-- Container for the main content -->
+        <div class="mainContent">
+            <!-- Title of the game -->
+            <div class="title">Noughts and Crosses</div>
+            
+            <!-- Subheading, displaying my name -->
+            <div class="subheading">By William Baker</div>
+            
+            <!-- Canvas for drawing the graphics to -->
+            <canvas class="graphicsCanvas" id="graphicsCanvas" width="500" height="500">Browser does not support HTML5 Canvas</canvas>
+            
+            <!-- Container for the controls for the user -->
+            <div class="userControls">
+                <!-- Start game button -->
+                <!-- onclick event to startNewGame() function -->
+                <div class="startButton" id="startButton" onclick="startNewGame();">START GAME</div>
+                
+                <!-- Container for win stats -->
+                <div class="winStatsContent">
+                    <!-- Win stats for the player -->
+                    <div class="winStats">
+                        PLAYER
+                        <!-- Container displaying the number of wins -->
+                        <div class="winStatsNumber" id="winStatPlayer">0</div>
+                    </div>
+                    
+                    <!-- Win stats for draws -->
+                    <div class="winStats">
+                        DRAWS
+                        <!-- Container displaying the number of draws -->
+                        <div class="winStatsNumber" id="winStatDraw">0</div>
+                    </div>
+                    
+                    <!-- Win stats for the computer -->
+                    <div class="winStats">
+                        COMPUTER
+                        <!-- Container displaying the number of draws -->
+                        <div class="winStatsNumber" id="winStatComputer">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
