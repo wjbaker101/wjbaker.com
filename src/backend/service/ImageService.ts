@@ -1,7 +1,7 @@
 import { ImgurClient } from '@backend/client/ImgurClient'
 import { Logger } from '@backend/util/Logger';
 
-const BASE64_INDEX = 'data:image/png;base64,'.length + 1;
+const BASE64_INDEX = 'data:image/png;base64,'.length;
 
 export const ImageService = {
 
