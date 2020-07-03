@@ -137,6 +137,12 @@
                 margin-bottom: 0.25rem;
                 border: 1px solid theme(tertiary);
                 vertical-align: middle;
+                box-shadow: 0 0 0 2px transparent;
+                transition: box-shadow animation(duration-mid);
+
+                &:hover {
+                    box-shadow: 0 0 0 2px theme(tertiary);
+                }
 
                 @media screen and (max-width: breakpoint()) {
                     $size: 55px;
