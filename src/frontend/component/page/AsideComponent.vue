@@ -243,6 +243,7 @@
 
             a {
                 padding: 1rem;
+                line-height: 1em;
                 color: theme(tertiary);
                 font-weight: bold;
                 transition: background-color animation(duration-short);
