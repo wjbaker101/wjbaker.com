@@ -3,7 +3,10 @@
         <div class="flex flex-1">
             <div class="content flex-vh-center">
                 <h1>
-                    <router-link to="/">Will Baker</router-link>
+                    <router-link to="/">
+                        <img src="@frontend/assets/image/me-aside.jpg">
+                        <span>Will Baker</span>
+                    </router-link>
                 </h1>
                 <ul>
                     <li
@@ -23,19 +26,14 @@
                 </ul>
             </div>
         </div>
-        <div class="flex-auto social-container text-center">
-            <LinkComponent href="https://github.com/wjbaker101">
+        <div class="flex flex-auto social-container text-center">
+            <LinkComponent href="https://github.com/wjbaker101" class="flex-1">
                 <GitHubIcon />
-                <span>GitHub</span>
             </LinkComponent>
-            <LinkComponent href="https://github.com/wjbaker101">
+            <LinkComponent href="https://linkedin.com/in/wjbaker101" class="flex-1">
                 <LinkedInIcon />
-                <span>LinkedIn</span>
             </LinkComponent>
-            <router-link to="/about/cv">
-                <FileIcon />
-                <span>My CV</span>
-            </router-link>
+            <router-link to="/about/cv" class="flex-1">CV</router-link>
         </div>
     </aside>
 </template>
@@ -133,6 +131,30 @@
 
         h1 {
             font-size: 2rem;
+
+            img {
+                border-radius: 50%;
+                margin-bottom: 0.25rem;
+                border: 1px solid theme(tertiary);
+                vertical-align: middle;
+
+                @media screen and (max-width: breakpoint()) {
+                    $size: 55px;
+
+                    width: $size;
+                    height: $size;
+                    margin-right: 1rem;
+                    margin-bottom: 0;
+                }
+            }
+
+            span {
+                display: block;
+
+                @media screen and (max-width: breakpoint()) {
+                    display: inline;
+                }
+            }
         }
 
         ul {
@@ -206,7 +228,6 @@
         }
 
         .social-container {
-            padding: 1rem;
             background-color: theme(primary-dark);
             border-top: 1px solid theme(primary-light);
 
@@ -214,21 +235,14 @@
                 display: none;
             }
 
-            .svg-icon {
-                margin-right: 0.25rem;
-            }
-
             a {
+                padding: 1rem;
                 color: theme(tertiary);
                 font-weight: bold;
-                text-decoration: underline;
+                transition: background-color animation(duration-short);
 
                 &:hover {
-                    text-decoration: none;
-                }
-
-                & + a {
-                    margin-left: 1rem;
+                    background-color: theme(primary);
                 }
             }
         }
