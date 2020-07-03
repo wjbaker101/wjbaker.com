@@ -1,6 +1,10 @@
 .flex {
     display: flex;
 
+    &.flex-vertical {
+        flex-direction: column;
+    }
+
     @media screen and (max-width: breakpoint-large()) {
         &.flex-responsive {
             display: block;

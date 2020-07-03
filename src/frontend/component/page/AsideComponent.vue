@@ -1,25 +1,41 @@
 <template>
-    <aside class="aside-component flex flex-auto">
-        <div class="content flex-vh-center">
-            <h1>
-                <router-link to="/">Will Baker</router-link>
-            </h1>
-            <ul>
-                <li
-                    :key="`link-${index}`"
-                    v-for="(link, index) in links.concat(userLink)"
-                >
-                    <router-link
-                        :to="link.url"
-                        class="link"
-                        :class="{
-                            'is-selected': currentLocation === link.url,
-                        }"
+    <aside class="aside-component flex flex-vertical flex-auto">
+        <div class="flex flex-1">
+            <div class="content flex-vh-center">
+                <h1>
+                    <router-link to="/">Will Baker</router-link>
+                </h1>
+                <ul>
+                    <li
+                        :key="`link-${index}`"
+                        v-for="(link, index) in links.concat(userLink)"
                     >
-                        {{ link.title }}
-                    </router-link>
-                </li>
-            </ul>
+                        <router-link
+                            :to="link.url"
+                            class="link"
+                            :class="{
+                                'is-selected': currentLocation === link.url,
+                            }"
+                        >
+                            {{ link.title }}
+                        </router-link>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="flex-auto social-container text-center">
+            <LinkComponent href="https://github.com/wjbaker101">
+                <GitHubIcon />
+                <span>GitHub</span>
+            </LinkComponent>
+            <LinkComponent href="https://github.com/wjbaker101">
+                <LinkedInIcon />
+                <span>LinkedIn</span>
+            </LinkComponent>
+            <router-link to="/about/cv">
+                <FileIcon />
+                <span>My CV</span>
+            </router-link>
         </div>
     </aside>
 </template>
@@ -29,13 +45,21 @@
 
     import { UserModel } from '@common/model/UserModel';
 
+    import FileIcon from '@frontend/assets/icon/file.svg';
+    import GitHubIcon from '@frontend/assets/icon/github.svg';
+    import LinkedInIcon from '@frontend/assets/icon/linkedin.svg';
+
     interface Link {
         title: string,
         url: string,
     }
 
     @Component({
-        components: {},
+        components: {
+            FileIcon,
+            GitHubIcon,
+            LinkedInIcon,
+        },
     })
     export default class AsideComponent extends Vue {
 
@@ -181,10 +205,32 @@
             }
         }
 
-        a {
-            color: inherit;
-            font-weight: inherit;
-            text-decoration: none;
+        .social-container {
+            padding: 1rem;
+            background-color: theme(primary-dark);
+            border-top: 1px solid theme(primary-light);
+
+            @media screen and (max-width: breakpoint()) {
+                display: none;
+            }
+
+            .svg-icon {
+                margin-right: 0.25rem;
+            }
+
+            a {
+                color: theme(tertiary);
+                font-weight: bold;
+                text-decoration: underline;
+
+                &:hover {
+                    text-decoration: none;
+                }
+
+                & + a {
+                    margin-left: 1rem;
+                }
+            }
         }
     }
 </style>
