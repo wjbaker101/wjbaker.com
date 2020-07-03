@@ -3,10 +3,7 @@ import VueRouter, { Route } from 'vue-router';
 import { Position, NavigationGuardNext } from 'vue-router/types/router';
 
 import { Utils } from '@frontend/util/Utils';
-
-import LandingView from '@frontend/view/LandingView.vue';
-import { appStore } from '@frontend/store/appStore';
-import { AuthHandler } from './AuthHandler';
+import { AuthHandler } from '@frontend/router/AuthHandler';
 
 Vue.use(VueRouter);
 
@@ -24,28 +21,35 @@ const appRouter = new VueRouter({
             meta: {
                 title: 'Will Baker',
             },
-            component: LandingView,
+            component: () => import(/* webpackChunkName: "about" */ '@frontend/view/LandingView.vue'),
         },
         {
             path: '/about',
             meta: {
                 title: 'About',
             },
-            component: () => import('@frontend/view/AboutView.vue'),
+            component: () => import(/* webpackChunkName: "about" */ '@frontend/view/AboutView.vue'),
         },
         {
             path: '/about/cv',
             meta: {
                 title: 'CV',
             },
-            component: () => import('@frontend/view/AboutCVView.vue'),
+            component: () => import(/* webpackChunkName: "about" */ '@frontend/view/AboutCVView.vue'),
         },
         {
             path: '/projects',
             meta: {
                 title: 'Projects',
             },
-            component: () => import('@frontend/view/ProjectsView.vue'),
+            component: () => import(/* webpackChunkName: "projects" */ '@frontend/view/ProjectsView.vue'),
+        },
+        {
+            path: '/project/:projectID',
+            meta: {
+                title: 'Project',
+            },
+            component: () => import(/* webpackChunkName: "projects" */ '@frontend/view/ProjectView.vue'),
         },
         {
             path: '/projects/edit/:projectID',
@@ -53,7 +57,7 @@ const appRouter = new VueRouter({
                 title: 'Edit Project',
                 auth: 'admin',
             },
-            component: () => import('@frontend/view/ProjectEditView.vue'),
+            component: () => import(/* webpackChunkName: "projects-admin" */ '@frontend/view/ProjectEditView.vue'),
         },
         {
             path: '/projects/create',
@@ -61,28 +65,21 @@ const appRouter = new VueRouter({
                 title: 'New Project',
                 auth: 'admin',
             },
-            component: () => import('@frontend/view/ProjectEditView.vue'),
-        },
-        {
-            path: '/project/:projectID',
-            meta: {
-                title: 'Project',
-            },
-            component: () => import('@frontend/view/ProjectView.vue'),
+            component: () => import(/* webpackChunkName: "projects-admin" */ '@frontend/view/ProjectEditView.vue'),
         },
         {
             path: '/blog',
             meta: {
                 title: 'Blog',
             },
-            component: () => import('@frontend/view/BlogView.vue'),
+            component: () => import(/* webpackChunkName: "blog" */ '@frontend/view/BlogView.vue'),
         },
         {
             path: '/blog/post/:blogID/(.*)?',
             meta: {
                 title: 'Blog Post',
             },
-            component: () => import('@frontend/view/BlogPostView.vue'),
+            component: () => import(/* webpackChunkName: "blog" */ '@frontend/view/BlogPostView.vue'),
         },
         {
             path: '/blog/edit/:blogID',
@@ -90,7 +87,7 @@ const appRouter = new VueRouter({
                 title: 'Edit Blog Post',
                 auth: 'admin',
             },
-            component: () => import('@frontend/view/BlogEditView.vue'),
+            component: () => import(/* webpackChunkName: "blog-admin" */ '@frontend/view/BlogEditView.vue'),
         },
         {
             path: '/blog/create',
@@ -98,7 +95,7 @@ const appRouter = new VueRouter({
                 title: 'New Blog Post',
                 auth: 'admin',
             },
-            component: () => import('@frontend/view/BlogEditView.vue'),
+            component: () => import(/* webpackChunkName: "blog-admin" */ '@frontend/view/BlogEditView.vue'),
         },
         {
             path: '/user',
@@ -106,7 +103,7 @@ const appRouter = new VueRouter({
                 title: 'User',
                 auth: 'user',
             },
-            component: () => import('@frontend/view/UserView.vue'),
+            component: () => import(/* webpackChunkName: "user" */ '@frontend/view/UserView.vue'),
         },
         {
             path: '/user/login',
@@ -114,7 +111,7 @@ const appRouter = new VueRouter({
                 title: 'Login',
                 auth: 'anonymous',
             },
-            component: () => import('@frontend/view/UserLoginView.vue'),
+            component: () => import(/* webpackChunkName: "user" */ '@frontend/view/UserLoginView.vue'),
         },
         {
             path: '/user/create',
@@ -122,9 +119,8 @@ const appRouter = new VueRouter({
                 title: 'Create User',
                 auth: 'anonymous',
             },
-            component: () => import('@frontend/view/UserCreateView.vue'),
+            component: () => import(/* webpackChunkName: "user" */ '@frontend/view/UserCreateView.vue'),
         },
-
         {
             path: '*',
             meta: {
