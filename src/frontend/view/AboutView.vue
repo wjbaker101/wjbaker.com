@@ -6,7 +6,7 @@
                 <img
                     width="240" height="240"
                     class="me"
-                    src="/resource/image/me.jpg"
+                    src="@frontend/assets/image/me-about.jpg"
                     alt="Photo of me!"
                 >
             </div>
@@ -56,6 +56,7 @@
             margin-right: 1rem;
             background-color: theme(primary);
             border-radius: 50%;
+            border: 1px solid theme(tertiary);
             color: theme(white);
 
             @media screen and (max-width: breakpoint-large()) {
