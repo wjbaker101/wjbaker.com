@@ -76,9 +76,7 @@
         }
 
         & + .blog-post-component {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid theme(secondary);
+            margin-top: 5rem;
         }
     }
 </style>

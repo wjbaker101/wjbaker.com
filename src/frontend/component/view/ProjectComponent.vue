@@ -128,9 +128,7 @@
         }
 
         & + .project-component {
-            margin-top: 3rem;
-            padding-top: 3rem;
-            border-top: 1px solid theme(secondary);
+            margin-top: 5rem;
         }
     }
 </style>
