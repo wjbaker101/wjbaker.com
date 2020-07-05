@@ -1,7 +1,7 @@
-<template>
+<template functional>
     <div class="loading-component">
         <div class="spinner"></div>
-        <div v-if="message" class="message">{{ message }}</div>
+        <div v-if="props.message" class="message">{{ props.message }}</div>
     </div>
 </template>
 

@@ -12,21 +12,12 @@
 
     import FooterComponent from '@frontend/component/page/FooterComponent.vue';
 
-    import FileIcon from '@frontend/assets/icon/file.svg';
-    import GithubIcon from '@frontend/assets/icon/github.svg';
-    import LinkedInIcon from '@frontend/assets/icon/linkedin.svg';
-
     @Component({
         components: {
             FooterComponent,
-            FileIcon,
-            GithubIcon,
-            LinkedInIcon,
         },
     })
     export default class PageContentComponent extends Vue {
-
-        private readonly year: number = new Date().getFullYear();
     }
 </script>
 

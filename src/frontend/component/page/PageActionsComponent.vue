@@ -1,8 +1,13 @@
-<template>
+<template functional>
     <div class="return-container-component flex">
         <div class="return flex-1">
-            <router-link v-if="returnLink !== null" :to="returnLink">
-                <LeftArrowIcon />{{ returnText }}
+            <router-link
+                v-if="props.returnLink !== null"
+                :to="props.returnLink"
+            >
+                <Component
+                    :is="$options.components.LeftArrowIcon"
+                />{{ props.returnText }}
             </router-link>
         </div>
         <div class="actions flex flex-auto">

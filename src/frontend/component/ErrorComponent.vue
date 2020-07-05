@@ -1,14 +1,14 @@
-<template>
+<template functional>
     <div class="error-component flex">
-        <ErrorCircleIcon class="flex-auto" />
+        <Component :is="$options.components.ErrorCircleIcon" class="flex-auto" />
         <div>
-            <span>{{ message }}</span>
+            <span>{{ props.message }}</span>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { Component, Prop, Vue, Inject } from 'vue-property-decorator';
 
     import ErrorCircleIcon from '@frontend/assets/icon/exclamation-circle.svg';
 

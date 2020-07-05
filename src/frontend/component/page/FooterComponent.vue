@@ -1,4 +1,4 @@
-<template>
+<template functional>
     <footer class="footer-component">
         <p class="social-links">
             <LinkComponent href="https://github.com/wjbaker101">
@@ -15,7 +15,7 @@
             </router-link>
         </p>
         <p>
-            Copyright &copy; William Baker 2015&ndash;{{ year }},
+            Copyright &copy; William Baker 2015&ndash;{{ new Date().getFullYear() }},
             <br>
             All rights reserved.
         </p>
@@ -38,8 +38,6 @@
         },
     })
     export default class FooterComponent extends Vue {
-
-        private readonly year: number = new Date().getFullYear();
     }
 </script>
 

@@ -1,9 +1,9 @@
-<template>
+<template functional>
     <div class="page-title-component">
         <div class="text flex">
             <div>
-                <h1>{{ title }}</h1>
-                <h6 v-if="subheading">{{ subheading }}</h6>
+                <h1>{{ props.title }}</h1>
+                <h6 v-if="props.subheading">{{ props.subheading }}</h6>
             </div>
         </div>
     </div>

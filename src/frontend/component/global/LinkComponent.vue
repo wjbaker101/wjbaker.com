@@ -1,5 +1,10 @@
-<template>
-    <a class="link-component" target="_blank" rel="noopener noreferrer">
+<template functional>
+    <a
+        class="link-component"
+        target="_blank"
+        rel="noopener noreferrer"
+        :href="props.href"
+    >
         <slot />
     </a>
 </template>
@@ -11,6 +16,9 @@
         components: {},
     })
     export default class LinkComponent extends Vue {
+
+        @Prop()
+        private readonly href!: string;
     }
 </script>
 

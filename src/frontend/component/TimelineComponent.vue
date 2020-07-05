@@ -1,8 +1,8 @@
-<template>
+<template functional>
     <div class="timeline-component">
         <div
             :key="`timelime-item-${index}`"
-            v-for="(timelineItem, index) in timeline"
+            v-for="(timelineItem, index) in props.timeline"
         >
             <h6>
                 <div class="icon-container">

@@ -27,13 +27,13 @@
             </div>
         </div>
         <div class="flex flex-auto social-container text-center">
-            <LinkComponent href="https://github.com/wjbaker101" class="flex-1">
+            <LinkComponent href="https://github.com/wjbaker101">
                 <GitHubIcon />
             </LinkComponent>
-            <LinkComponent href="https://linkedin.com/in/wjbaker101" class="flex-1">
+            <LinkComponent href="https://linkedin.com/in/wjbaker101">
                 <LinkedInIcon />
             </LinkComponent>
-            <router-link to="/about/cv" class="flex-1">CV</router-link>
+            <router-link to="/about/cv">CV</router-link>
         </div>
     </aside>
 </template>
@@ -243,6 +243,7 @@
 
             a {
                 padding: 1rem;
+                flex: 1;
                 line-height: 1em;
                 color: theme(tertiary);
                 font-weight: bold;

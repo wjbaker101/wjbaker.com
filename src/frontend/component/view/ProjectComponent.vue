@@ -108,9 +108,7 @@
         }
 
         .actions {
-            .view-link,
-            .github,
-            .edit {
+            & > * + * {
                 margin-left: 0.25rem;
             }
         }
