@@ -4,7 +4,7 @@
             <div class="content flex-vh-center">
                 <h1>
                     <router-link to="/">
-                        <img src="@frontend/assets/image/me-aside.jpg">
+                        <img src="@frontend/assets/image/me-aside.jpg" alt="A photo of me!">
                         <span>Will Baker</span>
                     </router-link>
                 </h1>
@@ -27,10 +27,10 @@
             </div>
         </div>
         <div class="flex flex-auto social-container text-center">
-            <LinkComponent href="https://github.com/wjbaker101">
+            <LinkComponent href="https://github.com/wjbaker101" title="GitHub">
                 <GitHubIcon />
             </LinkComponent>
-            <LinkComponent href="https://linkedin.com/in/wjbaker101">
+            <LinkComponent href="https://linkedin.com/in/wjbaker101" title="LinkedIn">
                 <LinkedInIcon />
             </LinkComponent>
             <router-link to="/about/cv">CV</router-link>

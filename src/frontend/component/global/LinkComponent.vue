@@ -4,6 +4,7 @@
         target="_blank"
         rel="noopener noreferrer"
         :href="props.href"
+        :title="props.title"
     >
         <slot />
     </a>
@@ -19,6 +20,9 @@
 
         @Prop()
         private readonly href!: string;
+
+        @Prop()
+        private readonly title!: string;
     }
 </script>
 

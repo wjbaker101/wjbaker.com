@@ -116,6 +116,7 @@
             }
 
             Utils.updateTitle(this.project.title);
+            Utils.updateDescription(this.project.summary);
         }
     }
 </script>
