@@ -35,8 +35,8 @@ const session = expressSession({
     },
 });
 
-app.use(express.static(path.join(__dirname, '../frontend')));
 app.use(history());
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.use(bodyParser.json());
 
