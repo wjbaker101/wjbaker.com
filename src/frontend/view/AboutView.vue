@@ -21,7 +21,6 @@
         <p>Of course, my main interest is in software development; but tennis, gaming, cooking and baking are all passions of mine!</p>
         <p>I have been programming for over 10 years and over this time have utilised a wide range of languages, frameworks and techniques. Another aim for my website is to able to visualise the development of my skills over time when looking at old projects versus new ones.</p>
         <p>If you'd like to see the source codes and additional projects, please visit my <LinkComponent href="https://github.com/wjbaker101">GitHub</LinkComponent> page!</p>
-        <p>I went to Loughborough University to study Computer Science, where I also did a placement year (more on that later!).</p>
         <h2>Career &amp; Education</h2>
         <p>A timeline with career and educational events over the course of my lifetime.</p>
         <div class="note">
