@@ -2,15 +2,15 @@
     <footer class="footer-component">
         <p class="social-links">
             <LinkComponent href="https://github.com/wjbaker101">
-                <GithubIcon />
+                <Component :is="$options.components.GithubIcon" />
                 <span>GitHub</span>
             </LinkComponent>
             <LinkComponent href="https://linkedin.com/in/wjbaker101">
-                <LinkedInIcon />
+                <Component :is="$options.components.LinkedInIcon" />
                 <span>LinkedIn</span>
             </LinkComponent>
             <router-link to="/about/cv">
-                <FileIcon />
+                <Component :is="$options.components.FileIcon" />
                 <span>My CV</span>
             </router-link>
         </p>
