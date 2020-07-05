@@ -16,7 +16,19 @@ const routes = {
             return response.status(500).send(ResponseFactory.error('Something went wrong when getting projects.'));
         }
 
-        return response.send(ResponseFactory.result(projects.map(ProjectMapper.map)));
+        const tags = await ProjectService.getProjectTags();
+
+        if (tags instanceof Error) {
+            return response.status(500).send(ResponseFactory.error('Something went wrong when getting project tags.'));
+        }
+
+        const result = projects.map(ProjectMapper.map).map(project => ({
+            ...project,
+            tags: tags.filter(tag => tag.PROJECT_ID === project.id)
+                    .map(tag => tag.NAME),
+        }));
+
+        return response.send(ResponseFactory.result(result));
     },
 
     async getProject(request: Request, response: Response) {
@@ -28,7 +40,18 @@ const routes = {
             return response.status(500).send(ResponseFactory.error('Something went wrong when getting project.'));
         }
 
-        return response.send(ResponseFactory.result(project === null ? null : ProjectMapper.map(project)));
+        const tags = await ProjectService.getProjectTags(id);
+
+        if (tags instanceof Error) {
+            return response.status(500).send(ResponseFactory.error('Something went wrong when getting project tags.'));
+        }
+
+        const result = (project === null) ? null : {
+            ...ProjectMapper.map(project),
+            tags: tags.map(tag => tag.NAME),
+        };
+
+        return response.send(ResponseFactory.result(result));
     },
 
     async createProject(request: Request, response: Response) {

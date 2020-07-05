@@ -25,6 +25,7 @@ export const ProjectMapper: IMapper<ProjectEntity, ProjectModel> = {
             previewImageURL,
             viewLink,
             sourceCodeURL,
+            tags: [],
         }
     },
 };

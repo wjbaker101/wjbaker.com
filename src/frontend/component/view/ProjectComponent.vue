@@ -13,6 +13,13 @@
                 <small>{{ project.startDate }}</small>
             </p>
             <p>{{ project.summary }}</p>
+            <div class="tags-container">
+                <ProjectTagComponent
+                    :key="`${project.id}-tag-${index}`"
+                    v-for="(tag, index) in project.tags"
+                    :tag="{ name: tag, frequency: 0 }"
+                />
+            </div>
             <div class="actions flex flex-1">
                 <router-link :to="`/project/${project.id}`" class="view flex-1">
                     <ButtonComponent>Read More</ButtonComponent>
@@ -56,6 +63,7 @@
     import { UserModel } from '@common/model/UserModel';
 
     import ButtonComponent from '@frontend/component/ButtonComponent.vue';
+    import ProjectTagComponent from '@frontend/component/view/ProjectTagComponent.vue';
 
     import LinkIcon from '@frontend/assets/icon/external-link.svg';
     import GitHubIcon from '@frontend/assets/icon/github.svg';
@@ -65,6 +73,7 @@
     @Component({
         components: {
             ButtonComponent,
+            ProjectTagComponent,
             LinkIcon,
             GitHubIcon,
             EditIcon,
@@ -101,6 +110,11 @@
                 width: $size;
                 height: $size;
             }
+        }
+
+        .tags-container {
+            padding-bottom: 0.5rem;
+            margin: -0.125rem;
         }
 
         img {

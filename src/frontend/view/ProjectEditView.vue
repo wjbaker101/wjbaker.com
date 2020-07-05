@@ -174,6 +174,7 @@
                     previewImageBase64: this.previewImageBase64,
                     summary: this.summary,
                     description: this.description,
+                    tags: [],
                 });
 
                 this.isSubmitting = true;

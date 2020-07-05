@@ -7,4 +7,5 @@ export interface ProjectModel {
     sourceCodeURL: string | null,
     previewImageURL: string | null,
     description?: string,
+    tags: string[],
 }

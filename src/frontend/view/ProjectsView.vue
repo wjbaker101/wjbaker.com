@@ -13,12 +13,24 @@
             v-else-if="projects === null"
             message="Unable to load projects; try refreshing the page."
         />
-        <div class="projects" v-else>
-            <ProjectComponent
-                :key="`project-${index}`"
-                v-for="(project, index) in projects"
-                :project="project"
-            />
+        <div v-else>
+            <div class="projects">
+                <ProjectComponent
+                    :key="`project-${index}`"
+                    v-for="(project, index) in projects"
+                    :project="project"
+                />
+            </div>
+            <div class="all-tags-container" v-if="tags.length > 0">
+                <h2>Tag Frequencies</h2>
+                <p>
+                    <ProjectTagComponent
+                        :key="`tag-${tag.name}`"
+                        v-for="tag in tags"
+                        :tag="tag"
+                    />
+                </p>
+            </div>
         </div>
     </PageContentComponent>
 </template>
@@ -35,10 +47,40 @@
     import PageTitleComponent from '@frontend/component/page/PageTitleComponent.vue';
     import PageActionsComponent from '@frontend/component/page/PageActionsComponent.vue';
     import ProjectComponent from '@frontend/component/view/ProjectComponent.vue';
+    import ProjectTagComponent from '@frontend/component/view/ProjectTagComponent.vue';
 
     import ButtonComponent from '@frontend/component/ButtonComponent.vue';
     import ErrorComponent from '@frontend/component/ErrorComponent.vue';
     import LoadingComponent from '@frontend/component/LoadingComponent.vue';
+
+    interface Tag {
+        name: string,
+        frequency: number,
+    }
+
+    const tagNameSort = (tagA: Tag, tagB: Tag) => {
+        if (tagA.name < tagB.name) {
+            return -1;
+        }
+
+        if (tagA.name > tagB.name) {
+            return 1;
+        }
+
+        return 0;
+    };
+
+    const tagFrequencySort = (tagA: Tag, tagB: Tag) => {
+        if (tagA.frequency > tagB.frequency) {
+            return -1;
+        }
+
+        if (tagA.frequency < tagB.frequency) {
+            return 1;
+        }
+
+        return 0;
+    };
 
     @Component({
         components: {
@@ -46,6 +88,7 @@
             PageTitleComponent,
             PageActionsComponent,
             ProjectComponent,
+            ProjectTagComponent,
             ButtonComponent,
             ErrorComponent,
             LoadingComponent,
@@ -84,8 +127,40 @@
             this.$store.dispatch('setProjects', projects);
             this.isLoading = false;
         }
+
+        get tags(): Tag[] {
+            if (this.projects === null) {
+                return [];
+            }
+
+            const map: Record<string, number> = {};
+
+            const tags = this.projects
+                    .map(project => project.tags)
+                    .reduce((total, project) => total.concat(project), []);
+
+            tags.forEach(tag => {
+                if (!(tag in map)) {
+                    map[tag] = 1;
+                }
+                else {
+                    map[tag]++;
+                }
+            });
+
+            return Object.entries(map)
+                    .map(([name, frequency]) => ({ name, frequency }))
+                    .sort(tagNameSort)
+                    .sort(tagFrequencySort);
+        }
     }
 </script>
 
 <style lang="scss">
+    .projects-view {
+
+        .all-tags-container {
+            margin-top: 2rem;
+        }
+    }
 </style>

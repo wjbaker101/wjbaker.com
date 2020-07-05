@@ -1,5 +1,6 @@
 import { MySQLClient } from '@backend/client/MySQLClient';
 import { ProjectEntity } from '@backend/entity/ProjectEntity';
+import { ProjectTagEntity } from '@backend/entity/ProjectTagEntity';
 import { Logger } from '@backend/util/Logger';
 import { TitleUtils } from '@backend/util/TitleUtils';
 import { ProjectModel } from '@common/model/ProjectModel';
@@ -27,6 +28,21 @@ export const ProjectService = {
             }
 
             return results[0];
+        }
+        catch (exception) {
+            Logger.log(exception);
+            return new Error(exception);
+        }
+    },
+
+    async getProjectTags(id?: string): Promise<ProjectTagEntity[] | Error> {
+        try {
+            if (id) {
+                return await MySQLClient.query<ProjectTagEntity[]>('SELECT `ID`, `PROJECT_ID`, `NAME` FROM ProjectTags WHERE PROJECT_ID = ? ORDER BY NAME ASC', [id]);
+            }
+            else {
+                return await MySQLClient.query<ProjectTagEntity[]>('SELECT `ID`, `PROJECT_ID`, `NAME` FROM ProjectTags ORDER BY NAME ASC', []);
+            }
         }
         catch (exception) {
             Logger.log(exception);
@@ -76,6 +92,7 @@ export const ProjectService = {
                 summary: project.summary,
                 previewImageURL,
                 description: project.description,
+                tags: project.tags,
             }
         }
         catch (exception) {
