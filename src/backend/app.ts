@@ -9,6 +9,7 @@ import { BlogController } from '@backend/controller/BlogController';
 import { ImageController } from '@backend/controller/ImageController';
 import { ProjectController } from '@backend/controller/ProjectController';
 import { UserController } from '@backend/controller/UserController';
+import { LogMiddleware } from '@backend/middleware/LogMiddleware';
 import { Logger } from '@backend/util/Logger';
 import { Env } from '@common/util/Env';
 import secretConfig from '@common/config/secret-properties.json';
@@ -19,13 +20,6 @@ const config = Env.config();
 
 const app = express();
 
-const controllers = [
-    BlogController,
-    ImageController,
-    ProjectController,
-    UserController,
-];
-
 const session = expressSession({
     secret: secretConfig.backend.secret,
     resave: false,
@@ -35,14 +29,18 @@ const session = expressSession({
     },
 });
 
-app.use(history());
-app.use(express.static(path.join(__dirname, '../frontend')));
-
-app.use(bodyParser.json());
-
 app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
+
+const controllers = [
+    BlogController,
+    ImageController,
+    ProjectController,
+    UserController,
+];
+
+app.use(config.backend.baseURL, LogMiddleware.logRequests);
 
 controllers.forEach(controller => {
     app.use(config.backend.baseURL, controller);
@@ -53,4 +51,8 @@ controllers.forEach(controller => {
             .forEach(p => Logger.log(`Exposing: ${config.backend.baseURL}${p}`));
 });
 
-export { app };
+app.use(history());
+app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(bodyParser.json());
+
+export { app }
