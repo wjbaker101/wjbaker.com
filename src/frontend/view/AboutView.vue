@@ -46,22 +46,27 @@
 
     const timelineItems = [
         {
-            date: 'November 2015',
-            type: 'project',
-            summary: 'The first iteration of this website went live.',
+            date: 'Here and Now!',
+            type: '',
+            summary: '',
         },
         {
-            date: 'September 2016',
+            date: 'September 2020–Present',
+            type: 'career',
+            summary: 'Started a new job at Codeweavers as a Backend Software Developer.',
+            icon: JobIcon,
+        },
+        {
+            date: 'July 2020',
             type: 'education',
-            summary: 'Started my Computer Science degree at Loughborough University.',
+            summary: 'Graduated university with a First Class Honours Bachelor\'s degree in Computer Science.',
             icon: EducationIcon,
         },
         {
-            date: 'August 2017–Present',
-            type: 'career',
-            summary: 'Started a new job at Bradleys Foods as an IT Project Assistant.',
-            icon: JobIcon,
-            content: '<p>During the summer of my first year, I contacted a company in Ashford called Bradleys who specialise in wholesale bakery deliveries where they I got the job as an IT Project Assistant.</p><p>In my time at Bradleys I mainly worked on content management and SEO optimisation of their main website. Later on, I was given the project to create the website <a href="https://cakecraftcentrenorwich.co.uk" target="_blank" rel="noopener noreferrer">cakecraftcentrenorwich.co.uk</a>. I still continue to update and maintain the website.</p>',
+            date: 'August–September 2019',
+            type: 'education',
+            summary: 'Lived in Taiwan for a 6 week Mandarin course at the Taiwanese Mandarin Institute.',
+            icon: EducationIcon,
         },
         {
             date: 'July 2018–2019',
@@ -71,27 +76,22 @@
             content: '<p>Moving on deeper into univeristy, as part of my Computer Science course, I also did a year in industry. So, for the year I worked at Yell as a Backend Software Developer in Reading.</p><p>Here, I would maintain, extend and develop backend systems for the Yell websites and mobile apps. This involved mainly using Java Springboot, but also involved lots of other languages and development tools such as Docker, AWS and Jenkins.</p>',
         },
         {
-            date: 'August–September 2019',
+            date: 'August 2017–Present',
+            type: 'career',
+            summary: 'Started a new job at Bradleys Foods as an IT Project Assistant.',
+            icon: JobIcon,
+            content: '<p>During the summer of my first year, I contacted a company in Ashford called Bradleys who specialise in wholesale bakery deliveries where they I got the job as an IT Project Assistant.</p><p>In my time at Bradleys I mainly worked on content management and SEO optimisation of their main website. Later on, I was given the project to create the website <a href="https://cakecraftcentrenorwich.co.uk" target="_blank" rel="noopener noreferrer">cakecraftcentrenorwich.co.uk</a>. I still continue to update and maintain the website.</p>',
+        },
+        {
+            date: 'September 2016',
             type: 'education',
-            summary: 'Lived in Taiwan for a 6 week Mandarin course at the Taiwanese Mandarin Institute.',
+            summary: 'Started my Computer Science degree at Loughborough University.',
             icon: EducationIcon,
         },
         {
-            date: 'July 2020',
-            type: 'education',
-            summary: 'Graduated university with a Bachelor\'s degree in Computer Science.',
-            icon: EducationIcon,
-        },
-        // {
-        //     date: 'September 2020–Present',
-        //     type: 'career',
-        //     summary: 'Started a new job at Codeweavers as a Backend Software Developer.',
-        //     icon: JobIcon,
-        // },
-        {
-            date: 'Here and Now!',
-            type: 'education',
-            summary: '',
+            date: 'November 2015',
+            type: '',
+            summary: 'The first iteration of this website went live.',
         },
     ];
 
