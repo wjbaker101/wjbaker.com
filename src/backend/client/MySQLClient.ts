@@ -1,5 +1,7 @@
 import mysql from 'mysql';
 
+import { Logger } from '@backend/util/Logger';
+
 import secretConfig from '@common/config/secret-properties.json';
 
 const connection = mysql.createConnection(secretConfig.wjbakerDB);
@@ -10,6 +12,7 @@ export const MySQLClient = {
         return new Promise((resolve, reject) => {
             connection.query(sql, values, (error, results, fields) => {
                 if (error) {
+                    Logger.log('MySQL connection failed.')
                     return reject(error);
                 }
 
