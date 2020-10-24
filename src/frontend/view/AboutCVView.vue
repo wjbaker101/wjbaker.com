@@ -49,38 +49,24 @@
 
         <h3 class="cv-heading">Education</h3>
         <div class="cv-row-heading">
-            <div>BSci Computer Science with Placement, Loughborough University (Third Year)</div>
-            <div>2016 &ndash; Present</div>
+            <div>BSci Computer Science with Placement, Loughborough University</div>
+            <div>2016&ndash;2020</div>
         </div>
         <div class="cv-row">
-            <div><strong>2nd Year Marks:</strong></div>
-            <div>Average: 76.2%</div>
+            <div><strong>Degree Mark:</strong></div>
+            <div>First Class Honours</div>
         </div>
         <div class="cv-row">
-            <div><strong>Relevant Modules:</strong></div>
-            <div>
-                Mobile Application Development: 91%,<br>
-                Operating Systems, Networks and the Internet 1: 85%,<br>
-                Software Engineering 2: 81%,<br>
-                Operating Systems, Networks and the Internet 2: 79%
-            </div>
-        </div>
-        <div class="cv-row">
-            <div><strong>1st Year Marks:</strong></div>
-            <div>Average: 80.8%</div>
+            <div><strong>Breakdown:</strong></div>
+            <div>1st Year (80.8%), 2nd Year (76.2%), 3rd Year (67.9%)</div>
         </div>
         <div class="cv-row">
             <div><strong>Relevant Modules:</strong></div>
-            <div>
-                Object-Oriented Programming: 96%,<br>
-                Programming for the WWW: 94%,<br>
-                Server-Side Programming: 86%, Databases: 78%,<br>
-                Software Engineering 1: 72%
-            </div>
+            <div>Final Year Project (72%), Object-Oriented Programming (96%), Mobile App Development (91%), Server-Side Programming (86%), Operating Systems, Networks and The Internet 1 (85%), Advanced Networking (72%)</div>
         </div>
         <div class="cv-row-heading">
             <div>Oakwood Park Grammar School</div>
-            <div>2009 – 2016</div>
+            <div>2009&ndash;2016</div>
         </div>
         <div class="cv-row">
             <div><strong>A Levels:</strong></div>
@@ -103,8 +89,18 @@
 
         <h3 class="cv-heading">Work Experience</h3>
         <div class="cv-row-heading">
+            <div>Codeweavers - Back End Software Developer</div>
+            <div>September 2020&ndash;Present</div>
+        </div>
+        <ul>
+            <li>Develop and maintain C# APIs.</li>
+            <li>AWS integration: IAM, S3.</li>
+            <li>Database integration: SQL Server, Postgres, Cassandra.</li>
+            <li>Specialist Automotive Finance (SAF) Approved.</li>
+        </ul>
+        <div class="cv-row-heading">
             <div>Yell - Undergraduate Software Developer</div>
-            <div>July 2018 – August 2019</div>
+            <div>July 2018&ndash;August 2019</div>
         </div>
         <ul>
             <li>Maintained multiple cloud-hosted Java APIs, using frameworks such as Spring Boot.</li>
@@ -117,14 +113,12 @@
         </ul>
         <div class="cv-row-heading">
             <div>Bradleys Foods Ltd. - IT Project Assistant</div>
-            <div>August 2017 &ndash; Present</div>
+            <div>August 2017&ndash;Present</div>
         </div>
         <ul>
             <li>Analysed company’s website in terms of content, speed and SEO.</li>
             <li>Created and maintain <LinkComponent href="https://cakecraftcentrenorwich.co.uk/">cakecraftcentrenorwich.co.uk</LinkComponent> using classic ASP, showcasing products and services.</li>
             <li>Evaluated and maintained spreadsheets for company’s 3000 products.</li>
-            <li>Worked independently on assigned tasks within deadlines.</li>
-            <li>Developed image compressing software in C# WPF.</li>
         </ul>
 
         <!-- END SECTION work -->
@@ -159,14 +153,6 @@
             <li>Participated in The NUEL CS:GO Winter Championship 2017.</li>
             <li>Organised members and verified the team was signed up correctly.</li>
             <li>Made sure team members turned up to practice and scheduled matches.</li>
-        </ul>
-        <div class="cv-row-heading">
-            <div>6-Week Intensive Mandarin Course in Taiwan (August - September 2019)</div>
-            <div></div>
-        </div>
-        <ul>
-            <li>Completed a 6-week course for learning Mandarin.</li>
-            <li>Participated in daily classes with a group of students.</li>
         </ul>
 
         <!-- END SECTION achievements -->
@@ -236,7 +222,7 @@
     .about-cv-view {
 
         .cv-content {
-            font-size: 15px;
+            font-size: 13px;
         }
 
         .cv-heading {
