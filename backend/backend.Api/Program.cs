@@ -1,4 +1,8 @@
+using backend.Api.Projects;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<IProjectsService, ProjectsService>();
 
 builder.Services.AddControllers();
 
