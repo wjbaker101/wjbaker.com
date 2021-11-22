@@ -1,15 +1,9 @@
-using backend.Api.Projects;
+using backend.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<IProjectsService, ProjectsService>();
+SetUp.Settings(builder);
+SetUp.Services(builder);
 
-builder.Services.AddControllers();
-
-var app = builder.Build();
-
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
-
+var app = SetUp.App(builder);
 app.Run();
