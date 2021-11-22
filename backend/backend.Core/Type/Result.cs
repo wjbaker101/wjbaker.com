@@ -31,7 +31,7 @@ public class Result
 
 public sealed class Result<T> : Result
 {
-    public T? Value { get; }
+    public T Value { get; } = default!;
 
     private Result(T value)
     {
@@ -50,6 +50,11 @@ public sealed class Result<T> : Result
     public static Result<T> Of(T value)
     {
         return new Result<T>(value);
+    }
+
+    public static Result<T> From<TIn>(Result<TIn> result)
+    {
+        return Failure(result.FailureMessage!);
     }
 
     public new static Result<T> Failure(string failureMessage)
