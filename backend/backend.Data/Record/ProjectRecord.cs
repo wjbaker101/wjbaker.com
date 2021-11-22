@@ -14,13 +14,15 @@ public class ProjectRecord
     public virtual string? SourceCodeUrl { get; set; }
     public virtual string? PreviewImageUrl { get; set; }
     public virtual int DisplayOrder { get; set; }
-    public virtual IList<string> Tags { get; set; }
+    public virtual string[] Tags { get; set; }
 }
 
 public sealed class ProjectRecordMap : ClassMap<ProjectRecord>
 {
     public ProjectRecordMap()
     {
+        Schema("project");
+        Table("project");
         Id(x => x.Id, "id").GeneratedBy.Assigned();
         Map(x => x.Reference, "reference");
         Map(x => x.Title, "title");
