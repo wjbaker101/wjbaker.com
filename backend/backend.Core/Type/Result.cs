@@ -45,7 +45,9 @@ public sealed class Result<T> : Result
         FailureMessage = failureMessage;
     }
 
-    public Result<T> Of(T value)
+    private new static Result Success() => throw new InvalidOperationException();
+
+    public static Result<T> Of(T value)
     {
         return new Result<T>(value);
     }
