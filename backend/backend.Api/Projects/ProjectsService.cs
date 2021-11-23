@@ -171,12 +171,12 @@ public sealed class ProjectsService : IProjectsService
         if (project == null)
             return Result<UpdateProjectResponse>.Failure($"Unable to find project with reference: {reference}.");
 
-        var urlSlug = GenerateUrlSlug(request.UrlSlug, request.Title);
-        if (urlSlug.IsFailure)
-            return Result<UpdateProjectResponse>.From(urlSlug);
+        var urlSlugResult = GenerateUrlSlug(request.UrlSlug, request.Title);
+        if (urlSlugResult.IsFailure)
+            return Result<UpdateProjectResponse>.From(urlSlugResult);
 
         project.Title = request.Title;
-        project.UrlSlug = urlSlug.Value;
+        project.UrlSlug = urlSlugResult.Value;
         project.StartedAt = request.StartedAt;
         project.Summary = request.Summary;
         project.Description = request.Description;
