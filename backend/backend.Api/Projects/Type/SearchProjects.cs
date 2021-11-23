@@ -16,7 +16,6 @@ public sealed class SearchProjectsResponse
         public string? SourceCodeUrl { get; init; }
         public string? PreviewImageUrl { get; init; }
         public int DisplayOrder { get; init; }
-        public List<string> Tags { get; init; }
         public DateTime CreatedAt { get; init; }
     }
 }
