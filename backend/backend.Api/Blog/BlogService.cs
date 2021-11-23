@@ -4,6 +4,8 @@ using backend.Data.Database;
 using backend.Data.Record;
 using NHibernate.Linq;
 using System.Data;
+using backend.Api.Projects.Type;
+using backend.Core.Services;
 
 namespace backend.Api.Blog;
 
@@ -62,11 +64,15 @@ public sealed class BlogService : IBlogService
         using var session = _apiDatabase.SessionFactory().OpenSession();
         using var transaction = session.BeginTransaction(IsolationLevel.ReadCommitted);
 
+        var urlSlugResult = SlugService.FromText(request.Title, request.UrlSlug);
+        if (urlSlugResult.IsFailure)
+            return Result<CreateBlogPostResponse>.From(urlSlugResult);
+
         var blogPost = new BlogPostRecord
         {
             Reference = Guid.NewGuid(),
             Title = request.Title,
-            UrlSlug = request.UrlSlug,
+            UrlSlug = urlSlugResult.Value,
             PostedAt = DateTime.UtcNow,
             Summary = request.Summary,
             Content = request.Content

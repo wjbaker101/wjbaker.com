@@ -123,7 +123,7 @@ public sealed class ProjectsService : IProjectsService
         using var session = _apiDatabase.SessionFactory().OpenSession();
         using var transaction = session.BeginTransaction(IsolationLevel.ReadCommitted);
 
-        var urlSlug = GenerateUrlSlug(request.UrlSlug, request.Title);
+        var urlSlug = SlugService.FromText(request.Title, request.UrlSlug);
         if (urlSlug.IsFailure)
             return Result<CreateProjectResponse>.From(urlSlug);
         
