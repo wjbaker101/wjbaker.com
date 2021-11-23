@@ -55,7 +55,6 @@ public sealed class ProjectsService : IProjectsService
                 UrlSlug = x.UrlSlug,
                 StartedAt = x.StartedAt,
                 Summary = x.Summary,
-                Description = x.Description,
                 SourceCodeUrl = x.SourceCodeUrl,
                 PreviewImageUrl = x.PreviewImageUrl,
                 DisplayOrder = x.DisplayOrder,

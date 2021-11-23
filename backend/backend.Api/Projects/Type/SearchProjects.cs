@@ -12,7 +12,6 @@ public sealed class SearchProjectsResponse
         public string UrlSlug { get; init; }
         public DateTime StartedAt { get; init; }
         public string Summary { get; init; }
-        public string Description { get; init; }
         public string? SourceCodeUrl { get; init; }
         public string? PreviewImageUrl { get; init; }
         public int DisplayOrder { get; init; }
