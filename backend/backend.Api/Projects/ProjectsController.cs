@@ -23,6 +23,24 @@ public sealed class ProjectsController : ApiController
         return ToApiResponse(result);
     }
 
+    [HttpGet]
+    [Route("project/{reference:guid}")]
+    public IActionResult GetProjectByReference([FromRoute] Guid reference)
+    {
+        var result = _projectsService.GetProjectByReference(reference);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpGet]
+    [Route("project/{urlSlug}")]
+    public IActionResult GetProjectByUrlSlug([FromRoute] string urlSlug)
+    {
+        var result = _projectsService.GetProjectByUrlSlug(urlSlug);
+
+        return ToApiResponse(result);
+    }
+
     [HttpPost]
     [Route("project")]
     public IActionResult CreateProject([FromBody] CreateProjectRequest request)

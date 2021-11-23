@@ -2,15 +2,17 @@
 using backend.Core.Type;
 using backend.Data.Database;
 using backend.Data.Record;
+using NHibernate.Linq;
 using System.Data;
 using System.Text.RegularExpressions;
-using NHibernate.Linq;
 
 namespace backend.Api.Projects;
 
 public interface IProjectsService
 {
     Result<SearchProjectsResponse> SearchProjects(int page);
+    Result<GetProjectByResponse> GetProjectByReference(Guid reference);
+    Result<GetProjectByResponse> GetProjectByUrlSlug(string urlSlug);
     Result<CreateProjectResponse> CreateProject(CreateProjectRequest request);
 }
 
@@ -59,6 +61,60 @@ public sealed class ProjectsService : IProjectsService
                 DisplayOrder = x.DisplayOrder,
                 CreatedAt = x.CreatedAt
             })
+        });
+    }
+
+    public Result<GetProjectByResponse> GetProjectByReference(Guid reference)
+    {
+        using var session = _apiDatabase.SessionFactory().OpenSession();
+        using var transaction = session.BeginTransaction(IsolationLevel.ReadCommitted);
+
+        var project = session
+            .Query<ProjectRecord>()
+            .SingleOrDefault(x => x.Reference == reference);
+
+        if (project == null)
+            return Result<GetProjectByResponse>.Failure($"Unable to find project with reference: {reference}.");
+
+        return Result<GetProjectByResponse>.Of(new GetProjectByResponse
+        {
+            Reference = project.Reference,
+            Title = project.Title,
+            UrlSlug = project.UrlSlug,
+            StartedAt = project.StartedAt,
+            Summary = project.Summary,
+            Description = project.Description,
+            SourceCodeUrl = project.SourceCodeUrl,
+            PreviewImageUrl = project.PreviewImageUrl,
+            DisplayOrder = project.DisplayOrder,
+            CreatedAt = project.CreatedAt
+        });
+    }
+
+    public Result<GetProjectByResponse> GetProjectByUrlSlug(string urlSlug)
+    {
+        using var session = _apiDatabase.SessionFactory().OpenSession();
+        using var transaction = session.BeginTransaction(IsolationLevel.ReadCommitted);
+
+        var project = session
+            .Query<ProjectRecord>()
+            .SingleOrDefault(x => x.UrlSlug.ToLower() == urlSlug.ToLower());
+
+        if (project == null)
+            return Result<GetProjectByResponse>.Failure($"Unable to find project with url slug: {urlSlug}.");
+
+        return Result<GetProjectByResponse>.Of(new GetProjectByResponse
+        {
+            Reference = project.Reference,
+            Title = project.Title,
+            UrlSlug = project.UrlSlug,
+            StartedAt = project.StartedAt,
+            Summary = project.Summary,
+            Description = project.Description,
+            SourceCodeUrl = project.SourceCodeUrl,
+            PreviewImageUrl = project.PreviewImageUrl,
+            DisplayOrder = project.DisplayOrder,
+            CreatedAt = project.CreatedAt
         });
     }
 
