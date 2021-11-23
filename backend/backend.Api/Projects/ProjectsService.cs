@@ -164,13 +164,13 @@ public sealed class ProjectsService : IProjectsService
         using var session = _apiDatabase.SessionFactory().OpenSession();
         using var transaction = session.BeginTransaction(IsolationLevel.ReadCommitted);
 
-        var urlSlug = GenerateUrlSlug(request.UrlSlug, request.Title);
-        if (urlSlug.IsFailure)
-            return Result<UpdateProjectResponse>.From(urlSlug);
-
         var project = session
             .Query<ProjectRecord>()
             .SingleOrDefault(x => x.Reference == reference);
+
+        var urlSlug = GenerateUrlSlug(request.UrlSlug, request.Title);
+        if (urlSlug.IsFailure)
+            return Result<UpdateProjectResponse>.From(urlSlug);
 
         if (project == null)
             return Result<UpdateProjectResponse>.Failure($"Unable to find project with reference: {urlSlug}.");
