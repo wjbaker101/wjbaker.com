@@ -10,6 +10,7 @@ namespace backend.Api.Blog;
 public interface IBlogService
 {
     Result<SearchBlogResponse> SearchBlog(int page);
+    Result<CreateBlogPostResponse> CreateBlogPost(CreateBlogPostRequest request);
 }
 
 public sealed class BlogService : IBlogService
@@ -53,6 +54,35 @@ public sealed class BlogService : IBlogService
                 Summary = x.Summary,
                 Content = x.Content
             })
+        });
+    }
+
+    public Result<CreateBlogPostResponse> CreateBlogPost(CreateBlogPostRequest request)
+    {
+        using var session = _apiDatabase.SessionFactory().OpenSession();
+        using var transaction = session.BeginTransaction(IsolationLevel.ReadCommitted);
+
+        var blogPost = new BlogPostRecord
+        {
+            Reference = Guid.NewGuid(),
+            Title = request.Title,
+            UrlSlug = request.UrlSlug,
+            PostedAt = DateTime.UtcNow,
+            Summary = request.Summary,
+            Content = request.Content
+        };
+        session.Save(blogPost);
+
+        transaction.Commit();
+
+        return Result<CreateBlogPostResponse>.Of(new CreateBlogPostResponse
+        {
+            Reference = blogPost.Reference,
+            Title = blogPost.Title,
+            UrlSlug = blogPost.UrlSlug,
+            PostedAt = blogPost.PostedAt,
+            Summary = blogPost.Summary,
+            Content = blogPost.Content
         });
     }
 }
