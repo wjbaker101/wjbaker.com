@@ -31,4 +31,13 @@ public sealed class BlogController : ApiController
 
         return ToApiResponse(result);
     }
+
+    [HttpPut]
+    [Route("post/{reference:guid}")]
+    public IActionResult UpdateBlogPost([FromRoute] Guid reference, [FromBody] UpdateBlogPostRequest request)
+    {
+        var result = _blogService.UpdateBlogPost(reference, request);
+
+        return ToApiResponse(result);
+    }
 }

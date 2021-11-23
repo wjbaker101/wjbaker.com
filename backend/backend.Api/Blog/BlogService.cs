@@ -1,11 +1,10 @@
 ﻿using backend.Api.Blog.Type;
+using backend.Core.Services;
 using backend.Core.Type;
 using backend.Data.Database;
 using backend.Data.Record;
 using NHibernate.Linq;
 using System.Data;
-using backend.Api.Projects.Type;
-using backend.Core.Services;
 
 namespace backend.Api.Blog;
 
@@ -13,6 +12,7 @@ public interface IBlogService
 {
     Result<SearchBlogResponse> SearchBlog(int page);
     Result<CreateBlogPostResponse> CreateBlogPost(CreateBlogPostRequest request);
+    Result<UpdateBlogPostResponse> UpdateBlogPost(Guid reference, UpdateBlogPostRequest request);
 }
 
 public sealed class BlogService : IBlogService
@@ -82,6 +82,43 @@ public sealed class BlogService : IBlogService
         transaction.Commit();
 
         return Result<CreateBlogPostResponse>.Of(new CreateBlogPostResponse
+        {
+            Reference = blogPost.Reference,
+            Title = blogPost.Title,
+            UrlSlug = blogPost.UrlSlug,
+            PostedAt = blogPost.PostedAt,
+            Summary = blogPost.Summary,
+            Content = blogPost.Content
+        });
+    }
+
+    public Result<UpdateBlogPostResponse> UpdateBlogPost(Guid reference, UpdateBlogPostRequest request)
+    {
+        using var session = _apiDatabase.SessionFactory().OpenSession();
+        using var transaction = session.BeginTransaction(IsolationLevel.ReadCommitted);
+
+        var blogPost = session
+            .Query<BlogPostRecord>()
+            .SingleOrDefault(x => x.Reference == reference);
+
+        if (blogPost == null)
+            return Result<UpdateBlogPostResponse>.Failure($"Unable to find blog post with reference: {reference}.");
+
+        var urlSlugResult = SlugService.FromText(request.Title, request.UrlSlug);
+        if (urlSlugResult.IsFailure)
+            return Result<UpdateBlogPostResponse>.From(urlSlugResult);
+
+        blogPost.Title = request.Title;
+        blogPost.Title = request.Title;
+        blogPost.UrlSlug = urlSlugResult.Value;
+        blogPost.Summary = request.Summary;
+        blogPost.Content = request.Content;
+
+        session.Update(blogPost);
+
+        transaction.Commit();
+
+        return Result<UpdateBlogPostResponse>.Of(new UpdateBlogPostResponse
         {
             Reference = blogPost.Reference,
             Title = blogPost.Title,
