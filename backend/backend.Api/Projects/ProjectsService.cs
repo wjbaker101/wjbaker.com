@@ -168,12 +168,12 @@ public sealed class ProjectsService : IProjectsService
             .Query<ProjectRecord>()
             .SingleOrDefault(x => x.Reference == reference);
 
+        if (project == null)
+            return Result<UpdateProjectResponse>.Failure($"Unable to find project with reference: {reference}.");
+
         var urlSlug = GenerateUrlSlug(request.UrlSlug, request.Title);
         if (urlSlug.IsFailure)
             return Result<UpdateProjectResponse>.From(urlSlug);
-
-        if (project == null)
-            return Result<UpdateProjectResponse>.Failure($"Unable to find project with reference: {urlSlug}.");
 
         project.Title = request.Title;
         project.UrlSlug = urlSlug.Value;
