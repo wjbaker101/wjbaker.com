@@ -1,4 +1,5 @@
-﻿using backend.Api.Projects;
+﻿using backend.Api.Blog;
+using backend.Api.Projects;
 using backend.Data.Database;
 using backend.Data.Type;
 
@@ -23,6 +24,7 @@ public static class SetUp
 
         builder.Services.AddSingleton<IApiDatabase, ApiDatabase>();
         builder.Services.AddSingleton<IProjectsService, ProjectsService>();
+        builder.Services.AddSingleton<IBlogService, BlogService>();
 
         builder.Services.AddControllers();
     }
