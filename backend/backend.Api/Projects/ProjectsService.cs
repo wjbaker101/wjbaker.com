@@ -14,6 +14,7 @@ public interface IProjectsService
     Result<GetProjectByResponse> GetProjectByReference(Guid reference);
     Result<GetProjectByResponse> GetProjectByUrlSlug(string urlSlug);
     Result<CreateProjectResponse> CreateProject(CreateProjectRequest request);
+    Result<UpdateProjectResponse> UpdateProject(Guid reference, UpdateProjectRequest request);
 }
 
 public sealed class ProjectsService : IProjectsService
@@ -144,6 +145,50 @@ public sealed class ProjectsService : IProjectsService
         transaction.Commit();
 
         return Result<CreateProjectResponse>.Of(new CreateProjectResponse
+        {
+            Reference = project.Reference,
+            Title = project.Title,
+            UrlSlug = project.UrlSlug,
+            StartedAt = project.StartedAt,
+            Summary = project.Summary,
+            Description = project.Description,
+            SourceCodeUrl = project.SourceCodeUrl,
+            PreviewImageUrl = project.PreviewImageUrl,
+            DisplayOrder = project.DisplayOrder,
+            CreatedAt = project.CreatedAt
+        });
+    }
+
+    public Result<UpdateProjectResponse> UpdateProject(Guid reference, UpdateProjectRequest request)
+    {
+        using var session = _apiDatabase.SessionFactory().OpenSession();
+        using var transaction = session.BeginTransaction(IsolationLevel.ReadCommitted);
+
+        var urlSlug = GenerateUrlSlug(request.UrlSlug, request.Title);
+        if (urlSlug.IsFailure)
+            return Result<UpdateProjectResponse>.From(urlSlug);
+
+        var project = session
+            .Query<ProjectRecord>()
+            .SingleOrDefault(x => x.Reference == reference);
+
+        if (project == null)
+            return Result<UpdateProjectResponse>.Failure($"Unable to find project with reference: {urlSlug}.");
+
+        project.Title = request.Title;
+        project.UrlSlug = urlSlug.Value;
+        project.StartedAt = request.StartedAt;
+        project.Summary = request.Summary;
+        project.Description = request.Description;
+        project.SourceCodeUrl = request.SourceCodeUrl;
+        project.PreviewImageUrl = request.PreviewImageUrl;
+        project.DisplayOrder = request.DisplayOrder;
+
+        session.Update(project);
+
+        transaction.Commit();
+
+        return Result<UpdateProjectResponse>.Of(new UpdateProjectResponse
         {
             Reference = project.Reference,
             Title = project.Title,

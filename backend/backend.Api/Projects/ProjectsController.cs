@@ -49,4 +49,13 @@ public sealed class ProjectsController : ApiController
 
         return ToApiResponse(result);
     }
+
+    [HttpPut]
+    [Route("project/{reference:guid}")]
+    public IActionResult UpdateProject([FromRoute] Guid reference, [FromBody] UpdateProjectRequest request)
+    {
+        var result = _projectsService.UpdateProject(reference, request);
+
+        return ToApiResponse(result);
+    }
 }
