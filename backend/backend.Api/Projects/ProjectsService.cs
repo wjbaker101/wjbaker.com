@@ -5,6 +5,7 @@ using backend.Data.Record;
 using NHibernate.Linq;
 using System.Data;
 using System.Text.RegularExpressions;
+using backend.Core.Services;
 
 namespace backend.Api.Projects;
 
@@ -171,7 +172,7 @@ public sealed class ProjectsService : IProjectsService
         if (project == null)
             return Result<UpdateProjectResponse>.Failure($"Unable to find project with reference: {reference}.");
 
-        var urlSlugResult = GenerateUrlSlug(request.UrlSlug, request.Title);
+        var urlSlugResult = SlugService.FromText(request.Title, request.UrlSlug);
         if (urlSlugResult.IsFailure)
             return Result<UpdateProjectResponse>.From(urlSlugResult);
 
@@ -201,19 +202,5 @@ public sealed class ProjectsService : IProjectsService
             DisplayOrder = project.DisplayOrder,
             CreatedAt = project.CreatedAt
         });
-    }
-
-    private static Result<string> GenerateUrlSlug(string? urlSlug, string title)
-    {
-        if (urlSlug != null)
-            return Result<string>.Of(urlSlug);
-
-        var preSanitised = title.ToLower().Replace("  ", "").Replace(" ", "-");
-        var sanitised = Regex.Replace(preSanitised, @"[^\w\d]+", "");
-
-        if (sanitised.Length == 0)
-            return Result<string>.Failure("Unable to create Url slug.");
-
-        return Result<string>.Of(sanitised);
     }
 }
