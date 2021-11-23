@@ -11,6 +11,8 @@ namespace backend.Api.Blog;
 public interface IBlogService
 {
     Result<SearchBlogResponse> SearchBlog(int page);
+    Result<GetBlogPostByResponse> GetBlogPostByReference(Guid reference);
+    Result<GetBlogPostByResponse> GetBlogPostByUrlSlug(string urlSlug);
     Result<CreateBlogPostResponse> CreateBlogPost(CreateBlogPostRequest request);
     Result<UpdateBlogPostResponse> UpdateBlogPost(Guid reference, UpdateBlogPostRequest request);
 }
@@ -56,6 +58,56 @@ public sealed class BlogService : IBlogService
                 Summary = x.Summary,
                 Content = x.Content
             })
+        });
+    }
+
+    public Result<GetBlogPostByResponse> GetBlogPostByReference(Guid reference)
+    {
+        using var session = _apiDatabase.SessionFactory().OpenSession();
+        using var transaction = session.BeginTransaction(IsolationLevel.ReadCommitted);
+
+        var blogPost = session
+            .Query<BlogPostRecord>()
+            .SingleOrDefault(x => x.Reference == reference);
+
+        if (blogPost == null)
+            return Result<GetBlogPostByResponse>.Failure($"Unable to find blog post with reference: {reference}.");
+
+        transaction.Commit();
+        
+        return Result<GetBlogPostByResponse>.Of(new GetBlogPostByResponse
+        {
+            Reference = blogPost.Reference,
+            Title = blogPost.Title,
+            UrlSlug = blogPost.UrlSlug,
+            PostedAt = blogPost.PostedAt,
+            Summary = blogPost.Summary,
+            Content = blogPost.Content
+        });
+    }
+
+    public Result<GetBlogPostByResponse> GetBlogPostByUrlSlug(string urlSlug)
+    {
+        using var session = _apiDatabase.SessionFactory().OpenSession();
+        using var transaction = session.BeginTransaction(IsolationLevel.ReadCommitted);
+
+        var blogPost = session
+            .Query<BlogPostRecord>()
+            .SingleOrDefault(x => x.UrlSlug.ToLower() == urlSlug.ToLower());
+
+        if (blogPost == null)
+            return Result<GetBlogPostByResponse>.Failure($"Unable to find blog post with url slug: {urlSlug}.");
+
+        transaction.Commit();
+        
+        return Result<GetBlogPostByResponse>.Of(new GetBlogPostByResponse
+        {
+            Reference = blogPost.Reference,
+            Title = blogPost.Title,
+            UrlSlug = blogPost.UrlSlug,
+            PostedAt = blogPost.PostedAt,
+            Summary = blogPost.Summary,
+            Content = blogPost.Content
         });
     }
 

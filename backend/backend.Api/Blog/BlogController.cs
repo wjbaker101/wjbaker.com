@@ -23,6 +23,24 @@ public sealed class BlogController : ApiController
         return ToApiResponse(result);
     }
 
+    [HttpGet]
+    [Route("post/{reference:guid}")]
+    public IActionResult UpdateBlogPost([FromRoute] Guid reference)
+    {
+        var result = _blogService.GetBlogPostByReference(reference);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpGet]
+    [Route("post/{urlSlug}")]
+    public IActionResult UpdateBlogPost([FromRoute] string urlSlug)
+    {
+        var result = _blogService.GetBlogPostByUrlSlug(urlSlug);
+
+        return ToApiResponse(result);
+    }
+
     [HttpPost]
     [Route("post")]
     public IActionResult CreateBlogPost([FromBody] CreateBlogPostRequest request)
