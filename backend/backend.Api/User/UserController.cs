@@ -1,4 +1,5 @@
-﻿using backend.Core.Type;
+﻿using backend.Api.User.Type;
+using backend.Core.Type;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Api.User;
@@ -18,6 +19,15 @@ public sealed class UserController : ApiController
     public IActionResult GetUserByReference([FromRoute] Guid reference)
     {
         var result = _userService.GetUserByReference(reference);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpPost]
+    [Route("")]
+    public IActionResult CreateUser([FromBody] CreateUserRequest request)
+    {
+        var result = _userService.CreateUser(request);
 
         return ToApiResponse(result);
     }

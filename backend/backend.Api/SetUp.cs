@@ -1,4 +1,5 @@
-﻿using backend.Api.Blog;
+﻿using backend.Api.Auth;
+using backend.Api.Blog;
 using backend.Api.Projects;
 using backend.Api.User;
 using backend.Data.Database;
@@ -26,6 +27,7 @@ public static class SetUp
         builder.Services.AddSingleton<IApiDatabase, ApiDatabase>();
         builder.Services.AddSingleton<IProjectsService, ProjectsService>();
         builder.Services.AddSingleton<IBlogService, BlogService>();
+        builder.Services.AddSingleton<IPasswordService, PasswordService>();
         builder.Services.AddSingleton<IUserService, UserService>();
 
         builder.Services.AddControllers();
