@@ -1,4 +1,5 @@
-﻿using backend.Api.Blog.Type;
+﻿using backend.Api.Auth;
+using backend.Api.Blog.Type;
 using backend.Core.Type;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +26,7 @@ public sealed class BlogController : ApiController
 
     [HttpGet]
     [Route("post/{reference:guid}")]
-    public IActionResult UpdateBlogPost([FromRoute] Guid reference)
+    public IActionResult GetBlogPostByReference([FromRoute] Guid reference)
     {
         var result = _blogService.GetBlogPostByReference(reference);
 
@@ -34,7 +35,7 @@ public sealed class BlogController : ApiController
 
     [HttpGet]
     [Route("post/{urlSlug}")]
-    public IActionResult UpdateBlogPost([FromRoute] string urlSlug)
+    public IActionResult GetBlogPostByUrlSlug([FromRoute] string urlSlug)
     {
         var result = _blogService.GetBlogPostByUrlSlug(urlSlug);
 
@@ -43,6 +44,7 @@ public sealed class BlogController : ApiController
 
     [HttpPost]
     [Route("post")]
+    [RequiresAuthentication]
     public IActionResult CreateBlogPost([FromBody] CreateBlogPostRequest request)
     {
         var result = _blogService.CreateBlogPost(request);
@@ -52,6 +54,7 @@ public sealed class BlogController : ApiController
 
     [HttpPut]
     [Route("post/{reference:guid}")]
+    [RequiresAuthentication]
     public IActionResult UpdateBlogPost([FromRoute] Guid reference, [FromBody] UpdateBlogPostRequest request)
     {
         var result = _blogService.UpdateBlogPost(reference, request);

@@ -1,4 +1,5 @@
-﻿using backend.Api.User.Type;
+﻿using backend.Api.Auth;
+using backend.Api.User.Type;
 using backend.Core.Type;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +26,7 @@ public sealed class UserController : ApiController
 
     [HttpPost]
     [Route("")]
+    [RequiresAuthentication]
     public IActionResult CreateUser([FromBody] CreateUserRequest request)
     {
         var result = _userService.CreateUser(request);
