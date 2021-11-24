@@ -10,8 +10,8 @@ public static class SlugService
         if (originalSlug != null)
             return Result<string>.Of(originalSlug);
 
-        var preSanitised = text.ToLower().Replace("  ", "").Replace(" ", "-");
-        var sanitised = Regex.Replace(preSanitised, @"[^\w\d]+", "");
+        var preSanitised = text.ToLower().Replace("  ", " ").Replace(" ", "-");
+        var sanitised = Regex.Replace(preSanitised, @"[^\w\d\-]+", "");
 
         if (sanitised.Length == 0)
             return Result<string>.Failure("Unable to create Url slug.");
