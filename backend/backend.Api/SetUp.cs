@@ -1,4 +1,5 @@
 ﻿using backend.Api.Auth;
+using backend.Api.Auth.Type;
 using backend.Api.Blog;
 using backend.Api.Projects;
 using backend.Api.User;
@@ -23,6 +24,7 @@ public static class SetUp
     public static void Services(WebApplicationBuilder builder)
     {
         builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("Database"));
+        builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
         builder.Services.AddScoped<RequiresAuthenticationAttribute>();
 
@@ -30,6 +32,7 @@ public static class SetUp
         builder.Services.AddSingleton<IProjectsService, ProjectsService>();
         builder.Services.AddSingleton<IBlogService, BlogService>();
         builder.Services.AddSingleton<IPasswordService, PasswordService>();
+        builder.Services.AddSingleton<IJwtService, JwtService>();
         builder.Services.AddSingleton<IUserService, UserService>();
 
         builder.Services.AddControllers();
