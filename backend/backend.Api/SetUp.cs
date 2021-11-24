@@ -27,6 +27,8 @@ public static class SetUp
         builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
         builder.Services.AddScoped<RequiresAuthenticationAttribute>();
+        builder.Services.AddScoped<IRequiresUserTypeService, RequiresUserTypeService>();
+        builder.Services.AddScoped<RequiresAdminAttribute>();
 
         builder.Services.AddSingleton<IApiDatabase, ApiDatabase>();
         builder.Services.AddSingleton<IProjectsService, ProjectsService>();
