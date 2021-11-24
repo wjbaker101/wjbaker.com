@@ -10,7 +10,19 @@ public static class SlugService
         if (originalSlug != null)
             return Result<string>.Of(originalSlug);
 
-        var preSanitised = text.ToLower().Replace("  ", " ").Replace(" ", "-");
+        if (string.IsNullOrWhiteSpace(text))
+            return Result<string>.Failure("Url slug cannot be blank, please try again.");
+
+        var removedSpaces = text.ToLower();
+        string previousValue;
+        do
+        {
+            previousValue = removedSpaces;
+            removedSpaces = removedSpaces.Replace("  ", " ");
+        }
+        while (removedSpaces != previousValue);
+
+        var preSanitised = removedSpaces.Replace(" ", "-");
         var sanitised = Regex.Replace(preSanitised, @"[^\w\d\-]+", "");
 
         if (sanitised.Length == 0)
