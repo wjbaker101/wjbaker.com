@@ -24,6 +24,8 @@ public static class SetUp
     {
         builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("Database"));
 
+        builder.Services.AddScoped<RequiresAuthenticationAttribute>();
+
         builder.Services.AddSingleton<IApiDatabase, ApiDatabase>();
         builder.Services.AddSingleton<IProjectsService, ProjectsService>();
         builder.Services.AddSingleton<IBlogService, BlogService>();
