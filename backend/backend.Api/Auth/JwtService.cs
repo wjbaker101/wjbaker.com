@@ -9,6 +9,7 @@ namespace backend.Api.Auth;
 public interface IJwtService
 {
     Result<string> Create(RequestContext requestContext);
+    Result<RequestContext> Verify(string jwt);
 }
 
 public sealed class JwtService : IJwtService
@@ -34,7 +35,23 @@ public sealed class JwtService : IJwtService
         }
         catch
         {
-            return Result<string>.Failure("Unable to create JWT token.");
+            return Result<string>.Failure("Unable to create JWT.");
+        }
+    }
+
+    public Result<RequestContext> Verify(string jwt)
+    {
+        try
+        {
+            return Result<RequestContext>.Of(JwtBuilder.Create()
+                .WithAlgorithm(new HMACSHA512Algorithm())
+                .WithSecret(_secret)
+                .MustVerifySignature()
+                .Decode<RequestContext>(jwt));
+        }
+        catch
+        {
+            return Result<RequestContext>.Failure("Unable to verify JWT.");
         }
     }
 }
