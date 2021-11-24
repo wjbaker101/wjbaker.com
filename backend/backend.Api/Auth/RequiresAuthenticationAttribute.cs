@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace backend.Api.Auth;
 
-public sealed class RequiresAuthenticationAttribute : ServiceFilterAttribute
+public sealed class RequiresAuthenticationAttribute : TypeFilterAttribute
 {
     public RequiresAuthenticationAttribute() : base(typeof(AttributeImplementation))
     {
     }
 
-    private sealed class AttributeImplementation : IActionFilter
+    private sealed class AttributeImplementation : IResultFilter
     {
         private readonly IApiDatabase _apiDatabase;
 
@@ -19,7 +19,7 @@ public sealed class RequiresAuthenticationAttribute : ServiceFilterAttribute
             _apiDatabase = apiDatabase;
         }
 
-        public void OnActionExecuting(ActionExecutingContext context)
+        public void OnResultExecuting(ResultExecutingContext context)
         {
             var authorizationHeader = context.HttpContext.Request.Headers.Authorization.ToString();
             if (string.IsNullOrWhiteSpace(authorizationHeader))
@@ -38,7 +38,7 @@ public sealed class RequiresAuthenticationAttribute : ServiceFilterAttribute
             var jwt = split[1];
         }
 
-        public void OnActionExecuted(ActionExecutedContext context)
+        public void OnResultExecuted(ResultExecutedContext context)
         {
         }
     }
