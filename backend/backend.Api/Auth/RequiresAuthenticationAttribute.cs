@@ -1,4 +1,4 @@
-﻿using backend.Data.Database;
+﻿using backend.Api.Auth.Type;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -12,11 +12,11 @@ public sealed class RequiresAuthenticationAttribute : TypeFilterAttribute
 
     private sealed class AttributeImplementation : IResultFilter
     {
-        private readonly IApiDatabase _apiDatabase;
+        private readonly IJwtService _jwtService;
 
-        public AttributeImplementation(IApiDatabase apiDatabase)
+        public AttributeImplementation(IJwtService jwtService)
         {
-            _apiDatabase = apiDatabase;
+            _jwtService = jwtService;
         }
 
         public void OnResultExecuting(ResultExecutingContext context)
@@ -35,7 +35,14 @@ public sealed class RequiresAuthenticationAttribute : TypeFilterAttribute
                 return;
             }
 
-            var jwt = split[1];
+            var verifyResult = _jwtService.Verify(split[1]);
+            if (verifyResult.IsFailure)
+            {
+                context.Result = new UnauthorizedResult();
+                return;
+            }
+
+            context.HttpContext.Items[RequestContext.IDENTIFIER] = verifyResult.Value;
         }
 
         public void OnResultExecuted(ResultExecutedContext context)
