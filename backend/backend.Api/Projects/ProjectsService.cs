@@ -28,7 +28,7 @@ public sealed class ProjectsService : IProjectsService
 
     public Result<SearchProjectsResponse> SearchProjects(int page)
     {
-        const int pageSize = 1;
+        const int pageSize = 6;
 
         using var session = _apiDatabase.SessionFactory().OpenSession();
         using var transaction = session.BeginTransaction(IsolationLevel.ReadCommitted);

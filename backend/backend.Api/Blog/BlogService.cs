@@ -28,7 +28,7 @@ public sealed class BlogService : IBlogService
 
     public Result<SearchBlogResponse> SearchBlog(int page)
     {
-        const int pageSize = 1;
+        const int pageSize = 6;
 
         using var session = _apiDatabase.SessionFactory().OpenSession();
         using var transaction = session.BeginTransaction(IsolationLevel.ReadCommitted);
