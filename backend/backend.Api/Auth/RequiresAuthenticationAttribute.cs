@@ -28,7 +28,7 @@ public sealed class RequiresAuthenticationAttribute : TypeFilterAttribute
                 return;
             }
 
-            var split = authorizationHeader.Split(" ");
+            var split = authorizationHeader.Split("Bearer ");
             if (split.Length != 2)
             {
                 context.Result = new UnauthorizedResult();
