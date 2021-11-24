@@ -45,6 +45,7 @@ public sealed class BlogController : ApiController
     [HttpPost]
     [Route("post")]
     [RequiresAuthentication]
+    [RequiresAdmin]
     public IActionResult CreateBlogPost([FromBody] CreateBlogPostRequest request)
     {
         var result = _blogService.CreateBlogPost(request);
@@ -55,6 +56,7 @@ public sealed class BlogController : ApiController
     [HttpPut]
     [Route("post/{reference:guid}")]
     [RequiresAuthentication]
+    [RequiresAdmin]
     public IActionResult UpdateBlogPost([FromRoute] Guid reference, [FromBody] UpdateBlogPostRequest request)
     {
         var result = _blogService.UpdateBlogPost(reference, request);

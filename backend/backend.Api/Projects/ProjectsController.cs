@@ -45,6 +45,7 @@ public sealed class ProjectsController : ApiController
     [HttpPost]
     [Route("project")]
     [RequiresAuthentication]
+    [RequiresAdmin]
     public IActionResult CreateProject([FromBody] CreateProjectRequest request)
     {
         var result = _projectsService.CreateProject(request);
@@ -55,6 +56,7 @@ public sealed class ProjectsController : ApiController
     [HttpPut]
     [Route("project/{reference:guid}")]
     [RequiresAuthentication]
+    [RequiresAdmin]
     public IActionResult UpdateProject([FromRoute] Guid reference, [FromBody] UpdateProjectRequest request)
     {
         var result = _projectsService.UpdateProject(reference, request);
