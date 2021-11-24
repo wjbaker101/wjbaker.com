@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace backend.Api.Auth;
+namespace backend.Api.Auth.Attribute;
 
 public sealed class RequiresAdminAttribute : TypeFilterAttribute
 {
