@@ -10,7 +10,15 @@ const routes: Array<RouteRecordRaw> = [
             description: 'Welcome to my personal website! I\'m a software developer originally from Kent, who\'s goal is creating interesting and helpful software which anyone can use.',
         },
         component: () => import(/* webpackChunkName: "about" */ '@/view/landing/Landing.view.vue'),
-    }
+    },
+    {
+        path: '/about',
+        meta: {
+            title: 'About',
+            description: 'Find out more about me and my interests, career and education.',
+        },
+        component: () => import(/* webpackChunkName: "about" */ '@/view/about/About.view.vue'),
+    },
 ];
 
 const appRouter = createRouter({
