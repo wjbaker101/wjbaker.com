@@ -10,5 +10,5 @@ export interface Project {
     previewImageUrl: string | null;
     displayOrder: number;
     createdAt: Dayjs;
-    destinationUrl: string | null;
+    viewUrl: string | null;
 }
