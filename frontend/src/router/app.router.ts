@@ -19,6 +19,14 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import(/* webpackChunkName: "about" */ '@/view/about/About.view.vue'),
     },
+    {
+        path: '/about/cv',
+        meta: {
+            title: 'CV',
+            description: 'A public version of my CV.',
+        },
+        component: () => import(/* webpackChunkName: "about" */ '@/view/about-cv/AboutCv.view.vue'),
+    },
 ];
 
 const appRouter = createRouter({
