@@ -1,0 +1,24 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Heebo', 'Segoe UI', Tahoma, sans-serif;
+    font-size: 15px;
+    line-height: 1.6em;
+    letter-spacing: 1px;
+    background-color: theme(grey-light);
+    color: theme(black-light);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.text-center {
+    text-align: center;
+}

@@ -1,0 +1,43 @@
+.flex {
+    display: flex;
+
+    &.flex-vertical {
+        flex-direction: column;
+    }
+
+    @media screen and (max-width: breakpoint-large()) {
+        &.flex-responsive {
+            display: block;
+        }
+    }
+
+    .flex-vh-center {
+        margin: auto;
+    }
+
+    .flex-v-center {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .flex-h-center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .flex-auto {
+        flex: 0 0 auto;
+    }
+
+    .flex-1 {
+        flex: 1;
+    }
+
+    .flex-2 {
+        flex: 2;
+    }
+
+    .flex-3 {
+        flex: 3;
+    }
+}
