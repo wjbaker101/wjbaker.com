@@ -30,7 +30,7 @@ import LoadingComponent from '@/component/Loading.component.vue';
 import ErrorComponent from '@/component/Error.component.vue';
 import ProjectItemComponent from '@/view/projects/component/ProjectItem.component.vue';
 
-import { projectClient } from '@/api/client/Project.client';
+import { projectClient } from '@/api/client/projects/Project.client';
 
 import { Project } from '@/model/Project.model';
 
