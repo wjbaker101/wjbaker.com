@@ -1,5 +1,7 @@
 import { createWebHistory, createRouter, RouteLocationNormalized, NavigationGuardNext, RouteRecordRaw } from 'vue-router';
 
+import ErrorNotFoundView from '@/view/error/NotFound.view.vue';
+
 import { routerPageHelper } from '@/router/helper/RouterPage.helper';
 
 const routes: Array<RouteRecordRaw> = [
@@ -35,6 +37,14 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import(/* webpackChunkName: "projects" */ '@/view/projects/Projects.view.vue'),
     },
+    {
+        path: '/:pathMatch(.*)*',
+        meta: {
+            title: 'Page Not Found',
+            description: 'No page has been found with the current url.',
+        },
+        component: ErrorNotFoundView,
+    }
 ];
 
 const appRouter = createRouter({
