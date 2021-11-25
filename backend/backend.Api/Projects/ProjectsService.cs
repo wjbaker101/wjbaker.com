@@ -40,6 +40,7 @@ public sealed class ProjectsService : IProjectsService
         var total = query.Count();
 
         var projects = query
+            .OrderBy(x => x.DisplayOrder)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToList();
