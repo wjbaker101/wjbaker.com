@@ -27,6 +27,14 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import(/* webpackChunkName: "about" */ '@/view/about-cv/AboutCv.view.vue'),
     },
+    {
+        path: '/projects',
+        meta: {
+            title: 'Projects',
+            description: 'The past and present projects I have worked on.',
+        },
+        component: () => import(/* webpackChunkName: "projects" */ '@/view/projects/Projects.view.vue'),
+    },
 ];
 
 const appRouter = createRouter({
