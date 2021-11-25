@@ -10,6 +10,7 @@ public sealed class UpdateProjectRequest
     public string? SourceCodeUrl { get; init; }
     public string? PreviewImageUrl { get; init; }
     public int DisplayOrder { get; init; }
+    public string? DestinationUrl { get; init; }
 }
 
 public sealed class UpdateProjectResponse
@@ -24,4 +25,5 @@ public sealed class UpdateProjectResponse
     public string? PreviewImageUrl { get; init; }
     public int DisplayOrder { get; init; }
     public DateTime CreatedAt { get; init; }
+    public string? DestinationUrl { get; init; }
 }

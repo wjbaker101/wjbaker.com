@@ -15,6 +15,7 @@ public class ProjectRecord
     public virtual string? PreviewImageUrl { get; set; }
     public virtual int DisplayOrder { get; set; }
     public virtual DateTime CreatedAt { get; init; }
+    public virtual string? DestinationUrl { get; set; }
 }
 
 public sealed class ProjectRecordMap : ClassMap<ProjectRecord>
@@ -34,5 +35,6 @@ public sealed class ProjectRecordMap : ClassMap<ProjectRecord>
         Map(x => x.PreviewImageUrl, "preview_image_url");
         Map(x => x.DisplayOrder, "display_order");
         Map(x => x.CreatedAt, "created_at");
+        Map(x => x.DestinationUrl, "destination_url");
     }
 }
