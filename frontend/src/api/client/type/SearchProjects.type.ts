@@ -13,4 +13,5 @@ export interface Project {
     previewImageUrl: string | null;
     displayOrder: number;
     createdAt: string;
+    destinationUrl: string | null;
 }
