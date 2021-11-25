@@ -2,7 +2,16 @@ import { createWebHistory, createRouter, RouteLocationNormalized, NavigationGuar
 
 import { routerPageHelper } from '@/router/helper/RouterPage.helper';
 
-const routes: Array<RouteRecordRaw> = [];
+const routes: Array<RouteRecordRaw> = [
+    {
+        path: '/',
+        meta: {
+            title: 'Will Baker',
+            description: 'Welcome to my personal website! I\'m a software developer originally from Kent, who\'s goal is creating interesting and helpful software which anyone can use.',
+        },
+        component: () => import(/* webpackChunkName: "about" */ '@/view/landing/Landing.view.vue'),
+    }
+];
 
 const appRouter = createRouter({
     history: createWebHistory(),

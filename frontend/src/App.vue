@@ -1,5 +1,9 @@
 <template>
     <AsideComponent />
+    <div class="aside-placeholder"></div>
+    <main>
+        <router-view></router-view>
+    </main>
 </template>
 
 <script lang="ts">
@@ -23,6 +27,7 @@ export default defineComponent({
 
 #app {
     height: 100%;
+    display: flex;
 
     @media screen and (max-width: breakpoint()) {
         height: auto;
@@ -33,6 +38,11 @@ export default defineComponent({
         width: 25%;
         min-width: 300px;
         max-width: 430px;
+        flex: 0 0 auto;
+    }
+
+    main {
+        flex: 1;
     }
 }
 </style>
