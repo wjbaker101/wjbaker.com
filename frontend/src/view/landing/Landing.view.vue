@@ -4,7 +4,6 @@
             id="particles"
             type="cobweb"
             color="#176bc0"
-            :bg="true"
             :options="{
                 fpsLimit: 60,
                 particles: {
@@ -86,8 +85,8 @@ export default defineComponent({
     }
 
     #particles,
-    .particles-js-canvas-el {
-        position: absolute;
+    #particles .tsparticles-canvas-el {
+        position: absolute !important;
         top: 0;
         right: 0;
         bottom: 0;
