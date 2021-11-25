@@ -10,7 +10,7 @@ public sealed class CreateProjectRequest
     public string? SourceCodeUrl { get; init; }
     public string? PreviewImageUrl { get; init; }
     public int DisplayOrder { get; init; }
-    public string? DestinationUrl { get; init; }
+    public string? ViewUrl { get; init; }
 }
 
 public sealed class CreateProjectResponse
@@ -25,5 +25,5 @@ public sealed class CreateProjectResponse
     public string? PreviewImageUrl { get; init; }
     public int DisplayOrder { get; init; }
     public DateTime CreatedAt { get; init; }
-    public string? DestinationUrl { get; init; }
+    public string? ViewUrl { get; init; }
 }

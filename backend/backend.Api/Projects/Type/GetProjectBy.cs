@@ -12,5 +12,5 @@ public sealed class GetProjectByResponse
     public string? PreviewImageUrl { get; init; }
     public int DisplayOrder { get; init; }
     public DateTime CreatedAt { get; init; }
-    public string? DestinationUrl { get; init; }
+    public string? ViewUrl { get; init; }
 }

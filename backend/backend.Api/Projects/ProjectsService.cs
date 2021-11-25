@@ -60,7 +60,7 @@ public sealed class ProjectsService : IProjectsService
                 PreviewImageUrl = x.PreviewImageUrl,
                 DisplayOrder = x.DisplayOrder,
                 CreatedAt = x.CreatedAt,
-                DestinationUrl = x.DestinationUrl
+                ViewUrl = x.ViewUrl
             })
         });
     }
@@ -89,7 +89,7 @@ public sealed class ProjectsService : IProjectsService
             PreviewImageUrl = project.PreviewImageUrl,
             DisplayOrder = project.DisplayOrder,
             CreatedAt = project.CreatedAt,
-            DestinationUrl = project.DestinationUrl
+            ViewUrl = project.ViewUrl
         });
     }
 
@@ -117,7 +117,7 @@ public sealed class ProjectsService : IProjectsService
             PreviewImageUrl = project.PreviewImageUrl,
             DisplayOrder = project.DisplayOrder,
             CreatedAt = project.CreatedAt,
-            DestinationUrl = project.DestinationUrl
+            ViewUrl = project.ViewUrl
         });
     }
 
@@ -142,7 +142,7 @@ public sealed class ProjectsService : IProjectsService
             PreviewImageUrl = request.PreviewImageUrl,
             DisplayOrder = request.DisplayOrder,
             CreatedAt = DateTime.UtcNow,
-            DestinationUrl = request.DestinationUrl
+            ViewUrl = request.ViewUrl
         };
         session.Save(project);
 
@@ -160,7 +160,7 @@ public sealed class ProjectsService : IProjectsService
             PreviewImageUrl = project.PreviewImageUrl,
             DisplayOrder = project.DisplayOrder,
             CreatedAt = project.CreatedAt,
-            DestinationUrl = project.DestinationUrl
+            ViewUrl = project.ViewUrl
         });
     }
 
@@ -188,7 +188,7 @@ public sealed class ProjectsService : IProjectsService
         project.SourceCodeUrl = request.SourceCodeUrl;
         project.PreviewImageUrl = request.PreviewImageUrl;
         project.DisplayOrder = request.DisplayOrder;
-        project.DestinationUrl = request.DestinationUrl;
+        project.ViewUrl = request.ViewUrl;
 
         session.Update(project);
 
@@ -206,7 +206,7 @@ public sealed class ProjectsService : IProjectsService
             PreviewImageUrl = project.PreviewImageUrl,
             DisplayOrder = project.DisplayOrder,
             CreatedAt = project.CreatedAt,
-            DestinationUrl = project.DestinationUrl
+            ViewUrl = project.ViewUrl
         });
     }
 }
