@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html>
+    <!--
+        Name: William Baker
+        wjbaker.com Version
+        Title: Assessed Assignment 2 - MiTunes
+    -->
+    <head>
+        <!-- Title of the webpage -->
+        <title>MiTunes | By William Baker</title>
+        
+        <meta charset="utf-8"> <!-- Sets charset to utf-8 -->
+        
+        <!-- References the music.js file, which contains the array of albums and tracks -->
+        <script src="music.js" type="text/javascript"></script>
+        
+        <!-- Main JavaScript of the webpage -->
+        <script type="text/javascript">
+            var albumSelect; // <select> element for listing albums
+            var trackSelect; // <select> element for listing tracks
+            
+            var searchPane; // <div> element for the search pane
+            var detailsPane; // <div> element for the details pane
+            
+            /*
+                Called when the body is loaded
+            */
+            function body_Load()
+            {
+                // Gets the album and track <select> elements
+                albumSelect = document.getElementById("album-select");
+                trackSelect = document.getElementById("track-select");
+                
+                // Gets the search and details pane
+                searchPane = document.getElementById("search-pane");
+                detailsPane = document.getElementById("details-pane");
+                
+                // Initialises the albums pane and the keyboard
+                addAlbums();
+                createKeyboard();
+            }
+            
+            /*
+                Adds albums from "music.js" to the albums <select> element
+            */
+            function addAlbums()
+            {
+                albumSelect.innerHTML = ""; // Clears any existing items
+                for (var i = 0; i < albums.length; i++)
+                    // Adds a new <option> element containing the album title
+                    albumSelect.innerHTML += "<option>" + albums[i].title + "</option>";
+                document.getElementById("albums-counter").innerHTML = "(" + albums.length + ")";
+            }
+            
+            /*
+                Creates and displays the keyboard
+            */
+            function createKeyboard()
+            {
+                // Array of characters in the rows of the keyboard
+                var keys_row1 = ['q','w','e','r','t','y','u','i','o','p'];
+                var keys_row2 = ['a','s','d','f','g','h','j','k','l'];
+                var keys_row3 = ['z','x','c','v','b','n','m'];
+                
+                var row1 = document.getElementById("row1");
+                var row2 = document.getElementById("row2");
+                var row3 = document.getElementById("row3");
+                var row4 = document.getElementById("row4");
+                
+                var i; // Creates the counter variable, used in 3 FOR loops
+                for (i = 0; i < keys_row1.length; i++)
+                    row1.innerHTML += getKey(keys_row1[i], keys_row1[i].toUpperCase());
+                
+                for (i = 0; i < keys_row2.length; i++)
+                    row2.innerHTML += getKey(keys_row2[i], keys_row2[i].toUpperCase());
+                
+                for (i = 0; i < keys_row3.length; i++)
+                    row3.innerHTML += getKey(keys_row3[i], keys_row3[i].toUpperCase());
+                
+                // Adds the special keys into the last row
+                row4.innerHTML += '<button class="key medium" onclick="back1Press()">&#x2190;</button>' // Back1 Key
+                                + '<button class="key large" onclick="keyPress(\' \')">Space</button>' // Space Key
+                                + '<button class="key medium" onclick="resetPress()">&#x2716;</button>'; // Reset Button
+            }
+            
+            /*
+                Returns the HTML code for a keyboard button
+            */
+            function getKey(press, text)
+            {
+                // Creates a string containing a <button> element with an "onclick" event
+                return '<button class="key" onclick="keyPress(\'' + press + '\')">' + text + '</button>';
+            }
+            
+            /*
+                Called when an alphabet key is pressed
+            */
+            function keyPress(button)
+            {
+                document.search.textbox.value += button; // Adds the character to the search textbox
+                searchTextbox_Change(document.search.textbox); // Calls the onchange event
+            }
+            
+            /*
+                Called when the back1 key is pressed
+            */
+            function back1Press()
+            {
+                var searchText = document.search.textbox; // Finds the textbox in the <form> element of name "search"
+                
+                if (searchText.value.length > 0) // Checks whether the search length is greater than 0
+                {
+                    searchText.value = searchText.value.substring(0, searchText.value.length - 1); // Removes the last character
+                    searchTextbox_Change(document.search.textbox); // Calls the onchange event
+                }
+            }
+            
+            /*
+                Called when the reset key is pressed
+                Shows the confirmation message, whether the user wants to reset or not
+            */
+            function resetPress()
+            {
+                if (document.search.textbox.value.length > 0) // Checks whether the search length is greater than 0
+                    document.getElementById("background").className = "visible"; // Shows the popup box and background
+            }
+            
+            /*
+                Called when the Yes or No button is pressed during confirmation
+            */
+            function resetSearch(reset)
+            {
+                if (reset) // Checks whether should reset
+                {
+                    document.search.textbox.value = ""; // Clears the search textbox
+                    searchTextbox_Change(document.search.textbox); // Calls the onchange event
+                }
+                
+                document.getElementById("background").className = ""; // Hides the popup box and background
+            }
+            
+            /*
+                Hides the search pane, revealing the details pane
+            */
+            function hideSearchPane()
+            {
+                searchPane.className = "pane hidden"; // Hides search pane
+                detailsPane.className = "pane"; // Shows details pane
+                document.getElementById("search-button").innerHTML = "&#x2315;"; // Search icon
+            }
+            
+            /*
+                Shows the search pane, hiding the details pane
+            */
+            function showSearchPane()
+            {
+                searchPane.className = "pane"; // Shows search pane
+                detailsPane.className = "pane hidden"; // Hides details pane
+                document.getElementById("search-button").innerHTML = "&#x21C6;"; // Double arrow icon
+            }
+            
+            /*
+                Sets the visibility of the search pane to given parameter
+            */
+            function setSearchPaneVisible(visible)
+            {
+                if (visible) showSearchPane();
+                else hideSearchPane();
+            }
+            
+            /*
+                Toggles the visibility of the search pane
+            */
+            function toggleSeachPaneVisible()
+            {
+                // Checks the current visibility of the search pane, sets to opposite state
+                if (searchPane.className == "pane hidden") showSearchPane();
+                else hideSearchPane();
+            }
+            
+            /*
+                Called when the albums selected index is changed
+            */
+            function albums_Change()
+            {
+                populateTracks(albumSelect.selectedIndex); // Adds tracks from currently selected album
+            }
+            
+            /*
+                Adds all tracks of a given album to the tracks select element
+            */
+            function populateTracks(albumID)
+            {
+                // Clears the track select element of any existing options
+                trackSelect.innerHTML = "";
+                for (var i = 0; i < albums[albumID].tracks.length; i++)
+                    // Adds a new <option> element containing the track title
+                    trackSelect.innerHTML += "<option>" + albums[albumID].tracks[i].title + "</option>";
+                document.getElementById("tracks-counter").innerHTML = "(" + albums[albumID].tracks.length + ")";
+            }
+            
+            /*
+                Called when the tracks selected index is changed
+            */
+            function tracks_Change()
+            {
+                // Calls the function to play the currently selected track
+                playTrack(albumSelect.selectedIndex, trackSelect.selectedIndex);
+                setSearchPaneVisible(false); // Hides the search pane
+            }
+            
+            /*
+                Sets the details of the current track to the given track
+            */
+            function playTrack(albumID, trackID)
+            {
+                // Sets the details to the current album and track
+                document.getElementById("title-details").innerHTML = albums[albumID].tracks[trackID]["title"];
+                document.getElementById("artist-details").innerHTML = albums[albumID]["artist"];
+                document.getElementById("album-details").innerHTML = albums[albumID]["title"];
+                document.getElementById("lyrics-details").innerHTML = albums[albumID].tracks[trackID]["lyrics"];
+                
+                document.getElementById("artwork-details").src = "artwork/" + albums[albumID]["artwork"] + ".jpg";
+                
+                var audioElement = document.getElementById("audio-details");
+                audioElement.src = "audio/" + albums[albumID].artist + "/" + albums[albumID].title + "/" + albums[albumID].tracks[trackID]["mp3"];
+                
+                // Iterates through each node inside the <audio> element
+                for (var i = 0; i < audioElement.childNodes.length; i++)
+                {
+                    var sourceElement = audioElement.childNodes[i];
+                    if (sourceElement.tagName == "SOURCE") // Checks whether the node is a <source> element
+                    {
+                        if (sourceElement.type == "audio/mpeg")
+                            // Checks if the node type is of type mp3
+                            sourceElement.src = "audio/BBC/" + albums[albumID].title + "/" + albums[albumID].tracks[trackID]["mp3"];
+                        else
+                            // Checks if the node type is of another type
+                            sourceElement.src = "audio/BBC/" + albums[albumID].title + "/" + albums[albumID].tracks[trackID]["mp3"].replace(".mp3", ".wav")
+                    }
+                }
+            }
+            
+            /*
+                Called when the search textbox text is changed
+            */
+            function searchTextbox_Change(textbox)
+            {
+                // Checks whether the search length is greater than 1
+                if (textbox.value.length > 1)
+                {
+                    textbox.style.color = "#A1DE9D"; // Sets the textbox font colour to #A1DE9D (Green)
+                    setSearchPaneVisible(true); // Sets the search pane to visible
+                    
+                    var searchListContainer = document.getElementById("search-list-container"); // Gets the search list container
+                    
+                    // Initialises the arrays
+                    var startsWithArray = [];
+                    var containsArray = [];
+                    
+                    // Creates a searchable search text
+                    var searchText = textbox.value.toLowerCase().trim();
+                    var idObject, album, track;
+                    
+                    // Iterates through each object in the albums array
+                    for (var i = 0; i < albums.length; i++)
+                    {
+                        album = albums[i]; // Gets the current album object
+                        
+                        // Iterates through each of the tracks in the album
+                        for (var j = 0; j < albums[i].tracks.length; j++)
+                        {
+                            idObject = {albumID: i, trackID: j}; // Creates the object containing the album and track IDs
+                            track = album.tracks[j]; // Gets the current track object
+                            
+                            // Checks whether the album title, artist, track title or lyrics start with the search text
+                            if (album.title.toLowerCase().startsWith(searchText) || album.artist.toLowerCase().startsWith(searchText) || track.title.toLowerCase().startsWith(searchText) || track.lyrics.toLowerCase().startsWith(searchText))
+                                startsWithArray.push(idObject); // Adds the track
+                            
+                            // Checks whether the album title, artist, tack title or lyrics contain the search text
+                            else if (album.title.toLowerCase().indexOf(searchText) > -1 || album.artist.toLowerCase().indexOf(searchText) > -1 || track.title.toLowerCase().indexOf(searchText) > -1 || track.lyrics.toLowerCase().indexOf(searchText) > -1)
+                                containsArray.push(idObject); // Adds the track
+                        }
+                    }
+                    
+                    searchListContainer.innerHTML = ""; // Clears the search list container of existing items
+                    // Iterates through each object in startsWithArray
+                    for (var i = 0; i < startsWithArray.length; i++)
+                        searchListContainer.innerHTML += getSearchItem(startsWithArray[i].albumID, startsWithArray[i].trackID, textbox.value); // Adds a new item
+                    
+                    // Iterates through each object in containsArray
+                    for (var i = 0; i < containsArray.length; i++)
+                        searchListContainer.innerHTML += getSearchItem(containsArray[i].albumID, containsArray[i].trackID, textbox.value);
+                    
+                    // Sets the counter to the number of items found
+                    document.getElementById("search-counter").innerHTML = "(" + (startsWithArray.length + containsArray.length) + ")";
+                }
+                else
+                {
+                    setSearchPaneVisible(false); // Hides the search pane
+                    textbox.style.color = "#000000"; // Sets the textbox font colour to #000000 (Black)
+                }
+            }
+            
+            /*
+                Returns the HTML code for a search item
+            */
+            function getSearchItem(albumID, trackID, searchText)
+            {
+                // Gets the track title, album title, artist and lyrics with highlighted text (<span class="highlight"> elements)
+                var trackTitle = highlightText(albums[albumID].tracks[trackID].title, searchText);
+                var albumTitle = highlightText(albums[albumID].title, searchText);
+                var artist = highlightText(albums[albumID].artist, searchText);
+                var lyrics = highlightText(albums[albumID].tracks[trackID].lyrics, searchText);
+                
+                // Returns the HTML code
+                return '<div class="search-item"><p class="title">' + trackTitle + '</p><p class="artist">' + artist + '</p><p class="album">' + albumTitle + '</p><p class="lyrics">' + lyrics + '</p><button class="key" onclick="searchPlayClick(' + albumID + ', ' + trackID + ')">Play</button></div>';
+            }
+            
+            /*
+                Called when the search Play button is pressed
+            */
+            function searchPlayClick(albumID, trackID)
+            {
+                setSearchPaneVisible(false); // Hides the search pane
+                
+                playTrack(albumID, trackID); // Plays the given track
+                
+                albumSelect.selectedIndex = albumID; // Sets the selected album to the current album
+                populateTracks(albumID); // Adds tracks to the track <select> element
+                trackSelect.selectedIndex = trackID; // Sets the selected track to the current track
+            }
+            
+            /*
+                Highlights text with a given pattern
+            */
+            function highlightText(text, pattern)
+            {
+                var index, newText = text;
+                
+                // Iterates until index equals -1 (Pattern not found)
+                while (index != -1)
+                {
+                    // Gets the next index of the pattern in the text
+                    // Starts search after the last index + length of <span class="highlight"> + length of the pattern
+                    index = newText.toLowerCase().indexOf(pattern.toLowerCase(), index + 31 + pattern.length);
+                    if (index != -1)
+                    {
+                        // Creates a new string with <span class="highlight"> wrapped around in the pattern
+                        newText = newText.substring(0, index) + '<span class="highlight">' + newText.substring(index, index + pattern.length) + '</span>' + newText.substring(index + pattern.length, newText.length);
+                    }
+                }
+                return newText;
+            }
+        </script>
+        
+        <!-- Styling for the elements on the webpage -->
+        <style type="text/css">
+            /*
+                Body styling
+                Removes default margin
+                Sets global font, size and letter spacing
+                Sets background colour
+            */
+            body
+            {
+                margin: 0;
+                font-family: sans-serif;
+                font-size: 16px;
+                letter-spacing: 1px;
+                background-color: #EFEFEF;
+            }
+            
+            /*
+                Any element containing this class with not be selectable by the user
+                Includes buttons
+            */
+            .unselectable, button
+            {
+                user-select: none;
+                -moz-user-select: none;
+                -khtml-user-select: none;
+                -webkit-user-select: none;
+                -o-user-select: none;
+            } 
+            
+            /*
+                Styling for the main player container
+            */
+            .player-container
+            {
+                width: 60%;
+                min-width: 600px;
+                margin: 20px auto;
+                text-align: center;
+            }
+            
+            /*
+                Pane styling
+                Used by the 4 panes
+            */
+            .pane
+            {
+                width: 30%;
+                height: 450px;
+                margin: 5px;
+                display: inline-block;
+                vertical-align: top;
+                background-color: #FFFFFF;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+            }
+            
+            /*
+                Additional styling for panes with the "wide-pane" or "hidden" class
+            */
+            .pane.wide-pane { width: calc(90% + 20px); height: 320px; }
+            .pane.hidden { display: none; }
+            
+            /*
+                Content within a pane styling
+                Adds scrollbar when needed
+            */
+            .pane-content
+            {
+                width: 100%;
+                height: 392px;
+                display: block;
+                padding: 10px 0;
+                overflow-y: auto;
+                box-sizing: border-box;
+            }
+            select.pane-content { padding: 0; } /* Removes padding if inside a <select> element */
+            
+            /*
+                Styling for a header (Level 1)
+            */
+            h1
+            {
+                height: 1.8em;
+                line-height: 1.8em;
+                position: relative;
+                margin: 0;
+                background-color: #34892E;
+                color: #FFFFFF;
+            }
+            
+            /*
+                Styling for the counters
+            */
+            h1 .counter
+            {
+                position: absolute;
+                padding-right: 5px;
+                top: 0; right: 5px;
+                font-size: 0.7em;
+            }
+            
+            /*
+                Styling for all <select> elements
+                Removes default border and outline
+                Inherits global font
+            */
+            select
+            {
+                border: 0;
+                font-family: inherit;
+                outline: none;
+            }
+            
+            /*
+                Styles all <option> elements
+            */
+            select option
+            {
+                padding: 20px 5px;
+                font-size: 1.6em;
+                cursor: pointer;
+                background-color: #FFFFFF;
+                transition: background-color 0.25s;
+            }
+            
+            /*
+                Additional styling for alternate <option> elements and the hover event
+            */
+            select option:nth-child(odd) { background-color: #F1FaF0; }
+            select option:hover { background-color: #A1DE9D; }
+            
+            /*
+                Styling for details
+                Changes font size and weight
+            */
+            #title-details { font-size: 1.3em; font-weight: bold; }
+            #artist-details { font-size: 1.1em; font-weight: bold; }
+            #album-details { font-size: 1.1em; font-style: italic; }
+            #lyrics-details { padding: 0 10px; line-height: 1.3em; text-align: justify; }
+            #artwork-details { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25); }
+            
+            /*
+                Styles all <button> elements
+            */
+            button
+            {
+                padding: 10px 16px;
+                margin: 4px;
+                vertical-align: middle;
+                display: inline-block;
+                font-family: inherit;
+                font-size: 1.3em;
+                background-color: #F8F8F8;
+                cursor: pointer;
+                outline: none;
+                border: 0;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+                transition: background-color 0.25s;
+            }
+            button:hover { box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.25); } /* Adds shadow when hovered over */
+            
+            /*
+                Adds additional styling with <button> elements with the "key" class
+            */
+            button.key
+            {
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                padding: 0;
+                margin: 2px;
+            }
+            
+            /*
+                Additional styling for "medium" and "large" <button> elements with the "key" class
+            */
+            button.key.medium { width: 120px; }
+            button.key.large { width: 240px; }
+            
+            /* Changes background colour of <button> elements with "dark" class */
+            button.dark { background-color: #34892e; color: #FFFFFF; }
+            
+            /* Changes background colour of <button> elements within elements with the "alternate-button-colour" class */
+            .alternate-button-colour button:nth-child(even) { background-color: #34892e; color: #FFFFFF; }
+            
+            /*
+                Styles the search list button
+            */
+            .search-list-button { color: #000000; }
+            
+            /*
+                Styles all <form> elements
+            */
+            form
+            {
+                width: 50%;
+                display: inline-block;
+                margin: 0;
+                padding: 0;
+            }
+            
+            /*
+                Styles all <input> elements
+                Removes default border and outline
+                Inherits global font
+            */
+            input
+            {
+                width: calc(100% - 10px);
+                height: 45px;
+                vertical-align: middle;
+                font-family: inherit;
+                font-size: 1.5em;
+                padding: 1px 4px;
+                margin: 20px 0;
+                outline: none;
+                border: 0;
+                box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.25);
+            }
+            
+            /*
+                Styles the "search-button" element
+            */
+            #search-button
+            {
+                display:inline-block;
+                font-size:32px;
+            }
+            
+            /*
+                Styles the "search-list-container" element
+            */
+            #search-list-container
+            {
+                width: 100%;
+                height: 392px;
+                overflow-y: scroll;
+            }
+            
+            /*
+                Styles "search-item" elements in the "search-list-container" element
+            */
+            #search-list-container .search-item
+            {
+                padding: 5px 2px;
+            }
+            
+            /*
+                Additional styling for "search-item" elements
+            */
+            #search-list-container .search-item .title { font-size: 1.3em; font-weight: bold; }
+            #search-list-container .search-item .artist { font-size: 1.1em; font-weight: bold; }
+            #search-list-container .search-item .album { font-size: 1.1em; font-style: italic; }
+            #search-list-container .search-item .lyrics { padding: 0 10px; line-height: 1.3em; text-align: justify; }
+            #search-list-container .search-item:nth-child(even) { background-color: #f1faf0; }
+            #search-list-container .search-item:nth-child(odd) .key { background-color: #34892e; color: #FFFFFF; }
+            
+            /*
+                Styling for highlighted text
+            */
+            .highlight
+            {
+                padding: 1px 0;
+                background-color: #A1DE9D;
+                border: 1px solid #81BE6D;
+            }
+            
+            /*
+                Styling for the "background" element
+            */
+            #background
+            {
+                display: none;
+                position: fixed;
+                top: 0; right: 0; bottom: 0; left: 0;
+                background-color: rgba(0, 0, 0, 0.3);
+            }
+            
+            #background.visible { display: block;} /* Styles the "background" with the "visible" class */
+            
+            /*
+                Styles the popup box
+            */
+            .popup-box
+            {
+                width: 450px;
+                height: 250px;
+                text-align: center;
+                margin: 40px auto;
+                background-color: #FFFFFF;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+            }
+            
+            /*
+                Styles the elements inside the popup box
+            */
+            .popup-box h2 { padding: 45px 5px 5px 10px; }
+            .popup-box .key { margin: 20px 10px; }
+            .popup-box .key:nth-child(odd) { background-color: #34892e; color: #FFFFFF; }
+        </style>
+    </head>
+    
+    <!-- HTML code displaying the elements on the webpage -->
+    <!-- onload event calls the body_Load() function, called when the page is first loaded -->
+    <body onload="body_Load()">
+        <!-- Main container for the media player -->
+        <div class="player-container">
+            <!-- Albums Pane -->
+            <div class="pane">
+                <!-- Title of the pane -->
+                <h1>Albums:<div id="albums-counter" class="counter">(0)</div></h1>
+                <!-- Select, lists the albums -->
+                <!-- onchange event, called when the selected index changes -->
+                <select id="album-select" class="pane-content" size="1000" onchange="albums_Change()"></select>
+            </div><!--
+            Tracks Pane
+            Comment spans 3 lines to remove whitespace between panes, which would add unwanted margin
+         --><div class="pane">
+                <!-- Title of the pane -->
+                <h1>Tracks:<div id="tracks-counter" class="counter">(0)</div></h1>
+                <!-- Select, lists the tracks -->
+                <!-- onchange event, called when the selected index changes -->
+                <select id="track-select" class="pane-content" size="1000" onchange="tracks_Change()"></select>
+            </div><!--
+            Details Pane
+            Comment spans 3 lines to remove whitespace between panes, which would add unwanted margin
+         --><div id="details-pane" class="pane">
+                <!-- Title of the pane -->
+                <h1>Details:</h1>
+                <div class="details pane-content">
+                    <img id="artwork-details" src="" alt="Track Artwork" /> <!-- Artwork image -->
+                    <p id="title-details"></p> <!-- Track Title -->
+                    <p id="artist-details"></p> <!-- Artist -->
+                    <p id="album-details"></p> <!-- Album Title -->
+                    <p>
+                        <!-- Audio element for playing the current track -->
+                        <audio id="audio-details" controls="controls">
+                            <source src="" type="audio/mpeg">
+                            <source src="" type="audio/wav">
+                            <!-- Displayed if the user's browser does not support HTML5 -->
+                            Your browser does not support the audio element.
+                        </audio>
+                    </p>
+                    <p id="lyrics-details"></p> <!-- Track Lyrics -->
+                </div>
+            </div><!--
+            Search Pane, hidden by default
+            Comment spans 3 lines to remove whitespace between panes, which would add unwanted margin
+         --><div id="search-pane" class="pane hidden">
+                <!-- Title of the pane -->
+                <h1>Search:<div id="search-counter" class="counter">(0)</div></h1>
+                <!-- Container for the search items -->
+                <div id="search-list-container" class="pane-content"></div>
+            </div><!--
+            Keyboard Pane
+            Comment spans 3 lines to remove whitespace between panes, which would add unwanted margin
+         --><div class="pane wide-pane">
+                <!-- Label for textbox -->
+                <span class="search-label">Search:</span>
+                <!-- Form containing the search textbox -->
+                <form name="search">
+                    <input name="textbox" type="text" placeholder="Search albums, tracks and lyrics..." onchange="searchTextbox_Change(this)" onkeypress="this.onchange()" onpaste="this.onchange()" oninput="this.onchange()" onblur="this.focus();" autofocus>
+                </form>
+                <!-- Search pane toggle button -->
+                <button class="key dark" onclick="toggleSeachPaneVisible()"><span id="search-button">&#x2315;</span></button>
+                <!-- Containers for each row in the keyboard -->
+                <div id="row1" class="alternate-button-colour"></div> <!-- QWERTYUIOP -->
+                <div id="row2" class="alternate-button-colour"></div> <!-- ASDFGHJKL -->
+                <div id="row3" class="alternate-button-colour"></div> <!-- ZXCVBNM -->
+                <div id="row4" class="alternate-button-colour"></div> <!-- Back1, Space and Reset -->
+            </div>
+        </div>
+        <!-- Dimmed background, containing the popup dialog box -->
+        <div id="background">
+            <div class="popup-box">
+                <!-- Message -->
+                <h2>Are you sure you want to reset?</h2>
+                <!-- Yes and No button -->
+                <button onclick="resetSearch(true)">Yes</button><button class="dark" onclick="resetSearch(false)">No</button>
+            </div>
+        </div>
+    </body>
+</html>
