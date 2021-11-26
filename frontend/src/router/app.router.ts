@@ -53,6 +53,13 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "blog" */ '@/view/blog/Blog.view.vue'),
     },
     {
+        path: '/blog/post/:urlSlug',
+        meta: {
+            title: 'Blog Post',
+        },
+        component: () => import(/* webpackChunkName: "blog" */ '@/view/blog-post/BlogPost.view.vue'),
+    },
+    {
         path: '/:pathMatch(.*)*',
         meta: {
             title: 'Page Not Found',
