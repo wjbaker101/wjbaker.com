@@ -40,6 +40,7 @@ public sealed class BlogService : IBlogService
         var total = query.Count();
 
         var posts = query
+            .OrderByDescending(x => x.PostedAt)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToList();
