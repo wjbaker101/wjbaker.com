@@ -1,12 +1,11 @@
 <template>
-    <div class="page-actions-bar-component flex">
+    <div class="page-actions-bar-component flex gap">
         <div class="return flex-1">
             <router-link
                 v-if="returnLink !== undefined"
                 :to="returnLink"
             >
-                <ArrowLeftComponent />
-                {{ returnText }}
+                <ArrowLeftComponent />{{ returnText }}
             </router-link>
         </div>
         <div class="actions flex gap-small flex-auto">
@@ -53,7 +52,7 @@ export default defineComponent({
         margin: auto 0;
 
         .svg-icon {
-            margin-right: 0.25rem;
+            margin-right: 0.5rem;
         }
     }
 }
