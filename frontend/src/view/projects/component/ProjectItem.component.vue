@@ -10,9 +10,9 @@
             <p>{{ project.summary }}</p>
             <div class="flex gap-small">
                 <div class="flex-1">
-                    <LinkComponent :href="url">
+                    <router-link :to="url">
                         <ButtonComponent>More Details</ButtonComponent>
-                    </LinkComponent>
+                    </router-link>
                 </div>
                 <div v-if="project.destinationUrl !== null" class="flex-auto">
                     <LinkComponent :href="project.viewUrl">
