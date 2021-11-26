@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { reactive, Ref, ref } from 'vue';
 
 import { authClient } from '@/api/client/auth/Auth.client';
 import { AuthDetails, UserDetails } from '@/service/type/AuthDetails.type';
@@ -11,8 +11,8 @@ class UserService {
         return authDetails.value !== null;
     }
 
-    getUser(): UserDetails | null {
-        return authDetails.value?.user ?? null;
+    getAuthDetails(): Ref<AuthDetails | null> {
+        return authDetails;
     }
 
     async logIn(username: string, password: string): Promise<void | Error> {

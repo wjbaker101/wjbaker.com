@@ -28,15 +28,15 @@ export default defineComponent({
     },
 
     setup() {
-        const userDetails = userService.getUser();
+        const authDetails = userService.getAuthDetails();
 
         const user = ref<User | null>(null);
 
         onMounted(async () => {
-            if (userDetails === null)
+            if (authDetails.value === null)
                 return;
 
-            const result = await userClient.getUserByReference(userDetails.reference);
+            const result = await userClient.getUserByReference(authDetails.value.user.reference);
             if (result instanceof Error) {
                 return;
             }
