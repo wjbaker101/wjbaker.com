@@ -9,6 +9,10 @@
         gap: 0.5rem;
     }
 
+    &.align-items-center {
+        align-items: center;
+    }
+
     &.flex-vertical {
         flex-direction: column;
     }

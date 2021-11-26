@@ -1,5 +1,5 @@
 <template>
-    <div class="page-actions-bar-component flex gap">
+    <div class="page-actions-bar-component flex gap align-items-center">
         <div class="return flex-1">
             <router-link
                 v-if="returnLink !== undefined"
