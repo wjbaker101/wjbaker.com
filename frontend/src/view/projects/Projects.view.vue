@@ -67,6 +67,7 @@ export default defineComponent({
                 urlSlug: x.urlSlug,
                 startedAt: dayjs(x.startedAt),
                 summary: x.summary,
+                description: null,
                 sourceCodeUrl: x.sourceCodeUrl,
                 previewImageUrl: x.previewImageUrl,
                 displayOrder: x.displayOrder,
