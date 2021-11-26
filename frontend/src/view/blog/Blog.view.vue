@@ -20,6 +20,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
+import dayjs from 'dayjs';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
@@ -30,7 +31,6 @@ import BlogPostComponent from '@/view/blog/component/BlogPost.component.vue';
 import { blogClient } from '@/api/client/blog/Blog.client';
 
 import { BlogPost } from '@/model/BlogPost.model';
-import dayjs from 'dayjs';
 
 export default defineComponent({
     name: 'BlogView',
