@@ -18,7 +18,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 
-import ArrowLeftComponent from '@/component/icon/ArrowLeft.component.vue';
+import ArrowLeftComponent from '@/component/icon/ArrowLeftIcon.component.vue';
 
 export default defineComponent({
     name: 'PageActionsBarComponent',
