@@ -2,7 +2,7 @@
     <div class="page-actions-bar-component flex">
         <div class="return flex-1">
             <router-link
-                v-if="returnLink !== null"
+                v-if="returnLink !== undefined"
                 :to="returnLink"
             >
                 <ArrowLeftComponent />
@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent } from 'vue';
 
 import ArrowLeftComponent from '@/component/icon/ArrowLeftIcon.component.vue';
 
@@ -29,12 +29,12 @@ export default defineComponent({
 
     props: {
         returnLink: {
-            type: Object as PropType<string | null>,
-            default: null,
+            type: String,
+            required: false,
         },
         returnText: {
-            type: Object as PropType<string | null>,
-            default: null,
+            type: String,
+            required: false,
         },
     },
 
