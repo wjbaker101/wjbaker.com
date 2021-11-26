@@ -6,6 +6,7 @@ export interface Project {
     urlSlug: string;
     startedAt: Dayjs;
     summary: string;
+    description: string | null;
     sourceCodeUrl: string | null;
     previewImageUrl: string | null;
     displayOrder: number;
