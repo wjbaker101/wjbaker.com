@@ -60,6 +60,13 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "blog" */ '@/view/blog-post/BlogPost.view.vue'),
     },
     {
+        path: '/user/login',
+        meta: {
+            title: 'Log In',
+        },
+        component: () => import(/* webpackChunkName: "blog" */ '@/view/user-login/UserLogin.view.vue'),
+    },
+    {
         path: '/:pathMatch(.*)*',
         meta: {
             title: 'Page Not Found',
