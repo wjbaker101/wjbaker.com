@@ -50,7 +50,12 @@ public sealed class AuthService : IAuthService
 
         return Result<LogInResponse>.Of(new LogInResponse
         {
-            Jwt = jwtResult.Value
+            Jwt = jwtResult.Value,
+            User = new LogInResponse.UserDetails
+            {
+                Reference = user.Reference,
+                Type = user.Type
+            }
         });
     }
 }

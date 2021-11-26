@@ -1,4 +1,6 @@
-﻿namespace backend.Api.Auth.Type;
+﻿using backend.Data.Record;
+
+namespace backend.Api.Auth.Type;
 
 public sealed class LogInRequest
 {
@@ -9,4 +11,11 @@ public sealed class LogInRequest
 public sealed class LogInResponse
 {
     public string Jwt { get; init; }
+    public UserDetails User { get; init; }
+
+    public sealed class UserDetails
+    {
+        public Guid Reference { get; init; }
+        public UserType Type { get; init; }
+    }
 }
