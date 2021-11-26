@@ -21,6 +21,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
@@ -40,6 +41,8 @@ export default defineComponent({
     },
 
     setup() {
+        const router = useRouter();
+
         const usernameField = ref<string>('');
         const passwordField = ref<string>('');
 
@@ -63,6 +66,10 @@ export default defineComponent({
                     isError.value = true;
                     return;
                 }
+
+                router.push({
+                    path: '/user',
+                });
             },
         }
     },
