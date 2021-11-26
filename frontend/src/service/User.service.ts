@@ -1,13 +1,14 @@
 import { ref } from 'vue';
 
 import { authClient } from '@/api/client/auth/Auth.client';
+import { AuthDetails } from '@/service/type/AuthDetails.type';
 
-const jwt = ref<string | null>(null);
+const authDetails = ref<AuthDetails | null>(null);
 
 class UserService {
 
     isLoggedIn(): boolean {
-        return jwt.value !== null;
+        return authDetails.value !== null;
     }
 
     async logIn(username: string, password: string): Promise<void | Error> {
@@ -18,7 +19,13 @@ class UserService {
         if (result instanceof Error)
             return result;
 
-        jwt.value = result.jwt;
+        authDetails.value = {
+            jwt: result.jwt,
+            user: {
+                reference: result.user.reference,
+                userType: result.user.userType,
+            },
+        };
     }
 }
 

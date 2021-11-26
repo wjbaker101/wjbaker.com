@@ -5,4 +5,10 @@ export interface LogInRequest {
 
 export interface LogInResponse {
     jwt: string;
+    user: UserDetails;
+}
+
+interface UserDetails {
+    reference: string;
+    userType: number;
 }
