@@ -9,4 +9,5 @@ export interface GetProjectByResponse {
     previewImageUrl: string | null;
     displayOrder: number;
     createdAt: string;
+    viewUrl: string | null;
 }
