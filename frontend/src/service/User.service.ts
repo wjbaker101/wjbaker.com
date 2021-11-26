@@ -1,7 +1,7 @@
-import { reactive, Ref, ref } from 'vue';
+import { Ref, ref } from 'vue';
 
 import { authClient } from '@/api/client/auth/Auth.client';
-import { AuthDetails, UserDetails } from '@/service/type/AuthDetails.type';
+import { AuthDetails } from '@/service/type/AuthDetails.type';
 
 const authDetails = ref<AuthDetails | null>(null);
 
