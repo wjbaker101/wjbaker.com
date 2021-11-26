@@ -5,7 +5,7 @@ export interface AuthDetails {
     user: UserDetails;
 }
 
-interface UserDetails {
+export interface UserDetails {
     reference: string;
     userType: UserType;
 }

@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 
 import { authClient } from '@/api/client/auth/Auth.client';
-import { AuthDetails } from '@/service/type/AuthDetails.type';
+import { AuthDetails, UserDetails } from '@/service/type/AuthDetails.type';
 
 const authDetails = ref<AuthDetails | null>(null);
 
@@ -9,6 +9,10 @@ class UserService {
 
     isLoggedIn(): boolean {
         return authDetails.value !== null;
+    }
+
+    getUser(): UserDetails | null {
+        return authDetails.value?.user ?? null;
     }
 
     async logIn(username: string, password: string): Promise<void | Error> {
