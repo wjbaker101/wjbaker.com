@@ -9,7 +9,7 @@
                 {{ returnText }}
             </router-link>
         </div>
-        <div class="actions flex flex-auto">
+        <div class="actions flex gap-small flex-auto">
             <slot />
         </div>
     </div>
@@ -54,12 +54,6 @@ export default defineComponent({
 
         .svg-icon {
             margin-right: 0.25rem;
-        }
-    }
-
-    .actions {
-        & > * {
-            margin: auto 0 auto 0.5rem;
         }
     }
 }
