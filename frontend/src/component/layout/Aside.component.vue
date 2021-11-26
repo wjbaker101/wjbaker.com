@@ -46,6 +46,8 @@ import LinkComponent from '@/component/Link.component.vue';
 import GitHubIcon from '@/component/icon/GitHubIcon.component.vue';
 import LinkedInIcon from '@/component/icon/LinkedInIcon.component.vue';
 
+import { userService } from '@/service/User.service';
+
 interface AsideLink {
     title: string;
     url: string;
@@ -65,7 +67,9 @@ export default defineComponent({
 
         const currentLocation = computed<string>(() => route?.path);
 
-        const links: Array<AsideLink> = [
+        const authDetails = userService.getAuthDetails();
+
+        const links = computed<Array<AsideLink>>(() => [
             {
                 title: 'About',
                 url: '/about',
@@ -78,7 +82,11 @@ export default defineComponent({
                 title: 'Blog',
                 url: '/blog',
             },
-        ];
+            {
+                title: authDetails.value?.user ? 'Your User' : 'Login',
+                url: authDetails.value?.user ? '/user' : '/user/login',
+            },
+        ]);
 
         return {
             currentLocation,
