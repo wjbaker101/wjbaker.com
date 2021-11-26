@@ -7,7 +7,7 @@ class UserClient {
 
     public async getUserByReference(reference: string): Promise<GetUserByResponse | Error> {
         try {
-            const response = await apiClient.post<ApiResultResponse<GetUserByResponse>>(`/user/${reference}`);
+            const response = await apiClient.get<ApiResultResponse<GetUserByResponse>>(`/user/${reference}`);
 
             return response.data.result;
         }
