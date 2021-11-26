@@ -2,6 +2,7 @@
     <PageContentComponent class="blog-post-view" v-if="blogPost !== null">
         <PageTitleComponent :title="blogPost.title" />
         <PageActionsBarComponent returnLink="/blog" returnText="Return to Blog">
+            <p><strong>Posted:</strong> {{ displayPostedAt }} ({{ displayPostedAtDifference }})</p>
         </PageActionsBarComponent>
         <div v-if="isLoading">
             <LoadingComponent message="Loading Blog post" />
@@ -20,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import dayjs from 'dayjs';
 
@@ -57,6 +58,9 @@ export default defineComponent({
         const blogPost = ref<BlogPost | null>(null);
         const isLoading = ref<boolean>(false);
         const isError = ref<boolean>(false);
+        
+        const displayPostedAt = computed<string>(() => blogPost?.value?.postedAt.format('Do MMMM YYYY') ?? '');
+        const displayPostedAtDifference = computed<string>(() => blogPost?.value?.postedAt.fromNow() ?? '');
 
         onMounted(async () => {
             isLoading.value = false;
@@ -86,6 +90,8 @@ export default defineComponent({
             blogPost,
             isLoading,
             isError,
+            displayPostedAt,
+            displayPostedAtDifference,
         }
     },
 });
