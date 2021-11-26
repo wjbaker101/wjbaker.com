@@ -10,15 +10,18 @@
         <p>
             <strong>User Type:</strong> {{ displayUserType }}
         </p>
+        <ButtonComponent @click="onLogOut">Log Out</ButtonComponent>
     </PageContentComponent>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
+import ButtonComponent from '@/component/Button.component.vue';
 
 import { userClient } from '@/api/client/user/User.client';
 import { userService } from '@/service/User.service';
@@ -31,9 +34,12 @@ export default defineComponent({
     components: {
         PageContentComponent,
         PageTitleComponent,
+        ButtonComponent,
     },
 
     setup() {
+        const router = useRouter();
+
         const authDetails = userService.getAuthDetails();
 
         const user = ref<User | null>(null);
@@ -76,6 +82,14 @@ export default defineComponent({
             displayCreatedAt,
             displayCreatedAtDifference,
             displayUserType,
+
+            onLogOut() {
+                userService.logOut();
+
+                router.push({
+                    path: '/user/login',
+                });
+            },
         }
     },
 });

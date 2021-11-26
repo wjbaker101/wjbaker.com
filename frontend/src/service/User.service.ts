@@ -31,6 +31,10 @@ class UserService {
             },
         };
     }
+
+    logOut(): void {
+        authDetails.value = null;
+    }
 }
 
 export const userService = new UserService();
