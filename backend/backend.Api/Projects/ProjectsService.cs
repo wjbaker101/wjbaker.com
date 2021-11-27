@@ -48,6 +48,7 @@ public sealed class ProjectsService : IProjectsService
                 Frequency = x.Count()
             })
             .OrderByDescending(x => x.Frequency)
+            .ThenBy(x => x.Tag)
             .ToList();
 
         var projects = query
@@ -73,7 +74,7 @@ public sealed class ProjectsService : IProjectsService
                 DisplayOrder = x.DisplayOrder,
                 CreatedAt = x.CreatedAt,
                 ViewUrl = x.ViewUrl,
-                Tags = x.Tags
+                Tags = x.Tags.OrderBy(t => t).ToList()
             }),
             TagFrequencies = tagFrequencies
         });
