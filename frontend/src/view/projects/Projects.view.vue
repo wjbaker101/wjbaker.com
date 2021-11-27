@@ -98,7 +98,7 @@ export default defineComponent({
 
         const tagFrequencies = ref<Array<TagFrequency> | null>(null);
 
-        const currentPage = computed<number>(() => Number(route.query.page));
+        const currentPage = computed<number>(() => Number(route.query.page ?? 1));
         const maxPages = ref<number>(Number.MAX_VALUE);
 
         const routerPrevPage = computed<RouteLocationNormalizedLoaded>(() => ({
@@ -174,6 +174,8 @@ export default defineComponent({
 <style lang="scss">
 .projects-view {
     .page-navigation {
+        margin-top: 3rem;
+
         .is-disabled {
             color: theme(grey-dark);
         }
