@@ -3,6 +3,7 @@
 public sealed class SearchBlogResponse
 {
     public int Total { get; init; }
+    public int PageSize { get; init; }
     public List<Post> Posts { get; init; }
 
     public sealed class Post

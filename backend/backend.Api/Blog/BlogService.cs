@@ -50,6 +50,7 @@ public sealed class BlogService : IBlogService
         return Result<SearchBlogResponse>.Of(new SearchBlogResponse
         {
             Total = total,
+            PageSize = pageSize,
             Posts = posts.ConvertAll(x => new SearchBlogResponse.Post
             {
                 Reference = x.Reference,
