@@ -1,7 +1,7 @@
 <template>
     <div class="blog-post-component flex gap flex-responsive">
         <div class="image-container flex-1 flex-vh-center text-center">
-            <FileIcon width="48" height="48" />
+            <FileIcon :width="48" :height="48" />
         </div>
         <div class="content-container flex-2">
             <h3>{{ blogPost.title }}</h3>
