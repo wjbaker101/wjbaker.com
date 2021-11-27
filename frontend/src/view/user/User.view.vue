@@ -83,8 +83,8 @@ export default defineComponent({
             displayCreatedAtDifference,
             displayUserType,
 
-            onLogOut() {
-                userService.logOut();
+            async onLogOut() {
+                await userService.logOut();
 
                 router.push({
                     path: '/user/login',

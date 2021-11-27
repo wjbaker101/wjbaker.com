@@ -3,7 +3,19 @@ import { Ref, ref } from 'vue';
 import { authClient } from '@/api/client/auth/Auth.client';
 import { AuthDetails } from '@/service/user/type/AuthDetails.type';
 
+import { cacheService } from '@/service/cache/Cache.service';
+
 const authDetails = ref<AuthDetails | null>(null);
+
+const cacheKey = 'authDetails';
+
+(async () => {
+
+    const cache = await cacheService.get<AuthDetails>(cacheKey);
+
+    authDetails.value = cache;
+
+})();
 
 class UserService {
 
@@ -34,10 +46,14 @@ class UserService {
                 userType: result.user.userType,
             },
         };
+
+        await cacheService.set(cacheKey, authDetails.value, authDetails.value.expiresAt * 1000);
     }
 
-    logOut(): void {
+    async logOut(): Promise<void> {
         authDetails.value = null;
+
+        await cacheService.delete(cacheKey);
     }
 }
 
