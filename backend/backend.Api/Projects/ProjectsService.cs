@@ -39,6 +39,16 @@ public sealed class ProjectsService : IProjectsService
 
         var total = query.Count();
 
+        var tagFrequencies = query
+            .SelectMany(x => x.Tags)
+            .GroupBy(x => x.ToLower())
+            .Select(x => new SearchProjectsResponse.TagFrequency
+            {
+                Tag = x.First(),
+                Frequency = x.Count()
+            })
+            .ToList();
+
         var projects = query
             .OrderBy(x => x.DisplayOrder)
             .Skip((page - 1) * pageSize)
@@ -63,7 +73,8 @@ public sealed class ProjectsService : IProjectsService
                 CreatedAt = x.CreatedAt,
                 ViewUrl = x.ViewUrl,
                 Tags = x.Tags
-            })
+            }),
+            TagFrequencies = tagFrequencies
         });
     }
 
