@@ -14,7 +14,7 @@
         <div v-if="isLoading">
             <LoadingComponent message="Loading Project Details" />
         </div>
-        <div v-else v-html="project.description"></div>
+        <div v-else v-html="markdown"></div>
     </PageContentComponent>
     <PageContentComponent class="project-view" v-else-if="isError">
         <PageTitleComponent title="Project Not Found" />
@@ -28,9 +28,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import dayjs from 'dayjs';
+import MarkdownIt from 'markdown-it';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
@@ -46,6 +47,8 @@ import EditIcon from '@/component/icon/PencilIcon.component.vue';
 import { projectClient } from '@/api/client/projects/Project.client';
 
 import { Project } from '@/model/Project.model';
+
+const markdownIt = new MarkdownIt();
 
 export default defineComponent({
     name: 'ProjectView',
@@ -69,6 +72,13 @@ export default defineComponent({
         const project = ref<Project | null>(null);
         const isLoading = ref<boolean>(false);
         const isError = ref<boolean>(false);
+
+        const markdown = computed<string | null>(() => {
+            if (project.value === null || project.value.description === null)
+                return null;
+
+            return markdownIt.render(project.value.description);
+        });
 
         onMounted(async () => {
             const urlSlug = route.params.urlSlug as string;
@@ -106,6 +116,7 @@ export default defineComponent({
             project,
             isLoading,
             isError,
+            markdown,
         }
     },
 });
