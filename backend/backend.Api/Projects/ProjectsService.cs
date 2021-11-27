@@ -62,6 +62,7 @@ public sealed class ProjectsService : IProjectsService
         return Result<SearchProjectsResponse>.Of(new SearchProjectsResponse
         {
             Total = total,
+            PageSize = pageSize,
             Projects = projects.ConvertAll(x => new SearchProjectsResponse.Project
             {
                 Reference = x.Reference,

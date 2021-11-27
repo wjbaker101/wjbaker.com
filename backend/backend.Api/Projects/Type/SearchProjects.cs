@@ -3,6 +3,7 @@
 public sealed class SearchProjectsResponse
 {
     public int Total { get; init; }
+    public int PageSize { get; init; }
     public List<Project> Projects { get; init; }
     public List<TagFrequency> TagFrequencies { get; init; }
 
