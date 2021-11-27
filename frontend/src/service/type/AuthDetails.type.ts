@@ -2,6 +2,7 @@ import { UserType } from '@/model/User.model';
 
 export interface AuthDetails {
     jwt: string;
+    expiresAt: number;
     user: UserDetails;
 }
 

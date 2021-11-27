@@ -5,6 +5,7 @@ export interface LogInRequest {
 
 export interface LogInResponse {
     jwt: string;
+    expiresAt: number;
     user: UserDetails;
 }
 

@@ -25,6 +25,7 @@ class UserService {
 
         authDetails.value = {
             jwt: result.jwt,
+            expiresAt: result.expiresAt,
             user: {
                 reference: result.user.reference,
                 userType: result.user.userType,
