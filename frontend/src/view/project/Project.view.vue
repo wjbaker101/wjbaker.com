@@ -1,26 +1,25 @@
 <template>
     <PageContentComponent class="project-view" v-if="project !== null">
         <PageTitleComponent :title="project.title" />
-        <PageActionsBarComponent
-            returnLink="/projects"
-            returnText="Return to Projects"
-        >
-            <LinkComponent
-                :href="project.viewLink"
-                v-if="project.viewLink !== null"
-            >
-                <ButtonComponent>
-                    <LinkIcon />
-                </ButtonComponent>
-            </LinkComponent>
-            <LinkComponent
-                :href="project.sourceCodeURL"
-                v-if="project.sourceCodeURL !== null"
-            >
-                <ButtonComponent>
-                    <GitHubIcon />
-                </ButtonComponent>
-            </LinkComponent>
+        <PageActionsBarComponent returnLink="/projects" returnText="Return to Projects">
+            <template v-slot:right>
+                <LinkComponent
+                    :href="project.viewLink"
+                    v-if="project.viewLink !== null"
+                >
+                    <ButtonComponent>
+                        <LinkIcon />
+                    </ButtonComponent>
+                </LinkComponent>
+                <LinkComponent
+                    :href="project.sourceCodeURL"
+                    v-if="project.sourceCodeURL !== null"
+                >
+                    <ButtonComponent>
+                        <GitHubIcon />
+                    </ButtonComponent>
+                </LinkComponent>
+            </template>
         </PageActionsBarComponent>
         <div v-if="isLoading">
             <LoadingComponent message="Loading Project Details" />

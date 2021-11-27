@@ -1,6 +1,6 @@
 <template>
-    <div class="page-actions-bar-component flex gap align-items-center">
-        <div class="return flex-1">
+    <div class="page-actions-bar-component flex gap align-items-center flex-responsive">
+        <div class="left flex-auto">
             <router-link
                 v-if="returnLink !== undefined"
                 :to="returnLink"
@@ -8,8 +8,11 @@
                 <ArrowLeftComponent />{{ returnText }}
             </router-link>
         </div>
-        <div class="actions flex gap-small flex-auto">
-            <slot />
+        <div class="center flex gap-small flex-1">
+            <slot name="center" />
+        </div>
+        <div class="right flex gap-small flex-auto">
+            <slot name="right" />
         </div>
     </div>
 </template>
@@ -48,9 +51,7 @@ export default defineComponent({
     border: 1px solid theme(secondary);
     border-radius: border-radius();
 
-    .return {
-        margin: auto 0;
-
+    .left {
         .svg-icon {
             margin-right: 0.5rem;
         }

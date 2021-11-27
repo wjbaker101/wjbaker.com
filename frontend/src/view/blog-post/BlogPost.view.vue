@@ -2,7 +2,9 @@
     <PageContentComponent class="blog-post-view" v-if="blogPost !== null">
         <PageTitleComponent :title="blogPost.title" />
         <PageActionsBarComponent returnLink="/blog" returnText="Return to Blog">
-            <p><strong>Posted:</strong> {{ displayPostedAt }} ({{ displayPostedAtDifference }})</p>
+            <template v-slot:right>
+                <p><strong>Posted:</strong> {{ displayPostedAt }} ({{ displayPostedAtDifference }})</p>
+            </template>
         </PageActionsBarComponent>
         <div v-if="isLoading">
             <LoadingComponent message="Loading Blog post" />
