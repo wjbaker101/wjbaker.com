@@ -40,17 +40,20 @@ public sealed class AuthService : IAuthService
         if (!isPasswordValid)
             return Result<LogInResponse>.Failure("Unable to log in, the given credentials we incorrect.");
 
+        var expiresAt = DateTimeOffset.UtcNow.AddDays(1).ToUnixTimeSeconds();
+
         var jwtResult = _jwtService.Create(new RequestContext
         {
             UserReference = user.Reference,
             UserType = user.Type
-        });
+        }, expiresAt);
         if (jwtResult.IsFailure)
             return Result<LogInResponse>.From(jwtResult);
 
         return Result<LogInResponse>.Of(new LogInResponse
         {
             Jwt = jwtResult.Value,
+            ExpiresAt = expiresAt,
             User = new LogInResponse.UserDetails
             {
                 Reference = user.Reference,

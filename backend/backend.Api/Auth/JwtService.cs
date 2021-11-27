@@ -8,7 +8,7 @@ namespace backend.Api.Auth;
 
 public interface IJwtService
 {
-    Result<string> Create(RequestContext requestContext);
+    Result<string> Create(RequestContext requestContext, long expiresAt);
     Result<RequestContext> Verify(string jwt);
 }
 
@@ -21,14 +21,14 @@ public sealed class JwtService : IJwtService
         _secret = jwtSettings.Value.Secret;
     }
 
-    public Result<string> Create(RequestContext requestContext)
+    public Result<string> Create(RequestContext requestContext, long expiresAt)
     {
         try
         {
             return Result<string>.Of(JwtBuilder.Create()
                 .WithAlgorithm(new HMACSHA512Algorithm())
                 .WithSecret(_secret)
-                .AddClaim("exp", DateTimeOffset.UtcNow.AddDays(1).ToUnixTimeSeconds())
+                .AddClaim("exp", expiresAt)
                 .AddClaim("userRef", requestContext.UserReference)
                 .AddClaim("userType", requestContext.UserType)
                 .Encode());

@@ -11,6 +11,7 @@ public sealed class LogInRequest
 public sealed class LogInResponse
 {
     public string Jwt { get; init; }
+    public long ExpiresAt { get; init; }
     public UserDetails User { get; init; }
 
     public sealed class UserDetails
