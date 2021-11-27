@@ -11,5 +11,5 @@ export interface LogInResponse {
 
 interface UserDetails {
     reference: string;
-    userType: number;
+    type: number;
 }

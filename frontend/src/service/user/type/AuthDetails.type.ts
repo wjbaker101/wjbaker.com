@@ -8,5 +8,5 @@ export interface AuthDetails {
 
 export interface UserDetails {
     reference: string;
-    userType: UserType;
+    type: UserType;
 }
