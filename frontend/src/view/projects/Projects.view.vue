@@ -16,6 +16,17 @@
                     :project="project"
                 />
             </div>
+            <div>
+                <h3>Tags</h3>
+                <p>
+                    <ProjectTagComponent
+                        :key="`tagFrequency-${index}`"
+                        v-for="(tagFrequency, index) in tagFrequencies"
+                        :tag="tagFrequency.tag"
+                        :frequency="tagFrequency.frequency"
+                    />
+                </p>
+            </div>
         </div>
     </PageContentComponent>
 </template>
@@ -24,6 +35,7 @@
 import { defineComponent, onMounted, ref } from 'vue';
 import dayjs from 'dayjs';
 
+import ProjectTagComponent from '@/view/projects/component/ProjectTag.component.vue';
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
@@ -34,6 +46,11 @@ import { projectClient } from '@/api/client/projects/Project.client';
 
 import { Project } from '@/model/Project.model';
 
+interface TagFrequency {
+    tag: string;
+    frequency: number;
+}
+
 export default defineComponent({
     name: 'ProjectsView',
 
@@ -43,12 +60,15 @@ export default defineComponent({
         LoadingComponent,
         ErrorComponent,
         ProjectItemComponent,
+        ProjectTagComponent,
     },
 
     setup() {
         const projects = ref<Array<Project>>([]);
         const isLoading = ref<boolean>(false);
         const isError = ref<boolean>(false);
+
+        const tagFrequencies = ref<Array<TagFrequency> | null>(null);
 
         onMounted(async () => {
             isLoading.value = true;
@@ -76,6 +96,11 @@ export default defineComponent({
                 tags: x.tags,
             }));
 
+            tagFrequencies.value = response.tagFrequencies.map(x => ({
+                tag: x.tag,
+                frequency: x.frequency,
+            }));
+
             isLoading.value = false;
         });
 
@@ -83,6 +108,7 @@ export default defineComponent({
             projects,
             isLoading,
             isError,
+            tagFrequencies,
         }
     },
 });
