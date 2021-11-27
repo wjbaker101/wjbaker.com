@@ -1,6 +1,6 @@
 export interface UpdateProjectRequest {
     title: string;
-    urlSlug: string;
+    urlSlug: string | null;
     startedAt: string;
     summary: string;
     description: string | null;

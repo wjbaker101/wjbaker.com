@@ -1,6 +1,6 @@
 export interface CreateProjectRequest {
     title: string;
-    urlSlug: string;
+    urlSlug: string | null;
     startedAt: string;
     summary: string;
     description: string | null;
