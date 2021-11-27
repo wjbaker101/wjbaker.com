@@ -64,14 +64,14 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
             title: 'Your User',
         },
-        component: () => import(/* webpackChunkName: "blog" */ '@/view/user/User.view.vue'),
+        component: () => import(/* webpackChunkName: "user" */ '@/view/user/User.view.vue'),
     },
     {
         path: '/user/login',
         meta: {
             title: 'Log In',
         },
-        component: () => import(/* webpackChunkName: "blog" */ '@/view/user-login/UserLogin.view.vue'),
+        component: () => import(/* webpackChunkName: "user" */ '@/view/user-login/UserLogin.view.vue'),
     },
     {
         path: '/:pathMatch(.*)*',
