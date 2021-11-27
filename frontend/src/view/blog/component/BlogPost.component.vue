@@ -1,7 +1,7 @@
 <template>
     <div class="blog-post-component flex gap flex-responsive">
         <div class="image-container flex-1 flex-vh-center text-center">
-            <FolderIcon />
+            <FileIcon width="48" height="48" />
         </div>
         <div class="content-container flex-2">
             <h3>{{ blogPost.title }}</h3>
@@ -23,7 +23,7 @@ import { computed, defineComponent, PropType } from 'vue';
 
 import ButtonComponent from '@/component/Button.component.vue';
 import LinkComponent from '@/component/Link.component.vue';
-import FolderIcon from '@/component/icon/FolderOpenIcon.component.vue';
+import FileIcon from '@/component/icon/FileIcon.component.vue';
 
 import { BlogPost } from '@/model/BlogPost.model';
 
@@ -33,7 +33,7 @@ export default defineComponent({
     components: {
         ButtonComponent,
         LinkComponent,
-        FolderIcon,
+        FileIcon,
     },
 
     props: {
@@ -70,6 +70,11 @@ export default defineComponent({
         margin-top: $padding;
         padding-top: $padding;
         border-top: 1px solid theme(grey-dark);
+    }
+
+    .image-container {
+        color: theme(secondary);
+        filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
     }
 }
 </style>
