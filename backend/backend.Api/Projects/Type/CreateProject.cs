@@ -11,6 +11,7 @@ public sealed class CreateProjectRequest
     public string? PreviewImageUrl { get; init; }
     public int DisplayOrder { get; init; }
     public string? ViewUrl { get; init; }
+    public List<string> Tags { get; init; } = new();
 }
 
 public sealed class CreateProjectResponse
@@ -26,4 +27,5 @@ public sealed class CreateProjectResponse
     public int DisplayOrder { get; init; }
     public DateTime CreatedAt { get; init; }
     public string? ViewUrl { get; init; }
+    public List<string> Tags { get; init; } = new();
 }

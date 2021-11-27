@@ -61,7 +61,8 @@ public sealed class ProjectsService : IProjectsService
                 PreviewImageUrl = x.PreviewImageUrl,
                 DisplayOrder = x.DisplayOrder,
                 CreatedAt = x.CreatedAt,
-                ViewUrl = x.ViewUrl
+                ViewUrl = x.ViewUrl,
+                Tags = x.Tags
             })
         });
     }
@@ -90,7 +91,8 @@ public sealed class ProjectsService : IProjectsService
             PreviewImageUrl = project.PreviewImageUrl,
             DisplayOrder = project.DisplayOrder,
             CreatedAt = project.CreatedAt,
-            ViewUrl = project.ViewUrl
+            ViewUrl = project.ViewUrl,
+            Tags = project.Tags
         });
     }
 
@@ -118,7 +120,8 @@ public sealed class ProjectsService : IProjectsService
             PreviewImageUrl = project.PreviewImageUrl,
             DisplayOrder = project.DisplayOrder,
             CreatedAt = project.CreatedAt,
-            ViewUrl = project.ViewUrl
+            ViewUrl = project.ViewUrl,
+            Tags = project.Tags
         });
     }
 
@@ -143,7 +146,8 @@ public sealed class ProjectsService : IProjectsService
             PreviewImageUrl = request.PreviewImageUrl,
             DisplayOrder = request.DisplayOrder,
             CreatedAt = DateTime.UtcNow,
-            ViewUrl = request.ViewUrl
+            ViewUrl = request.ViewUrl,
+            Tags = request.Tags
         };
         session.Save(project);
 
@@ -161,7 +165,8 @@ public sealed class ProjectsService : IProjectsService
             PreviewImageUrl = project.PreviewImageUrl,
             DisplayOrder = project.DisplayOrder,
             CreatedAt = project.CreatedAt,
-            ViewUrl = project.ViewUrl
+            ViewUrl = project.ViewUrl,
+            Tags = project.Tags
         });
     }
 
@@ -190,6 +195,7 @@ public sealed class ProjectsService : IProjectsService
         project.PreviewImageUrl = request.PreviewImageUrl;
         project.DisplayOrder = request.DisplayOrder;
         project.ViewUrl = request.ViewUrl;
+        project.Tags = request.Tags;
 
         session.Update(project);
 
@@ -207,7 +213,8 @@ public sealed class ProjectsService : IProjectsService
             PreviewImageUrl = project.PreviewImageUrl,
             DisplayOrder = project.DisplayOrder,
             CreatedAt = project.CreatedAt,
-            ViewUrl = project.ViewUrl
+            ViewUrl = project.ViewUrl,
+            Tags = project.Tags
         });
     }
 }

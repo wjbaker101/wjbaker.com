@@ -13,4 +13,5 @@ public sealed class GetProjectByResponse
     public int DisplayOrder { get; init; }
     public DateTime CreatedAt { get; init; }
     public string? ViewUrl { get; init; }
+    public List<string> Tags { get; init; } = new();
 }
