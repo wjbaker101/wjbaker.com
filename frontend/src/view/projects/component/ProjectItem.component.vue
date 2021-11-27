@@ -21,7 +21,7 @@
                         <ButtonComponent>More Details</ButtonComponent>
                     </router-link>
                 </div>
-                <div v-if="project.destinationUrl !== null" class="flex-auto">
+                <div v-if="project.viewUrl !== null" class="flex-auto">
                     <LinkComponent :href="project.viewUrl">
                         <ButtonComponent><ExternalLinkIcon /></ButtonComponent>
                     </LinkComponent>
