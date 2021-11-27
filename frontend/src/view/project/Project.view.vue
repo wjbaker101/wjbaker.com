@@ -9,6 +9,9 @@
                 <LinkComponent v-if="project.sourceCodeUrl !== null" :href="project.sourceCodeUrl">
                     <ButtonComponent><GitHubIcon /></ButtonComponent>
                 </LinkComponent>
+                <router-link v-if="isAdmin" :to="`/project/edit/${project.reference}`">
+                    <ButtonComponent><EditIcon /></ButtonComponent>
+                </router-link>
             </template>
         </PageActionsBarComponent>
         <div v-if="isLoading">
@@ -45,8 +48,10 @@ import GitHubIcon from '@/component/icon/GitHubIcon.component.vue';
 import EditIcon from '@/component/icon/PencilIcon.component.vue';
 
 import { projectClient } from '@/api/client/projects/Project.client';
+import { userService } from '@/service/user/User.service';
 
 import { Project } from '@/model/Project.model';
+import { UserType } from '@/model/User.model';
 
 const markdownIt = new MarkdownIt();
 
@@ -79,6 +84,9 @@ export default defineComponent({
 
             return markdownIt.render(project.value.description);
         });
+
+        const authDetails = userService.getAuthDetails();
+        const isAdmin = computed<boolean>(() => authDetails.value?.user.type === UserType.Admin);
 
         onMounted(async () => {
             const urlSlug = route.params.urlSlug as string;
@@ -117,6 +125,7 @@ export default defineComponent({
             isLoading,
             isError,
             markdown,
+            isAdmin,
         }
     },
 });
