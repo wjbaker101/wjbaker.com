@@ -9,14 +9,33 @@
             message="Unable to load projects; try refreshing the page."
         />
         <div v-else>
-            <div class="projects">
+            <section class="projects">
                 <ProjectItemComponent
                     :key="project.reference"
                     v-for="project in projects"
                     :project="project"
                 />
-            </div>
-            <div>
+            </section>
+            <section class="page-navigation">
+                <PageActionsBarComponent>
+                    <template v-slot:center>
+                        <div class="flex-1 text-center" :class="{ 'is-disabled': currentPage === 1 }">
+                            <router-link :to="routerPrevPage">
+                                <ArrowLeftIconComponent />
+                            </router-link>
+                        </div>
+                        <div class="flex-auto text-center">
+                            {{ currentPage }}
+                        </div>
+                        <div class="flex-1 text-center">
+                            <router-link :to="routerNextPage">
+                                <ArrowRightIconComponent />
+                            </router-link>
+                        </div>
+                    </template>
+                </PageActionsBarComponent>
+            </section>
+            <section>
                 <h3>Tags</h3>
                 <p>
                     <ProjectTagComponent
@@ -26,21 +45,25 @@
                         :frequency="tagFrequency.frequency"
                     />
                 </p>
-            </div>
+            </section>
         </div>
     </PageContentComponent>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref, watch } from 'vue';
+import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
 import dayjs from 'dayjs';
 
 import ProjectTagComponent from '@/view/projects/component/ProjectTag.component.vue';
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
+import PageActionsBarComponent from '@/component/PageActionsBar.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
 import ErrorComponent from '@/component/Error.component.vue';
 import ProjectItemComponent from '@/view/projects/component/ProjectItem.component.vue';
+import ArrowLeftIconComponent from '@/component/icon/ArrowLeftIcon.component.vue';
+import ArrowRightIconComponent from '@/component/icon/ArrowRightIcon.component.vue';
 
 import { projectClient } from '@/api/client/projects/Project.client';
 
@@ -57,24 +80,47 @@ export default defineComponent({
     components: {
         PageContentComponent,
         PageTitleComponent,
+        PageActionsBarComponent,
         LoadingComponent,
         ErrorComponent,
         ProjectItemComponent,
         ProjectTagComponent,
+        ArrowLeftIconComponent,
+        ArrowRightIconComponent,
     },
 
     setup() {
+        const route = useRoute();
+
         const projects = ref<Array<Project>>([]);
         const isLoading = ref<boolean>(false);
         const isError = ref<boolean>(false);
 
         const tagFrequencies = ref<Array<TagFrequency> | null>(null);
 
-        onMounted(async () => {
+        const currentPage = computed<number>(() => Number(route.query.page));
+        const maxPages = ref<number>(Number.MAX_VALUE);
+
+        const routerPrevPage = computed<RouteLocationNormalizedLoaded>(() => ({
+            ...route,
+            query: {
+                ...route.query,
+                page: String(Math.max(1, currentPage.value - 1)),
+            },
+        }));
+        const routerNextPage = computed<RouteLocationNormalizedLoaded>(() => ({
+            ...route,
+            query: {
+                ...route.query,
+                page: String(Math.min(maxPages.value, currentPage.value + 1)),
+            },
+        }));
+
+        const loadProjects = async function () {
             isLoading.value = true;
             isError.value = false;
 
-            const response = await projectClient.searchProjects(1);
+            const response = await projectClient.searchProjects(currentPage.value);
             if (response instanceof Error) {
                 isLoading.value = false;
                 isError.value = true;
@@ -102,12 +148,23 @@ export default defineComponent({
             }));
 
             isLoading.value = false;
+        };
+
+        watch(currentPage, async () => {
+            await loadProjects();
+        });
+
+        onMounted(async () => {
+            await loadProjects();
         });
 
         return {
             projects,
             isLoading,
             isError,
+            currentPage,
+            routerPrevPage,
+            routerNextPage,
             tagFrequencies,
         }
     },
@@ -115,4 +172,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+.projects-view {
+    .page-navigation {
+        .is-disabled {
+            color: theme(grey-dark);
+        }
+    }
+}
 </style>
