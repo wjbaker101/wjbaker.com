@@ -4,8 +4,10 @@
             <router-link
                 v-if="returnLink !== undefined"
                 :to="returnLink"
+                class="flex gap-small align-items-center"
             >
-                <ArrowLeftComponent />{{ returnText }}
+                <ArrowLeftComponent />
+                <span>{{ returnText }}</span>
             </router-link>
         </div>
         <div class="center flex gap-small flex-1">
@@ -50,11 +52,5 @@ export default defineComponent({
     margin-bottom: 2rem;
     border: 1px solid theme(secondary);
     border-radius: border-radius();
-
-    .left {
-        .svg-icon {
-            margin-right: 0.5rem;
-        }
-    }
 }
 </style>
