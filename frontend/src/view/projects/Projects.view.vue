@@ -27,7 +27,7 @@
                         <div class="flex-auto text-center">
                             <strong>{{ currentPage }}</strong> <small>/ {{ maxPages }}</small>
                         </div>
-                        <div class="flex-1 text-center">
+                        <div class="flex-1 text-center" :class="{ 'is-disabled': currentPage === maxPages }">
                             <router-link :to="routerNextPage">
                                 <ArrowRightIconComponent />
                             </router-link>
