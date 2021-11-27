@@ -25,9 +25,9 @@
                             </router-link>
                         </div>
                         <div class="flex-auto text-center">
-                            {{ currentPage }}
+                            <strong>{{ currentPage }}</strong> <small>/ {{ maxPages }}</small>
                         </div>
-                        <div class="flex-1 text-center">
+                        <div class="flex-1 text-center" :class="{ 'is-disabled': currentPage === maxPages }">
                             <router-link :to="routerNextPage">
                                 <ArrowRightIconComponent />
                             </router-link>
@@ -79,7 +79,15 @@ export default defineComponent({
         const isError = ref<boolean>(false);
 
         const currentPage = computed<number>(() => Number(route.query.page ?? 1));
-        const maxPages = ref<number>(Number.MAX_VALUE);
+        const total = ref<number | null>(null);
+        const pageSize = ref<number | null>(null);
+
+        const maxPages = computed<number>(() => {
+            if (total.value === null || pageSize.value === null)
+                return Number.MAX_VALUE;
+
+            return Math.ceil(total.value / pageSize.value);
+        });
 
         const routerPrevPage = computed<RouteLocationNormalizedLoaded>(() => ({
             ...route,
@@ -116,6 +124,9 @@ export default defineComponent({
                 content: null
             }));
 
+            total.value = result.total;
+            pageSize.value = result.pageSize;
+
             isLoading.value = false;
             isError.value = false;
         };
@@ -133,6 +144,9 @@ export default defineComponent({
             isLoading,
             isError,
             currentPage,
+            total,
+            pageSize,
+            maxPages,
             routerPrevPage,
             routerNextPage,
         }
