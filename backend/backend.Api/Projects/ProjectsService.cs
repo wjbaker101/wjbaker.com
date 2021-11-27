@@ -47,6 +47,7 @@ public sealed class ProjectsService : IProjectsService
                 Tag = x.First(),
                 Frequency = x.Count()
             })
+            .OrderByDescending(x => x.Frequency)
             .ToList();
 
         var projects = query
