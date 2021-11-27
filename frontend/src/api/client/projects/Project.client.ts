@@ -47,7 +47,7 @@ class ProjectClient {
 
     public async createProject(request: CreateProjectRequest): Promise<CreateProjectResponse | Error> {
         try {
-            const response = await apiClient.put<ApiResultResponse<CreateProjectResponse>>(`/project/${reference}`, request);
+            const response = await apiClient.put<ApiResultResponse<CreateProjectResponse>>('/project', request);
 
             return response.data.result;
         }
