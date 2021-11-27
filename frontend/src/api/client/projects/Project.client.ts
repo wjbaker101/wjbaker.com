@@ -1,4 +1,4 @@
-import { apiClient, handleError } from '@/api/ApiClient';
+import { apiClient, asAdminUser, handleError } from '@/api/ApiClient';
 
 import { ApiResultResponse } from '@/api/type/ApiResponse.type';
 import { SearchProjectsResponse } from '@/api/client/projects/type/SearchProjects.type';
@@ -46,8 +46,16 @@ class ProjectClient {
     }
 
     public async createProject(request: CreateProjectRequest): Promise<CreateProjectResponse | Error> {
+        const authorizationResult = asAdminUser();
+        if (authorizationResult instanceof Error)
+            return authorizationResult;
+
         try {
-            const response = await apiClient.put<ApiResultResponse<CreateProjectResponse>>('/project', request);
+            const response = await apiClient.post<ApiResultResponse<CreateProjectResponse>>('/project', request, {
+                headers: {
+                    'Authorization': authorizationResult,
+                },
+            });
 
             return response.data.result;
         }
@@ -57,8 +65,16 @@ class ProjectClient {
     }
 
     public async updateProject(reference: string, request: UpdateProjectRequest): Promise<UpdateProjectResponse | Error> {
+        const authorizationResult = asAdminUser();
+        if (authorizationResult instanceof Error)
+            return authorizationResult;
+
         try {
-            const response = await apiClient.put<ApiResultResponse<UpdateProjectResponse>>(`/project/${reference}`, request);
+            const response = await apiClient.put<ApiResultResponse<UpdateProjectResponse>>(`/project/${reference}`, request, {
+                headers: {
+                    'Authorization': authorizationResult,
+                },
+            });
 
             return response.data.result;
         }
