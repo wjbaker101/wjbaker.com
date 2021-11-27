@@ -1,5 +1,6 @@
 export interface SearchProjectsResponse {
     total: number;
+    pageSize: number;
     projects: Array<Project>;
     tagFrequencies: Array<TagFrequency>;
 }
