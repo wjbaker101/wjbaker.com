@@ -24,7 +24,7 @@ import PageTitleComponent from '@/component/PageTitle.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 
 import { userClient } from '@/api/client/user/User.client';
-import { userService } from '@/service/User.service';
+import { userService } from '@/service/user/User.service';
 
 import { User, UserType } from '@/model/User.model';
 

@@ -28,7 +28,7 @@ import PageTitleComponent from '@/component/PageTitle.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 import ErrorComponent from '@/component/Error.component.vue';
 
-import { userService } from '@/service/User.service';
+import { userService } from '@/service/user/User.service';
 
 export default defineComponent({
     name: 'UserLoginView',

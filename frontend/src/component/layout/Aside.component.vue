@@ -46,7 +46,7 @@ import LinkComponent from '@/component/Link.component.vue';
 import GitHubIcon from '@/component/icon/GitHubIcon.component.vue';
 import LinkedInIcon from '@/component/icon/LinkedInIcon.component.vue';
 
-import { userService } from '@/service/User.service';
+import { userService } from '@/service/user/User.service';
 
 interface AsideLink {
     title: string;
