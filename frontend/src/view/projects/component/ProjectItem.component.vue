@@ -8,6 +8,13 @@
             <h3>{{ project.title }}</h3>
             <small>{{ displayDate }}</small>
             <p>{{ project.summary }}</p>
+            <p>
+                <ProjectTagComponent
+                    :key="`${project.reference}-tag-${index}`"
+                    v-for="(tag, index) in project.tags"
+                    :tag="tag"
+                />
+            </p>
             <div class="flex gap-small">
                 <div class="flex-1">
                     <router-link :to="url">
@@ -32,6 +39,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
 
+import ProjectTagComponent from '@/view/projects/component/ProjectTag.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 import LinkComponent from '@/component/Link.component.vue';
 import ExternalLinkIcon from '@/component/icon/ExternalLinkIcon.component.vue';
@@ -44,6 +52,7 @@ export default defineComponent({
     name: 'ProjectItemComponent',
 
     components: {
+        ProjectTagComponent,
         ButtonComponent,
         ExternalLinkIcon,
         FolderIcon,
