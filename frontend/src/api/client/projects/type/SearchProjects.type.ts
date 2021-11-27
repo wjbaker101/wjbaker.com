@@ -14,4 +14,5 @@ export interface Project {
     displayOrder: number;
     createdAt: string;
     viewUrl: string | null;
+    tags: Array<string>;
 }

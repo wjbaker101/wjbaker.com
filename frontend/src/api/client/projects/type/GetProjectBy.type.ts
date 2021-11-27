@@ -10,4 +10,5 @@ export interface GetProjectByResponse {
     displayOrder: number;
     createdAt: string;
     viewUrl: string | null;
+    tags: Array<string>;
 }

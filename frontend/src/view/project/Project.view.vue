@@ -106,6 +106,7 @@ export default defineComponent({
                 displayOrder: result.displayOrder,
                 createdAt: dayjs(result.createdAt),
                 viewUrl: result.viewUrl,
+                tags: result.tags,
             };
 
             isLoading.value = false;

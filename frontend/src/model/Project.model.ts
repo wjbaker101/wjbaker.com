@@ -12,4 +12,5 @@ export interface Project {
     displayOrder: number;
     createdAt: Dayjs;
     viewUrl: string | null;
+    tags: Array<string>;
 }
