@@ -3,11 +3,11 @@
         <PageTitleComponent title="Login" />
         <label>
             <strong>Username</strong>
-            <input type="text" v-model="usernameField">
+            <input ref="usernameElement" type="text" v-model="usernameField" @keyup.enter="onUsernameEnter">
         </label>
         <label>
             <strong>Password</strong>
-            <input type="password" v-model="passwordField">
+            <input ref="passwordElement" type="password" v-model="passwordField" @keyup.enter="onPasswordEnter">
         </label>
         <label>
             <ButtonComponent @click="onLogIn">Log In</ButtonComponent>
@@ -43,33 +43,67 @@ export default defineComponent({
     setup() {
         const router = useRouter();
 
+        const usernameElement = ref<HTMLInputElement | null>(null);
+        const passwordElement = ref<HTMLInputElement | null>(null);
+
         const usernameField = ref<string>('');
         const passwordField = ref<string>('');
 
         const isLoading = ref<boolean>(false);
         const isError = ref<boolean>(false);
 
+        const logIn = async function () {
+            isLoading.value = true;
+            isError.value = false;
+
+            const result = await userService.logIn(usernameField.value, passwordField.value);
+            if (result instanceof Error) {
+                isLoading.value = false;
+                isError.value = true;
+                return;
+            }
+
+            router.push({
+                path: '/user',
+            });
+        };
+
         return {
+            usernameElement,
+            passwordElement,
+
             usernameField,
             passwordField,
 
             isLoading,
             isError,
 
-            async onLogIn() {
-                isLoading.value = true;
-                isError.value = false;
-
-                const result = await userService.logIn(usernameField.value, passwordField.value);
-                if (result instanceof Error) {
-                    isLoading.value = false;
-                    isError.value = true;
+            async onUsernameEnter() {
+                if (usernameField.value.length === 0)
+                    return;
+                
+                if (passwordField.value.length === 0) {
+                    passwordElement.value?.focus();
                     return;
                 }
 
-                router.push({
-                    path: '/user',
-                });
+                await logIn();
+            },
+
+            async onPasswordEnter() {
+                if (passwordField.value.length === 0)
+                    return;
+                
+                if (usernameField.value.length === 0) {
+                    usernameElement.value?.focus();
+                    return;
+                }
+
+                await logIn();
+            },
+
+            async onLogIn() {
+                await logIn();
             },
         }
     },
