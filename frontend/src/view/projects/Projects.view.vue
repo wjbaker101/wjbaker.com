@@ -176,7 +176,7 @@ export default defineComponent({
     .page-navigation {
         margin-top: 3rem;
 
-        .is-disabled {
+        .is-disabled a {
             color: theme(grey-dark);
         }
     }
