@@ -43,7 +43,7 @@ class UserService {
             expiresAt: result.expiresAt,
             user: {
                 reference: result.user.reference,
-                userType: result.user.userType,
+                type: result.user.type,
             },
         };
 
