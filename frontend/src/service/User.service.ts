@@ -8,7 +8,7 @@ const authDetails = ref<AuthDetails | null>(null);
 class UserService {
 
     isLoggedIn(): boolean {
-        return authDetails.value !== null;
+        return this.getAuthDetails().value !== null;
     }
 
     getAuthDetails(): Ref<AuthDetails | null> {
