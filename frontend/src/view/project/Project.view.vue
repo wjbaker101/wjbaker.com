@@ -3,21 +3,11 @@
         <PageTitleComponent :title="project.title" />
         <PageActionsBarComponent returnLink="/projects" returnText="Return to Projects">
             <template v-slot:right>
-                <LinkComponent
-                    :href="project.viewLink"
-                    v-if="project.viewLink !== null"
-                >
-                    <ButtonComponent>
-                        <LinkIcon />
-                    </ButtonComponent>
+                <LinkComponent v-if="project.viewUrl !== null" :href="project.viewUrl">
+                    <ButtonComponent><LinkIcon /></ButtonComponent>
                 </LinkComponent>
-                <LinkComponent
-                    :href="project.sourceCodeURL"
-                    v-if="project.sourceCodeURL !== null"
-                >
-                    <ButtonComponent>
-                        <GitHubIcon />
-                    </ButtonComponent>
+                <LinkComponent v-if="project.sourceCodeUrl !== null" :href="project.sourceCodeUrl">
+                    <ButtonComponent><GitHubIcon /></ButtonComponent>
                 </LinkComponent>
             </template>
         </PageActionsBarComponent>
