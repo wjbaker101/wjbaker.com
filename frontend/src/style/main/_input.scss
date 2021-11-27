@@ -21,7 +21,8 @@
 
 input {
     &[type=text],
-    &[type=password] {
+    &[type=password],
+    &[type=date] {
         @include base-style();
     }
 
