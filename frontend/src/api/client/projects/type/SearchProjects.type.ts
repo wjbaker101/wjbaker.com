@@ -1,6 +1,7 @@
 export interface SearchProjectsResponse {
     total: number;
     projects: Array<Project>;
+    tagFrequencies: Array<TagFrequency>;
 }
 
 export interface Project {
@@ -15,4 +16,9 @@ export interface Project {
     createdAt: string;
     viewUrl: string | null;
     tags: Array<string>;
+}
+
+export interface TagFrequency {
+    tag: string;
+    frequency: number;
 }
