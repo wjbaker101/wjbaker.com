@@ -8,25 +8,50 @@
             v-else-if="isError"
             message="Unable to load blog; try refreshing the page."
         />
-        <div class="blog-posts" v-else>
-            <BlogPostComponent
-                :key="blogPost"
-                v-for="blogPost in blogPosts"
-                :blogPost="blogPost"
-            />
+        <div v-else>
+            <section class="blog-posts">
+                <BlogPostComponent
+                    :key="blogPost"
+                    v-for="blogPost in blogPosts"
+                    :blogPost="blogPost"
+                />
+            </section>
+            <section class="page-navigation">
+                <PageActionsBarComponent>
+                    <template v-slot:center>
+                        <div class="flex-1 text-center" :class="{ 'is-disabled': currentPage === 1 }">
+                            <router-link :to="routerPrevPage">
+                                <ArrowLeftIconComponent />
+                            </router-link>
+                        </div>
+                        <div class="flex-auto text-center">
+                            {{ currentPage }}
+                        </div>
+                        <div class="flex-1 text-center">
+                            <router-link :to="routerNextPage">
+                                <ArrowRightIconComponent />
+                            </router-link>
+                        </div>
+                    </template>
+                </PageActionsBarComponent>
+            </section>
         </div>
     </PageContentComponent>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref, watch } from 'vue';
+import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
 import dayjs from 'dayjs';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
+import PageActionsBarComponent from '@/component/PageActionsBar.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
 import ErrorComponent from '@/component/Error.component.vue';
 import BlogPostComponent from '@/view/blog/component/BlogPost.component.vue';
+import ArrowLeftIconComponent from '@/component/icon/ArrowLeftIcon.component.vue';
+import ArrowRightIconComponent from '@/component/icon/ArrowRightIcon.component.vue';
 
 import { blogClient } from '@/api/client/blog/Blog.client';
 
@@ -41,18 +66,41 @@ export default defineComponent({
         LoadingComponent,
         ErrorComponent,
         BlogPostComponent,
+        PageActionsBarComponent,
+        ArrowLeftIconComponent,
+        ArrowRightIconComponent,
     },
 
     setup() {
+        const route = useRoute();
+        
         const blogPosts = ref<Array<BlogPost>>([]);
         const isLoading = ref<boolean>(false);
         const isError = ref<boolean>(false);
 
-        onMounted(async () => {
+        const currentPage = computed<number>(() => Number(route.query.page ?? 1));
+        const maxPages = ref<number>(Number.MAX_VALUE);
+
+        const routerPrevPage = computed<RouteLocationNormalizedLoaded>(() => ({
+            ...route,
+            query: {
+                ...route.query,
+                page: String(Math.max(1, currentPage.value - 1)),
+            },
+        }));
+        const routerNextPage = computed<RouteLocationNormalizedLoaded>(() => ({
+            ...route,
+            query: {
+                ...route.query,
+                page: String(Math.min(maxPages.value, currentPage.value + 1)),
+            },
+        }));
+
+        const loadBlog = async function () {
             isLoading.value = true;
             isError.value = false;
 
-            const result = await blogClient.searchBlog(1);
+            const result = await blogClient.searchBlog(currentPage.value);
             if (result instanceof Error) {
                 isLoading.value = false;
                 isError.value = true;
@@ -70,16 +118,36 @@ export default defineComponent({
 
             isLoading.value = false;
             isError.value = false;
+        };
+
+        watch(currentPage, async () => {
+            await loadBlog();
+        });
+
+        onMounted(async () => {
+            await loadBlog();
         });
 
         return {
             blogPosts,
             isLoading,
             isError,
+            currentPage,
+            routerPrevPage,
+            routerNextPage,
         }
     },
 });
 </script>
 
 <style lang="scss">
+.blog-view {
+    .page-navigation {
+        margin-top: 3rem;
+
+        .is-disabled a {
+            color: theme(grey-dark);
+        }
+    }
+}
 </style>
