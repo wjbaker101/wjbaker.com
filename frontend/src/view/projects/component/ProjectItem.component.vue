@@ -1,7 +1,7 @@
 <template>
     <div class="project-component flex gap flex-responsive">
         <div class="image-container flex-1 flex-vh-center text-center">
-            <FolderIcon v-if="project.previewImageUrl === null" />
+            <FolderIcon v-if="project.previewImageUrl === null" :width="48" :height="48" />
             <img v-else :src="project.previewImageUrl">
         </div>
         <div class="content-container flex-2">
@@ -92,6 +92,11 @@ export default defineComponent({
         margin-top: $padding;
         padding-top: $padding;
         border-top: 1px solid theme(grey-dark);
+    }
+
+    .image-container {
+        color: theme(secondary);
+        filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
     }
 }
 </style>
