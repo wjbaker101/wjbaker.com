@@ -1,5 +1,6 @@
 export interface SearchBlogResponse {
     total: number;
+    pageSize: number;
     posts: Array<BlogPost>;
 }
 
