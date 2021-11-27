@@ -35,6 +35,10 @@ class CacheService {
 
         await store.set(key, JSON.stringify(cacheItem));
     }
+
+    async delete(key: string): Promise<void> {
+        await store.remove(key);
+    }
 }
 
 export const cacheService = new CacheService();
