@@ -12,7 +12,7 @@ class UserService {
     }
 
     getAuthDetails(): Ref<AuthDetails | null> {
-        if (authDetails.value?.expiresAt ?? 0 < Date.now() / 1000)
+        if (authDetails.value !== null && authDetails.value.expiresAt < Date.now() / 1000)
             authDetails.value = null;
 
         return authDetails;
