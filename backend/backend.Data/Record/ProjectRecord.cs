@@ -1,4 +1,5 @@
-﻿using FluentNHibernate.Mapping;
+﻿using backend.Data.Type;
+using FluentNHibernate.Mapping;
 
 namespace backend.Data.Record;
 
@@ -16,6 +17,7 @@ public class ProjectRecord
     public virtual int DisplayOrder { get; set; }
     public virtual DateTime CreatedAt { get; init; }
     public virtual string? ViewUrl { get; set; }
+    public virtual List<string> Tags { get; set; } = new();
 }
 
 public sealed class ProjectRecordMap : ClassMap<ProjectRecord>
@@ -36,5 +38,6 @@ public sealed class ProjectRecordMap : ClassMap<ProjectRecord>
         Map(x => x.DisplayOrder, "display_order");
         Map(x => x.CreatedAt, "created_at");
         Map(x => x.ViewUrl, "view_url");
+        Map(x => x.Tags, "tags").CustomType<JsonBlob<List<string>>>();
     }
 }
