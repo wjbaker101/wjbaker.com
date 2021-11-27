@@ -5,13 +5,13 @@
             <strong>Username</strong>
             <input type="text" v-model="usernameField">
         </label>
-        <p></p>
         <label>
             <strong>Password</strong>
             <input type="password" v-model="passwordField">
         </label>
-        <p></p>
-        <ButtonComponent @click="onLogIn">Log In</ButtonComponent>
+        <label>
+            <ButtonComponent @click="onLogIn">Log In</ButtonComponent>
+        </label>
         <ErrorComponent
             v-if="isError"
             message="Unable to log in; please refresh the page and try again."
