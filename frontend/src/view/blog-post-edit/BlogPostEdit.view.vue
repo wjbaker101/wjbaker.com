@@ -34,14 +34,14 @@
     </PageContentComponent>
 </template>
 
-<script lang="ts">  
+<script lang="ts">
 import { computed, defineComponent, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import dayjs from 'dayjs';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
-import PageActionsBarComponent from '@/component/PageActionsBar.component.vue';
+import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
 import ErrorComponent from '@/component/Error.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';

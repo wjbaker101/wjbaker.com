@@ -47,7 +47,7 @@ import Draggable from 'vuedraggable';
 import ProjectTagComponent from '@/view/projects/component/ProjectTag.component.vue';
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
-import PageActionsBarComponent from '@/component/PageActionsBar.component.vue';
+import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 import ErrorComponent from '@/component/Error.component.vue';

@@ -35,7 +35,7 @@ import MarkdownIt from 'markdown-it';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
-import PageActionsBarComponent from '@/component/PageActionsBar.component.vue';
+import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 import LinkComponent from '@/component/Link.component.vue';
 import ErrorComponent from '@/component/Error.component.vue';
@@ -75,7 +75,7 @@ export default defineComponent({
         const blogPost = ref<BlogPost | null>(null);
         const isLoading = ref<boolean>(false);
         const isError = ref<boolean>(false);
-        
+
         const displayPostedAt = computed<string>(() => blogPost?.value?.postedAt.format('Do MMMM YYYY') ?? '');
         const displayPostedAtDifference = computed<string>(() => blogPost?.value?.postedAt.fromNow() ?? '');
 

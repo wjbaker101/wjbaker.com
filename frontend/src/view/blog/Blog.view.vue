@@ -53,7 +53,7 @@ import dayjs from 'dayjs';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
-import PageActionsBarComponent from '@/component/PageActionsBar.component.vue';
+import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 import ErrorComponent from '@/component/Error.component.vue';
@@ -89,7 +89,7 @@ export default defineComponent({
 
         const authDetails = userService.getAuthDetails();
         const isAdmin = computed<boolean>(() => authDetails.value?.user.type === UserType.Admin);
-        
+
         const blogPosts = ref<Array<BlogPost>>([]);
         const isLoading = ref<boolean>(false);
         const isError = ref<boolean>(false);
