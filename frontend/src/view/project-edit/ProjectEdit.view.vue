@@ -4,11 +4,8 @@
         <div v-if="isLoading">
             <LoadingComponent message="Loading Project" />
         </div>
-        <ErrorComponent
-            v-else-if="isError"
-            message="Unable to load project; please try refreshing the page."
-        />
-        <div v-else>
+        <UserMessageComponent :details="loadUserMessage" />
+        <div v-if="!isLoading && !loadUserMessage.isVisible">
             <PageActionsBarComponent :returnLink="returnLink" :returnText="returnText">
             </PageActionsBarComponent>
             <label>
@@ -50,6 +47,7 @@
             <label>
                 <ButtonComponent @click="onUpdateProject">{{ isNew ? 'Create Project' : 'Update Project' }}</ButtonComponent>
             </label>
+            <UserMessageComponent :details="submitUserMessage" />
         </div>
     </PageContentComponent>
 </template>
@@ -63,7 +61,7 @@ import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
-import ErrorComponent from '@/component/Error.component.vue';
+import UserMessageComponent, { UserMessage } from '@/component/UserMessage.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 
 import { projectClient } from '@/api/client/projects/Project.client';
@@ -79,7 +77,7 @@ export default defineComponent({
         PageTitleComponent,
         PageActionsBarComponent,
         LoadingComponent,
-        ErrorComponent,
+        UserMessageComponent,
         ButtonComponent,
         LinkComponent,
     },
@@ -94,7 +92,9 @@ export default defineComponent({
 
         const project = ref<Project | null>(null);
         const isLoading = ref<boolean>(false);
-        const isError = ref<boolean>(false);
+
+        const loadUserMessage = ref<UserMessage>(UserMessage.none());
+        const submitUserMessage = ref<UserMessage>(UserMessage.none());
 
         const titleField = ref<string>('');
         const urlSlugField = ref<string>('');
@@ -114,12 +114,12 @@ export default defineComponent({
                 return;
 
             isLoading.value = true;
-            isError.value = false;
+            loadUserMessage.value = UserMessage.none();
 
             const result = await projectClient.getProjectByReference(projectReference.value);
             if (result instanceof Error) {
                 isLoading.value = false;
-                isError.value = true;
+                loadUserMessage.value = UserMessage.error(result.message || 'Unable to load project; please try refreshing the page.');
                 return;
             }
 
@@ -149,14 +149,15 @@ export default defineComponent({
             descriptionField.value = project.value.description ?? '';
 
             isLoading.value = false;
-            isError.value = false;
+            loadUserMessage.value = UserMessage.none();
         });
 
         return {
             projectReference,
             isNew,
             isLoading,
-            isError,
+            loadUserMessage,
+            submitUserMessage,
             titleField,
             urlSlugField,
             startDateField,
@@ -181,6 +182,8 @@ export default defineComponent({
                 if (descriptionField.value.length < 3)
                     return;
 
+                submitUserMessage.value = UserMessage.none();
+
                 if (project.value === null) {
                     const result = await projectClient.createProject({
                         title: titleField.value,
@@ -195,9 +198,11 @@ export default defineComponent({
                         tags: tagsField.value.split(',').map(x => x.trim()),
                     });
                     if (result instanceof Error) {
-                        isError.value = true;
+                        submitUserMessage.value = UserMessage.error(result.message || 'Unable to create new project; please refresh the page and try again.');
                         return;
                     }
+
+                    submitUserMessage.value = UserMessage.success('Successfully created new project.');
 
                     router.push({
                         path: `/project/edit/${result.reference}`,
@@ -217,9 +222,11 @@ export default defineComponent({
                         tags: tagsField.value.split(',').map(x => x.trim()),
                     });
                     if (result instanceof Error) {
-                        isError.value = true;
+                        submitUserMessage.value = UserMessage.error(result.message || 'Unable to update project; please refresh the page and try again.');
                         return;
                     }
+
+                    submitUserMessage.value = UserMessage.success('Successfully updated project.');
 
                     router.push({
                         path: `/project/edit/${result.reference}`,
