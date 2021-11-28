@@ -8,25 +8,48 @@
 </template>
 
 <script lang="ts">
-import { Component, computed, defineComponent, PropType } from 'vue';
+import { Component, computed, defineComponent } from 'vue';
 
 import ErrorIcon from '@/component/icon/ExclamationCircleIcon.component.vue';
 import TickCircleIcon from '@/component/icon/TickCircleIcon.component.vue';
 
-export interface UserMessageDetails {
-    isVisible: boolean;
-    type: UserMessageType;
-    message: string;
-}
-
 type UserMessageType = 'error' | 'success';
+
+export class UserMessage {
+
+    private _isVisible!: boolean;
+    private _type!: UserMessageType;
+    private _message!: string;
+
+    constructor(isVisible: boolean, type: UserMessageType, message: string) {
+        this._isVisible = isVisible;
+        this._type = type;
+        this._message = message;
+    }
+
+    get isVisible(): boolean { return this._isVisible; }
+    get type(): UserMessageType { return this._type; }
+    get message(): string { return this._message; }
+
+    public static none(): UserMessage {
+        return new UserMessage(false, 'error', '');
+    }
+
+    public static error(message: string): UserMessage {
+        return new UserMessage(true, 'error', message);
+    }
+
+    public static success(message: string): UserMessage {
+        return new UserMessage(true, 'success', message);
+    }
+}
 
 export default defineComponent({
     name: 'UserMessageComponent',
 
     props: {
         details: {
-            type: Object as PropType<UserMessageDetails>,
+            type: UserMessage,
             required: true,
         },
     },

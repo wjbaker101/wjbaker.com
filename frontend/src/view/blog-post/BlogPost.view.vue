@@ -14,8 +14,8 @@
         <div v-if="isLoading">
             <LoadingComponent message="Loading Blog post" />
         </div>
-        <UserMessageComponent :details="userMessageDetails" />
-        <div v-if="!isLoading && !userMessageDetails.isVisible" v-html="markdown"></div>
+        <UserMessageComponent :details="userMessage" />
+        <div v-if="!isLoading && !userMessage.isVisible" v-html="markdown"></div>
     </PageContentComponent>
 </template>
 
@@ -30,7 +30,7 @@ import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 import LinkComponent from '@/component/Link.component.vue';
-import UserMessageComponent, { UserMessageDetails } from '@/component/UserMessage.component.vue';
+import UserMessageComponent, { UserMessage } from '@/component/UserMessage.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
 import EditIcon from '@/component/icon/PencilIcon.component.vue';
 
@@ -67,11 +67,7 @@ export default defineComponent({
         const blogPost = ref<BlogPost | null>(null);
         const isLoading = ref<boolean>(false);
 
-        const userMessageDetails = reactive<UserMessageDetails>({
-            isVisible: false,
-            type: 'error',
-            message: 'Unable to load blog post, please try and refresh.',
-        });
+        const userMessage = ref<UserMessage>(UserMessage.none());
 
         const displayPostedAt = computed<string>(() => blogPost?.value?.postedAt.format('Do MMMM YYYY') ?? '');
         const displayPostedAtDifference = computed<string>(() => blogPost?.value?.postedAt.fromNow() ?? '');
@@ -85,13 +81,12 @@ export default defineComponent({
 
         onMounted(async () => {
             isLoading.value = true;
-            userMessageDetails.isVisible = false;
+            userMessage.value = UserMessage.none();
 
             const result = await blogClient.getBlogPostByUrlSlug(urlSlug);
             if (result instanceof Error) {
                 isLoading.value = false;
-                userMessageDetails.isVisible = true;
-                userMessageDetails.message = result.message || 'Unable to load blog post, please try and refresh.';
+                userMessage.value = UserMessage.error(result.message || 'Unable to load blog post, please try and refresh.');
                 return;
             }
 
@@ -105,13 +100,13 @@ export default defineComponent({
             };
 
             isLoading.value = false;
-            userMessageDetails.isVisible = false;
+            userMessage.value = UserMessage.none();
         });
 
         return {
             isAdmin,
             blogPost,
-            userMessageDetails,
+            userMessage,
             isLoading,
             displayPostedAt,
             displayPostedAtDifference,
