@@ -38,6 +38,13 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "projects" */ '@/view/projects/Projects.view.vue'),
     },
     {
+        path: '/projects/settings',
+        meta: {
+            title: 'Projects Settings',
+        },
+        component: () => import(/* webpackChunkName: "admin" */ '@/view/projects-settings/ProjectsSettings.view.vue'),
+    },
+    {
         path: '/project/edit/:reference?',
         meta: {
             title: 'Edit Project',
