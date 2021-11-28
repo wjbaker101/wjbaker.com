@@ -14,7 +14,7 @@
         <div v-if="isLoading">
             <LoadingComponent message="Loading Blog post" />
         </div>
-        <div v-else v-html="blogPost.content"></div>
+        <div v-else v-html="markdown"></div>
     </PageContentComponent>
     <PageContentComponent class="blog-post-view" v-else-if="isError">
         <PageTitleComponent title="Blog Post Not Found" />
@@ -31,6 +31,7 @@
 import { computed, defineComponent, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import dayjs from 'dayjs';
+import MarkdownIt from 'markdown-it';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
@@ -46,6 +47,8 @@ import { userService } from '@/service/user/User.service';
 
 import { BlogPost } from '@/model/BlogPost.model';
 import { UserType } from '@/model/User.model';
+
+const markdownIt = new MarkdownIt();
 
 export default defineComponent({
     name: 'BlogPostView',
@@ -75,6 +78,13 @@ export default defineComponent({
         
         const displayPostedAt = computed<string>(() => blogPost?.value?.postedAt.format('Do MMMM YYYY') ?? '');
         const displayPostedAtDifference = computed<string>(() => blogPost?.value?.postedAt.fromNow() ?? '');
+
+        const markdown = computed<string | null>(() => {
+            if (blogPost.value === null || blogPost.value.content === null)
+                return null;
+
+            return markdownIt.render(blogPost.value.content);
+        });
 
         onMounted(async () => {
             isLoading.value = false;
@@ -107,6 +117,7 @@ export default defineComponent({
             isError,
             displayPostedAt,
             displayPostedAtDifference,
+            markdown,
         }
     },
 });
