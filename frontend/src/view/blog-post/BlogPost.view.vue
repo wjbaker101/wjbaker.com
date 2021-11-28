@@ -1,8 +1,8 @@
 <template>
-    <PageContentComponent class="blog-post-view" v-if="blogPost !== null">
-        <PageTitleComponent :title="blogPost.title" />
+    <PageContentComponent class="blog-post-view">
+        <PageTitleComponent :title="blogPost?.title ?? 'Loading Blog Post'" />
         <PageActionsBarComponent returnLink="/blog" returnText="Return to Blog">
-            <template v-slot:right>
+            <template v-slot:right v-if="blogPost !== null">
                 <div>
                     <strong>Posted:</strong> {{ displayPostedAt }} ({{ displayPostedAtDifference }})
                 </div>
@@ -14,21 +14,13 @@
         <div v-if="isLoading">
             <LoadingComponent message="Loading Blog post" />
         </div>
-        <div v-else v-html="markdown"></div>
-    </PageContentComponent>
-    <PageContentComponent class="blog-post-view" v-else-if="isError">
-        <PageTitleComponent title="Blog Post Not Found" />
-        <ErrorComponent message="The blog post you were looking for could not be found." />
-        <p>
-            <router-link to="/blog">
-                <ButtonComponent>Return to Blog</ButtonComponent>
-            </router-link>
-        </p>
+        <UserMessageComponent :details="userMessageDetails" />
+        <div v-if="!isLoading && !userMessageDetails.isVisible" v-html="markdown"></div>
     </PageContentComponent>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import dayjs from 'dayjs';
 import MarkdownIt from 'markdown-it';
@@ -38,7 +30,7 @@ import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 import LinkComponent from '@/component/Link.component.vue';
-import ErrorComponent from '@/component/Error.component.vue';
+import UserMessageComponent, { UserMessageDetails } from '@/component/UserMessage.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
 import EditIcon from '@/component/icon/PencilIcon.component.vue';
 
@@ -59,7 +51,7 @@ export default defineComponent({
         PageActionsBarComponent,
         ButtonComponent,
         LinkComponent,
-        ErrorComponent,
+        UserMessageComponent,
         LoadingComponent,
         EditIcon,
     },
@@ -74,26 +66,32 @@ export default defineComponent({
 
         const blogPost = ref<BlogPost | null>(null);
         const isLoading = ref<boolean>(false);
-        const isError = ref<boolean>(false);
+
+        const userMessageDetails = reactive<UserMessageDetails>({
+            isVisible: false,
+            type: 'error',
+            message: '',
+        });
 
         const displayPostedAt = computed<string>(() => blogPost?.value?.postedAt.format('Do MMMM YYYY') ?? '');
         const displayPostedAtDifference = computed<string>(() => blogPost?.value?.postedAt.fromNow() ?? '');
 
-        const markdown = computed<string | null>(() => {
+        const markdown = computed<string>(() => {
             if (blogPost.value === null || blogPost.value.content === null)
-                return null;
+                return '';
 
             return markdownIt.render(blogPost.value.content);
         });
 
         onMounted(async () => {
-            isLoading.value = false;
-            isError.value = false;
+            isLoading.value = true;
+            userMessageDetails.isVisible = false;
 
             const result = await blogClient.getBlogPostByUrlSlug(urlSlug);
             if (result instanceof Error) {
                 isLoading.value = false;
-                isError.value = true;
+                userMessageDetails.isVisible = true;
+                userMessageDetails.message = result.message || 'Unable to load blog post, please try and refresh.';
                 return;
             }
 
@@ -107,14 +105,14 @@ export default defineComponent({
             };
 
             isLoading.value = false;
-            isError.value = false;
+            userMessageDetails.isVisible = false;
         });
 
         return {
             isAdmin,
             blogPost,
+            userMessageDetails,
             isLoading,
-            isError,
             displayPostedAt,
             displayPostedAtDifference,
             markdown,
