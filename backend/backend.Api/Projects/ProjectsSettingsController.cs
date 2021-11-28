@@ -1,4 +1,5 @@
 ﻿using backend.Api.Auth.Attribute;
+using backend.Api.Projects.Type;
 using backend.Core.Type;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,17 @@ public sealed class ProjectsSettingsController : ApiController
     public IActionResult GetProjectsSettings()
     {
         var result = _projectsSettingsService.GetProjectsSettings();
+
+        return ToApiResponse(result);
+    }
+
+    [HttpPut]
+    [Route("settings")]
+    [RequiresAuthentication]
+    [RequiresAdmin]
+    public IActionResult UpdateProjectsSettings([FromBody] UpdateProjectsSettingsRequest request)
+    {
+        var result = _projectsSettingsService.UpdateProjectsSettings(request);
 
         return ToApiResponse(result);
     }

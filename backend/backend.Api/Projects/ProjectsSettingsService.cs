@@ -9,6 +9,7 @@ namespace backend.Api.Projects;
 public interface IProjectsSettingsService
 {
     Result<GetProjectsSettings> GetProjectsSettings();
+    Result<UpdateProjectsSettingsResponse> UpdateProjectsSettings(UpdateProjectsSettingsRequest request);
 }
 
 public sealed class ProjectsSettingsService : IProjectsSettingsService
@@ -42,6 +43,39 @@ public sealed class ProjectsSettingsService : IProjectsSettingsService
         return Result<GetProjectsSettings>.Of(new GetProjectsSettings
         {
             DisplayOrder = displayOrder.ConvertAll(x => new GetProjectsSettings.ProjectDisplayOrder
+            {
+                Reference = x.Reference,
+                Title = x.Title
+            })
+        });
+    }
+
+    public Result<UpdateProjectsSettingsResponse> UpdateProjectsSettings(UpdateProjectsSettingsRequest request)
+    {
+        using var session = _apiDatabase.SessionFactory().OpenSession();
+        using var transaction = session.BeginTransaction(IsolationLevel.ReadCommitted);
+
+        var settings = session
+            .Query<ProjectsSettingsRecord>()
+            .SingleOrDefault();
+
+        if (settings == null)
+            return Result<UpdateProjectsSettingsResponse>.Failure("Unable to retrieve the projects settings.");
+
+        settings.DisplayOrder = request.DisplayOrder;
+
+        session.Update(settings);
+
+        var displayOrder = session
+            .Query<ProjectRecord>()
+            .Where(x => settings.DisplayOrder.Contains(x.Reference))
+            .ToList();
+
+        transaction.Commit();
+
+        return Result<UpdateProjectsSettingsResponse>.Of(new UpdateProjectsSettingsResponse
+        {
+            DisplayOrder = displayOrder.ConvertAll(x => new UpdateProjectsSettingsResponse.ProjectDisplayOrder
             {
                 Reference = x.Reference,
                 Title = x.Title
