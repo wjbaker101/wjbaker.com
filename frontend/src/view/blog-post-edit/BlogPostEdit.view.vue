@@ -4,11 +4,8 @@
         <div v-if="isLoading">
             <LoadingComponent message="Loading Blog Post" />
         </div>
-        <ErrorComponent
-            v-else-if="isError"
-            message="Unable to load blog post; please try refreshing the page."
-        />
-        <div v-else>
+        <UserMessageComponent :details="loadUserMessageDetails" />
+        <div v-if="!isLoading && !loadUserMessageDetails.isVisible">
             <PageActionsBarComponent :returnLink="returnLink" :returnText="returnText">
             </PageActionsBarComponent>
             <label>
@@ -35,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import dayjs from 'dayjs';
 
@@ -43,7 +40,7 @@ import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
-import ErrorComponent from '@/component/Error.component.vue';
+import UserMessageComponent, { UserMessageDetails } from '@/component/UserMessage.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 import LinkComponent from '@/component/Link.component.vue';
 
@@ -59,7 +56,7 @@ export default defineComponent({
         PageTitleComponent,
         PageActionsBarComponent,
         LoadingComponent,
-        ErrorComponent,
+        UserMessageComponent,
         ButtonComponent,
         LinkComponent,
     },
@@ -74,7 +71,12 @@ export default defineComponent({
 
         const blogPost = ref<BlogPost | null>(null);
         const isLoading = ref<boolean>(false);
-        const isError = ref<boolean>(false);
+
+        const loadUserMessageDetails = reactive<UserMessageDetails>({
+            isVisible: false,
+            type: 'error',
+            message: 'Unable to load blog post; please try refreshing the page.',
+        });
 
         const titleField = ref<string>('');
         const urlSlugField = ref<string>('');
@@ -89,12 +91,13 @@ export default defineComponent({
                 return;
 
             isLoading.value = true;
-            isError.value = false;
+            loadUserMessageDetails.isVisible = false;
 
             const result = await blogClient.getBlogPostByReference(blogPostReference.value);
             if (result instanceof Error) {
                 isLoading.value = false;
-                isError.value = true;
+                loadUserMessageDetails.isVisible = true;
+                loadUserMessageDetails.message = result.message || 'Unable to load blog post; please try refreshing the page.';
                 return;
             }
 
@@ -113,14 +116,14 @@ export default defineComponent({
             contentField.value = blogPost.value.content ?? '';
 
             isLoading.value = false;
-            isError.value = false;
+            loadUserMessageDetails.isVisible = false;
         });
 
         return {
             blogPostReference,
             isNew,
             isLoading,
-            isError,
+            loadUserMessageDetails,
             titleField,
             urlSlugField,
             summaryField,
@@ -144,7 +147,6 @@ export default defineComponent({
                         content: contentField.value,
                     });
                     if (result instanceof Error) {
-                        isError.value = true;
                         return;
                     }
 
@@ -160,7 +162,6 @@ export default defineComponent({
                         content: contentField.value,
                     });
                     if (result instanceof Error) {
-                        isError.value = true;
                         return;
                     }
 
