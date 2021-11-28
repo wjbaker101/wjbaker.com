@@ -128,9 +128,10 @@ export default defineComponent({
     .display-order-table {
         counter-reset: displayOrder;
 
-        tr {
+        td {
+            cursor: grab;
 
-            td:first-child::before {
+            &:first-child::before {
                 counter-increment: displayOrder;
                 content: counter(displayOrder);
             }
