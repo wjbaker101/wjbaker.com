@@ -9,6 +9,8 @@
             message="Unable to load projects settings; please try refreshing the page."
         />
         <div v-else-if="settings !== null">
+            <PageActionsBarComponent returnLink="/projects" returnText="Return to Projects">
+            </PageActionsBarComponent>
             <section class="display-order">
                 <h2>Display Order</h2>
                 <Draggable
