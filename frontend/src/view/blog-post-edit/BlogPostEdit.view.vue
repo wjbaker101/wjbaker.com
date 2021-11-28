@@ -4,8 +4,8 @@
         <div v-if="isLoading">
             <LoadingComponent message="Loading Blog Post" />
         </div>
-        <UserMessageComponent :details="loadUserMessageDetails" />
-        <div v-if="!isLoading && !loadUserMessageDetails.isVisible">
+        <UserMessageComponent :details="loadUserMessage" />
+        <div v-if="!isLoading && !loadUserMessage.isVisible">
             <PageActionsBarComponent :returnLink="returnLink" :returnText="returnText">
             </PageActionsBarComponent>
             <label>
@@ -27,12 +27,13 @@
             <label>
                 <ButtonComponent @click="onUpdateBlogPost">{{ isNew ? 'Create Blog Post' : 'Update Blog Post' }}</ButtonComponent>
             </label>
+            <UserMessageComponent :details="submitUserMessage" />
         </div>
     </PageContentComponent>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import dayjs from 'dayjs';
 
@@ -40,7 +41,7 @@ import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
-import UserMessageComponent, { UserMessageDetails } from '@/component/UserMessage.component.vue';
+import UserMessageComponent, { UserMessage } from '@/component/UserMessage.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 import LinkComponent from '@/component/Link.component.vue';
 
@@ -72,11 +73,8 @@ export default defineComponent({
         const blogPost = ref<BlogPost | null>(null);
         const isLoading = ref<boolean>(false);
 
-        const loadUserMessageDetails = reactive<UserMessageDetails>({
-            isVisible: false,
-            type: 'error',
-            message: 'Unable to load blog post; please try refreshing the page.',
-        });
+        const loadUserMessage = ref<UserMessage>(UserMessage.none());
+        const submitUserMessage = ref<UserMessage>(UserMessage.none());
 
         const titleField = ref<string>('');
         const urlSlugField = ref<string>('');
@@ -91,13 +89,12 @@ export default defineComponent({
                 return;
 
             isLoading.value = true;
-            loadUserMessageDetails.isVisible = false;
+            loadUserMessage.value = UserMessage.none();
 
             const result = await blogClient.getBlogPostByReference(blogPostReference.value);
             if (result instanceof Error) {
                 isLoading.value = false;
-                loadUserMessageDetails.isVisible = true;
-                loadUserMessageDetails.message = result.message || 'Unable to load blog post; please try refreshing the page.';
+                loadUserMessage.value = UserMessage.error(result.message || 'Unable to load blog post; please try refreshing the page.');
                 return;
             }
 
@@ -116,14 +113,15 @@ export default defineComponent({
             contentField.value = blogPost.value.content ?? '';
 
             isLoading.value = false;
-            loadUserMessageDetails.isVisible = false;
+            loadUserMessage.value = UserMessage.none();
         });
 
         return {
             blogPostReference,
             isNew,
             isLoading,
-            loadUserMessageDetails,
+            loadUserMessage,
+            submitUserMessage,
             titleField,
             urlSlugField,
             summaryField,
@@ -139,6 +137,8 @@ export default defineComponent({
                 if (contentField.value.length < 3)
                     return;
 
+                submitUserMessage.value = UserMessage.none();
+
                 if (blogPost.value === null) {
                     const result = await blogClient.createBlogPost({
                         title: titleField.value,
@@ -147,8 +147,11 @@ export default defineComponent({
                         content: contentField.value,
                     });
                     if (result instanceof Error) {
+                        submitUserMessage.value = UserMessage.error(result.message || 'Unable to create new blog post, please try refreshing the page and trying again.');
                         return;
                     }
+
+                    submitUserMessage.value = UserMessage.success('Successfully created new blog post.');
 
                     router.push({
                         path: `/blog/post/edit/${result.reference}`,
@@ -162,8 +165,11 @@ export default defineComponent({
                         content: contentField.value,
                     });
                     if (result instanceof Error) {
+                        submitUserMessage.value = UserMessage.error(result.message || 'Unable to update blog post, please try refreshing the page and trying again.');
                         return;
                     }
+
+                    submitUserMessage.value = UserMessage.success('Successfully updated blog post.');
 
                     router.push({
                         path: `/blog/post/edit/${result.reference}`,
