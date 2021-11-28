@@ -9,6 +9,8 @@
             message="Unable to load project; please try refreshing the page."
         />
         <div v-else>
+            <PageActionsBarComponent :returnLink="returnLink" :returnText="returnText">
+            </PageActionsBarComponent>
             <label>
                 <strong>Title</strong>
                 <input type="text" placeholder="My Project" v-model="titleField">
@@ -59,6 +61,7 @@ import dayjs from 'dayjs';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
+import PageActionsBarComponent from '@/component/PageActionsBar.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
 import ErrorComponent from '@/component/Error.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
@@ -74,6 +77,7 @@ export default defineComponent({
     components: {
         PageContentComponent,
         PageTitleComponent,
+        PageActionsBarComponent,
         LoadingComponent,
         ErrorComponent,
         ButtonComponent,
@@ -101,6 +105,9 @@ export default defineComponent({
         const previewImageUrlField = ref<string>('');
         const tagsField = ref<string>('');
         const descriptionField = ref<string>('');
+
+        const returnText = computed<string>(() => isNew.value ? 'Return to Projects' : 'Return to Project');
+        const returnLink = computed<string>(() => isNew.value ? `/projects` : `/project/${project.value?.urlSlug}`);
 
         onMounted(async () => {
             if (projectReference.value === null)
@@ -159,6 +166,8 @@ export default defineComponent({
             previewImageUrlField,
             tagsField,
             descriptionField,
+            returnText,
+            returnLink,
 
             async onUpdateProject() {
                 if (titleField.value.length < 3)
