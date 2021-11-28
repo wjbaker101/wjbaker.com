@@ -2,7 +2,7 @@
 
 public sealed class UpdateProjectsSettingsRequest
 {
-    public List<Guid> DisplayOrder { get; init; }
+    public HashSet<Guid> DisplayOrder { get; init; }
 }
 
 public sealed class UpdateProjectsSettingsResponse

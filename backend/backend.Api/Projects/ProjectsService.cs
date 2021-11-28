@@ -51,6 +51,10 @@ public sealed class ProjectsService : IProjectsService
             .ThenBy(x => x.Tag)
             .ToList();
 
+        var settings = session
+            .Query<ProjectsSettingsRecord>()
+            .SingleOrDefault();
+
         var projects = query
             .OrderBy(x => x.DisplayOrder)
             .Skip((page - 1) * pageSize)

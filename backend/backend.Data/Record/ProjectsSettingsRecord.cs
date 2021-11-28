@@ -6,7 +6,7 @@ namespace backend.Data.Record;
 public class ProjectsSettingsRecord
 {
     public virtual long Id { get; init; }
-    public virtual List<Guid> DisplayOrder { get; set; }
+    public virtual HashSet<Guid> DisplayOrder { get; set; }
 }
 
 public sealed class ProjectsSettingsRecordMap : ClassMap<ProjectsSettingsRecord>
@@ -16,6 +16,6 @@ public sealed class ProjectsSettingsRecordMap : ClassMap<ProjectsSettingsRecord>
         Schema("project");
         Table("settings");
         Id(x => x.Id, "id").GeneratedBy.SequenceIdentity("settings_id_seq");
-        Map(x => x.DisplayOrder, "display_order").CustomType<JsonBlob<List<Guid>>>();
+        Map(x => x.DisplayOrder, "display_order").CustomType<JsonBlob<HashSet<Guid>>>();
     }
 }
