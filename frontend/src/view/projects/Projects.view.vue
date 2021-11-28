@@ -9,6 +9,11 @@
             message="Unable to load projects; try refreshing the page."
         />
         <div v-else>
+            <PageActionsBarComponent v-if="isAdmin">
+                <template v-slot:right>
+                    <ButtonComponent><EditIcon /></ButtonComponent>
+                </template>
+            </PageActionsBarComponent>
             <section class="projects">
                 <ProjectItemComponent
                     :key="project.reference"
@@ -60,14 +65,18 @@ import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
 import PageActionsBarComponent from '@/component/PageActionsBar.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
+import ButtonComponent from '@/component/Button.component.vue';
 import ErrorComponent from '@/component/Error.component.vue';
 import ProjectItemComponent from '@/view/projects/component/ProjectItem.component.vue';
 import ArrowLeftIconComponent from '@/component/icon/ArrowLeftIcon.component.vue';
 import ArrowRightIconComponent from '@/component/icon/ArrowRightIcon.component.vue';
+import EditIcon from '@/component/icon/PencilIcon.component.vue';
 
 import { projectClient } from '@/api/client/projects/Project.client';
+import { userService } from '@/service/user/User.service';
 
 import { Project } from '@/model/Project.model';
+import { UserType } from '@/model/User.model';
 
 interface TagFrequency {
     tag: string;
@@ -82,15 +91,20 @@ export default defineComponent({
         PageTitleComponent,
         PageActionsBarComponent,
         LoadingComponent,
+        ButtonComponent,
         ErrorComponent,
         ProjectItemComponent,
         ProjectTagComponent,
         ArrowLeftIconComponent,
         ArrowRightIconComponent,
+        EditIcon,
     },
 
     setup() {
         const route = useRoute();
+
+        const authDetails = userService.getAuthDetails();
+        const isAdmin = computed<boolean>(() => authDetails.value?.user.type === UserType.Admin);
 
         const projects = ref<Array<Project>>([]);
         const isLoading = ref<boolean>(false);
@@ -170,6 +184,7 @@ export default defineComponent({
         });
 
         return {
+            isAdmin,
             projects,
             isLoading,
             isError,
