@@ -14,7 +14,7 @@
 import { defineComponent } from 'vue';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
-import PageTitleComponent from '@/component/PageTitle.component.vue';
+import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 import ErrorComponent from '@/component/Error.component.vue';
 
@@ -27,7 +27,7 @@ export default defineComponent({
         ButtonComponent,
         ErrorComponent,
     },
- 
+
     setup() {},
 });
 </script>

@@ -40,7 +40,7 @@ import { useRoute, useRouter } from 'vue-router';
 import dayjs from 'dayjs';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
-import PageTitleComponent from '@/component/PageTitle.component.vue';
+import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
 import ErrorComponent from '@/component/Error.component.vue';

@@ -24,7 +24,7 @@ import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
-import PageTitleComponent from '@/component/PageTitle.component.vue';
+import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 import ErrorComponent from '@/component/Error.component.vue';
 
@@ -81,7 +81,7 @@ export default defineComponent({
             async onUsernameEnter() {
                 if (usernameField.value.length === 0)
                     return;
-                
+
                 if (passwordField.value.length === 0) {
                     passwordElement.value?.focus();
                     return;
@@ -93,7 +93,7 @@ export default defineComponent({
             async onPasswordEnter() {
                 if (passwordField.value.length === 0)
                     return;
-                
+
                 if (usernameField.value.length === 0) {
                     usernameElement.value?.focus();
                     return;

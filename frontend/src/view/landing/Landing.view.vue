@@ -8,7 +8,7 @@
                 fpsLimit: 60,
                 particles: {
                     color: {
-                        value: '#176bc0',   
+                        value: '#176bc0',
                     },
                     links: {
                         color: '#176bc0',
@@ -61,7 +61,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import PageTitleComponent from '@/component/PageTitle.component.vue';
+import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 
 export default defineComponent({
     name: 'LandingView',

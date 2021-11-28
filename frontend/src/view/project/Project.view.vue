@@ -37,7 +37,7 @@ import dayjs from 'dayjs';
 import MarkdownIt from 'markdown-it';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
-import PageTitleComponent from '@/component/PageTitle.component.vue';
+import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 import LinkComponent from '@/component/Link.component.vue';

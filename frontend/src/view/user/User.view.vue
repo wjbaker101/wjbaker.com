@@ -20,7 +20,7 @@ import { useRouter } from 'vue-router';
 import dayjs from 'dayjs';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
-import PageTitleComponent from '@/component/PageTitle.component.vue';
+import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 
 import { userClient } from '@/api/client/user/User.client';

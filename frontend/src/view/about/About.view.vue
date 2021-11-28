@@ -35,7 +35,7 @@ import { defineComponent, readonly } from 'vue';
 import dayjs from 'dayjs';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
-import PageTitleComponent from '@/component/PageTitle.component.vue';
+import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import LinkComponent from '@/component/Link.component.vue';
 import TimelineComponent from '@/view/about/component/Timeline.component.vue';
 
