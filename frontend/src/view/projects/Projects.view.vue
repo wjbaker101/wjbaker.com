@@ -26,7 +26,7 @@
                     :project="project"
                 />
             </section>
-            <section class="page-navigation">
+            <section class="page-navigation" v-if="maxPages > 1">
                 <PageActionsBarComponent>
                     <template v-slot:center>
                         <div class="flex-1 text-center" :class="{ 'is-disabled': currentPage === 1 }">
