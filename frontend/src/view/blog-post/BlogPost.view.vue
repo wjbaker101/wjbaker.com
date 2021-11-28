@@ -3,7 +3,9 @@
         <PageTitleComponent :title="blogPost.title" />
         <PageActionsBarComponent returnLink="/blog" returnText="Return to Blog">
             <template v-slot:right>
-                <p><strong>Posted:</strong> {{ displayPostedAt }} ({{ displayPostedAtDifference }})</p>
+                <div>
+                    <strong>Posted:</strong> {{ displayPostedAt }} ({{ displayPostedAtDifference }})
+                </div>
             </template>
         </PageActionsBarComponent>
         <div v-if="isLoading">
