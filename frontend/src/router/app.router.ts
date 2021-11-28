@@ -67,6 +67,13 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "blog" */ '@/view/blog/Blog.view.vue'),
     },
     {
+        path: '/blog/post/edit/:reference?',
+        meta: {
+            title: 'Edit Blog Post',
+        },
+        component: () => import(/* webpackChunkName: "blog" */ '@/view/blog-post-edit/BlogPostEdit.view.vue'),
+    },
+    {
         path: '/blog/post/:urlSlug',
         meta: {
             title: 'Blog Post',
