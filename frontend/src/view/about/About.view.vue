@@ -26,26 +26,89 @@
         <div class="note">
             <p>For more information on my career path and experience, feel free to visit my <LinkComponent href="https://linkedin.com/in/wjbaker101">LinkedIn</LinkComponent> page or <router-link to="/about/cv">view my CV</router-link>!</p>
         </div>
+        <TimelineComponent :timeline="timeline" />
     </PageContentComponent>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, readonly } from 'vue';
+import dayjs from 'dayjs';
 
-import LinkComponent from '@/component/Link.component.vue';
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/PageTitle.component.vue';
+import LinkComponent from '@/component/Link.component.vue';
+import TimelineComponent from '@/view/about/component/Timeline.component.vue';
+
+import { Timeline, TimelineType } from '@/model/Timeline.model';
 
 export default defineComponent({
     name: 'AboutView',
 
     components: {
-        LinkComponent,
         PageContentComponent,
         PageTitleComponent,
+        LinkComponent,
+        TimelineComponent,
     },
 
-    setup() {},
+    setup() {
+        const timeline = readonly<Timeline>({
+            items: [
+                {
+                    date: dayjs('2020-09'),
+                    endDate: dayjs(),
+                    type: TimelineType.Work,
+                    summary: 'Started a new job at Codeweavers as a Backend Software Developer.',
+                },
+                {
+                    date: dayjs('2020-06'),
+                    endDate: null,
+                    type: TimelineType.Education,
+                    summary: 'Graduated university with a First Class Honours Bachelor\'s degree in Computer Science.',
+                },
+                {
+                    date: dayjs('2016-09'),
+                    endDate: null,
+                    type: TimelineType.Work,
+                    summary: 'Started my Computer Science degree at Loughborough University.',
+                },
+                {
+                    date: dayjs('2019-08'),
+                    endDate: dayjs('2019-09'),
+                    type: TimelineType.Education,
+                    summary: 'Lived in Taiwan for a 6 week Mandarin course at the Taiwanese Mandarin Institute.',
+                },
+                {
+                    date: dayjs('2018-07'),
+                    endDate: dayjs('2019-07'),
+                    type: TimelineType.Work,
+                    summary: 'Began my university placement year at Yell as Undergraduate Software Developer.',
+                },
+                {
+                    date: dayjs('2017-08'),
+                    endDate: dayjs(),
+                    type: TimelineType.Work,
+                    summary: 'Started a new job at Bradleys Foods as an IT Project Assistant.',
+                },
+                {
+                    date: dayjs('2016-09'),
+                    endDate: null,
+                    type: TimelineType.Education,
+                    summary: 'Started my Computer Science degree at Loughborough University.',
+                },
+                {
+                    date: dayjs('2015-11'),
+                    endDate: null,
+                    type: TimelineType.None,
+                    summary: 'The first iteration of this website went live.',
+                },
+            ],
+        });
+
+        return {
+            timeline,
+        }
+    },
 });
 </script>
 
