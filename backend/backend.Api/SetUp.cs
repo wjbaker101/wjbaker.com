@@ -33,6 +33,7 @@ public static class SetUp
 
         builder.Services.AddSingleton<IApiDatabase, ApiDatabase>();
         builder.Services.AddSingleton<IProjectsService, ProjectsService>();
+        builder.Services.AddSingleton<IProjectsSettingsService, ProjectsSettingsService>();
         builder.Services.AddSingleton<IBlogService, BlogService>();
         builder.Services.AddSingleton<IAuthService, AuthService>();
         builder.Services.AddSingleton<IPasswordService, PasswordService>();
