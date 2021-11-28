@@ -20,10 +20,12 @@ public interface IProjectsService
 public sealed class ProjectsService : IProjectsService
 {
     private readonly IApiDatabase _apiDatabase;
+    private readonly IProjectsSettingsService _projectsSettingsService;
 
-    public ProjectsService(IApiDatabase apiDatabase)
+    public ProjectsService(IApiDatabase apiDatabase, IProjectsSettingsService projectsSettingsService)
     {
         _apiDatabase = apiDatabase;
+        _projectsSettingsService = projectsSettingsService;
     }
 
     public Result<SearchProjectsResponse> SearchProjects(int page)
@@ -173,6 +175,18 @@ public sealed class ProjectsService : IProjectsService
         session.Save(project);
 
         transaction.Commit();
+
+        var settingsResult = _projectsSettingsService.GetProjectsSettings();
+        if (settingsResult.IsFailure)
+            return Result<CreateProjectResponse>.From(settingsResult);
+
+        _projectsSettingsService.UpdateProjectsSettings(new UpdateProjectsSettingsRequest
+        {
+            DisplayOrder = settingsResult.Value.DisplayOrder
+                .Select(x => x.Reference)
+                .Concat(new [] { project.Reference })
+                .ToList()
+        });
 
         return Result<CreateProjectResponse>.Of(new CreateProjectResponse
         {
