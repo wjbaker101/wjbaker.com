@@ -24,6 +24,10 @@ $colours: (
     negative-light: lighten(#b22, 10%),
     negative: #b22,
     negative-dark: darken(#b22, 10%),
+
+    positive-light: lighten(#3cbb22, 10%),
+    positive: #3cbb22,
+    positive-dark: darken(#3cbb22, 10%),
 );
 
 @function theme($colour) {
