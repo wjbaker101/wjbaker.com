@@ -4,11 +4,8 @@
         <div v-if="isLoading">
             <LoadingComponent message="Loading Blog Posts" />
         </div>
-        <ErrorComponent
-            v-else-if="isError"
-            message="Unable to load blog; try refreshing the page."
-        />
-        <div v-else>
+        <UserMessageComponent :details="userMessageDetails" />
+        <div v-if="!isLoading && !userMessageDetails.isVisible">
             <PageActionsBarComponent v-if="isAdmin">
                 <template v-slot:right>
                     <router-link to="/blog/post/edit">
@@ -47,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watch } from 'vue';
+import { computed, defineComponent, onMounted, reactive, ref, watch } from 'vue';
 import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
 import dayjs from 'dayjs';
 
@@ -56,7 +53,7 @@ import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
-import ErrorComponent from '@/component/Error.component.vue';
+import UserMessageComponent, { UserMessageDetails } from '@/component/UserMessage.component.vue';
 import BlogPostComponent from '@/view/blog/component/BlogPost.component.vue';
 import ArrowLeftIconComponent from '@/component/icon/ArrowLeftIcon.component.vue';
 import ArrowRightIconComponent from '@/component/icon/ArrowRightIcon.component.vue';
@@ -76,7 +73,7 @@ export default defineComponent({
         PageTitleComponent,
         LoadingComponent,
         ButtonComponent,
-        ErrorComponent,
+        UserMessageComponent,
         BlogPostComponent,
         PageActionsBarComponent,
         ArrowLeftIconComponent,
@@ -92,7 +89,12 @@ export default defineComponent({
 
         const blogPosts = ref<Array<BlogPost>>([]);
         const isLoading = ref<boolean>(false);
-        const isError = ref<boolean>(false);
+
+        const userMessageDetails = reactive<UserMessageDetails>({
+            isVisible: false,
+            type: 'error',
+            message: 'Unable to load blog; please try refreshing the page.',
+        });
 
         const currentPage = computed<number>(() => Number(route.query.page ?? 1));
         const total = ref<number | null>(null);
@@ -122,12 +124,12 @@ export default defineComponent({
 
         const loadBlog = async function () {
             isLoading.value = true;
-            isError.value = false;
+            userMessageDetails.isVisible = false;
 
             const result = await blogClient.searchBlog(currentPage.value);
             if (result instanceof Error) {
                 isLoading.value = false;
-                isError.value = true;
+                userMessageDetails.isVisible = true;
                 return;
             }
 
@@ -144,7 +146,7 @@ export default defineComponent({
             pageSize.value = result.pageSize;
 
             isLoading.value = false;
-            isError.value = false;
+            userMessageDetails.isVisible = false;
         };
 
         watch(currentPage, async () => {
@@ -158,8 +160,8 @@ export default defineComponent({
         return {
             isAdmin,
             blogPosts,
+            userMessageDetails,
             isLoading,
-            isError,
             currentPage,
             total,
             pageSize,
