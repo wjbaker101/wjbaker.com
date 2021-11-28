@@ -33,6 +33,7 @@
                     </template>
                 </Draggable>
                 <ButtonComponent @click="onUpdateDisplayOrder">Update Display Order</ButtonComponent>
+                <UserMessageComponent :details="displayOrderUserMessage" />
             </section>
         </div>
     </PageContentComponent>
@@ -80,6 +81,7 @@ export default defineComponent({
         const isLoading = ref<boolean>(false);
 
         const loadUserMessage = ref<UserMessage>(UserMessage.none());
+        const displayOrderUserMessage = ref<UserMessage>(UserMessage.none());
 
         onMounted(async () => {
             isLoading.value = true;
@@ -107,17 +109,23 @@ export default defineComponent({
             settings,
             isLoading,
             loadUserMessage,
+            displayOrderUserMessage,
 
             async onUpdateDisplayOrder() {
                 if (settings.value === null)
                     return;
 
+                displayOrderUserMessage.value = UserMessage.none();
+
                 const result = await projectsSettingsClient.updateProjectsSettings({
                     displayOrder: settings.value.displayOrder.map(x => x.reference),
                 });
                 if (result instanceof Error) {
+                    displayOrderUserMessage.value = UserMessage.error(result.message || 'Unable to update projects display order; please try refreshing the page.');
                     return;
                 }
+
+                displayOrderUserMessage.value = UserMessage.success('Successfully updated projects display order.');
             },
         }
     },
