@@ -6,6 +6,9 @@
                 <div>
                     <strong>Posted:</strong> {{ displayPostedAt }} ({{ displayPostedAtDifference }})
                 </div>
+                <router-link v-if="isAdmin" :to="`/blog/post/edit/${blogPost.reference}`">
+                    <ButtonComponent><EditIcon /></ButtonComponent>
+                </router-link>
             </template>
         </PageActionsBarComponent>
         <div v-if="isLoading">
@@ -36,10 +39,13 @@ import ButtonComponent from '@/component/Button.component.vue';
 import LinkComponent from '@/component/Link.component.vue';
 import ErrorComponent from '@/component/Error.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
-
-import { BlogPost } from '@/model/BlogPost.model';
+import EditIcon from '@/component/icon/PencilIcon.component.vue';
 
 import { blogClient } from '@/api/client/blog/Blog.client';
+import { userService } from '@/service/user/User.service';
+
+import { BlogPost } from '@/model/BlogPost.model';
+import { UserType } from '@/model/User.model';
 
 export default defineComponent({
     name: 'BlogPostView',
@@ -52,10 +58,14 @@ export default defineComponent({
         LinkComponent,
         ErrorComponent,
         LoadingComponent,
+        EditIcon,
     },
 
     setup() {
         const route = useRoute();
+
+        const authDetails = userService.getAuthDetails();
+        const isAdmin = computed<boolean>(() => authDetails.value?.user.type === UserType.Admin);
 
         const urlSlug = route.params.urlSlug as string;
 
@@ -91,6 +101,7 @@ export default defineComponent({
         });
 
         return {
+            isAdmin,
             blogPost,
             isLoading,
             isError,
