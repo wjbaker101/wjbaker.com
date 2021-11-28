@@ -12,10 +12,7 @@
         <label>
             <ButtonComponent @click="onLogIn">Log In</ButtonComponent>
         </label>
-        <ErrorComponent
-            v-if="isError"
-            message="Unable to log in; please refresh the page and try again."
-        />
+        <UserMessageComponent :details="userMessage" />
     </PageContentComponent>
 </template>
 
@@ -26,7 +23,7 @@ import { useRouter } from 'vue-router';
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
-import ErrorComponent from '@/component/Error.component.vue';
+import UserMessageComponent, { UserMessage } from '@/component/UserMessage.component.vue';
 
 import { userService } from '@/service/user/User.service';
 
@@ -37,7 +34,7 @@ export default defineComponent({
         PageContentComponent,
         PageTitleComponent,
         ButtonComponent,
-        ErrorComponent,
+        UserMessageComponent,
     },
 
     setup() {
@@ -50,18 +47,21 @@ export default defineComponent({
         const passwordField = ref<string>('');
 
         const isLoading = ref<boolean>(false);
-        const isError = ref<boolean>(false);
+
+        const userMessage = ref<UserMessage>(UserMessage.none());
 
         const logIn = async function () {
             isLoading.value = true;
-            isError.value = false;
+            userMessage.value = UserMessage.none();
 
             const result = await userService.logIn(usernameField.value, passwordField.value);
             if (result instanceof Error) {
                 isLoading.value = false;
-                isError.value = true;
+                userMessage.value = UserMessage.error(result.message || 'Unable to log in; please try refreshing the page.');
                 return;
             }
+
+            userMessage.value = UserMessage.success('Successfully logged in.');
 
             router.push({
                 path: '/user',
@@ -76,7 +76,7 @@ export default defineComponent({
             passwordField,
 
             isLoading,
-            isError,
+            userMessage,
 
             async onUsernameEnter() {
                 if (usernameField.value.length === 0)
