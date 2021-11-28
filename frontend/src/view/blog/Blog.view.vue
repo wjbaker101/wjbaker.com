@@ -130,6 +130,7 @@ export default defineComponent({
             if (result instanceof Error) {
                 isLoading.value = false;
                 userMessageDetails.isVisible = true;
+                userMessageDetails.message = result.message || 'Unable to load blog; please try refreshing the page.';
                 return;
             }
 

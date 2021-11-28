@@ -70,7 +70,7 @@ export default defineComponent({
         const userMessageDetails = reactive<UserMessageDetails>({
             isVisible: false,
             type: 'error',
-            message: '',
+            message: 'Unable to load blog post, please try and refresh.',
         });
 
         const displayPostedAt = computed<string>(() => blogPost?.value?.postedAt.format('Do MMMM YYYY') ?? '');
