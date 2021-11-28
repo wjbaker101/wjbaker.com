@@ -57,16 +57,16 @@ export default defineComponent({
             },
 
             mapDate(date: Dayjs): string {
-                if (date.isToday()) 
+                if (date.isToday())
                     return 'Today!';
-                
+
                 return date.format('MMMM YYYY');
             },
 
             mapEndDate(endDate: Dayjs): string {
-                if (endDate.isToday()) 
+                if (endDate.isToday())
                     return 'Present';
-                
+
                 return endDate.format('MMMM YYYY');
             },
         }
