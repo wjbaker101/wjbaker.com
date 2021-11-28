@@ -10,10 +10,10 @@
                 <span>{{ returnText }}</span>
             </router-link>
         </div>
-        <div class="center flex gap-small flex-1">
+        <div class="center flex gap-small flex-1 align-items-center">
             <slot name="center" />
         </div>
-        <div class="right flex gap-small flex-auto">
+        <div class="right flex gap-small flex-auto align-items-center">
             <slot name="right" />
         </div>
     </div>
