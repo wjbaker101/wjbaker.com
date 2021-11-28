@@ -55,8 +55,11 @@ public sealed class ProjectsService : IProjectsService
             .Query<ProjectsSettingsRecord>()
             .SingleOrDefault();
 
+        if (settings == null)
+            return Result<SearchProjectsResponse>.Failure("Unable to retrieve the projects settings.");
+
         var projects = query
-            .OrderBy(x => x.DisplayOrder)
+            .OrderBy(x => settings.DisplayOrder.IndexOf(x.Reference))
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToList();
