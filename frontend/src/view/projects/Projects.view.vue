@@ -4,11 +4,8 @@
         <div v-if="isLoading">
             <LoadingComponent message="Loading Projects" />
         </div>
-        <ErrorComponent
-            v-else-if="isError"
-            message="Unable to load projects; try refreshing the page."
-        />
-        <div v-else>
+        <UserMessageComponent :details="userMessage" />
+        <div v-if="!isLoading && !userMessage.isVisible">
             <PageActionsBarComponent v-if="isAdmin">
                 <template v-slot:right>
                     <router-link to="/project/edit">
@@ -71,7 +68,7 @@ import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
-import ErrorComponent from '@/component/Error.component.vue';
+import UserMessageComponent, { UserMessage } from '@/component/UserMessage.component.vue';
 import ProjectItemComponent from '@/view/projects/component/ProjectItem.component.vue';
 import ArrowLeftIconComponent from '@/component/icon/ArrowLeftIcon.component.vue';
 import ArrowRightIconComponent from '@/component/icon/ArrowRightIcon.component.vue';
@@ -98,7 +95,7 @@ export default defineComponent({
         PageActionsBarComponent,
         LoadingComponent,
         ButtonComponent,
-        ErrorComponent,
+        UserMessageComponent,
         ProjectItemComponent,
         ProjectTagComponent,
         ArrowLeftIconComponent,
@@ -115,7 +112,8 @@ export default defineComponent({
 
         const projects = ref<Array<Project>>([]);
         const isLoading = ref<boolean>(false);
-        const isError = ref<boolean>(false);
+
+        const userMessage = ref<UserMessage>(UserMessage.none());
 
         const tagFrequencies = ref<Array<TagFrequency> | null>(null);
 
@@ -147,12 +145,12 @@ export default defineComponent({
 
         const loadProjects = async function () {
             isLoading.value = true;
-            isError.value = false;
+            userMessage.value = UserMessage.none();
 
             const response = await projectClient.searchProjects(currentPage.value);
             if (response instanceof Error) {
                 isLoading.value = false;
-                isError.value = true;
+                userMessage.value = UserMessage.error(response.message || 'Unable to load projects; please try refreshing the page.');
                 return;
             }
 
@@ -180,6 +178,7 @@ export default defineComponent({
             pageSize.value = response.pageSize;
 
             isLoading.value = false;
+            userMessage.value = UserMessage.none();
         };
 
         watch(currentPage, async () => {
@@ -194,7 +193,7 @@ export default defineComponent({
             isAdmin,
             projects,
             isLoading,
-            isError,
+            userMessage,
             currentPage,
             total,
             pageSize,
