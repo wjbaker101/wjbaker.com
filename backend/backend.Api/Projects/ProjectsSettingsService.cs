@@ -42,11 +42,14 @@ public sealed class ProjectsSettingsService : IProjectsSettingsService
 
         return Result<GetProjectsSettings>.Of(new GetProjectsSettings
         {
-            DisplayOrder = displayOrder.ConvertAll(x => new GetProjectsSettings.ProjectDisplayOrder
-            {
-                Reference = x.Reference,
-                Title = x.Title
-            })
+            DisplayOrder = displayOrder
+                .OrderBy(x => settings.DisplayOrder.IndexOf(x.Reference))
+                .Select(x => new GetProjectsSettings.ProjectDisplayOrder
+                {
+                    Reference = x.Reference,
+                    Title = x.Title
+                })
+                .ToList()
         });
     }
 
