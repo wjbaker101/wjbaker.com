@@ -4,16 +4,14 @@
         <div v-if="isLoading">
             <LoadingComponent message="Loading projects settings" />
         </div>
-        <ErrorComponent
-            v-else-if="isError"
-            message="Unable to load projects settings; please try refreshing the page."
-        />
-        <div v-else-if="settings !== null">
+        <UserMessageComponent :details="loadUserMessage" />
+        <div v-if="!isLoading && !loadUserMessage.isVisible">
             <PageActionsBarComponent returnLink="/projects" returnText="Return to Projects">
             </PageActionsBarComponent>
             <section class="display-order">
                 <h2>Display Order</h2>
                 <Draggable
+                    v-if="settings !== null"
                     v-model="settings.displayOrder"
                     tag="table"
                     item-key="reference"
@@ -50,7 +48,7 @@ import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
-import ErrorComponent from '@/component/Error.component.vue';
+import UserMessageComponent, { UserMessage } from '@/component/UserMessage.component.vue';
 
 import { projectsSettingsClient } from '@/api/client/projects-settings/ProjectsSettings.client';
 
@@ -68,28 +66,29 @@ export default defineComponent({
 
     components: {
         Draggable,
+        ProjectTagComponent,
         PageContentComponent,
         PageTitleComponent,
         PageActionsBarComponent,
         LoadingComponent,
         ButtonComponent,
-        ErrorComponent,
-        ProjectTagComponent,
+        UserMessageComponent,
     },
 
     setup() {
         const settings = ref<ProjectsSettings | null>(null);
         const isLoading = ref<boolean>(false);
-        const isError = ref<boolean>(false);
+
+        const loadUserMessage = ref<UserMessage>(UserMessage.none());
 
         onMounted(async () => {
             isLoading.value = true;
-            isError.value = false;
+            loadUserMessage.value = UserMessage.none();
 
             const result = await projectsSettingsClient.getProjectsSettings();
             if (result instanceof Error) {
                 isLoading.value = false;
-                isError.value = true;
+                loadUserMessage.value = UserMessage.error(result.message || 'Unable to load projects settings; please try refreshing the page.');
                 return;
             }
 
@@ -101,13 +100,13 @@ export default defineComponent({
             };
 
             isLoading.value = false;
-            isError.value = false;
+            loadUserMessage.value = UserMessage.none();
         });
 
         return {
             settings,
             isLoading,
-            isError,
+            loadUserMessage,
 
             async onUpdateDisplayOrder() {
                 if (settings.value === null)
