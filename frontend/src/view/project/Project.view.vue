@@ -1,8 +1,8 @@
 <template>
-    <PageContentComponent class="project-view" v-if="project !== null">
-        <PageTitleComponent :title="project.title" />
+    <PageContentComponent class="project-view">
+        <PageTitleComponent :title="project?.title ?? 'Loading Projects'" />
         <PageActionsBarComponent returnLink="/projects" returnText="Return to Projects">
-            <template v-slot:right>
+            <template v-slot:right v-if="project !== null">
                 <LinkComponent v-if="project.viewUrl !== null" :href="project.viewUrl">
                     <ButtonComponent><LinkIcon /></ButtonComponent>
                 </LinkComponent>
@@ -17,16 +17,8 @@
         <div v-if="isLoading">
             <LoadingComponent message="Loading Project Details" />
         </div>
-        <div v-else v-html="markdown"></div>
-    </PageContentComponent>
-    <PageContentComponent class="project-view" v-else-if="isError">
-        <PageTitleComponent title="Project Not Found" />
-        <ErrorComponent message="The project you were looking for could not be found." />
-        <p>
-            <router-link to="/projects">
-                <ButtonComponent>Return to Projects</ButtonComponent>
-            </router-link>
-        </p>
+        <UserMessageComponent :details="userMessage" />
+        <div v-if="!isLoading && !userMessage.isVisible" v-html="markdown"></div>
     </PageContentComponent>
 </template>
 
@@ -41,7 +33,7 @@ import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
 import PageActionsBarComponent from '@/component/layout/PageActionsBar.component.vue';
 import ButtonComponent from '@/component/Button.component.vue';
 import LinkComponent from '@/component/Link.component.vue';
-import ErrorComponent from '@/component/Error.component.vue';
+import UserMessageComponent, { UserMessage } from '@/component/UserMessage.component.vue';
 import LoadingComponent from '@/component/Loading.component.vue';
 import LinkIcon from '@/component/icon/ExternalLinkIcon.component.vue';
 import GitHubIcon from '@/component/icon/GitHubIcon.component.vue';
@@ -64,7 +56,7 @@ export default defineComponent({
         PageActionsBarComponent,
         ButtonComponent,
         LinkComponent,
-        ErrorComponent,
+        UserMessageComponent,
         LoadingComponent,
         LinkIcon,
         GitHubIcon,
@@ -76,7 +68,8 @@ export default defineComponent({
 
         const project = ref<Project | null>(null);
         const isLoading = ref<boolean>(false);
-        const isError = ref<boolean>(false);
+
+        const userMessage = ref<UserMessage>(UserMessage.none());
 
         const markdown = computed<string | null>(() => {
             if (project.value === null || project.value.description === null)
@@ -92,12 +85,12 @@ export default defineComponent({
             const urlSlug = route.params.urlSlug as string;
 
             isLoading.value = true;
-            isError.value = false;
+            userMessage.value = UserMessage.none();
 
             const result = await projectClient.getProjectByUrlSlug(urlSlug);
             if (result instanceof Error) {
                 isLoading.value = false;
-                isError.value = true;
+                userMessage.value = UserMessage.error(result.message || 'Unable to load project, please try refreshing the page.');
                 return;
             }
 
@@ -117,13 +110,13 @@ export default defineComponent({
             };
 
             isLoading.value = false;
-            isError.value = false;
+            userMessage.value = UserMessage.none();
         });
 
         return {
             project,
             isLoading,
-            isError,
+            userMessage,
             markdown,
             isAdmin,
         }
