@@ -11,6 +11,9 @@
         <div v-else>
             <PageActionsBarComponent v-if="isAdmin">
                 <template v-slot:right>
+                    <router-link to="/project/edit">
+                        <ButtonComponent><AddIcon /></ButtonComponent>
+                    </router-link>
                     <router-link to="/projects/settings">
                         <ButtonComponent><EditIcon /></ButtonComponent>
                     </router-link>
@@ -73,6 +76,7 @@ import ProjectItemComponent from '@/view/projects/component/ProjectItem.componen
 import ArrowLeftIconComponent from '@/component/icon/ArrowLeftIcon.component.vue';
 import ArrowRightIconComponent from '@/component/icon/ArrowRightIcon.component.vue';
 import EditIcon from '@/component/icon/PencilIcon.component.vue';
+import AddIcon from '@/component/icon/PlusIcon.component.vue';
 
 import { projectClient } from '@/api/client/projects/Project.client';
 import { userService } from '@/service/user/User.service';
@@ -100,6 +104,7 @@ export default defineComponent({
         ArrowLeftIconComponent,
         ArrowRightIconComponent,
         EditIcon,
+        AddIcon,
     },
 
     setup() {
