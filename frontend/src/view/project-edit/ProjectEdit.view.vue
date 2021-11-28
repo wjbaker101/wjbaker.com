@@ -1,6 +1,6 @@
 <template>
     <PageContentComponent class="project-edit-view">
-        <PageTitleComponent title="Edit Project" :subheading="projectReference" />
+        <PageTitleComponent :title="isNew ? 'New Project' : 'Edit Project'" :subheading="projectReference" />
         <div v-if="isLoading">
             <LoadingComponent message="Loading Project" />
         </div>
@@ -46,14 +46,14 @@
                 <textarea rows="60" placeholder="Deeper dive into what the project is, why it exists and how it was created. Other thoughts such as struggles and the future of the project." v-model="descriptionField"></textarea>
             </label>
             <label>
-                <ButtonComponent @click="onUpdateProject">Update Project</ButtonComponent>
+                <ButtonComponent @click="onUpdateProject">{{ isNew ? 'Create Project' : 'Update Project' }}</ButtonComponent>
             </label>
         </div>
     </PageContentComponent>
 </template>
 
 <script lang="ts">  
-import { defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import dayjs from 'dayjs';
 
@@ -85,6 +85,8 @@ export default defineComponent({
         const router = useRouter();
 
         const projectReference = ref<string | null>(route.params.reference?.toString() || null);
+
+        const isNew = computed<boolean>(() => projectReference.value === null);
 
         const project = ref<Project | null>(null);
         const isLoading = ref<boolean>(false);
@@ -145,6 +147,7 @@ export default defineComponent({
 
         return {
             projectReference,
+            isNew,
             isLoading,
             isError,
             titleField,
