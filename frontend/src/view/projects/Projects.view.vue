@@ -11,7 +11,9 @@
         <div v-else>
             <PageActionsBarComponent v-if="isAdmin">
                 <template v-slot:right>
-                    <ButtonComponent><EditIcon /></ButtonComponent>
+                    <router-link to="/projects/settings">
+                        <ButtonComponent><EditIcon /></ButtonComponent>
+                    </router-link>
                 </template>
             </PageActionsBarComponent>
             <section class="projects">
