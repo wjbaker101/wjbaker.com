@@ -1,5 +1,5 @@
 <template>
-    <div class="user-message-component flex align-items-center" :class="{ [details.type]: true }">
+    <div v-if="details.isVisible" class="user-message-component flex align-items-center" :class="{ [details.type]: true }">
         <Component :is="icon" :width="18" :height="18" class="flex-auto" />
         <div class="flex-1">
             <p class="text">{{ details.message }}</p>
@@ -14,6 +14,7 @@ import ErrorIcon from '@/component/icon/ExclamationCircleIcon.component.vue';
 import TickCircleIcon from '@/component/icon/TickCircleIcon.component.vue';
 
 export interface UserMessageDetails {
+    isVisible: boolean;
     type: UserMessageType;
     message: string;
 }
