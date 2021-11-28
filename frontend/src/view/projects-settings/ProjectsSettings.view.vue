@@ -11,9 +11,25 @@
         <div v-else-if="settings !== null">
             <section class="display-order">
                 <h2>Display Order</h2>
-                <Draggable v-model="settings.displayOrder" tag="ol" item-key="reference">
+                <Draggable
+                    v-model="settings.displayOrder"
+                    tag="table"
+                    item-key="reference"
+                    class="display-order-table hoverable"
+                >
+                    <template #header>
+                        <thead>
+                            <tr>
+                                <th class="text-center">Order</th>
+                                <th>Project Title</th>
+                            </tr>
+                        </thead>
+                    </template>
                     <template #item="{element}">
-                        <li>{{ element.title }}</li>
+                        <tr>
+                            <td class="text-center"></td>
+                            <td>{{ element.title }}</td>
+                        </tr>
                     </template>
                 </Draggable>
                 <ButtonComponent @click="onUpdateDisplayOrder">Update Display Order</ButtonComponent>
@@ -23,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import Draggable from 'vuedraggable';
 
 import ProjectTagComponent from '@/view/projects/component/ProjectTag.component.vue';
@@ -108,4 +124,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+.projects-settings-view {
+    .display-order-table {
+        counter-reset: displayOrder;
+
+        tr {
+
+            td:first-child::before {
+                counter-increment: displayOrder;
+                content: counter(displayOrder);
+            }
+        }
+    }
+}
 </style>
