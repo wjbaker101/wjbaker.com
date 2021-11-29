@@ -4,6 +4,9 @@ namespace backend.Core.Client.Flickr.Type;
 
 public sealed class GetPhotosFromPhotoset
 {
+    public int Total { get; init; }
+    public int PerPage { get; init; }
+    public string Title { get; init; }
     public RootPhotoset Photoset { get; init; }
 
     public sealed class RootPhotoset
