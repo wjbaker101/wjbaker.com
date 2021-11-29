@@ -12,4 +12,13 @@ public sealed class GalleryController : ApiController
     {
         _galleryService = galleryService;
     }
+
+    [HttpGet]
+    [Route("albums")]
+    public IActionResult GetAlbums()
+    {
+        var result = _galleryService.GetAlbums();
+
+        return ToApiResponse(result);
+    }
 }
