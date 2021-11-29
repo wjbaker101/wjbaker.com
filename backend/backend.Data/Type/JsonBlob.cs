@@ -5,7 +5,7 @@ using Npgsql;
 using NpgsqlTypes;
 using System.Data;
 using System.Data.Common;
-using System.Text.Json;
+using Utf8Json;
 
 namespace backend.Data.Type;
 
@@ -22,8 +22,8 @@ public sealed class JsonBlob<T> : IUserType where T : class
         if (x == null || y == null)
             return false;
 
-        var jsonX = JsonSerializer.Serialize(x);
-        var jsonY = JsonSerializer.Serialize(y);
+        var jsonX = JsonSerializer.ToJsonString(x);
+        var jsonY = JsonSerializer.ToJsonString(y);
 
         return jsonX == jsonY;
     }
@@ -52,7 +52,7 @@ public sealed class JsonBlob<T> : IUserType where T : class
         if (value == null)
             parameter.Value = DBNull.Value;
         else
-            parameter.Value = JsonSerializer.Serialize(value);
+            parameter.Value = JsonSerializer.ToJsonString(value);
     }
 
     public object? DeepCopy(object? value)
@@ -60,7 +60,7 @@ public sealed class JsonBlob<T> : IUserType where T : class
         if (value == null)
             return null;
 
-        var json = JsonSerializer.Serialize(value);
+        var json = JsonSerializer.ToJsonString(value);
 
         return JsonSerializer.Deserialize<T>(json);
     }
@@ -80,7 +80,7 @@ public sealed class JsonBlob<T> : IUserType where T : class
 
     public object? Disassemble(object? value)
     {
-        return value == null ? null : JsonSerializer.Serialize(value);
+        return value == null ? null : JsonSerializer.ToJsonString(value);
     }
 
     public SqlType[] SqlTypes
