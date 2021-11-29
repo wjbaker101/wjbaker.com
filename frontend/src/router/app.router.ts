@@ -81,6 +81,13 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "blog" */ '@/view/blog-post/BlogPost.view.vue'),
     },
     {
+        path: '/gallery',
+        meta: {
+            title: 'Gallery',
+        },
+        component: () => import(/* webpackChunkName: "gallery" */ '@/view/gallery/Gallery.view.vue'),
+    },
+    {
         path: '/user',
         meta: {
             title: 'Your User',
