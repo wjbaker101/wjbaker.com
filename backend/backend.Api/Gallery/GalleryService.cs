@@ -12,6 +12,8 @@ public interface IGalleryService
 
 public sealed class GalleryService : IGalleryService
 {
+    private const string USER_ID = "189343469@N08";
+
     private readonly IFlickrClient _flickrClient;
 
     public GalleryService(IFlickrClient flickrClient)
@@ -21,7 +23,7 @@ public sealed class GalleryService : IGalleryService
 
     public Result<GetAlbumsResponse> GetAlbums()
     {
-        var getPhotosetsResult = _flickrClient.GetPhotosets("189343469@N08");
+        var getPhotosetsResult = _flickrClient.GetPhotosets(USER_ID);
         if (getPhotosetsResult.IsFailure)
             return Result<GetAlbumsResponse>.From(getPhotosetsResult);
 
@@ -44,7 +46,7 @@ public sealed class GalleryService : IGalleryService
 
     public Result<GetPhotosByAlbum> GetPhotosByAlbum(string albumId)
     {
-        var getPhotosFromPhotosetResult = _flickrClient.GetPhotosFromPhotoset("189343469@N08", albumId);
+        var getPhotosFromPhotosetResult = _flickrClient.GetPhotosFromPhotoset(USER_ID, albumId);
         if (getPhotosFromPhotosetResult.IsFailure)
             return Result<GetPhotosByAlbum>.From(getPhotosFromPhotosetResult);
 
