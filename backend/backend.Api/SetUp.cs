@@ -2,6 +2,7 @@
 using backend.Api.Auth.Attribute;
 using backend.Api.Auth.Type;
 using backend.Api.Blog;
+using backend.Api.Gallery;
 using backend.Api.Projects;
 using backend.Api.User;
 using backend.Core.Client.Flickr;
@@ -42,6 +43,7 @@ public static class SetUp
         builder.Services.AddSingleton<IPasswordService, PasswordService>();
         builder.Services.AddSingleton<IJwtService, JwtService>();
         builder.Services.AddSingleton<IUserService, UserService>();
+        builder.Services.AddSingleton<IGalleryService, GalleryService>();
 
         builder.Services.AddControllers();
     }
