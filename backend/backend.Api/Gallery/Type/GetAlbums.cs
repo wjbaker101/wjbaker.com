@@ -13,5 +13,13 @@ public sealed class GetAlbumsResponse
         public string Description { get; init; }
         public DateTime CreatedAt { get; init; }
         public int PhotoCount { get; init; }
+        public CoverPhoto CoverPhoto { get; init; }
+    }
+
+    public sealed class CoverPhoto
+    {
+        public double Latitude { get; init; }
+        public double Longitude { get; init; }
+        public string ImageUrl { get; init; }
     }
 }

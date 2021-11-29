@@ -39,7 +39,13 @@ public sealed class GalleryService : IGalleryService
                 Title = x.Title.Content,
                 Description = x.Description.Content,
                 CreatedAt = DateTimeOffset.FromUnixTimeSeconds(x.DateCreate).DateTime,
-                PhotoCount = x.Photos
+                PhotoCount = x.Photos,
+                CoverPhoto = new GetAlbumsResponse.CoverPhoto
+                {
+                    Latitude = x.PrimaryPhotoExtras.Latitude,
+                    Longitude = x.PrimaryPhotoExtras.Longitude,
+                    ImageUrl = x.PrimaryPhotoExtras.UrlM
+                }
             })
         });
     }

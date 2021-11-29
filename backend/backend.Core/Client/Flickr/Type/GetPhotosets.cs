@@ -22,6 +22,14 @@ public sealed class GetPhotosetsResponse
         public StringValue Description { get; init; }
         public long DateCreate { get; init; }
         public int Photos { get; init; }
+        public PrimaryPhotoExtras PrimaryPhotoExtras { get; init; }
+    }
+
+    public sealed class PrimaryPhotoExtras
+    {
+        public double Latitude { get; init; }
+        public double Longitude { get; init; }
+        public string UrlM { get; init; }
     }
 
     public sealed class StringValue
