@@ -9,6 +9,7 @@ namespace backend.Core.Client.Flickr;
 public interface IFlickrClient
 {
     Result<GetPhotosetsResponse> GetPhotosets(string userId);
+    Result<GetPhotosFromPhotoset> GetPhotosFromPhotoset(string userId, string photosetId);
 }
 
 public sealed class FlickrClient : IFlickrClient
@@ -50,6 +51,16 @@ public sealed class FlickrClient : IFlickrClient
         return Get<GetPhotosetsResponse>("flickr.photosets.getList", new Dictionary<string, string>
         {
             ["user_id"] = userId
+        });
+    }
+
+    public Result<GetPhotosFromPhotoset> GetPhotosFromPhotoset(string userId, string photosetId)
+    {
+        return Get<GetPhotosFromPhotoset>("flickr.photosets.getPhotos", new Dictionary<string, string>
+        {
+            ["user_id"] = userId,
+            ["photoset_id"] = photosetId,
+            ["extras"] = "date_taken, geo"
         });
     }
 }
