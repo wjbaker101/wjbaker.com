@@ -15,11 +15,11 @@ public sealed class FlickrClient : IFlickrClient
 {
     private const string API_KEY = "e7a0e27fd6e5e81152f7f77efaadee8f";
 
-    private static readonly HttpClient _client;
+    private static readonly HttpClient Client;
 
     static FlickrClient()
     {
-        _client = new HttpClient
+        Client = new HttpClient
         {
             BaseAddress = new Uri("https://api.flickr.com/services/rest"),
             Timeout = TimeSpan.FromSeconds(10)
@@ -34,9 +34,9 @@ public sealed class FlickrClient : IFlickrClient
         parameters.Add("method", method);
         parameters.Add("format", "json");
 
-        var url = QueryHelpers.AddQueryString(_client.BaseAddress!.AbsoluteUri, parameters);
+        var url = QueryHelpers.AddQueryString(Client.BaseAddress!.AbsoluteUri, parameters);
 
-        var response = _client.GetStringAsync(url).Result;
+        var response = Client.GetStringAsync(url).Result;
 
         if (!response.StartsWith("jsonFlickrApi"))
             return Result<T>.Failure($"Flickr responded with an unexpected format: {response}");
