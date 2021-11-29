@@ -1,0 +1,64 @@
+﻿using backend.Core.Client.Flickr.Type;
+using backend.Core.Type;
+using Microsoft.AspNetCore.WebUtilities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+namespace backend.Core.Client.Flickr;
+
+public interface IFlickrClient
+{
+    Result<GetPhotosetsResponse> GetPhotosets(string userId);
+}
+
+public sealed class FlickrClient : IFlickrClient
+{
+    private const string API_KEY = "e7a0e27fd6e5e81152f7f77efaadee8f";
+
+    private static readonly HttpClient _client;
+
+    static FlickrClient()
+    {
+        _client = new HttpClient
+        {
+            BaseAddress = new Uri("https://api.flickr.com/services/rest"),
+            Timeout = TimeSpan.FromSeconds(10)
+        };
+    }
+
+    private static Result<T> Get<T>(string method, Dictionary<string, string>? additionalParameters = null)
+    {
+        var parameters = additionalParameters ?? new Dictionary<string, string>();
+
+        parameters.Add("api_key", API_KEY);
+        parameters.Add("method", method);
+        parameters.Add("format", "json");
+
+        var url = QueryHelpers.AddQueryString(_client.BaseAddress!.AbsoluteUri, parameters);
+
+        var response = _client.GetStringAsync(url).Result;
+
+        if (!response.StartsWith("jsonFlickrApi"))
+            return Result<T>.Failure($"Flickr responded with an unexpected format: {response}");
+
+        return Result<T>.Of(JsonConvert.DeserializeObject<T>(RemoveJsFunction(response), new JsonSerializerSettings
+        {
+            ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() }
+        }));
+    }
+
+    private static string RemoveJsFunction(string response)
+    {
+        const int functionNameLength = 14;
+
+        return response.Substring(functionNameLength, response.Length - functionNameLength - 1);
+    }
+
+    public Result<GetPhotosetsResponse> GetPhotosets(string userId)
+    {
+        return Get<GetPhotosetsResponse>("flickr.photosets.getList", new Dictionary<string, string>
+        {
+            ["user_id"] = userId
+        });
+    }
+}
