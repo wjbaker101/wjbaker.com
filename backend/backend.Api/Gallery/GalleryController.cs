@@ -21,4 +21,13 @@ public sealed class GalleryController : ApiController
 
         return ToApiResponse(result);
     }
+
+    [HttpGet]
+    [Route("album/{id}")]
+    public IActionResult GetPhotosByAlbum([FromRoute] string id)
+    {
+        var result = _galleryService.GetPhotosByAlbum(id);
+
+        return ToApiResponse(result);
+    }
 }

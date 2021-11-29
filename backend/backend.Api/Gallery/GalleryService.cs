@@ -7,6 +7,7 @@ namespace backend.Api.Gallery;
 public interface IGalleryService
 {
     Result<GetAlbumsResponse> GetAlbums();
+    Result<GetPhotosByAlbum> GetPhotosByAlbum(string albumId);
 }
 
 public sealed class GalleryService : IGalleryService
@@ -37,6 +38,29 @@ public sealed class GalleryService : IGalleryService
                 Description = x.Description.Content,
                 CreatedAt = DateTimeOffset.FromUnixTimeSeconds(x.DateCreate).DateTime,
                 PhotoCount = x.Photos
+            })
+        });
+    }
+
+    public Result<GetPhotosByAlbum> GetPhotosByAlbum(string albumId)
+    {
+        var getPhotosFromPhotosetResult = _flickrClient.GetPhotosFromPhotoset("189343469@N08", albumId);
+        if (getPhotosFromPhotosetResult.IsFailure)
+            return Result<GetPhotosByAlbum>.From(getPhotosFromPhotosetResult);
+
+        var result = getPhotosFromPhotosetResult.Value.Photoset;
+
+        return Result<GetPhotosByAlbum>.Of(new GetPhotosByAlbum
+        {
+            Total = result.Total,
+            PageSize = result.PerPage,
+            Photos = result.Photo.ConvertAll(x => new GetPhotosByAlbum.Photo
+            {
+                Id = x.Id,
+                Title = x.Title,
+                TakenAt = DateTime.Parse(x.DateTaken),
+                Latitude = x.Latitude,
+                Longitude = x.Longitude
             })
         });
     }
