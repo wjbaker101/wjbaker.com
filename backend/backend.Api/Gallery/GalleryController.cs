@@ -23,7 +23,7 @@ public sealed class GalleryController : ApiController
     }
 
     [HttpGet]
-    [Route("album/{id}")]
+    [Route("album/{id}/photos")]
     public IActionResult GetPhotosByAlbum([FromRoute] string id)
     {
         var result = _galleryService.GetPhotosByAlbum(id);
