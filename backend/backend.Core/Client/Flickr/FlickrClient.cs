@@ -33,25 +33,16 @@ public sealed class FlickrClient : IFlickrClient
         parameters.Add("api_key", API_KEY);
         parameters.Add("method", method);
         parameters.Add("format", "json");
+        parameters.Add("nojsoncallback", "1");
 
         var url = QueryHelpers.AddQueryString(Client.BaseAddress!.AbsoluteUri, parameters);
 
         var response = Client.GetStringAsync(url).Result;
 
-        if (!response.StartsWith("jsonFlickrApi"))
-            return Result<T>.Failure($"Flickr responded with an unexpected format: {response}");
-
-        return Result<T>.Of(JsonConvert.DeserializeObject<T>(RemoveJsFunction(response), new JsonSerializerSettings
+        return Result<T>.Of(JsonConvert.DeserializeObject<T>(response, new JsonSerializerSettings
         {
             ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() }
         }));
-    }
-
-    private static string RemoveJsFunction(string response)
-    {
-        const int functionNameLength = 14;
-
-        return response.Substring(functionNameLength, response.Length - functionNameLength - 1);
     }
 
     public Result<GetPhotosetsResponse> GetPhotosets(string userId)
