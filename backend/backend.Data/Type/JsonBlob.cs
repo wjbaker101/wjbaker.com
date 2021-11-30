@@ -15,6 +15,11 @@ public sealed class JsonBlob<T> : IUserType where T : class
     public System.Type ReturnedType => typeof(T);
     public bool IsMutable => true;
 
+    public SqlType[] SqlTypes => new SqlType[]
+    {
+        new NpgSqlExtendedSqlType(DbType.Object, NpgsqlDbType.Json)
+    };
+
     public new bool Equals(object? x, object? y)
     {
         if (x == null && y == null)
@@ -81,16 +86,5 @@ public sealed class JsonBlob<T> : IUserType where T : class
     public object? Disassemble(object? value)
     {
         return value == null ? null : JsonSerializer.ToJsonString(value);
-    }
-
-    public SqlType[] SqlTypes
-    {
-        get
-        {
-            return new SqlType[]
-            {
-                new NpgSqlExtendedSqlType(DbType.Object, NpgsqlDbType.Json)
-            };
-        }
     }
 }
