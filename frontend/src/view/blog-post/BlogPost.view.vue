@@ -115,4 +115,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import '~highlight.js/styles/stackoverflow-light.css';
 </style>
