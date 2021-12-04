@@ -26,7 +26,6 @@
 import { computed, defineComponent, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import dayjs from 'dayjs';
-import MarkdownIt from 'markdown-it';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
@@ -40,12 +39,11 @@ import GitHubIcon from '@/component/icon/GitHubIcon.component.vue';
 import EditIcon from '@/component/icon/PencilIcon.component.vue';
 
 import { projectClient } from '@/api/client/projects/Project.client';
+import { markdownService } from '@/service/markdown/Markdown.service';
 import { userService } from '@/service/user/User.service';
 
 import { Project } from '@/model/Project.model';
 import { UserType } from '@/model/User.model';
-
-const markdownIt = new MarkdownIt();
 
 export default defineComponent({
     name: 'ProjectView',
@@ -75,7 +73,7 @@ export default defineComponent({
             if (project.value === null || project.value.description === null)
                 return null;
 
-            return markdownIt.render(project.value.description);
+            return markdownService.parse(project.value.description);
         });
 
         const authDetails = userService.getAuthDetails();

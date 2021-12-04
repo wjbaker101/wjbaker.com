@@ -20,10 +20,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import dayjs from 'dayjs';
-import MarkdownIt from 'markdown-it';
 
 import PageContentComponent from '@/component/layout/PageContent.component.vue';
 import PageTitleComponent from '@/component/layout/PageTitle.component.vue';
@@ -35,12 +34,11 @@ import LoadingComponent from '@/component/Loading.component.vue';
 import EditIcon from '@/component/icon/PencilIcon.component.vue';
 
 import { blogClient } from '@/api/client/blog/Blog.client';
+import { markdownService } from '@/service/markdown/Markdown.service';
 import { userService } from '@/service/user/User.service';
 
 import { BlogPost } from '@/model/BlogPost.model';
 import { UserType } from '@/model/User.model';
-
-const markdownIt = new MarkdownIt();
 
 export default defineComponent({
     name: 'BlogPostView',
@@ -76,7 +74,7 @@ export default defineComponent({
             if (blogPost.value === null || blogPost.value.content === null)
                 return '';
 
-            return markdownIt.render(blogPost.value.content);
+            return markdownService.parse(blogPost.value.content);
         });
 
         onMounted(async () => {
