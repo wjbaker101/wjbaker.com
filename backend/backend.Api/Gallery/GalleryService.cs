@@ -44,7 +44,7 @@ public sealed class GalleryService : IGalleryService
                 {
                     Latitude = x.PrimaryPhotoExtras.Latitude,
                     Longitude = x.PrimaryPhotoExtras.Longitude,
-                    ImageUrl = x.PrimaryPhotoExtras.UrlM
+                    ImageUrl = x.PrimaryPhotoExtras.UrlS
                 }
             })
         });

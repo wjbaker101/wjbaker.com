@@ -51,7 +51,7 @@ public sealed class FlickrClient : IFlickrClient
         return Get<GetPhotosetsResponse>("flickr.photosets.getList", new Dictionary<string, string>
         {
             ["user_id"] = userId,
-            ["primary_photo_extras"] = "geo, url_m"
+            ["primary_photo_extras"] = "geo, url_s"
         });
     }
 

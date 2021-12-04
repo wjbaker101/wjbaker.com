@@ -29,7 +29,7 @@ public sealed class GetPhotosetsResponse
     {
         public double Latitude { get; init; }
         public double Longitude { get; init; }
-        public string UrlM { get; init; }
+        public string UrlS { get; init; }
     }
 
     public sealed class StringValue
