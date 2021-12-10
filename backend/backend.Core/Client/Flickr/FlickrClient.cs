@@ -91,8 +91,8 @@ public sealed class FlickrClient : IFlickrClient
         {
             Id = photo.PhotoId,
             Title = photo.Title,
-            Latitude = photo.Location.Latitude,
-            Longitude = photo.Location.Longitude,
+            Latitude = photo.Location?.Latitude,
+            Longitude = photo.Location?.Longitude,
             TakenAt = photo.DateTaken
         });
     }

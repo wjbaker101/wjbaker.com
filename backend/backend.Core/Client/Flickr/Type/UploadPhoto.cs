@@ -13,6 +13,6 @@ public sealed class UploadPhotoResponse
     public string Id { get; init; }
     public string Title { get; init; }
     public DateTime TakenAt { get; init; }
-    public double Latitude { get; init; }
-    public double Longitude { get; init; }
+    public double? Latitude { get; init; }
+    public double? Longitude { get; init; }
 }
