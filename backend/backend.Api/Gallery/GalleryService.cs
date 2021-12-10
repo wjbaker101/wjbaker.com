@@ -8,6 +8,7 @@ public interface IGalleryService
 {
     Result<GetAlbumsResponse> GetAlbums();
     Result<GetPhotosByAlbum> GetPhotosByAlbum(string albumId);
+    Result<UploadPhotoResponse> UploadPhoto(UploadPhotoRequest request);
 }
 
 public sealed class GalleryService : IGalleryService
@@ -70,6 +71,32 @@ public sealed class GalleryService : IGalleryService
                 Latitude = x.Latitude,
                 Longitude = x.Longitude
             })
+        });
+    }
+
+    public Result<UploadPhotoResponse> UploadPhoto(UploadPhotoRequest request)
+    {
+        using var photoStream = request.Photo.OpenReadStream();
+
+        var uploadImageResult = _flickrClient.UploadImage(new Core.Client.Flickr.Type.UploadPhotoRequest
+        {
+            Title = request.Title,
+            Description = request.Description,
+            Tags = string.IsNullOrWhiteSpace(request.Tags) ? null : request.Tags.Split(',').ToList(),
+            Photo = photoStream
+        });
+        if (uploadImageResult.IsFailure)
+            return Result<UploadPhotoResponse>.From(uploadImageResult);
+
+        var photo = uploadImageResult.Value;
+
+        return Result<UploadPhotoResponse>.Of(new UploadPhotoResponse
+        {
+            Id = photo.Id,
+            Title = photo.Title,
+            Latitude = photo.Latitude,
+            Longitude = photo.Longitude,
+            TakenAt = photo.TakenAt
         });
     }
 }

@@ -1,4 +1,5 @@
-﻿using backend.Core.Type;
+﻿using backend.Api.Gallery.Type;
+using backend.Core.Type;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Api.Gallery;
@@ -27,6 +28,15 @@ public sealed class GalleryController : ApiController
     public IActionResult GetPhotosByAlbum([FromRoute] string id)
     {
         var result = _galleryService.GetPhotosByAlbum(id);
+
+        return ToApiResponse(result);
+    }
+
+    [HttpPost]
+    [Route("photo")]
+    public IActionResult UploadPhoto([FromForm] UploadPhotoRequest request)
+    {
+        var result = _galleryService.UploadPhoto(request);
 
         return ToApiResponse(result);
     }
