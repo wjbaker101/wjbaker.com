@@ -6,6 +6,7 @@ using backend.Api.Gallery;
 using backend.Api.Projects;
 using backend.Api.User;
 using backend.Core.Client.Flickr;
+using backend.Core.Client.Flickr.Type;
 using backend.Data.Database;
 using backend.Data.Type;
 
@@ -28,6 +29,7 @@ public static class SetUp
     {
         builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("Database"));
         builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
+        builder.Services.Configure<FlickrSettings>(builder.Configuration.GetSection("Flickr"));
 
         builder.Services.AddScoped<RequiresAuthenticationAttribute>();
         builder.Services.AddScoped<IRequiresUserTypeService, RequiresUserTypeService>();
