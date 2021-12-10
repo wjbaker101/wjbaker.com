@@ -1,6 +1,8 @@
 ﻿using backend.Core.Client.Flickr.Type;
 using backend.Core.Type;
+using FlickrNet;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -10,6 +12,7 @@ public interface IFlickrClient
 {
     Result<GetPhotosetsResponse> GetPhotosets(string userId);
     Result<GetPhotosFromPhotoset> GetPhotosFromPhotoset(string userId, string photosetId);
+    Result<UploadPhotoResponse> UploadImage(UploadPhotoRequest request);
 }
 
 public sealed class FlickrClient : IFlickrClient
@@ -18,12 +21,23 @@ public sealed class FlickrClient : IFlickrClient
 
     private static readonly HttpClient Client;
 
+    private readonly FlickrNet.Flickr _flickr;
+
     static FlickrClient()
     {
         Client = new HttpClient
         {
             BaseAddress = new Uri("https://api.flickr.com/services/rest"),
             Timeout = TimeSpan.FromSeconds(10)
+        };
+    }
+
+    public FlickrClient(IOptions<FlickrSettings> flickrSettings)
+    {
+        _flickr = new FlickrNet.Flickr(flickrSettings.Value.ApiKey, flickrSettings.Value.ApiSecret)
+        {
+            OAuthAccessToken = flickrSettings.Value.Token,
+            OAuthAccessTokenSecret = flickrSettings.Value.TokenSecret
         };
     }
 
@@ -62,6 +76,24 @@ public sealed class FlickrClient : IFlickrClient
             ["user_id"] = userId,
             ["photoset_id"] = photosetId,
             ["extras"] = "date_taken, geo"
+        });
+    }
+
+    public Result<UploadPhotoResponse> UploadImage(UploadPhotoRequest request)
+    {
+        var tags = request.Tags == null ? "" : string.Join(' ', request.Tags);
+
+        var photoId = _flickr.UploadPicture(request.Photo, Guid.NewGuid().ToString(), request.Title, request.Description, tags, true, false, false, ContentType.Photo, SafetyLevel.None, HiddenFromSearch.Hidden);
+
+        var photo = _flickr.PhotosGetInfo(photoId);
+
+        return Result<UploadPhotoResponse>.Of(new UploadPhotoResponse
+        {
+            Id = photo.PhotoId,
+            Title = photo.Title,
+            Latitude = photo.Location.Latitude,
+            Longitude = photo.Location.Longitude,
+            TakenAt = photo.DateTaken
         });
     }
 }
