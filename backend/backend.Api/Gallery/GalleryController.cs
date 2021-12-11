@@ -1,5 +1,4 @@
-﻿using backend.Api.Auth.Attribute;
-using backend.Api.Gallery.Type;
+﻿using backend.Api.Gallery.Type;
 using backend.Core.Type;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,17 +37,6 @@ public sealed class GalleryController : ApiController
     public IActionResult UploadPhoto([FromForm] UploadPhotoRequest request)
     {
         var result = _galleryService.UploadPhoto(request);
-
-        return ToApiResponse(result);
-    }
-
-    [HttpGet]
-    [Route("admin-album/{type}/photos")]
-    [RequiresAuthentication]
-    [RequiresAdmin]
-    public IActionResult GetAdminAlbum(AdminAlbumType type)
-    {
-        var result = _galleryService.GetAdminAlbumByType(type);
 
         return ToApiResponse(result);
     }

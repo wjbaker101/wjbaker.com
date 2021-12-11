@@ -48,6 +48,7 @@ public static class SetUp
         services.AddSingleton<IPasswordService, PasswordService>();
         services.AddSingleton<IJwtService, JwtService>();
         services.AddSingleton<IUserService, UserService>();
+        services.AddSingleton<IAdminAlbumService, AdminAlbumService>();
         services.AddSingleton<IGalleryService, GalleryService>();
 
         services.AddControllers();
