@@ -1,6 +1,11 @@
 ﻿using backend.Api.Gallery.Type;
 using backend.Core.Client.Flickr;
+using backend.Core.Client.Flickr.Type;
+using backend.Core.Extension;
 using backend.Core.Type;
+using Microsoft.Extensions.Options;
+using UploadPhotoRequest = backend.Api.Gallery.Type.UploadPhotoRequest;
+using UploadPhotoResponse = backend.Api.Gallery.Type.UploadPhotoResponse;
 
 namespace backend.Api.Gallery;
 
@@ -15,9 +20,12 @@ public sealed class GalleryService : IGalleryService
 {
     private readonly IFlickrClient _flickrClient;
 
-    public GalleryService(IFlickrClient flickrClient)
+    private readonly HashSet<string> _adminAlbumIds;
+
+    public GalleryService(IFlickrClient flickrClient, IOptions<FlickrSettings> flickrSettings)
     {
         _flickrClient = flickrClient;
+        _adminAlbumIds = flickrSettings.Value.AdminAlbums;
     }
 
     public Result<GetAlbumsResponse> GetAlbums()
@@ -30,22 +38,24 @@ public sealed class GalleryService : IGalleryService
 
         return Result<GetAlbumsResponse>.Of(new GetAlbumsResponse
         {
-            Total = result.Total,
+            Total = result.Total - _adminAlbumIds.Count,
             PageSize = result.PageSize,
-            Albums = result.Photosets.ConvertAll(x => new GetAlbumsResponse.Album
-            {
-                Id = x.Id,
-                Title = x.Title,
-                Description = x.Description,
-                CreatedAt = x.CreatedAt,
-                PhotoCount = x.PhotoCount,
-                CoverPhoto = new GetAlbumsResponse.CoverPhoto
+            Albums = result.Photosets
+                .Where(x => !_adminAlbumIds.Contains(x.Id))
+                .ConvertAll(x => new GetAlbumsResponse.Album
                 {
-                    Latitude = x.PrimaryPhoto.Latitude,
-                    Longitude = x.PrimaryPhoto.Longitude,
-                    ImageUrl = x.PrimaryPhoto.ImageUrlSmall
-                }
-            })
+                    Id = x.Id,
+                    Title = x.Title,
+                    Description = x.Description,
+                    CreatedAt = x.CreatedAt,
+                    PhotoCount = x.PhotoCount,
+                    CoverPhoto = new GetAlbumsResponse.CoverPhoto
+                    {
+                        Latitude = x.PrimaryPhoto.Latitude,
+                        Longitude = x.PrimaryPhoto.Longitude,
+                        ImageUrl = x.PrimaryPhoto.ImageUrlSmall
+                    }
+                })
         });
     }
 
