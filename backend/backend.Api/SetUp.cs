@@ -1,7 +1,6 @@
 ﻿using backend.Api.AdminAlbum;
 using backend.Api.Auth;
 using backend.Api.Auth.Attribute;
-using backend.Api.Auth.Type;
 using backend.Api.Blog;
 using backend.Api.Gallery;
 using backend.Api.Projects;
@@ -31,7 +30,6 @@ public static class SetUp
         var services = builder.Services;
         var configuration = builder.Configuration;
 
-        services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
         services.Configure<FlickrSettings>(configuration.GetSection("Flickr"));
 
         services.AddSingleton(configuration.Get<ApiSecretSettings>());

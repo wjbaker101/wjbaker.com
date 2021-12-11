@@ -1,8 +1,8 @@
 ﻿using backend.Api.Auth.Type;
+using backend.Core;
 using backend.Core.Type;
 using JWT.Algorithms;
 using JWT.Builder;
-using Microsoft.Extensions.Options;
 
 namespace backend.Api.Auth;
 
@@ -16,9 +16,9 @@ public sealed class JwtService : IJwtService
 {
     private readonly string _secret;
 
-    public JwtService(IOptions<JwtSettings> jwtSettings)
+    public JwtService(ApiSecretSettings apiSecretSettings)
     {
-        _secret = jwtSettings.Value.Secret;
+        _secret = apiSecretSettings.Jwt.Secret;
     }
 
     public Result<string> Create(RequestContext requestContext, long expiresAt)
