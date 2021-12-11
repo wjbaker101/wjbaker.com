@@ -11,6 +11,7 @@ public interface IFlickrClient
     Result<GetPhotosetsResponse> GetPhotosets();
     Result<GetPhotosFromPhotoset> GetPhotoset(string photosetId);
     Result<UploadPhotoResponse> UploadImage(UploadPhotoRequest request);
+    Result AddPhotoToPhotoset(AddPhotoToPhotosetRequest request);
 }
 
 public sealed class FlickrClient : IFlickrClient
@@ -89,5 +90,12 @@ public sealed class FlickrClient : IFlickrClient
             TakenAt = photo.DateTaken,
             ImageUrlLarge = photo.LargeUrl
         });
+    }
+
+    public Result AddPhotoToPhotoset(AddPhotoToPhotosetRequest request)
+    {
+        _flickr.PhotosetsAddPhoto(request.PhotosetId, request.PhotoId);
+
+        return Result.Success();
     }
 }
