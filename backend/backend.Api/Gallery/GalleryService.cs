@@ -12,9 +12,9 @@ namespace backend.Api.Gallery;
 public interface IGalleryService
 {
     Result<GetAlbumsResponse> GetAlbums();
-    Result<GetPhotosByAlbum> GetPhotosByAlbum(string albumId);
+    Result<GetAlbumResponse> GetAlbumById(string albumId);
     Result<UploadPhotoResponse> UploadPhoto(UploadPhotoRequest request);
-    Result<GetPhotosByAlbum> GetPhotosByAdminAlbum(AdminAlbumType type);
+    Result<GetAlbumResponse> GetAdminAlbumByType(AdminAlbumType type);
 }
 
 public sealed class GalleryService : IGalleryService
@@ -62,19 +62,21 @@ public sealed class GalleryService : IGalleryService
         });
     }
 
-    public Result<GetPhotosByAlbum> GetPhotosByAlbum(string albumId)
+    public Result<GetAlbumResponse> GetAlbumById(string albumId)
     {
         var getPhotosFromPhotosetResult = _flickrClient.GetPhotoset(albumId);
         if (getPhotosFromPhotosetResult.IsFailure)
-            return Result<GetPhotosByAlbum>.From(getPhotosFromPhotosetResult);
+            return Result<GetAlbumResponse>.From(getPhotosFromPhotosetResult);
 
         var result = getPhotosFromPhotosetResult.Value;
 
-        return Result<GetPhotosByAlbum>.Of(new GetPhotosByAlbum
+        return Result<GetAlbumResponse>.Of(new GetAlbumResponse
         {
+            Id = result.Id,
             Total = result.Total,
             PageSize = result.PerPage,
-            Photos = result.Photos.ConvertAll(x => new GetPhotosByAlbum.Photo
+            Title = result.Title,
+            Photos = result.Photos.ConvertAll(x => new GetAlbumResponse.Photo
             {
                 Id = x.Id,
                 Title = x.Title,
@@ -113,22 +115,24 @@ public sealed class GalleryService : IGalleryService
         });
     }
 
-    public Result<GetPhotosByAlbum> GetPhotosByAdminAlbum(AdminAlbumType type)
+    public Result<GetAlbumResponse> GetAdminAlbumByType(AdminAlbumType type)
     {
         if (!_adminAlbumMappings.TryGetValue(type.ToString(), out var photosetId))
-            return Result<GetPhotosByAlbum>.Failure($"The given admin album type is not supported: {type}.");
+            return Result<GetAlbumResponse>.Failure($"The given admin album type is not supported: {type}.");
 
         var getPhotosFromPhotosetResult = _flickrClient.GetPhotoset(photosetId);
         if (getPhotosFromPhotosetResult.IsFailure)
-            return Result<GetPhotosByAlbum>.From(getPhotosFromPhotosetResult);
+            return Result<GetAlbumResponse>.From(getPhotosFromPhotosetResult);
 
         var result = getPhotosFromPhotosetResult.Value;
 
-        return Result<GetPhotosByAlbum>.Of(new GetPhotosByAlbum
+        return Result<GetAlbumResponse>.Of(new GetAlbumResponse
         {
+            Id = result.Id,
             Total = result.Total,
             PageSize = result.PerPage,
-            Photos = result.Photos.ConvertAll(x => new GetPhotosByAlbum.Photo
+            Title = result.Title,
+            Photos = result.Photos.ConvertAll(x => new GetAlbumResponse.Photo
             {
                 Id = x.Id,
                 Title = x.Title,

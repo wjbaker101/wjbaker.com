@@ -26,9 +26,9 @@ public sealed class GalleryController : ApiController
 
     [HttpGet]
     [Route("album/{id}/photos")]
-    public IActionResult GetPhotosByAlbum([FromRoute] string id)
+    public IActionResult GetAlbumById([FromRoute] string id)
     {
-        var result = _galleryService.GetPhotosByAlbum(id);
+        var result = _galleryService.GetAlbumById(id);
 
         return ToApiResponse(result);
     }
@@ -46,9 +46,9 @@ public sealed class GalleryController : ApiController
     [Route("admin-album/{type}/photos")]
     [RequiresAuthentication]
     [RequiresAdmin]
-    public IActionResult GetPhotosByAdminAlbum(AdminAlbumType type)
+    public IActionResult GetAdminAlbum(AdminAlbumType type)
     {
-        var result = _galleryService.GetPhotosByAdminAlbum(type);
+        var result = _galleryService.GetAdminAlbumByType(type);
 
         return ToApiResponse(result);
     }
