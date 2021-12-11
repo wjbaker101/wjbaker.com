@@ -30,8 +30,6 @@ public static class SetUp
         var services = builder.Services;
         var configuration = builder.Configuration;
 
-        services.Configure<FlickrSettings>(configuration.GetSection("Flickr"));
-
         services.AddSingleton(configuration.Get<ApiSecretSettings>());
 
         services.AddScoped<RequiresAuthenticationAttribute>();

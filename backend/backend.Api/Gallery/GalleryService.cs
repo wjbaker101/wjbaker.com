@@ -1,9 +1,8 @@
 ﻿using backend.Api.Gallery.Type;
+using backend.Core;
 using backend.Core.Client.Flickr;
-using backend.Core.Client.Flickr.Type;
 using backend.Core.Extension;
 using backend.Core.Type;
-using Microsoft.Extensions.Options;
 using UploadPhotoRequest = backend.Api.Gallery.Type.UploadPhotoRequest;
 using UploadPhotoResponse = backend.Api.Gallery.Type.UploadPhotoResponse;
 
@@ -21,10 +20,10 @@ public sealed class GalleryService : IGalleryService
     private readonly IFlickrClient _flickrClient;
     private readonly HashSet<string> _adminAlbumIds;
 
-    public GalleryService(IFlickrClient flickrClient, IOptions<FlickrSettings> flickrSettings)
+    public GalleryService(IFlickrClient flickrClient, ApiSecretSettings apiSecretSettings)
     {
         _flickrClient = flickrClient;
-        _adminAlbumIds = flickrSettings.Value.AdminAlbums.Values.ToHashSet();
+        _adminAlbumIds = apiSecretSettings.Flickr.AdminAlbums.Values.ToHashSet();
     }
 
     public Result<GetAlbumsResponse> GetAlbums()

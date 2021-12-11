@@ -2,7 +2,6 @@
 using backend.Core.Extension;
 using backend.Core.Type;
 using FlickrNet;
-using Microsoft.Extensions.Options;
 
 namespace backend.Core.Client.Flickr;
 
@@ -18,12 +17,14 @@ public sealed class FlickrClient : IFlickrClient
 {
     private readonly FlickrNet.Flickr _flickr;
 
-    public FlickrClient(IOptions<FlickrSettings> flickrSettings)
+    public FlickrClient(ApiSecretSettings apiSecretSettings)
     {
-        _flickr = new FlickrNet.Flickr(flickrSettings.Value.ApiKey, flickrSettings.Value.ApiSecret)
+        var settings = apiSecretSettings.Flickr;
+
+        _flickr = new FlickrNet.Flickr(settings.ApiKey, settings.ApiSecret)
         {
-            OAuthAccessToken = flickrSettings.Value.Token,
-            OAuthAccessTokenSecret = flickrSettings.Value.TokenSecret
+            OAuthAccessToken = settings.Token,
+            OAuthAccessTokenSecret = settings.TokenSecret
         };
     }
 

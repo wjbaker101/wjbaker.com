@@ -1,9 +1,9 @@
 ﻿using backend.Api.AdminAlbum.Type;
 using backend.Api.Gallery.Type;
+using backend.Core;
 using backend.Core.Client.Flickr;
 using backend.Core.Client.Flickr.Type;
 using backend.Core.Type;
-using Microsoft.Extensions.Options;
 using UploadPhotoResponse = backend.Api.Gallery.Type.UploadPhotoResponse;
 
 namespace backend.Api.AdminAlbum;
@@ -19,10 +19,10 @@ public sealed class AdminAlbumService : IAdminAlbumService
     private readonly IFlickrClient _flickrClient;
     private readonly Dictionary<string, string> _adminAlbumMappings;
 
-    public AdminAlbumService(IFlickrClient flickrClient, IOptions<FlickrSettings> flickrSettings)
+    public AdminAlbumService(IFlickrClient flickrClient, ApiSecretSettings apiSecretSettings)
     {
         _flickrClient = flickrClient;
-        _adminAlbumMappings = flickrSettings.Value.AdminAlbums;
+        _adminAlbumMappings = apiSecretSettings.Flickr.AdminAlbums;
     }
 
     public Result<GetAlbumResponse> GetAdminAlbumByType(AdminAlbumType type)
