@@ -1,9 +1,9 @@
-﻿using backend.Api.Auth.Attribute;
-using backend.Api.Gallery.Type;
+﻿using backend.Api.AdminAlbum.Type;
+using backend.Api.Auth.Attribute;
 using backend.Core.Type;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.Api.Gallery;
+namespace backend.Api.AdminAlbum;
 
 [Route("api/admin-album")]
 public sealed class AdminAlbumController : ApiController

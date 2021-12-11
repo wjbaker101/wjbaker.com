@@ -1,12 +1,12 @@
-﻿using backend.Api.Gallery.Type;
+﻿using backend.Api.AdminAlbum.Type;
+using backend.Api.Gallery.Type;
 using backend.Core.Client.Flickr;
 using backend.Core.Client.Flickr.Type;
 using backend.Core.Type;
 using Microsoft.Extensions.Options;
-using UploadPhotoRequest = backend.Api.Gallery.Type.UploadPhotoRequest;
 using UploadPhotoResponse = backend.Api.Gallery.Type.UploadPhotoResponse;
 
-namespace backend.Api.Gallery;
+namespace backend.Api.AdminAlbum;
 
 public interface IAdminAlbumService
 {

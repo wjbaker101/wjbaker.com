@@ -1,4 +1,4 @@
-﻿namespace backend.Api.Gallery.Type;
+﻿namespace backend.Api.AdminAlbum.Type;
 
 public enum AdminAlbumType
 {
