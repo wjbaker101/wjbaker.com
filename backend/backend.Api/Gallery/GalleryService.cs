@@ -94,7 +94,8 @@ public sealed class GalleryService : IGalleryService
             Title = photo.Title,
             Latitude = photo.Latitude,
             Longitude = photo.Longitude,
-            TakenAt = photo.TakenAt
+            TakenAt = photo.TakenAt,
+            ImageUrlLarge = photo.ImageUrlLarge
         });
     }
 }

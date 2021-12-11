@@ -15,4 +15,5 @@ public sealed class UploadPhotoResponse
     public DateTime TakenAt { get; init; }
     public double? Latitude { get; init; }
     public double? Longitude { get; init; }
+    public string ImageUrlLarge { get; init; }
 }
