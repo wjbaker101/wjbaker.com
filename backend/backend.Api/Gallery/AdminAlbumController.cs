@@ -19,10 +19,21 @@ public sealed class AdminAlbumController : ApiController
     [Route("{type}")]
     [RequiresAuthentication]
     [RequiresAdmin]
-    public IActionResult GetAdminAlbumByType(AdminAlbumType type)
+    public IActionResult GetAdminAlbumByType([FromRoute] AdminAlbumType type)
     {
         var result = _adminAlbumService.GetAdminAlbumByType(type);
         
+        return ToApiResponse(result);
+    }
+
+    [HttpPost]
+    [Route("{type}/photo")]
+    [RequiresAuthentication]
+    [RequiresAdmin]
+    public IActionResult UploadImageToAdminAlbum([FromForm] UploadPhotoRequest request, [FromRoute] AdminAlbumType type)
+    {
+        var result = _adminAlbumService.UploadImageToAdminAlbum(request, type);
+
         return ToApiResponse(result);
     }
 }

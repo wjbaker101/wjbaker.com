@@ -10,7 +10,7 @@ public sealed class RequiresAuthenticationAttribute : TypeFilterAttribute
     {
     }
 
-    private sealed class AttributeImplementation : IResultFilter
+    private sealed class AttributeImplementation : IActionFilter
     {
         private readonly IJwtService _jwtService;
 
@@ -19,7 +19,7 @@ public sealed class RequiresAuthenticationAttribute : TypeFilterAttribute
             _jwtService = jwtService;
         }
 
-        public void OnResultExecuting(ResultExecutingContext context)
+        public void OnActionExecuting(ActionExecutingContext context)
         {
             var authorizationHeader = context.HttpContext.Request.Headers.Authorization.ToString();
             if (string.IsNullOrWhiteSpace(authorizationHeader))
@@ -45,7 +45,7 @@ public sealed class RequiresAuthenticationAttribute : TypeFilterAttribute
             context.HttpContext.Items[RequestContext.IDENTIFIER] = verifyResult.Value;
         }
 
-        public void OnResultExecuted(ResultExecutedContext context)
+        public void OnActionExecuted(ActionExecutedContext context)
         {
         }
     }

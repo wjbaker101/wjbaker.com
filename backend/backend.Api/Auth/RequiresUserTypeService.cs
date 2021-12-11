@@ -7,12 +7,12 @@ namespace backend.Api.Auth;
 
 public interface IRequiresUserTypeService
 {
-    void Handle(ResultExecutingContext context, UserType userType);
+    void Handle(ActionExecutingContext context, UserType userType);
 }
 
 public sealed class RequiresUserTypeService : IRequiresUserTypeService
 {
-    public void Handle(ResultExecutingContext context, UserType userType)
+    public void Handle(ActionExecutingContext context, UserType userType)
     {
         var item = context.HttpContext.Items[RequestContext.IDENTIFIER];
         if (item is not RequestContext requestContext)

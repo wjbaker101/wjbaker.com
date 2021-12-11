@@ -10,7 +10,7 @@ public sealed class RequiresAdminAttribute : TypeFilterAttribute
     {
     }
 
-    public sealed class AttributeImplementation : IResultFilter
+    public sealed class AttributeImplementation : IActionFilter
     {
         private readonly IRequiresUserTypeService _requiresUserTypeService;
 
@@ -19,12 +19,12 @@ public sealed class RequiresAdminAttribute : TypeFilterAttribute
             _requiresUserTypeService = requiresUserTypeService;
         }
 
-        public void OnResultExecuting(ResultExecutingContext context)
+        public void OnActionExecuting(ActionExecutingContext context)
         {
             _requiresUserTypeService.Handle(context, UserType.Admin);
         }
 
-        public void OnResultExecuted(ResultExecutedContext context)
+        public void OnActionExecuted(ActionExecutedContext context)
         {
         }
     }
