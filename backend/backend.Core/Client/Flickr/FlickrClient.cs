@@ -2,36 +2,20 @@
 using backend.Core.Extension;
 using backend.Core.Type;
 using FlickrNet;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace backend.Core.Client.Flickr;
 
 public interface IFlickrClient
 {
-    Result<GetPhotosetsResponse> GetPhotosets(string userId);
+    Result<GetPhotosetsResponse> GetPhotosets();
     Result<GetPhotosFromPhotoset> GetPhotoset(string photosetId);
     Result<UploadPhotoResponse> UploadImage(UploadPhotoRequest request);
 }
 
 public sealed class FlickrClient : IFlickrClient
 {
-    private const string API_KEY = "e7a0e27fd6e5e81152f7f77efaadee8f";
-
-    private static readonly HttpClient Client;
-
     private readonly FlickrNet.Flickr _flickr;
-
-    static FlickrClient()
-    {
-        Client = new HttpClient
-        {
-            BaseAddress = new Uri("https://api.flickr.com/services/rest"),
-            Timeout = TimeSpan.FromSeconds(10)
-        };
-    }
 
     public FlickrClient(IOptions<FlickrSettings> flickrSettings)
     {
@@ -42,31 +26,28 @@ public sealed class FlickrClient : IFlickrClient
         };
     }
 
-    private static Result<T> Get<T>(string method, Dictionary<string, string>? additionalParameters = null)
+    public Result<GetPhotosetsResponse> GetPhotosets()
     {
-        var parameters = additionalParameters ?? new Dictionary<string, string>();
+        var photosets = _flickr.PhotosetsGetList();
 
-        parameters.Add("api_key", API_KEY);
-        parameters.Add("method", method);
-        parameters.Add("format", "json");
-        parameters.Add("nojsoncallback", "1");
-
-        var url = QueryHelpers.AddQueryString(Client.BaseAddress!.AbsoluteUri, parameters);
-
-        var response = Client.GetStringAsync(url).Result;
-
-        return Result<T>.Of(JsonConvert.DeserializeObject<T>(response, new JsonSerializerSettings
+        return Result<GetPhotosetsResponse>.Of(new GetPhotosetsResponse
         {
-            ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() }
-        }));
-    }
-
-    public Result<GetPhotosetsResponse> GetPhotosets(string userId)
-    {
-        return Get<GetPhotosetsResponse>("flickr.photosets.getList", new Dictionary<string, string>
-        {
-            ["user_id"] = userId,
-            ["primary_photo_extras"] = "geo, url_s"
+            Total = photosets.Total,
+            PageSize = photosets.PerPage,
+            Photosets = photosets.ConvertAll(x => new GetPhotosetsResponse.Photoset
+            {
+                Id = x.PhotosetId,
+                Title = x.Title,
+                Description = x.Description,
+                CreatedAt = x.DateCreated,
+                PhotoCount = x.NumberOfPhotos,
+                PrimaryPhoto = new GetPhotosetsResponse.PrimaryPhoto
+                {
+                    Latitude = x.PrimaryPhoto.Latitude,
+                    Longitude = x.PrimaryPhoto.Longitude,
+                    ImageUrlSmall = x.PrimaryPhoto.SmallUrl
+                }
+            })
         });
     }
 

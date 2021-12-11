@@ -13,8 +13,6 @@ public interface IGalleryService
 
 public sealed class GalleryService : IGalleryService
 {
-    private const string USER_ID = "189343469@N08";
-
     private readonly IFlickrClient _flickrClient;
 
     public GalleryService(IFlickrClient flickrClient)
@@ -24,28 +22,28 @@ public sealed class GalleryService : IGalleryService
 
     public Result<GetAlbumsResponse> GetAlbums()
     {
-        var getPhotosetsResult = _flickrClient.GetPhotosets(USER_ID);
+        var getPhotosetsResult = _flickrClient.GetPhotosets();
         if (getPhotosetsResult.IsFailure)
             return Result<GetAlbumsResponse>.From(getPhotosetsResult);
 
-        var result = getPhotosetsResult.Value.Photosets;
+        var result = getPhotosetsResult.Value;
 
         return Result<GetAlbumsResponse>.Of(new GetAlbumsResponse
         {
             Total = result.Total,
-            PageSize = result.PerPage,
-            Albums = result.Photoset.ConvertAll(x => new GetAlbumsResponse.Album
+            PageSize = result.PageSize,
+            Albums = result.Photosets.ConvertAll(x => new GetAlbumsResponse.Album
             {
                 Id = x.Id,
-                Title = x.Title.Content,
-                Description = x.Description.Content,
-                CreatedAt = DateTimeOffset.FromUnixTimeSeconds(x.DateCreate).DateTime,
-                PhotoCount = x.Photos,
+                Title = x.Title,
+                Description = x.Description,
+                CreatedAt = x.CreatedAt,
+                PhotoCount = x.PhotoCount,
                 CoverPhoto = new GetAlbumsResponse.CoverPhoto
                 {
-                    Latitude = x.PrimaryPhotoExtras.Latitude,
-                    Longitude = x.PrimaryPhotoExtras.Longitude,
-                    ImageUrl = x.PrimaryPhotoExtras.UrlS
+                    Latitude = x.PrimaryPhoto.Latitude,
+                    Longitude = x.PrimaryPhoto.Longitude,
+                    ImageUrl = x.PrimaryPhoto.ImageUrlSmall
                 }
             })
         });
