@@ -11,7 +11,7 @@ namespace backend.Api.Gallery;
 public interface IAdminAlbumService
 {
     Result<GetAlbumResponse> GetAdminAlbumByType(AdminAlbumType type);
-    Result<UploadPhotoResponse> UploadImageToAdminAlbum(UploadPhotoRequest request, AdminAlbumType type);
+    Result<UploadPhotoResponse> UploadImageToAdminAlbum(UploadImageToAdminAlbumRequest request, AdminAlbumType type);
 }
 
 public sealed class AdminAlbumService : IAdminAlbumService
@@ -53,21 +53,21 @@ public sealed class AdminAlbumService : IAdminAlbumService
         });
     }
 
-    public Result<UploadPhotoResponse> UploadImageToAdminAlbum(UploadPhotoRequest request, AdminAlbumType type)
+    public Result<UploadPhotoResponse> UploadImageToAdminAlbum(UploadImageToAdminAlbumRequest request, AdminAlbumType type)
     {
         if (!_adminAlbumMappings.TryGetValue(type.ToString(), out var photosetId))
             return Result<UploadPhotoResponse>.Failure($"The given admin album type is not supported: {type}.");
 
         Result<Core.Client.Flickr.Type.UploadPhotoResponse> uploadImageResult;
-        using (var photoStream = request.Photo.OpenReadStream())
+        using (var imageStream = request.Image.OpenReadStream())
         {
             uploadImageResult = _flickrClient.UploadImage(new Core.Client.Flickr.Type.UploadPhotoRequest
             {
-                Title = request.Title,
-                Description = request.Description,
-                Tags = string.IsNullOrWhiteSpace(request.Tags) ? null : request.Tags.Split(',').ToList(),
-                Photo = photoStream,
-                IsPublic = request.IsPublic
+                Title = Guid.NewGuid().ToString(),
+                Description = "",
+                Tags = new List<string>(),
+                Photo = imageStream,
+                IsPublic = false
             });
             if (uploadImageResult.IsFailure)
                 return Result<UploadPhotoResponse>.From(uploadImageResult);

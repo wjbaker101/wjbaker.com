@@ -30,7 +30,7 @@ public sealed class AdminAlbumController : ApiController
     [Route("{type}/photo")]
     [RequiresAuthentication]
     [RequiresAdmin]
-    public IActionResult UploadImageToAdminAlbum([FromForm] UploadPhotoRequest request, [FromRoute] AdminAlbumType type)
+    public IActionResult UploadImageToAdminAlbum([FromForm] UploadImageToAdminAlbumRequest request, [FromRoute] AdminAlbumType type)
     {
         var result = _adminAlbumService.UploadImageToAdminAlbum(request, type);
 
