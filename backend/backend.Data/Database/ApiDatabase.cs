@@ -1,7 +1,6 @@
-﻿using backend.Data.Type;
+﻿using backend.Core;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using Microsoft.Extensions.Options;
 using NHibernate;
 
 namespace backend.Data.Database;
@@ -15,12 +14,12 @@ public sealed class ApiDatabase : IApiDatabase
 {
     private readonly ISessionFactory _sessionFactory;
 
-    public ApiDatabase(IOptions<DatabaseSettings> databaseSettings)
+    public ApiDatabase(ApiSecretSettings apiSecretSettings)
     {
-        _sessionFactory = CreateSessionFactory(databaseSettings.Value);
+        _sessionFactory = CreateSessionFactory(apiSecretSettings.Database);
     }
 
-    private ISessionFactory CreateSessionFactory(DatabaseSettings databaseSettings)
+    private ISessionFactory CreateSessionFactory(ApiSecretSettings.DatabaseSettings databaseSettings)
     {
         return Fluently.Configure()
             .Database(PostgreSQLConfiguration.Standard.ConnectionString(c => c

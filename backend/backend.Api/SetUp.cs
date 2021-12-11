@@ -10,7 +10,6 @@ using backend.Core;
 using backend.Core.Client.Flickr;
 using backend.Core.Client.Flickr.Type;
 using backend.Data.Database;
-using backend.Data.Type;
 
 namespace backend.Api;
 
@@ -32,7 +31,6 @@ public static class SetUp
         var services = builder.Services;
         var configuration = builder.Configuration;
 
-        services.Configure<DatabaseSettings>(configuration.GetSection("Database"));
         services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
         services.Configure<FlickrSettings>(configuration.GetSection("Flickr"));
 
