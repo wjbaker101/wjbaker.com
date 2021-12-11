@@ -60,11 +60,11 @@ public sealed class GalleryService : IGalleryService
 
     public Result<GetAlbumResponse> GetAlbumById(string albumId)
     {
-        var getPhotosFromPhotosetResult = _flickrClient.GetPhotoset(albumId);
-        if (getPhotosFromPhotosetResult.IsFailure)
-            return Result<GetAlbumResponse>.From(getPhotosFromPhotosetResult);
+        var getPhotosetResult = _flickrClient.GetPhotoset(albumId);
+        if (getPhotosetResult.IsFailure)
+            return Result<GetAlbumResponse>.From(getPhotosetResult);
 
-        var result = getPhotosFromPhotosetResult.Value;
+        var result = getPhotosetResult.Value;
 
         return Result<GetAlbumResponse>.Of(new GetAlbumResponse
         {
