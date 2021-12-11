@@ -27,27 +27,30 @@ public static class SetUp
 
     public static void Services(WebApplicationBuilder builder)
     {
-        builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("Database"));
-        builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
-        builder.Services.Configure<FlickrSettings>(builder.Configuration.GetSection("Flickr"));
+        var services = builder.Services;
+        var configuration = builder.Configuration;
 
-        builder.Services.AddScoped<RequiresAuthenticationAttribute>();
-        builder.Services.AddScoped<IRequiresUserTypeService, RequiresUserTypeService>();
-        builder.Services.AddScoped<RequiresAdminAttribute>();
+        services.Configure<DatabaseSettings>(configuration.GetSection("Database"));
+        services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
+        services.Configure<FlickrSettings>(configuration.GetSection("Flickr"));
 
-        builder.Services.AddSingleton<IFlickrClient, FlickrClient>();
+        services.AddScoped<RequiresAuthenticationAttribute>();
+        services.AddScoped<IRequiresUserTypeService, RequiresUserTypeService>();
+        services.AddScoped<RequiresAdminAttribute>();
 
-        builder.Services.AddSingleton<IApiDatabase, ApiDatabase>();
-        builder.Services.AddSingleton<IProjectsService, ProjectsService>();
-        builder.Services.AddSingleton<IProjectsSettingsService, ProjectsSettingsService>();
-        builder.Services.AddSingleton<IBlogService, BlogService>();
-        builder.Services.AddSingleton<IAuthService, AuthService>();
-        builder.Services.AddSingleton<IPasswordService, PasswordService>();
-        builder.Services.AddSingleton<IJwtService, JwtService>();
-        builder.Services.AddSingleton<IUserService, UserService>();
-        builder.Services.AddSingleton<IGalleryService, GalleryService>();
+        services.AddSingleton<IFlickrClient, FlickrClient>();
 
-        builder.Services.AddControllers();
+        services.AddSingleton<IApiDatabase, ApiDatabase>();
+        services.AddSingleton<IProjectsService, ProjectsService>();
+        services.AddSingleton<IProjectsSettingsService, ProjectsSettingsService>();
+        services.AddSingleton<IBlogService, BlogService>();
+        services.AddSingleton<IAuthService, AuthService>();
+        services.AddSingleton<IPasswordService, PasswordService>();
+        services.AddSingleton<IJwtService, JwtService>();
+        services.AddSingleton<IUserService, UserService>();
+        services.AddSingleton<IGalleryService, GalleryService>();
+
+        services.AddControllers();
     }
 
     public static WebApplication App(WebApplicationBuilder builder)
