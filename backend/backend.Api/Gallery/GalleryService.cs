@@ -81,7 +81,8 @@ public sealed class GalleryService : IGalleryService
             Title = request.Title,
             Description = request.Description,
             Tags = string.IsNullOrWhiteSpace(request.Tags) ? null : request.Tags.Split(',').ToList(),
-            Photo = photoStream
+            Photo = photoStream,
+            IsPublic = request.IsPublic
         });
         if (uploadImageResult.IsFailure)
             return Result<UploadPhotoResponse>.From(uploadImageResult);

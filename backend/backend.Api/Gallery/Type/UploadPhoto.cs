@@ -6,6 +6,7 @@ public sealed class UploadPhotoRequest
     public string Description { get; init; }
     public string Tags { get; init; }
     public IFormFile Photo { get; init; }
+    public bool IsPublic { get; init; }
 }
 
 public sealed class UploadPhotoResponse

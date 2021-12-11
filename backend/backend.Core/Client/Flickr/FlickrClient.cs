@@ -76,7 +76,7 @@ public sealed class FlickrClient : IFlickrClient
     {
         var tags = request.Tags == null ? "" : string.Join(' ', request.Tags);
 
-        var photoId = _flickr.UploadPicture(request.Photo, Guid.NewGuid().ToString(), request.Title, request.Description, tags, true, false, false, ContentType.Photo, SafetyLevel.None, HiddenFromSearch.Hidden);
+        var photoId = _flickr.UploadPicture(request.Photo, Guid.NewGuid().ToString(), request.Title, request.Description, tags, request.IsPublic, false, false, ContentType.Photo, SafetyLevel.None, HiddenFromSearch.Hidden);
 
         var photo = _flickr.PhotosGetInfo(photoId);
 
