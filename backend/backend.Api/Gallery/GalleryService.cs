@@ -53,21 +53,21 @@ public sealed class GalleryService : IGalleryService
 
     public Result<GetPhotosByAlbum> GetPhotosByAlbum(string albumId)
     {
-        var getPhotosFromPhotosetResult = _flickrClient.GetPhotosFromPhotoset(USER_ID, albumId);
+        var getPhotosFromPhotosetResult = _flickrClient.GetPhotoset(albumId);
         if (getPhotosFromPhotosetResult.IsFailure)
             return Result<GetPhotosByAlbum>.From(getPhotosFromPhotosetResult);
 
-        var result = getPhotosFromPhotosetResult.Value.Photoset;
+        var result = getPhotosFromPhotosetResult.Value;
 
         return Result<GetPhotosByAlbum>.Of(new GetPhotosByAlbum
         {
             Total = result.Total,
             PageSize = result.PerPage,
-            Photos = result.Photo.ConvertAll(x => new GetPhotosByAlbum.Photo
+            Photos = result.Photos.ConvertAll(x => new GetPhotosByAlbum.Photo
             {
                 Id = x.Id,
                 Title = x.Title,
-                TakenAt = DateTime.Parse(x.DateTaken),
+                TakenAt = x.TakenAt,
                 Latitude = x.Latitude,
                 Longitude = x.Longitude
             })

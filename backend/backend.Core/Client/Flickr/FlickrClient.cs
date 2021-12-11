@@ -1,4 +1,5 @@
 ﻿using backend.Core.Client.Flickr.Type;
+using backend.Core.Extension;
 using backend.Core.Type;
 using FlickrNet;
 using Microsoft.AspNetCore.WebUtilities;
@@ -11,7 +12,7 @@ namespace backend.Core.Client.Flickr;
 public interface IFlickrClient
 {
     Result<GetPhotosetsResponse> GetPhotosets(string userId);
-    Result<GetPhotosFromPhotoset> GetPhotosFromPhotoset(string userId, string photosetId);
+    Result<GetPhotosFromPhotoset> GetPhotoset(string photosetId);
     Result<UploadPhotoResponse> UploadImage(UploadPhotoRequest request);
 }
 
@@ -69,13 +70,24 @@ public sealed class FlickrClient : IFlickrClient
         });
     }
 
-    public Result<GetPhotosFromPhotoset> GetPhotosFromPhotoset(string userId, string photosetId)
+    public Result<GetPhotosFromPhotoset> GetPhotoset(string photosetId)
     {
-        return Get<GetPhotosFromPhotoset>("flickr.photosets.getPhotos", new Dictionary<string, string>
+        var photoset = _flickr.PhotosetsGetPhotos(photosetId, PhotoSearchExtras.All, PrivacyFilter.None, 1, 50);
+
+        return Result<GetPhotosFromPhotoset>.Of(new GetPhotosFromPhotoset
         {
-            ["user_id"] = userId,
-            ["photoset_id"] = photosetId,
-            ["extras"] = "date_taken, geo"
+            Id = photoset.PhotosetId,
+            Title = photoset.Title,
+            Total = photoset.Total,
+            PerPage = photoset.PerPage,
+            Photos = photoset.ConvertAll(x => new GetPhotosFromPhotoset.Photo
+            {
+                Id = x.PhotoId,
+                Title = x.Title,
+                TakenAt = x.DateTaken,
+                Latitude = x.Latitude,
+                Longitude = x.Longitude
+            })
         });
     }
 
