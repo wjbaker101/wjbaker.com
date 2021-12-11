@@ -6,6 +6,7 @@ using backend.Api.Blog;
 using backend.Api.Gallery;
 using backend.Api.Projects;
 using backend.Api.User;
+using backend.Core;
 using backend.Core.Client.Flickr;
 using backend.Core.Client.Flickr.Type;
 using backend.Data.Database;
@@ -34,6 +35,8 @@ public static class SetUp
         services.Configure<DatabaseSettings>(configuration.GetSection("Database"));
         services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
         services.Configure<FlickrSettings>(configuration.GetSection("Flickr"));
+
+        services.AddSingleton(configuration.Get<ApiSecretSettings>());
 
         services.AddScoped<RequiresAuthenticationAttribute>();
         services.AddScoped<IRequiresUserTypeService, RequiresUserTypeService>();
