@@ -6,5 +6,5 @@ public sealed class FlickrSettings
     public string ApiSecret { get; init; }
     public string Token { get; init; }
     public string TokenSecret { get; init; }
-    public HashSet<string> AdminAlbums { get; init; }
+    public Dictionary<string, string> AdminAlbums { get; init; }
 }
