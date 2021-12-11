@@ -27,11 +27,11 @@ public sealed class AdminAlbumService : IAdminAlbumService
         if (!_adminAlbumMappings.TryGetValue(type.ToString(), out var photosetId))
             return Result<GetAlbumResponse>.Failure($"The given admin album type is not supported: {type}.");
 
-        var getPhotosFromPhotosetResult = _flickrClient.GetPhotoset(photosetId);
-        if (getPhotosFromPhotosetResult.IsFailure)
-            return Result<GetAlbumResponse>.From(getPhotosFromPhotosetResult);
+        var getPhotosetResult = _flickrClient.GetPhotoset(photosetId);
+        if (getPhotosetResult.IsFailure)
+            return Result<GetAlbumResponse>.From(getPhotosetResult);
 
-        var result = getPhotosFromPhotosetResult.Value;
+        var result = getPhotosetResult.Value;
 
         return Result<GetAlbumResponse>.Of(new GetAlbumResponse
         {
