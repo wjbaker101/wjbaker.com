@@ -7,7 +7,6 @@ using backend.Api.Projects;
 using backend.Api.User;
 using backend.Core;
 using backend.Core.Client.Flickr;
-using backend.Core.Client.Flickr.Type;
 using backend.Data.Database;
 
 namespace backend.Api;
