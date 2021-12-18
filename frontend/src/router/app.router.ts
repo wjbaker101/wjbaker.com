@@ -113,7 +113,15 @@ const routes: Array<RouteRecordRaw> = [
 
 const appRouter = createRouter({
     history: createWebHistory(),
+
     routes,
+
+    scrollBehavior() {
+        return {
+            top: 0,
+            left: 0,
+        }
+    },
 });
 
 appRouter.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
