@@ -1,5 +1,7 @@
 module.exports = {
 
+    outputDir: '../backend/backend.Api/wwwroot',
+
     css: {
         loaderOptions: {
             sass: {
