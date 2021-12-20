@@ -49,6 +49,11 @@ public static class SetUp
         services.AddSingleton<IGalleryService, GalleryService>();
 
         services.AddControllers();
+
+        services.AddSpaStaticFiles(spa =>
+        {
+            spa.RootPath = "wwwroot";
+        });
     }
 
     public static WebApplication App(WebApplicationBuilder builder)
@@ -58,6 +63,14 @@ public static class SetUp
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
+
+        app.UseDefaultFiles();
+        app.UseStaticFiles();
+
+        app.UseSpa(spa =>
+        {
+            spa.Options.SourcePath = "wwwroot";
+        });
 
         return app;
     }
