@@ -15,13 +15,21 @@ public static class SetUp
 {
     public static void Settings(WebApplicationBuilder builder)
     {
-        var settingsFile = builder.Environment.IsDevelopment() ? "appsettings.Development.json" : "appsettings.json";
+        var (settingsFile, secretsFile) = GetSettingsFiles(builder.Environment.IsDevelopment());
 
         builder.Configuration
             .SetBasePath(builder.Environment.ContentRootPath)
             .AddJsonFile(settingsFile)
-            .AddJsonFile("appsettings.Secrets.json")
+            .AddJsonFile(secretsFile)
             .Build();
+    }
+
+    private static (string settingsFile, string secretsFile) GetSettingsFiles(bool isDevelopment)
+    {
+        if (isDevelopment)
+            return ("appsettings.Development.json", "appsecrets.Development.json");
+
+        return ("appsettings.json", "appsecrets.json");
     }
 
     public static void Services(WebApplicationBuilder builder)
