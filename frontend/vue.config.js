@@ -24,6 +24,11 @@ module.exports = {
             maskIcon: 'img/icons/safari-pinned-tab.svg',
             msTileImage: 'img/icons/msapplication-icon-144x144.png',
         },
+        exclude: [
+            'mitunes',
+            'cambridge-competition-march-2015',
+            'cambridge-competition-christmas-2015',
+        ],
     },
 
     devServer: {
