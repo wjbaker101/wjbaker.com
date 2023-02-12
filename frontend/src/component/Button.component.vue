@@ -3,7 +3,7 @@
         class="button-component"
         :class="{ 'is-ghost': isGhost }"
     >
-        <Slot></Slot>
+        <slot></slot>
     </button>
 </template>
 

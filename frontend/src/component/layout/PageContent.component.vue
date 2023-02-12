@@ -1,7 +1,7 @@
 <template>
     <div class="page-content-component">
         <div class="content">
-            <Slot></Slot>
+            <slot></slot>
         </div>
         <FooterComponent />
     </div>

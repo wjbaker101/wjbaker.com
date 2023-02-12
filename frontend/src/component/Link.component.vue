@@ -6,7 +6,7 @@
         :href="href"
         :title="title"
     >
-        <Slot></Slot>
+        <slot></slot>
     </a>
 </template>
 
