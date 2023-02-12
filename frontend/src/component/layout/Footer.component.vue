@@ -23,26 +23,11 @@
     </footer>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script setup lang="ts">
 import LinkComponent from '@/component/Link.component.vue';
 import FileIcon from '@/component/icon/FileIcon.component.vue';
 import GitHubIcon from '@/component/icon/GitHubIcon.component.vue';
 import LinkedInIcon from '@/component/icon/LinkedInIcon.component.vue';
-
-export default defineComponent({
-    name: 'FooterComponent',
-
-    components: {
-        LinkComponent,
-        GitHubIcon,
-        LinkedInIcon,
-        FileIcon,
-    },
-
-    setup() {},
-});
 </script>
 
 <style lang="scss">

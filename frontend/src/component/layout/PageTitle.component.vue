@@ -9,19 +9,11 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-    name: 'PageTitleComponent',
-
-    props: {
-        title: String,
-        subheading: String,
-    },
-
-    setup() {},
-});
+<script setup lang="ts">
+defineProps<{
+    title: string;
+    subheading: string;
+}>();
 </script>
 
 <style lang="scss">

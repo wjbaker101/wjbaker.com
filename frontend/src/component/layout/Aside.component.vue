@@ -38,8 +38,8 @@
     </aside>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 import LinkComponent from '@/component/Link.component.vue';
@@ -53,47 +53,30 @@ interface AsideLink {
     url: string;
 }
 
-export default defineComponent({
-    name: 'AsideComponent',
+const route = useRoute();
 
-    components: {
-        LinkComponent,
-        GitHubIcon,
-        LinkedInIcon,
+const currentLocation = computed<string>(() => route?.path);
+
+const authDetails = userService.getAuthDetails();
+
+const links = computed<Array<AsideLink>>(() => [
+    {
+        title: 'About',
+        url: '/about',
     },
-
-    setup() {
-        const route = useRoute();
-
-        const currentLocation = computed<string>(() => route?.path);
-
-        const authDetails = userService.getAuthDetails();
-
-        const links = computed<Array<AsideLink>>(() => [
-            {
-                title: 'About',
-                url: '/about',
-            },
-            {
-                title: 'Projects',
-                url: '/projects',
-            },
-            {
-                title: 'Blog',
-                url: '/blog',
-            },
-            {
-                title: authDetails.value?.user ? 'Your User' : 'Login',
-                url: authDetails.value?.user ? '/user' : '/user/login',
-            },
-        ]);
-
-        return {
-            currentLocation,
-            links,
-        }
+    {
+        title: 'Projects',
+        url: '/projects',
     },
-});
+    {
+        title: 'Blog',
+        url: '/blog',
+    },
+    {
+        title: authDetails.value?.user ? 'Your User' : 'Login',
+        url: authDetails.value?.user ? '/user' : '/user/login',
+    },
+]);
 </script>
 
 <style lang="scss">

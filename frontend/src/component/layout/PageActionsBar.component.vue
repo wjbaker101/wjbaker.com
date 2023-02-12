@@ -11,39 +11,21 @@
             </router-link>
         </div>
         <div class="center flex gap-small flex-1 align-items-center">
-            <slot name="center" />
+            <Slot name="center"></Slot>
         </div>
         <div class="right flex gap-small flex-auto align-items-center">
-            <slot name="right" />
+            <Slot name="right"></Slot>
         </div>
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script setup lang="ts">
 import ArrowLeftComponent from '@/component/icon/ArrowLeftIcon.component.vue';
 
-export default defineComponent({
-    name: 'PageActionsBarComponent',
-
-    components: {
-        ArrowLeftComponent,
-    },
-
-    props: {
-        returnLink: {
-            type: String,
-            required: false,
-        },
-        returnText: {
-            type: String,
-            required: false,
-        },
-    },
-
-    setup() {},
-});
+defineProps<{
+    returnLink?: string;
+    returnText?: string;
+}>();
 </script>
 
 <style lang="scss">

@@ -1,26 +1,14 @@
 <template>
     <div class="page-content-component">
         <div class="content">
-            <slot />
+            <Slot></Slot>
         </div>
         <FooterComponent />
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script setup lang="ts">
 import FooterComponent from '@/component/layout/Footer.component.vue';
-
-export default defineComponent({
-    name: 'PageContentComponent',
-
-    components: {
-        FooterComponent,
-    },  
-
-    setup() {},
-});
 </script>
 
 <style lang="scss">
