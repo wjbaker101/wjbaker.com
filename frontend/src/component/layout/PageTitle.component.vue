@@ -39,6 +39,7 @@ export default defineComponent({
         position: relative;
         margin: 0 4rem 4rem 0;
         background-color: theme(primary);
+        background: linear-gradient(135deg, theme(primary), theme(secondary));
         border: 1px solid theme(primary-dark);
         border-radius: border-radius();
         color: theme(white);
