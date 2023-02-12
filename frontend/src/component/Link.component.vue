@@ -13,7 +13,7 @@
 <script setup lang="ts">
 defineProps<{
     href: string;
-    title: string;
+    title?: string;
 }>();
 </script>
 
