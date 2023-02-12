@@ -25,7 +25,6 @@
         "@types/mapbox-gl": "^2.6.0",
         "@types/markdown-it": "^12.2.3",
         "@types/markdown-it-external-links": "^0.0.0",
-        "@vue/cli-plugin-babel": "~4.5.0",
         "@vue/cli-plugin-pwa": "~4.5.0",
         "@vue/cli-plugin-router": "~4.5.0",
         "@vue/cli-plugin-typescript": "~4.5.0",
