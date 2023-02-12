@@ -7,11 +7,28 @@
     </div>
 </template>
 
-<script lang="ts">
-import { Component, computed, defineComponent } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
 
 import ErrorIcon from '@/component/icon/ExclamationCircleIcon.component.vue';
 import TickCircleIcon from '@/component/icon/TickCircleIcon.component.vue';
+
+const props = defineProps<{
+    details: UserMessage;
+}>();
+
+const icon = computed<any | null>(() => {
+    switch (props.details.type) {
+        case 'error': return ErrorIcon;
+        case 'success': return TickCircleIcon;
+        default:
+            return null;
+    }
+});
+</script>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
 
 type UserMessageType = 'error' | 'success';
 
@@ -46,28 +63,6 @@ export class UserMessage {
 
 export default defineComponent({
     name: 'UserMessageComponent',
-
-    props: {
-        details: {
-            type: UserMessage,
-            required: true,
-        },
-    },
-
-    setup(props) {
-        const icon = computed<Component | null>(() => {
-            switch (props.details.type) {
-                case 'error': return ErrorIcon;
-                case 'success': return TickCircleIcon;
-                default:
-                    return null;
-            }
-        });
-
-        return {
-            icon,
-        }
-    },
 });
 </script>
 
