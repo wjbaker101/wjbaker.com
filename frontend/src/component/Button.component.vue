@@ -3,22 +3,14 @@
         class="button-component"
         :class="{ 'is-ghost': isGhost }"
     >
-        <slot />
+        <Slot></Slot>
     </button>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-    name: 'ButtonComponent',
-
-    props: {
-        isGhost: Boolean,
-    },
-
-    setup() {},
-});
+<script setup lang="ts">
+defineProps<{
+    isGhost: boolean;
+}>();
 </script>
 
 <style lang="scss">

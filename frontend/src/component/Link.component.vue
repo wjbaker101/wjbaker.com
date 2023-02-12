@@ -6,23 +6,15 @@
         :href="href"
         :title="title"
     >
-        <slot />
+        <Slot></Slot>
     </a>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-    name: 'LinkComponent',
-
-    props: {
-        href: String,
-        title: String,
-    },
-
-    setup() {},
-});
+<script setup lang="ts">
+defineProps<{
+    href: string;
+    title: string;
+}>();
 </script>
 
 <style lang="scss">

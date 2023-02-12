@@ -5,18 +5,10 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-    name: 'LoadingComponent',
-
-    props: {
-        message: String,
-    },
-
-    setup() {},
-});
+<script setup lang="ts">
+defineProps<{
+    message: string;
+}>();
 </script>
 
 <style lang="scss">
