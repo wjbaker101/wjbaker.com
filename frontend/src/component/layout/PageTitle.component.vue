@@ -12,7 +12,7 @@
 <script setup lang="ts">
 defineProps<{
     title: string;
-    subheading: string;
+    subheading?: string;
 }>();
 </script>
 
