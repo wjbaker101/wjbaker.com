@@ -15,6 +15,12 @@ export default defineNuxtConfig({
 
     css: ['~/styling/main.css'],
 
+    app: {
+        head: {
+            link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+        },
+    },
+
     pages: {
         pattern: [
             '**/*.vue',
