@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronDownIcon } from 'lucide-vue-next';
+import { ChevronDownIcon } from '@lucide/vue';
 
 import type { IProject } from '~/pages/projects/index/_logic/Project';
 

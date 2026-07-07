@@ -90,7 +90,7 @@
 </template>
 
 <script setup lang="ts">
-import { ExternalLinkIcon } from 'lucide-vue-next';
+import { ExternalLinkIcon } from '@lucide/vue';
 
 import ProjectComponent from '~/pages/projects/index/_components/ProjectComponent.vue';
 import ProjectDescriptionComponent from '~/pages/projects/index/_components/ProjectDescriptionComponent.vue';
